@@ -1,13 +1,13 @@
 site_name: "OTE-API OPTIMADE"
 site_description: Documentation for the OTE-API OPTIMADE package
-site_url: https://CasperWA.github.io/oteapi-optimade
+site_url: https://SINTEF.github.io/oteapi-optimade
 copyright: Copyright &copy; 2022 SINTEF
 
 theme:
   name: material
   palette:
     scheme: default
-    primary: purple
+    primary: black
     accent: amber
   icon:
     repo: fontawesome/brands/github
@@ -24,6 +24,9 @@ edit_uri: ""
 
 extra:
   social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/SINTEF
+      name: "SINTEF on GitHub"
     - icon: fontawesome/brands/github
       link: https://github.com/CasperWA
       name: "Casper Welzel Andersen on GitHub"
