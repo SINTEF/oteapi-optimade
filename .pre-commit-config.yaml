@@ -12,9 +12,6 @@ repos:
       name: Check YAML
     - id: check-toml
       name: Check TOML
-    - id: requirements-txt-fixer
-      name: Fix requirements*.txt
-      files: ^requirements.*\.txt$
     - id: trailing-whitespace
       args: [--markdown-linebreak-ext=md]
 

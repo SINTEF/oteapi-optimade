@@ -25,21 +25,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -U setuptools wheel
-
-        while IFS="" read -r line || [ -n "${line}" ]; do
-          if [[ "${line}" =~ ^pre-commit.*$ ]]; then
-            pre_commit="${line}"
-          fi
-        done < requirements_dev.txt
-
-        while IFS="" read -r line || [ -n "${line}" ]; do
-          if [[ "${line}" =~ ^invoke.*$ ]]; then
-            invoke="${line}"
-          fi
-        done < requirements_docs.txt
-
-        pip install ${pre_commit} ${invoke}
+        pip install -U setuptools wheel flit
+        pip install .[pre-commit]
 
     - name: Test with pre-commit
       run: SKIP=pylint,pylint-tests pre-commit run --all-files
@@ -61,19 +48,19 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install -U pip
-        pip install -U setuptools wheel
-        pip install -U -r requirements.txt -r requirements_dev.txt -r requirements_docs.txt
-        pip install -e .
+        pip install -U setuptools wheel flit
+        pip install -e .[dev]
         pip install safety
 
     - name: Run pylint
-      run: pylint --rcfile=.pylintrc --ignore-paths=tests/ --extension-pkg-whitelist='pydantic' -- *.py oteapi_optimade
+      run: pylint --rcfile=pyproject.toml --ignore-paths=tests/ --extension-pkg-whitelist='pydantic' -- *.py oteapi_optimade
 
     - name: Run pylint - tests
-      run: pylint --rcfile=.pylintrc --extension-pkg-whitelist='pydantic' --disable=C0415,W0621 -- tests
+      run: pylint --rcfile=pyproject.toml --extension-pkg-whitelist='pydantic' --disable=C0415,W0621 -- tests
 
     # Ignore ID 44715 for now.
     # See this NumPy issue for more information: https://github.com/numpy/numpy/issues/19038
+    # NumPy is a sub-dependency of `oteapi-core`
     - name: Run safety
       run: pip freeze | safety check --stdin --ignore 44715
 
@@ -104,8 +91,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install -U pip
-        pip install -U setuptools wheel
-        pip install -e .[dev]
+        pip install -U setuptools wheel flit
+        pip install -e .[test]
 
     - name: Test with pytest
       run: pytest -vvv --cov-report=xml
@@ -134,10 +121,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install -U pip
-        pip install -U setuptools wheel build
+        pip install -U setuptools wheel flit
 
     - name: Check building distribution
-      run: python -m build
+      run: flit build
 
   docs:
     name: Documentation
@@ -157,8 +144,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install -U pip
-        pip install -U setuptools wheel
-        pip install -e .[docs]
+        pip install -U setuptools wheel flit
+        pip install -e .[doc]
 
     - name: Build
       run: |
