@@ -13,3 +13,6 @@ htmlcov
 
 # Documentation
 site/
+
+# Build
+dist/
