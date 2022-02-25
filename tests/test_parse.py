@@ -1,4 +1,10 @@
 """Test parse strategies."""
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from oteapi.interfaces import IParseStrategy
+
+    from oteapi_optimade.strategies.parse import SessionUpdateJSONParse
 
 
 def test_json() -> None:
@@ -18,7 +24,7 @@ def test_json() -> None:
         "downloadUrl": "https://filesamples.com/samples/code/json/sample2.json",
         "mediaType": "application/jsonDEMO",
     }
-    parser = DemoJSONDataParseStrategy(config)
-    parsed_data = parser.get()
+    parser: "IParseStrategy" = DemoJSONDataParseStrategy(config)
+    parsed_data: "SessionUpdateJSONParse" = parser.get()
 
-    assert parsed_data.dict() == data
+    assert parsed_data.content == data
