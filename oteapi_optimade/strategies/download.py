@@ -3,15 +3,13 @@
 from typing import TYPE_CHECKING, Optional
 
 from oteapi.datacache import DataCache
-from oteapi.models import AttrDict, DataCacheConfig, SessionUpdate
+from oteapi.models import AttrDict, DataCacheConfig, ResourceConfig, SessionUpdate
 from oteapi.utils.paths import uri_to_path
 from pydantic import Field, FileUrl, validator
 from pydantic.dataclasses import dataclass
 
 if TYPE_CHECKING:
     from typing import Any, Dict
-
-    from oteapi.models import ResourceConfig
 
 
 class FileConfig(AttrDict):

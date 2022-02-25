@@ -2,14 +2,12 @@
 # pylint: disable=no-self-use,unused-argument
 from typing import TYPE_CHECKING, List
 
-from oteapi.models import AttrDict, SessionUpdate
+from oteapi.models import AttrDict, FilterConfig, SessionUpdate
 from pydantic import Field
 from pydantic.dataclasses import dataclass
 
 if TYPE_CHECKING:
     from typing import Any, Dict, Optional
-
-    from oteapi.models import FilterConfig
 
 
 class DemoDataModel(AttrDict):
