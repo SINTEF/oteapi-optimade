@@ -77,9 +77,6 @@ Package = "https://pypi.org/project/oteapi-optimade"
 [tool.flit.module]
 name = "oteapi_optimade"
 
-# [tool.flit.sdist]
-# includ
-
 [tool.mypy]
 python_version = "3.9"
 ignore_missing_imports = true
