@@ -2,57 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/CHANGELOG/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/LICENSE/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/all_strategies/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/download/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/filter/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/function/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/mapping/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/parse/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/resource/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/transformation/</loc>
-         <lastmod>2022-02-28</lastmod>
+         <lastmod>2022-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
