@@ -38,6 +38,9 @@ repos:
     hooks:
     - id: mypy
       exclude: ^tests/.*$
+      additional_dependencies:
+        - "types-requests"
+        - "pydantic"
 
   - repo: local
     hooks:

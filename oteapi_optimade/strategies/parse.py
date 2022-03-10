@@ -40,7 +40,7 @@ class SessionUpdateJSONParse(SessionUpdate):
 
 
 @dataclass
-class DemoJSONDataParseStrategy:
+class OPTIMADEParseStrategy:
     """Parse strategy for JSON.
 
     **Registers strategies**:

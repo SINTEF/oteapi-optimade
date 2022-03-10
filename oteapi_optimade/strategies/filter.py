@@ -31,7 +31,7 @@ class SessionUpdateDemoFilter(SessionUpdate):
 
 
 @dataclass
-class DemoFilter:
+class OPTIMADEFilterStrategy:
     """Filter Strategy.
 
     **Registers strategies**:
