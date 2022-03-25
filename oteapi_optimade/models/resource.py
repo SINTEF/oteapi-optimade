@@ -19,6 +19,11 @@ class OPTIMADEResourceConfig(ResourceConfig):
         ...,
         description="Either a base OPTIMADE URL or a full OPTIMADE URL.",
     )
+    accessService: str = Field(
+        "optimade",
+        const=True,
+        description="The registered strategy name for OPTIMADEResourceStrategy.",
+    )
     configuration: OPTIMADEConfig = Field(
         OPTIMADEConfig(),
         description=(

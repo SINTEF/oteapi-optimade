@@ -36,3 +36,4 @@ class OPTIMADESession(SessionUpdate):
         """Pydantic configuration for `OPTIMADESession`."""
 
         validate_assignment = True
+        arbitrary_types_allowed = True

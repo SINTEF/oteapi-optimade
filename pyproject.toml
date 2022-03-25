@@ -43,6 +43,7 @@ doc = [
 test = [
     "pytest ~=7.0",
     "pytest-cov ~=3.0",
+    "requests-mock ~=1.9",
 ]
 pre-commit = [
     "invoke ~=1.6",
@@ -60,6 +61,7 @@ dev = [
     "pylint ~=2.12",
     "pytest ~=7.0",
     "pytest-cov ~=3.0",
+    "requests-mock ~=1.9",
 ]
 
 [project.urls]

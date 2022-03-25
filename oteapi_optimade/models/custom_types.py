@@ -1,6 +1,9 @@
 """Custom "pydantic" types used in OTEAPI-OPTIMADE."""
+import logging
 import re
 from typing import TYPE_CHECKING, cast, no_type_check
+from urllib.parse import quote as urlquote
+from urllib.parse import urlparse, urlunparse
 
 from pydantic import AnyUrl
 from pydantic.networks import ascii_domain_regex, errors, int_domain_regex, url_regex
@@ -25,13 +28,16 @@ if TYPE_CHECKING:
 
 _OPTIMADE_BASE_URL_REGEX = None
 
+LOGGER = logging.getLogger("oteapi_optimade.models")
+LOGGER.setLevel(logging.DEBUG)
+
 
 def optimade_base_url_regex() -> "Pattern[str]":
     """A regular expression for an OPTIMADE base URL."""
     global _OPTIMADE_BASE_URL_REGEX  # pylint: disable=global-statement
     if _OPTIMADE_BASE_URL_REGEX is None:
         _OPTIMADE_BASE_URL_REGEX = re.compile(
-            r"(?P<base_url>"
+            r"^(?P<base_url>"
             # scheme https://tools.ietf.org/html/rfc3986#appendix-A
             r"(?:[a-z][a-z0-9+\-.]+://)?"
             r"(?:[^\s:/]*(?::[^\s/]*)?@)?"  # user info
@@ -46,7 +52,7 @@ def optimade_base_url_regex() -> "Pattern[str]":
             r"(?:/(?P<version>v[0-9]+(?:\.[0-9+]){0,2}))?"  # version
             # endpoint
             r"(?:/(?P<endpoint>(?:info|links|versions|structures|references"
-            r"|calculations|extensions)(?:/[^\s?#]*)*))?",
+            r"|calculations|extensions)(?:/[^\s?#]*)?))?$",
             re.IGNORECASE,
         )
     return _OPTIMADE_BASE_URL_REGEX
@@ -70,7 +76,7 @@ class OPTIMADEUrl(str):
     tld_required = False
     user_required = False
 
-    __slots__ = ("base_url", "version", "endpoint", "query")
+    __slots__ = ("base_url", "version", "endpoint", "query", "tld", "host_type")
 
     @no_type_check
     def __new__(
@@ -132,6 +138,15 @@ class OPTIMADEUrl(str):
     def __get_validators__(cls) -> "CallableGenerator":
         yield cls.validate
 
+    @staticmethod
+    def urlquote_qs(url: str) -> str:
+        """Use `urllib.parse.quote` for query part of URL."""
+        parsed_url = urlparse(url)
+        quoted_query = urlquote(parsed_url.query, safe="=&,")
+        parsed_url_list = list(parsed_url)
+        parsed_url_list[-2] = quoted_query
+        return urlunparse(parsed_url_list)
+
     @classmethod
     def validate(
         cls, value: "Any", field: "ModelField", config: "BaseConfig"
@@ -144,6 +159,7 @@ class OPTIMADEUrl(str):
         if cls.strip_whitespace:
             value = value.strip()
         url: str = cast(str, constr_length_validator(value, field, config))
+        url = cls.urlquote_qs(url)
 
         url_match = url_regex().match(url)
         if url_match is None:
@@ -244,6 +260,9 @@ class OPTIMADEUrl(str):
             base_url += parts["path"]
 
         match = optimade_base_url_regex().fullmatch(base_url)
+        LOGGER.debug(
+            "OPTIMADE URL regex match groups: %s", match.groupdict() if match else match
+        )
         if match is None:
             raise ValueError("Could not match given string with OPTIMADE regex.")
 

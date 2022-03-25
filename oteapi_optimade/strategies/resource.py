@@ -16,7 +16,7 @@ from oteapi.datacache import DataCache
 from oteapi.models import SessionUpdate
 from oteapi.plugins import create_strategy
 from oteapi.plugins.entry_points import StrategyType
-from pydantic import BaseModel
+from pydantic.dataclasses import dataclass
 
 from oteapi_optimade.exceptions import OPTIMADEParseError
 from oteapi_optimade.models import OPTIMADEResourceConfig, OPTIMADESession
@@ -27,10 +27,12 @@ if TYPE_CHECKING:
     from typing import Any, Dict, Optional, Union
 
 
-LOGGER = logging.getLogger("oteapi_optimade.strategies.resource")
+LOGGER = logging.getLogger("oteapi_optimade.strategies")
+LOGGER.setLevel(logging.DEBUG)
 
 
-class OPTIMADEResourceStrategy(BaseModel):
+@dataclass
+class OPTIMADEResourceStrategy:
     """OPTIMADE Resource Strategy.
 
     **Registers strategies**:
@@ -98,6 +100,7 @@ class OPTIMADEResourceStrategy(BaseModel):
             self.resource_config.configuration.query_parameters
             or OPTIMADEQueryParameters()
         )
+        LOGGER.debug("resource_config: %r", self.resource_config)
 
         if self.resource_config.configuration.base_url:
             if (
@@ -112,19 +115,12 @@ class OPTIMADEResourceStrategy(BaseModel):
             for field, value in parsed_query.items():
                 # Only use the latest defined value for any parameter
                 if field not in optimade_query.__fields_set__:
+                    LOGGER.debug(
+                        "Setting %r from accessUrl (value=%r)", field, value[-1]
+                    )
                     setattr(optimade_query, field, value[-1])
 
-            # # Re-validate/-create the model in order to get proper types and re-check
-            # # values from `accessUrl`.
-            # # Unfortunately, the validation is not done upon setting the attribute,
-            # # however `__fields_set__` is updated correctly, so only actually set
-            # # values will be re-validated.
-            # optimade_query = optimade_query.validate(
-            #     {
-            #         field: getattr(optimade_query, field)
-            #         for field in optimade_query.__fields_set__
-            #     }
-            # )
+        LOGGER.debug("optimade_query after update: %r", optimade_query)
 
         optimade_url = OPTIMADEUrl(
             f"{optimade_base_url}{optimade_path}?{optimade_query.generate_query_string()}"
@@ -169,9 +165,7 @@ class OPTIMADEResourceStrategy(BaseModel):
             raise ValueError(
                 "'optimade_response_object' was expected to be present in the session."
             )
-        # Use `pop()` when available
-        optimade_response = session["optimade_response_object"]
-        del session["optimade_response_object"]
+        optimade_response = session.pop("optimade_response_object")
 
         if isinstance(optimade_response, ErrorResponse):
             session.optimade_errors = optimade_response.errors
