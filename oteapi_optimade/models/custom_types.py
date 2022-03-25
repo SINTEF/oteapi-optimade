@@ -5,13 +5,25 @@ from typing import TYPE_CHECKING, cast, no_type_check
 from urllib.parse import quote as urlquote
 from urllib.parse import urlparse, urlunparse
 
+from optimade.models import (
+    EntryInfoResponse,
+    EntryResponseMany,
+    EntryResponseOne,
+    InfoResponse,
+    LinksResponse,
+    ReferenceResponseMany,
+    ReferenceResponseOne,
+    StructureResponseMany,
+    StructureResponseOne,
+    Success,
+)
 from pydantic import AnyUrl
 from pydantic.networks import ascii_domain_regex, errors, int_domain_regex, url_regex
 from pydantic.utils import update_not_none
 from pydantic.validators import constr_length_validator, str_validator
 
 if TYPE_CHECKING:
-    from typing import Any, Dict, Optional, Pattern, Tuple, TypedDict
+    from typing import Any, Dict, Optional, Pattern, Tuple, TypedDict, Union
 
     from pydantic.config import BaseConfig
     from pydantic.fields import ModelField
@@ -76,7 +88,15 @@ class OPTIMADEUrl(str):
     tld_required = False
     user_required = False
 
-    __slots__ = ("base_url", "version", "endpoint", "query", "tld", "host_type")
+    __slots__ = (
+        "base_url",
+        "version",
+        "endpoint",
+        "query",
+        "tld",
+        "host_type",
+        "scheme",
+    )
 
     @no_type_check
     def __new__(
@@ -94,6 +114,7 @@ class OPTIMADEUrl(str):
         version: "Optional[str]" = None,
         endpoint: "Optional[str]" = None,
         query: "Optional[str]" = None,
+        scheme: "Optional[str]" = None,
         tld: "Optional[str]" = None,
         host_type: str = "domain",
     ) -> None:
@@ -102,6 +123,7 @@ class OPTIMADEUrl(str):
         self.version = version
         self.endpoint = endpoint
         self.query = query
+        self.scheme = scheme or base_url.scheme if base_url else None
         self.tld = tld
         self.host_type = host_type
 
@@ -180,6 +202,7 @@ class OPTIMADEUrl(str):
             version=optimade_parts["version"],
             endpoint=optimade_parts["endpoint"],
             query=optimade_parts["query"],
+            scheme=parts["scheme"],
             tld=tld,
             host_type=host_type,
         )
@@ -310,3 +333,15 @@ class OPTIMADEUrl(str):
             if getattr(self, n) is not None
         )
         return f"{self.__class__.__name__}({super().__repr__()}, {extra})"
+
+    def response_model(self) -> "Union[Tuple[Success, ...], Success, None]":
+        """Return the endpoint's corresponding response model (from OPT)."""
+        if not self.endpoint or self.endpoint == "versions":
+            return None
+        return {
+            "info": (InfoResponse, EntryInfoResponse),
+            "links": LinksResponse,
+            "structures": (StructureResponseMany, StructureResponseOne),
+            "references": (ReferenceResponseMany, ReferenceResponseOne),
+            "calculations": (EntryResponseMany, EntryResponseOne),
+        }.get(self.endpoint, Success)

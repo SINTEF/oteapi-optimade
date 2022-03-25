@@ -19,7 +19,7 @@ from oteapi.plugins.entry_points import StrategyType
 from pydantic.dataclasses import dataclass
 
 from oteapi_optimade.exceptions import OPTIMADEParseError
-from oteapi_optimade.models import OPTIMADEResourceConfig, OPTIMADESession
+from oteapi_optimade.models import OPTIMADEResourceConfig, OPTIMADEResourceSession
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
@@ -35,9 +35,11 @@ LOGGER.setLevel(logging.DEBUG)
 class OPTIMADEResourceStrategy:
     """OPTIMADE Resource Strategy.
 
-    **Registers strategies**:
+    **Implements strategies**:
 
     - `("accessService", "optimade")`
+    - `("accessService", "OPTIMADE")`
+    - `("accessService", "OPTiMaDe")`
 
     """
 
@@ -63,7 +65,7 @@ class OPTIMADEResourceStrategy:
 
     def get(  # pylint: disable=too-many-branches
         self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
-    ) -> OPTIMADESession:
+    ) -> OPTIMADEResourceSession:
         """Execute an OPTIMADE query to `accessUrl`.
 
         This method will be called through the strategy-specific endpoint of the
@@ -88,7 +90,9 @@ class OPTIMADEResourceStrategy:
             context from services.
 
         """
-        session = OPTIMADESession(**session) if session else OPTIMADESession()
+        session = (
+            OPTIMADEResourceSession(**session) if session else OPTIMADEResourceSession()
+        )
         self._use_session(session)
 
         optimade_base_url = (
@@ -194,7 +198,7 @@ class OPTIMADEResourceStrategy:
         else:
             LOGGER.debug(
                 "Could not parse response as errors, references or structures. "
-                "Response:\n%s",
+                "Response:\n%r",
                 optimade_response,
             )
             raise OPTIMADEParseError(
@@ -206,7 +210,7 @@ class OPTIMADEResourceStrategy:
 
         return session
 
-    def _use_session(self, session: OPTIMADESession) -> None:
+    def _use_session(self, session: OPTIMADEResourceSession) -> None:
         """Update OPTIMADE-specific configuration according to values found in the
         session."""
         if session.optimade_config:

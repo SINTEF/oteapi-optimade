@@ -9,7 +9,7 @@ from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
 DEFAULT_CACHE_CONFIG_VALUES = {
-    "expireTime": 60 * 60 * 24,  # 1 day (24 hours)
+    "expireTime": 60 * 60 * 24,  # 1 day (in seconds) = 60 s/min * 60 min/h * 24 h/day
     "tag": "optimade",
 }
 """Set the `expireTime` and `tag` to default values for the data cache."""
@@ -33,6 +33,12 @@ class OPTIMADEConfig(AttrDict):
     datacache_config: DataCacheConfig = Field(
         DataCacheConfig(**DEFAULT_CACHE_CONFIG_VALUES),
         description="Configuration options for the local data cache.",
+    )
+    return_object: bool = Field(
+        False,
+        description=(
+            "Whether or not to return a response object (using the pydantic model)."
+        ),
     )
 
     @validator("base_url")
