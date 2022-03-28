@@ -65,7 +65,7 @@ jobs:
       run: pip freeze | safety check --stdin --ignore 44715
 
   pytest:
-    name: pytest ${{ matrix.os[1] }}-py${{ matrix.python-version }}
+    name: pytest (${{ matrix.os[1] }}-py${{ matrix.python-version }})
     runs-on: ${{ matrix.os[0] }}
     # timeout-minutes: 15
 

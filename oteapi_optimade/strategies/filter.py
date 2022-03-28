@@ -31,12 +31,14 @@ class SessionUpdateDemoFilter(SessionUpdate):
 
 
 @dataclass
-class DemoFilter:
+class OPTIMADEFilterStrategy:
     """Filter Strategy.
 
-    **Registers strategies**:
+    **Implements strategies**:
 
-    - `("filterType", "filter/DEMO")`
+    - `("filterType", "OPTIMADE")`
+    - `("filterType", "optimade")`
+    - `("filterType", "OPTiMaDe")`
 
     """
 

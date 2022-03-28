@@ -25,7 +25,11 @@ keywords = ["OTE", "OPTIMADE", "OTE-API"]
 requires-python = "~=3.9"
 dynamic = ["version"]
 
-dependencies = ["oteapi-core ~=0.1"]
+dependencies = [
+    "optimade ~=0.16",
+    "oteapi-core ~=0.1",
+    "requests ~=2.27",
+]
 
 [project.optional-dependencies]
 doc = [
@@ -39,6 +43,8 @@ doc = [
 test = [
     "pytest ~=7.0",
     "pytest-cov ~=3.0",
+    "pyyaml ~=6.0",
+    "requests-mock ~=1.9",
 ]
 pre-commit = [
     "invoke ~=1.6",
@@ -56,6 +62,8 @@ dev = [
     "pylint ~=2.12",
     "pytest ~=7.0",
     "pytest-cov ~=3.0",
+    "pyyaml ~=6.0",
+    "requests-mock ~=1.9",
 ]
 
 [project.urls]
@@ -68,10 +76,26 @@ Package = "https://pypi.org/project/oteapi-optimade"
 
 [project.entry-points."oteapi.download"]
 [project.entry-points."oteapi.filter"]
+"oteapi_optimade.optimade" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
+"oteapi_optimade.OPTIMADE" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
+"oteapi_optimade.OPTiMaDe" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
 [project.entry-points."oteapi.function"]
 [project.entry-points."oteapi.mapping"]
 [project.entry-points."oteapi.parse"]
+"oteapi_optimade.application/vnd.optimade+json" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.application/vnd.OPTIMADE+json" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.application/vnd.OPTiMaDe+json" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.application/vnd.optimade+JSON" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.application/vnd.OPTIMADE+JSON" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.application/vnd.OPTiMaDe+JSON" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.application/vnd.optimade" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.application/vnd.OPTIMADE" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.application/vnd.OPTiMaDe" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
 [project.entry-points."oteapi.resource"]
+"oteapi_optimade.optimade" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTIMADE" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTiMaDe" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+
 [project.entry-points."oteapi.transformation"]
 
 [tool.flit.module]
@@ -84,6 +108,7 @@ scripts_are_modules = true
 warn_unused_configs = true
 show_error_codes = true
 allow_redefinition = true
+plugins = ["pydantic.mypy"]
 
 [tool.pylint.messages_control]
 max-line-length = 90
