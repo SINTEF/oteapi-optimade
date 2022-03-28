@@ -19,7 +19,7 @@ def model2dict(
     Parameters:
         model: The pydantic model or Python dictionary to be converted fully to a
             Python dictionary, through and through.
-        dict_kwargs: Keyword arguments to be passed to `dict()` method calls for
+        dict_kwargs (Any): Keyword arguments to be passed to `dict()` method calls for
             pydantic models.
             Note, this will be used for _all_ `dict()` method calls.
 
