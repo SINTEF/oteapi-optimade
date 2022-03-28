@@ -1,0 +1,22 @@
+debug: true
+insert_test_data: true
+database_backend: "mongomock"
+mongo_database: "test_oteapi_optimade"
+page_limit: 20
+page_limit_max: 500
+base_url: "http://localhost:8000"
+implementation:
+  name: "OTEAPI OPTIMADE"
+  version: "0.0.1"
+  source_url: "https://github.com/SINTEF/oteapi-optimade"
+  issue_tracker: "https://github.com/SINTEF/oteapi-optimade/issues/new"
+  maintainer:
+    email: "casper.w.andersen@sintef.no"
+index_base_url: null
+provider:
+  name: "OTEAPI OPTIMADE Test"
+  description: "A test OPTIMADE server for use with OTEAPI OPTIMADE."
+  prefix: "oteapi"
+  homepage: "https://github.com/SINTEF/oteapi-optimade"
+log_level: "debug"
+log_dir: "./logs/"

@@ -7,6 +7,17 @@ if TYPE_CHECKING:
     from pathlib import Path
 
 
+def pytest_configure(config) -> None:  # pylint: disable=unused-argument
+    """Method that runs before pytest collects tests, so no modules are imported."""
+    import os
+    from pathlib import Path
+
+    cwd = Path(__file__).resolve().parent.resolve()
+    os.environ["OPTIMADE_CONFIG_FILE"] = str(
+        cwd / "static" / "test_optimade_config.yml"
+    )
+
+
 @pytest.fixture(scope="session")
 def top_dir() -> "Path":
     """Return resolved Path object to the repository's top directory."""

@@ -61,7 +61,10 @@ def optimade_base_url_regex() -> "Pattern[str]":
             r"(?::\d+)?"  # port
             r"(?:/[^\s?#]*)?"  # path
             r")"
-            r"(?:/(?P<version>v[0-9]+(?:\.[0-9+]){0,2}))?"  # version
+            # version
+            r"(?:/(?P<version>v[0-9]+(?:\.[0-9+]){0,2}))"
+            r"(?=/info|/links|/version|/structures|/references|/calculations"
+            r"|/extensions)?"
             # endpoint
             r"(?:/(?P<endpoint>(?:info|links|versions|structures|references"
             r"|calculations|extensions)(?:/[^\s?#]*)?))?$",
@@ -214,7 +217,7 @@ class OPTIMADEUrl(str):
         tld: "Optional[str]" = None
         rebuild: bool = False
         for host_type in ("domain", "ipv4", "ipv6"):
-            host = parts[host_type]  # type: ignore[misc]
+            host = parts[host_type]  # type: ignore[literal-required]
             if host:
                 break
         else:
@@ -260,8 +263,8 @@ class OPTIMADEUrl(str):
     def apply_default_parts(cls, parts: "Parts") -> "Parts":
         """Apply default URL-part values if no value is given."""
         for key, value in cls.get_default_parts(parts).items():
-            if not parts[key]:  # type: ignore[misc]
-                parts[key] = value  # type: ignore[misc]
+            if not parts[key]:  # type: ignore[literal-required]
+                parts[key] = value  # type: ignore[literal-required]
         return parts
 
     @classmethod

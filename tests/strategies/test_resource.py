@@ -18,7 +18,7 @@ def resource_config() -> dict[str, str]:
     return {
         "accessService": "optimade",
         "accessUrl": (
-            "https://example.org/v1/structures"
+            "https://example.org/some/base/v0.1/optimade/v1/structures"
             '?filter=elements HAS ALL "Si","O"&sort=nelements&page_limit=2'
         ),
     }

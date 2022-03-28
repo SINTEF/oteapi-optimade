@@ -114,6 +114,14 @@ class OPTIMADEResourceStrategy:
                 optimade_path = str(self.resource_config.accessUrl)[
                     len(self.resource_config.configuration.base_url) :
                 ]
+        else:
+            if self.resource_config.accessUrl.version:
+                optimade_path += "/" + self.resource_config.accessUrl.version
+            optimade_path += "/" + (
+                self.resource_config.accessUrl.endpoint
+                if self.resource_config.accessUrl.endpoint
+                else "structures"
+            )
         if self.resource_config.accessUrl.query:
             parsed_query = parse_qs(self.resource_config.accessUrl.query)
             for field, value in parsed_query.items():
