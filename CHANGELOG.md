@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.1.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.1.0) (2022-03-29)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.0.2...v0.1.0)
+
+**Implemented enhancements:**
+
+- Correctly handle trailing slashes \(`/`\) [\#28](https://github.com/SINTEF/oteapi-optimade/issues/28)
+
+**Merged pull requests:**
+
+- Trailing slash in base URL [\#29](https://github.com/SINTEF/oteapi-optimade/pull/29) ([CasperWA](https://github.com/CasperWA))
+
 ## [v0.0.2](https://github.com/SINTEF/oteapi-optimade/tree/v0.0.2) (2022-03-29)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/b90d7c4bd5b8c5cfee08fd76dae3240c1e5955e9...v0.0.2)
