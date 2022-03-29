@@ -1,6 +1,6 @@
 """Data models related to OPTIMADE queries."""
 from typing import Optional
-from urllib.parse import urlencode
+from urllib.parse import quote, unquote, urlencode
 
 from optimade.server.query_params import EntryListingQueryParams
 from pydantic import BaseModel, EmailStr, Field
@@ -85,10 +85,12 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
 
     def generate_query_string(self) -> str:
         """Generate a valid URL query string based on the set fields."""
-        return urlencode(
-            {
-                field: value
-                for field, value in self.dict().items()
-                if getattr(self, field, None)
-            }
-        )
+        res = {}
+        for field, value in self.dict().items():
+            if (
+                value
+                or field
+                in self.__fields_set__  # pylint: disable=unsupported-membership-test
+            ):
+                res[field] = unquote(value) if isinstance(value, str) else value
+        return urlencode(res, quote_via=quote)

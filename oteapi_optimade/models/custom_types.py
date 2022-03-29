@@ -17,7 +17,6 @@ from optimade.models import (
     StructureResponseOne,
     Success,
 )
-from pydantic import AnyUrl
 from pydantic.networks import ascii_domain_regex, errors, int_domain_regex, url_regex
 from pydantic.utils import update_not_none
 from pydantic.validators import constr_length_validator, str_validator
@@ -32,13 +31,14 @@ if TYPE_CHECKING:
     class OPTIMADEParts(TypedDict, total=False):
         """Similar to `pydantic.networks.Parts`."""
 
-        base_url: AnyUrl
+        base_url: str
         version: Optional[str]
         endpoint: Optional[str]
         query: Optional[str]
 
 
 _OPTIMADE_BASE_URL_REGEX = None
+_OPTIMADE_ENDPOINT_REGEX = None
 
 LOGGER = logging.getLogger("oteapi_optimade.models")
 LOGGER.setLevel(logging.DEBUG)
@@ -59,18 +59,27 @@ def optimade_base_url_regex() -> "Pattern[str]":
             r"[^\s/:?#]+"  # domain, validation occurs later
             r")?"
             r"(?::\d+)?"  # port
-            r"(?:/[^\s?#]*)?"  # path
-            r")"
-            # version
-            r"(?:/(?P<version>v[0-9]+(?:\.[0-9+]){0,2}))"
-            r"(?=/info|/links|/version|/structures|/references|/calculations"
-            r"|/extensions)?"
-            # endpoint
-            r"(?:/(?P<endpoint>(?:info|links|versions|structures|references"
-            r"|calculations|extensions)(?:/[^\s?#]*)?))?$",
+            r"(?P<path>/[^\s?#]*)?"  # path
+            r")",
             re.IGNORECASE,
         )
     return _OPTIMADE_BASE_URL_REGEX
+
+
+def optimade_endpoint_regex() -> "Pattern[str]":
+    """A regular expression for an OPTIMADE base URL."""
+    global _OPTIMADE_ENDPOINT_REGEX  # pylint: disable=global-statement
+    if _OPTIMADE_ENDPOINT_REGEX is None:
+        _OPTIMADE_ENDPOINT_REGEX = re.compile(
+            # version
+            r"(?:/(?P<version>v[0-9]+(?:\.[0-9+]){0,2})"
+            r"(?=/info|/links|/version|/structures|/references|/calculations"
+            r"|/extensions))?"
+            # endpoint
+            r"(?:/(?P<endpoint>(?:info|links|versions|structures|references"
+            r"|calculations|extensions)(?:/[^\s?#]*)?))?$"
+        )
+    return _OPTIMADE_ENDPOINT_REGEX
 
 
 class OPTIMADEUrl(str):
@@ -96,24 +105,23 @@ class OPTIMADEUrl(str):
         "version",
         "endpoint",
         "query",
+        "scheme",
         "tld",
         "host_type",
-        "scheme",
     )
 
     @no_type_check
-    def __new__(
-        cls, url: "Optional[str]" = None, base_url: "Optional[AnyUrl]" = None, **kwargs
-    ) -> object:
+    def __new__(cls, url: "Optional[str]" = None, **kwargs) -> object:
         return str.__new__(
-            cls, cls.build(base_url=base_url, **kwargs) if url is None else url
+            cls,
+            cls.build(**kwargs) if url is None else url,  # pylint: disable=missing-kwoa
         )
 
     def __init__(
         self,
         url: str,
         *,
-        base_url: "Optional[AnyUrl]" = None,
+        base_url: "Optional[str]" = None,
         version: "Optional[str]" = None,
         endpoint: "Optional[str]" = None,
         query: "Optional[str]" = None,
@@ -126,7 +134,7 @@ class OPTIMADEUrl(str):
         self.version = version
         self.endpoint = endpoint
         self.query = query
-        self.scheme = scheme or base_url.scheme if base_url else None
+        self.scheme = scheme
         self.tld = tld
         self.host_type = host_type
 
@@ -134,14 +142,14 @@ class OPTIMADEUrl(str):
     def build(
         cls,
         *,
-        base_url: "AnyUrl",
+        base_url: "str",
         version: "Optional[str]" = None,
         endpoint: "Optional[str]" = None,
         query: "Optional[str]" = None,
         **_kwargs: str,
     ) -> str:
         """Build complete URL from URL parts."""
-        url = str(base_url).rstrip("/")
+        url = base_url.rstrip("/")
         if version:
             url += f"/{version}"
         if endpoint:
@@ -190,8 +198,8 @@ class OPTIMADEUrl(str):
         if url_match is None:
             raise ValueError(f"Cannot match URL ({url!r}) as a valid URL.")
 
-        parts = cast("Parts", url_match.groupdict())
-        parts = cls.apply_default_parts(parts)
+        original_parts = cast("Parts", url_match.groupdict())
+        parts = cls.apply_default_parts(original_parts)
         host, tld, host_type, rebuild = cls.validate_host(parts)
         optimade_parts = cls.build_optimade_parts(parts, host)
         optimade_parts = cls.validate_parts(parts, optimade_parts)
@@ -270,7 +278,6 @@ class OPTIMADEUrl(str):
     @classmethod
     def build_optimade_parts(cls, parts: "Parts", host: str) -> "OPTIMADEParts":
         """Convert URL parts to equivalent OPTIMADE URL parts."""
-
         base_url = f"{parts['scheme']}://"
         if parts["user"]:
             base_url += parts["user"]
@@ -285,17 +292,37 @@ class OPTIMADEUrl(str):
         if parts["path"]:
             base_url += parts["path"]
 
-        match = optimade_base_url_regex().fullmatch(base_url)
+        base_url_match = optimade_base_url_regex().fullmatch(base_url)
         LOGGER.debug(
-            "OPTIMADE URL regex match groups: %s", match.groupdict() if match else match
+            "OPTIMADE base URL regex match groups: %s",
+            base_url_match.groupdict() if base_url_match else base_url_match,
         )
-        if match is None:
-            raise ValueError("Could not match given string with OPTIMADE regex.")
+        if base_url_match is None:
+            raise ValueError(
+                "Could not match given string with OPTIMADE base URL regex."
+            )
+
+        endpoint_match = optimade_endpoint_regex().findall(
+            base_url_match.group("path") if base_url_match.group("path") else ""
+        )
+        LOGGER.debug("OPTIMADE endpoint regex matches: %s", endpoint_match)
+        for path_version, path_endpoint in endpoint_match:
+            if path_endpoint:
+                break
+        else:
+            LOGGER.debug("Could not match given string with OPTIMADE endpoint regex.")
+            path_version, path_endpoint = "", ""
+
+        base_url = base_url_match.group("base_url")
+        if path_version:
+            base_url = base_url[: -(len(path_version) + len(path_endpoint) + 2)]
+        elif path_endpoint:
+            base_url = base_url[: -(len(path_endpoint) + 1)]
 
         optimade_parts = {
-            "base_url": match.group("base_url"),
-            "version": match.group("version"),
-            "endpoint": match.group("endpoint"),
+            "base_url": base_url,
+            "version": path_version or None,
+            "endpoint": path_endpoint or None,
             "query": parts["query"],
         }
         return cast("OPTIMADEParts", optimade_parts)

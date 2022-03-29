@@ -55,8 +55,7 @@ def test_get_no_session(
 
     assert isinstance(session, OPTIMADEResourceSession)
     assert session.optimade_config is None
-    assert not session.optimade_errors
-    assert not session.optimade_references
-    assert session.optimade_structures
-    for structure in session.optimade_structures:
-        assert isinstance(structure, Structure)
+    assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
+    assert session.optimade_resources
+    for resource in session.optimade_resources:
+        assert Structure(resource)

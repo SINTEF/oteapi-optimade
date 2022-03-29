@@ -9,15 +9,6 @@ class ConfigurationError(BaseOteapiOptimadeException):
     """An error occurred when dealing with strategy configurations."""
 
 
-class InconsistentBaseUrl(ConfigurationError):
-    """Inconsistent base URL.
-
-    The provided [base URL][oteapi_optimade.models.config.OPTIMADEConfig.base_url] is
-    inconsistent with the provided
-    [`accessUrl`][oteapi_optimade.models.resource.OPTIMADEResourceConfig.accessUrl].
-    """
-
-
 class RequestError(BaseOteapiOptimadeException):
     """A general error occured when performing a URL request."""
 

@@ -1,10 +1,10 @@
 """Models specific to the parse strategy."""
 # pylint: disable=no-self-use
-from typing import Any, Dict, Literal, Optional, Union
+from typing import Any, Dict, Literal, Optional
 
 from optimade.models import Response
 from oteapi.models import ResourceConfig, SessionUpdate
-from pydantic import Field, validator
+from pydantic import Field
 
 from oteapi_optimade.models.config import OPTIMADEConfig
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
@@ -17,16 +17,16 @@ class OPTIMADEParseConfig(ResourceConfig):
         ...,
         description="Either a base OPTIMADE URL or a full OPTIMADE URL.",
     )
-    mediaType: Union[
-        Literal["application/vnd.optimade+json"],
-        Literal["application/vnd.OPTIMADE+json"],
-        Literal["application/vnd.OPTiMaDe+json"],
-        Literal["application/vnd.optimade+JSON"],
-        Literal["application/vnd.OPTIMADE+JSON"],
-        Literal["application/vnd.OPTiMaDe+JSON"],
-        Literal["application/vnd.optimade"],
-        Literal["application/vnd.OPTIMADE"],
-        Literal["application/vnd.OPTiMaDe"],
+    mediaType: Literal[
+        "application/vnd.optimade+json",
+        "application/vnd.OPTIMADE+json",
+        "application/vnd.OPTiMaDe+json",
+        "application/vnd.optimade+JSON",
+        "application/vnd.OPTIMADE+JSON",
+        "application/vnd.OPTiMaDe+JSON",
+        "application/vnd.optimade",
+        "application/vnd.OPTIMADE",
+        "application/vnd.OPTiMaDe",
     ] = Field(
         ...,
         description="The registered strategy name for OPTIMADEParseStrategy.",
@@ -38,25 +38,6 @@ class OPTIMADEParseConfig(ResourceConfig):
             "perform OPTIMADE queries."
         ),
     )
-
-    @validator("configuration", allow_reuse=True)
-    def check_base_url(
-        cls, value: OPTIMADEConfig, values: "Dict[str, Any]"
-    ) -> OPTIMADEConfig:
-        """Check that `configuration.base_url` is a sub-set of `downloadUrl`."""
-        if value.base_url and str(value.base_url) not in str(
-            values.get("downloadUrl", "")
-        ):
-            raise ValueError(
-                f"`configuration.base_url` ({value.base_url}) must be a sub-set of "
-                f"`downloadUrl` {values.get('downloadUrl', '')}."
-            )
-        return value
-
-    class Config:
-        """Pydantic configuration for `OPTIMADEParseConfig`."""
-
-        allow_reuse = True
 
 
 class OPTIMADEParseSession(SessionUpdate):
