@@ -102,13 +102,7 @@ class OPTIMADEResourceStrategy:
         if session.optimade_config:
             self.resource_config.configuration = session.optimade_config
 
-        optimade_base_url = (
-            # self.resource_config.configuration.base_url
-            self.resource_config.accessUrl.base_url
-        )
-        optimade_endpoint = "/" + (
-            self.resource_config.accessUrl.endpoint or "structures"
-        )
+        optimade_endpoint = self.resource_config.accessUrl.endpoint or "structures"
         optimade_query = (
             self.resource_config.configuration.query_parameters
             or OPTIMADEQueryParameters()
@@ -128,9 +122,9 @@ class OPTIMADEResourceStrategy:
         LOGGER.debug("optimade_query after update: %r", optimade_query)
 
         optimade_url = OPTIMADEUrl(
-            f"{optimade_base_url}"
-            f"{'/' + self.resource_config.accessUrl.version if self.resource_config.accessUrl.version else ''}"  # pylint: disable=line-too-long
-            f"{optimade_endpoint}?{optimade_query.generate_query_string()}"
+            f"{self.resource_config.accessUrl.base_url}"
+            f"{'/' + self.resource_config.accessUrl.version if self.resource_config.accessUrl.version else '/v1'}"  # pylint: disable=line-too-long
+            f"/{optimade_endpoint}?{optimade_query.generate_query_string()}"
         )
         LOGGER.debug("OPTIMADE URL will be requests: %s", optimade_url)
 
