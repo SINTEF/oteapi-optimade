@@ -51,6 +51,10 @@ def setver(_, version=""):
         TOP_DIR / "oteapi_optimade" / "__init__.py",
         (r'__version__ = (\'|").*(\'|")', f'__version__ = "{version}"'),
     )
+    update_file(
+        TOP_DIR / "tests" / "static" / "test_optimade_config.yml",
+        (r"version: ('|\").*('|\")", f'version: "{version}"'),
+    )
 
     print(f"Bumped version to {version}.")
 
