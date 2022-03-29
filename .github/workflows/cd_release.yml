@@ -56,6 +56,12 @@ jobs:
         sed -i "s|TAG_NAME|${GITHUB_REF#refs/tags/}|" "${TAG_MSG}"
         git tag -af -F "${TAG_MSG}" ${GITHUB_REF#refs/tags/}
 
+    - name: Build source distribution
+      run: |
+        # First, clean the git tree
+        git checkout -- .
+        flit build
+
     - name: Update '${{ env.PUBLISH_UPDATE_BRANCH }}'
       uses: CasperWA/push-protected@v2
       with:
@@ -65,12 +71,6 @@ jobs:
         force: true
         tags: true
         unprotect_reviews: true
-
-    - name: Build source distribution
-      run: |
-        # First, clean the git tree
-        git checkout -- .
-        flit build
 
     - name: Get tagged versions
       run: echo "PREVIOUS_VERSION=$(git tag -l --sort -version:refname | sed -n 2p)" >> $GITHUB_ENV
