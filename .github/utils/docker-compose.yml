@@ -17,7 +17,7 @@ services:
       - otenet
     volumes:
       - "${PWD}:/oteapi-optimade"
-    entrypoint: /bin/bash -c "pip install -v -e /oteapi-optimade && ./entrypoint.sh"
+    entrypoint: /bin/bash -c "pip install -v -e /oteapi-optimade && ./entrypoint.sh --keep-alive 1"
 
   redis:
     image: redis:latest
