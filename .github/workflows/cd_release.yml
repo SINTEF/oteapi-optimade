@@ -67,7 +67,10 @@ jobs:
         unprotect_reviews: true
 
     - name: Build source distribution
-      run: flit build
+      run: |
+        # First, clean the git tree
+        git checkout -- .
+        flit build
 
     - name: Get tagged versions
       run: echo "PREVIOUS_VERSION=$(git tag -l --sort -version:refname | sed -n 2p)" >> $GITHUB_ENV
