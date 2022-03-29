@@ -48,7 +48,7 @@ services:
     entrypoint: |
       /bin/bash -c "export OPTIMADE_CONFIG_FILE=\"./optimade_config.json\" \
       && export OPTIMADE_LOG_LEVEL=info \
-      && uvicorn optimade.server.main:app --port ${OPTIMADE_PORT:-5000} --log-level info --timeout-keep-alive 0"
+      && uvicorn optimade.server.main:app --host 0.0.0.0 --port ${OPTIMADE_PORT:-5000} --log-level info --timeout-keep-alive 0"
 
 volumes:
   redis-persist:

@@ -30,7 +30,6 @@ def _check_service_availability(service_url: str) -> None:
     import requests
 
     try:
-        print("checking /docs")
         response = requests.get(f"{service_url}/docs", allow_redirects=True)
     except (requests.ConnectionError, requests.ConnectTimeout) as exc_:
         raise RuntimeError(f"Cannot connect to {service_url} !") from exc_
@@ -67,7 +66,6 @@ def main(oteapi_url: str) -> None:
         configuration=config,
     )
 
-    print("getting source")
     session = source.get()
 
     try:
