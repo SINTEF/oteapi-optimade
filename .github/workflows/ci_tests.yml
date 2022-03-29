@@ -178,6 +178,7 @@ jobs:
         python -m pip install -U pip
         pip install -U setuptools wheel flit
         pip install -e .[dev]
+        pip install docker-compose
 
     - name: Retrieve OPT for a test OPTIMADE server
       run: git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools /tmp/optimade-python-tools
