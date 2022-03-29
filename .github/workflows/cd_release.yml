@@ -47,9 +47,9 @@ jobs:
 
     - name: Update version and tag
       run: |
-        invoke setver --ver="${GITHUB_REF#refs/tags/}"
+        invoke setver --version="${GITHUB_REF#refs/tags/}"
 
-        git add oteapi_optimade/__init__.py CHANGELOG.md
+        git add oteapi_optimade/__init__.py tests/static/test_optimade_config.yml CHANGELOG.md
         git commit -m "Release ${GITHUB_REF#refs/tags/} - Changelog"
 
         TAG_MSG=.github/utils/release_tag_msg.txt
