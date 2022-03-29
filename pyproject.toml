@@ -77,9 +77,9 @@ Package = "https://pypi.org/project/oteapi-optimade"
 
 [project.entry-points."oteapi.download"]
 [project.entry-points."oteapi.filter"]
-"oteapi_optimade.optimade" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
-"oteapi_optimade.OPTIMADE" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
-"oteapi_optimade.OPTiMaDe" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
+# "oteapi_optimade.optimade" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
+# "oteapi_optimade.OPTIMADE" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
+# "oteapi_optimade.OPTiMaDe" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
 [project.entry-points."oteapi.function"]
 [project.entry-points."oteapi.mapping"]
 [project.entry-points."oteapi.parse"]
