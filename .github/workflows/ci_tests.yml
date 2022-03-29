@@ -178,7 +178,6 @@ jobs:
         python -m pip install -U pip
         pip install -U setuptools wheel flit
         pip install -e .[dev]
-        pip install docker-compose
 
     - name: Retrieve OPT for a test OPTIMADE server
       run: git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools /tmp/optimade-python-tools
@@ -186,6 +185,7 @@ jobs:
     - name: Run services
       run: |
         docker-compose -f .github/utils/docker-compose.yml pull
+        docker-compose -f .github/utils/docker-compose.yml build
         docker-compose -f .github/utils/docker-compose.yml up &
         .github/utils/wait_for_it.sh localhost:${PORT} -t 240
         sleep 30
@@ -194,6 +194,3 @@ jobs:
 
     - name: Run end-2-end tests
       run: python .github/utils/end2end_test.py
-
-    # - name: Test with pytest
-    #   run: pytest -vvv

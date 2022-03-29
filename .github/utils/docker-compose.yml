@@ -43,6 +43,7 @@ services:
         PORT: ${OPTIMADE_PORT:-5000}
     environment:
       MAIN: main
+      OPTIMADE_CONFIG_FILE: "/app/config.json"
     networks:
       - otenet
 
