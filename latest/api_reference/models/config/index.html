@@ -420,13 +420,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.config.OPTIMADEConfig.base_url" class="md-nav__link">
-    base_url
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#oteapi_optimade.models.config.OPTIMADEConfig.datacache_config" class="md-nav__link">
     datacache_config
   </a>
@@ -443,13 +436,6 @@
           <li class="md-nav__item">
   <a href="#oteapi_optimade.models.config.OPTIMADEConfig.return_object" class="md-nav__link">
     return_object
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.config.OPTIMADEConfig.check_base_url" class="md-nav__link">
-    check_base_url()
   </a>
   
 </li>
@@ -668,13 +654,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.config.OPTIMADEConfig.base_url" class="md-nav__link">
-    base_url
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#oteapi_optimade.models.config.OPTIMADEConfig.datacache_config" class="md-nav__link">
     datacache_config
   </a>
@@ -691,13 +670,6 @@
           <li class="md-nav__item">
   <a href="#oteapi_optimade.models.config.OPTIMADEConfig.return_object" class="md-nav__link">
     return_object
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.config.OPTIMADEConfig.check_base_url" class="md-nav__link">
-    check_base_url()
   </a>
   
 </li>
@@ -793,7 +765,8 @@
 
           <details class="quote">
             <summary>Source code in <code>oteapi_optimade/models/config.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
+<span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
 <span class="normal">21</span>
@@ -832,31 +805,9 @@
 <span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEConfig</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">):</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEConfig</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;OPTIMADE configuration.&quot;&quot;&quot;</span>
 
-    <span class="n">base_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEUrl</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="kc">None</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;Base OPTIMADE URL. Must be a sub-part of the provided `accessUrl`. If not&quot;</span>
-            <span class="s2">&quot; provided, it is assumed `accessUrl` is either complete or an OPTIMADE &quot;</span>
-            <span class="s2">&quot;base URL itself.&quot;</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
     <span class="n">query_parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEQueryParameters</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;URL query parameters to be used in the OPTIMADE query.&quot;</span><span class="p">,</span>
@@ -868,16 +819,11 @@
     <span class="n">return_object</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">False</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;Whether or not to return a response object (using the pydantic model).&quot;</span>
+            <span class="s2">&quot;Whether or not to return a response object (using the pydantic model).</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Important:</span><span class="se">\n</span><span class="s2">    This should _only_ be used if the strategy is called &quot;</span>
+            <span class="s2">&quot;directly and not via an OTEAPI REST API service.&quot;</span>
         <span class="p">),</span>
     <span class="p">)</span>
-
-    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;base_url&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">check_base_url</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">OPTIMADEUrl</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEUrl</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Make sure `base_url` is just the base URL.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">value</span>
 
     <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;datacache_config&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">default_datacache_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DataCacheConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataCacheConfig</span><span class="p">:</span>
@@ -910,28 +856,6 @@
 
 
 
-
-
-
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="oteapi_optimade.models.config.OPTIMADEConfig.base_url" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">base_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEUrl</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Base OPTIMADE URL. Must be a sub-part of the provided `accessUrl`. If not provided, it is assumed `accessUrl` is either complete or an OPTIMADE base URL itself.&#39;</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
-
-<a href="#oteapi_optimade.models.config.OPTIMADEConfig.base_url" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-  </div>
 
 
 
@@ -984,7 +908,7 @@
 
 
 <h3 id="oteapi_optimade.models.config.OPTIMADEConfig.return_object" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">return_object</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Whether or not to return a response object (using the pydantic model).&#39;</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">return_object</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Whether or not to return a response object (using the pydantic model).</span><span class="se">\n\n</span><span class="s1">Important:</span><span class="se">\n</span><span class="s1">    This should _only_ be used if the strategy is called directly and not via an OTEAPI REST API service.&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
@@ -1007,43 +931,6 @@
 
 
 
-<h3 id="oteapi_optimade.models.config.OPTIMADEConfig.check_base_url" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">check_base_url</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code>
-
-
-<a href="#oteapi_optimade.models.config.OPTIMADEConfig.check_base_url" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-      <p>Make sure <code>base_url</code> is just the base URL.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/models/config.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;base_url&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">check_base_url</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">OPTIMADEUrl</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEUrl</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Make sure `base_url` is just the base URL.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">value</span>
-</code></pre></div>
-</td></tr></table>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
 <h3 id="oteapi_optimade.models.config.OPTIMADEConfig.default_datacache_config" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">default_datacache_config</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code>
 
@@ -1057,27 +944,27 @@
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/config.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;datacache_config&quot;</span><span class="p">)</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;datacache_config&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">default_datacache_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DataCacheConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataCacheConfig</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Use default values for `DataCacheConfig` if not supplied.&quot;&quot;&quot;</span>
     <span class="n">original_set_values</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">__fields_set__</span><span class="p">)</span>

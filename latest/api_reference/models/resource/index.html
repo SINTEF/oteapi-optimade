@@ -489,33 +489,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceConfig.Config" class="md-nav__link">
-    Config
-  </a>
-  
-    <nav class="md-nav" aria-label="Config">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceConfig.Config.allow_reuse" class="md-nav__link">
-    allow_reuse
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceConfig.check_base_url" class="md-nav__link">
-    check_base_url()
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -537,22 +510,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_errors" class="md-nav__link">
-    optimade_errors
+  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_resource_model" class="md-nav__link">
+    optimade_resource_model
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_references" class="md-nav__link">
-    optimade_references
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_structures" class="md-nav__link">
-    optimade_structures
+  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_resources" class="md-nav__link">
+    optimade_resources
   </a>
   
 </li>
@@ -748,33 +714,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceConfig.Config" class="md-nav__link">
-    Config
-  </a>
-  
-    <nav class="md-nav" aria-label="Config">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceConfig.Config.allow_reuse" class="md-nav__link">
-    allow_reuse
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceConfig.check_base_url" class="md-nav__link">
-    check_base_url()
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -796,22 +735,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_errors" class="md-nav__link">
-    optimade_errors
+  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_resource_model" class="md-nav__link">
+    optimade_resource_model
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_references" class="md-nav__link">
-    optimade_references
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_structures" class="md-nav__link">
-    optimade_structures
+  <a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_resources" class="md-nav__link">
+    optimade_resources
   </a>
   
 </li>
@@ -904,7 +836,12 @@
 
           <details class="quote">
             <summary>Source code in <code>oteapi_optimade/models/resource.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
@@ -916,42 +853,14 @@
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResourceConfig</span><span class="p">(</span><span class="n">ResourceConfig</span><span class="p">):</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResourceConfig</span><span class="p">(</span><span class="n">ResourceConfig</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;OPTIMADE-specific resource strategy config.&quot;&quot;&quot;</span>
 
     <span class="n">accessUrl</span><span class="p">:</span> <span class="n">OPTIMADEUrl</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="o">...</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Either a base OPTIMADE URL or a full OPTIMADE URL.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">accessService</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
-        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;optimade&quot;</span><span class="p">],</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;OPTIMADE&quot;</span><span class="p">],</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;OPTiMaDe&quot;</span><span class="p">]</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+    <span class="n">accessService</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;optimade&quot;</span><span class="p">,</span> <span class="s2">&quot;OPTIMADE&quot;</span><span class="p">,</span> <span class="s2">&quot;OPTiMaDe&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="o">...</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The registered strategy name for OPTIMADEResourceStrategy.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -962,25 +871,6 @@
             <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
         <span class="p">),</span>
     <span class="p">)</span>
-
-    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;configuration&quot;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">check_base_url</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">OPTIMADEConfig</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="s2">&quot;Dict[str, Any]&quot;</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEConfig</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check that `configuration.base_url` is a sub-set of `accessUrl`.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">base_url</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span>
-            <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;accessUrl&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;`configuration.base_url` (</span><span class="si">{</span><span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="si">}</span><span class="s2">) must be a sub-set of &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;`accessUrl` </span><span class="si">{</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;accessUrl&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">return</span> <span class="n">value</span>
-
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Pydantic configuration for `OPTIMADEResourceConfig`.&quot;&quot;&quot;</span>
-
-        <span class="n">allow_reuse</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
 </td></tr></table>
           </details>
@@ -999,7 +889,7 @@
 
 
 <h3 id="oteapi_optimade.models.resource.OPTIMADEResourceConfig.accessService" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">accessService</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;optimade&#39;</span><span class="p">],</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;OPTIMADE&#39;</span><span class="p">],</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;OPTiMaDe&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="bp">Ellipsis</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;The registered strategy name for OPTIMADEResourceStrategy.&#39;</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">accessService</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;optimade&#39;</span><span class="p">,</span> <span class="s1">&#39;OPTIMADE&#39;</span><span class="p">,</span> <span class="s1">&#39;OPTiMaDe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="bp">Ellipsis</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;The registered strategy name for OPTIMADEResourceStrategy.&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
@@ -1061,131 +951,6 @@
 
 
 
-  <div class="doc doc-object doc-class">
-
-
-
-<h3 id="oteapi_optimade.models.resource.OPTIMADEResourceConfig.Config" class="doc doc-heading">
-          <code>Config</code>
-
-
-
-<a href="#oteapi_optimade.models.resource.OPTIMADEResourceConfig.Config" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-
-      <p>Pydantic configuration for <code>OPTIMADEResourceConfig</code>.</p>
-
-
-          <details class="quote">
-            <summary>Source code in <code>oteapi_optimade/models/resource.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Pydantic configuration for `OPTIMADEResourceConfig`.&quot;&quot;&quot;</span>
-
-    <span class="n">allow_reuse</span> <span class="o">=</span> <span class="kc">True</span>
-</code></pre></div>
-</td></tr></table>
-          </details>
-
-
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h4 id="oteapi_optimade.models.resource.OPTIMADEResourceConfig.Config.allow_reuse" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">allow_reuse</span> <span class="o">=</span> <span class="kc">True</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
-
-<a href="#oteapi_optimade.models.resource.OPTIMADEResourceConfig.Config.allow_reuse" class="headerlink" title="Permanent link">&para;</a></h4>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-  </div>
-
-
-
-
-
-
-
-  </div>
-
-    </div>
-
-  </div>
-
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-<h3 id="oteapi_optimade.models.resource.OPTIMADEResourceConfig.check_base_url" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">check_base_url</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></code>
-
-
-<a href="#oteapi_optimade.models.resource.OPTIMADEResourceConfig.check_base_url" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-      <p>Check that <code>configuration.base_url</code> is a sub-set of <code>accessUrl</code>.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/models/resource.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;configuration&quot;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">check_base_url</span><span class="p">(</span>
-    <span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">OPTIMADEConfig</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="s2">&quot;Dict[str, Any]&quot;</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEConfig</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Check that `configuration.base_url` is a sub-set of `accessUrl`.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">base_url</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span>
-        <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;accessUrl&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;`configuration.base_url` (</span><span class="si">{</span><span class="n">value</span><span class="o">.</span><span class="n">base_url</span><span class="si">}</span><span class="s2">) must be a sub-set of &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;`accessUrl` </span><span class="si">{</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;accessUrl&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
-        <span class="p">)</span>
-    <span class="k">return</span> <span class="n">value</span>
-</code></pre></div>
-</td></tr></table>
-        </details>
-    </div>
-
-  </div>
-
-
 
 
 
@@ -1219,7 +984,33 @@
 
           <details class="quote">
             <summary>Source code in <code>oteapi_optimade/models/resource.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
@@ -1230,23 +1021,7 @@
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResourceSession</span><span class="p">(</span><span class="n">SessionUpdate</span><span class="p">):</span>
+<span class="normal">69</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResourceSession</span><span class="p">(</span><span class="n">SessionUpdate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;OPTIMADE session for the resource strategy.&quot;&quot;&quot;</span>
 
     <span class="n">optimade_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEConfig</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
@@ -1256,17 +1031,27 @@
             <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
         <span class="p">),</span>
     <span class="p">)</span>
-    <span class="n">optimade_errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">OptimadeError</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+    <span class="n">optimade_resources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="p">[],</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of errors returned from the OPTIMADE request.&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of OPTIMADE resources (structures, references, errors, ...) returned&quot;</span>
+            <span class="s2">&quot; from the OPTIMADE request.&quot;</span>
+        <span class="p">),</span>
     <span class="p">)</span>
-    <span class="n">optimade_structures</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Structure</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">[],</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of OPTIMADE structures.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">optimade_references</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Reference</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">[],</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of OPTIMADE references.&quot;</span><span class="p">,</span>
+    <span class="n">optimade_resource_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Importable path to the resource model to be used to parse the OPTIMADE &quot;</span>
+            <span class="s2">&quot;resources in `optimade_resource`. The importable path should be a fully &quot;</span>
+            <span class="s2">&quot;importable path to a module separated by a colon (`:`) to then define the &quot;</span>
+            <span class="s2">&quot;resource model class name. This means one can then do:</span><span class="se">\n\n</span><span class="s2">```python</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;from PACKAGE.MODULE import RESOURCE_CLS</span><span class="se">\n</span><span class="s2">```</span><span class="se">\n</span><span class="s2">From the value &quot;</span>
+            <span class="s2">&quot;`PACKAGE.MODULE:RESOURCE_CLS`&quot;</span>
+        <span class="p">),</span>
+        <span class="n">regex</span><span class="o">=</span><span class="p">(</span>
+            <span class="sa">r</span><span class="s2">&quot;^([a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)*&quot;</span>  <span class="c1"># package.module</span>
+            <span class="sa">r</span><span class="s2">&quot;:[a-zA-Z][a-zA-Z0-9_]*)?$&quot;</span>  <span class="c1"># class</span>
+        <span class="p">),</span>
     <span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
@@ -1313,14 +1098,14 @@
 
 
 
-<h3 id="oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_errors" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">optimade_errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">OptimadeError</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">([],</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;List of errors returned from the OPTIMADE request.&#39;</span><span class="p">)</span></code>
+<h3 id="oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_resource_model" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">optimade_resource_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Importable path to the resource model to be used to parse the OPTIMADE resources in `optimade_resource`. The importable path should be a fully importable path to a module separated by a colon (`:`) to then define the resource model class name. This means one can then do:</span><span class="se">\n\n</span><span class="s1">```python</span><span class="se">\n</span><span class="s1">from PACKAGE.MODULE import RESOURCE_CLS</span><span class="se">\n</span><span class="s1">```</span><span class="se">\n</span><span class="s1">From the value `PACKAGE.MODULE:RESOURCE_CLS`&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="s1">&#39;^([a-zA-Z][a-zA-Z0-9_]*(</span><span class="se">\\</span><span class="s1">.[a-zA-Z][a-zA-Z0-9_]*)*:[a-zA-Z][a-zA-Z0-9_]*)?$&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
-<a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_errors" class="headerlink" title="Permanent link">&para;</a></h3>
+<a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_resource_model" class="headerlink" title="Permanent link">&para;</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1335,36 +1120,14 @@
 
 
 
-<h3 id="oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_references" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">optimade_references</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Reference</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">([],</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;List of OPTIMADE references.&#39;</span><span class="p">)</span></code>
+<h3 id="oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_resources" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">optimade_resources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">([],</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;List of OPTIMADE resources (structures, references, errors, ...) returned from the OPTIMADE request.&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
-<a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_references" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_structures" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">optimade_structures</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Structure</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">([],</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;List of OPTIMADE structures.&#39;</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
-
-<a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_structures" class="headerlink" title="Permanent link">&para;</a></h3>
+<a href="#oteapi_optimade.models.resource.OPTIMADEResourceSession.optimade_resources" class="headerlink" title="Permanent link">&para;</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1396,11 +1159,11 @@
 
           <details class="quote">
             <summary>Source code in <code>oteapi_optimade/models/resource.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Pydantic configuration for `OPTIMADEResourceSession`.&quot;&quot;&quot;</span>
 
     <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>

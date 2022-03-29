@@ -363,13 +363,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#oteapi_optimade.exceptions.InconsistentBaseUrl" class="md-nav__link">
-    InconsistentBaseUrl
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#oteapi_optimade.exceptions.OPTIMADEParseError" class="md-nav__link">
     OPTIMADEParseError
   </a>
@@ -645,13 +638,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#oteapi_optimade.exceptions.InconsistentBaseUrl" class="md-nav__link">
-    InconsistentBaseUrl
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#oteapi_optimade.exceptions.OPTIMADEParseError" class="md-nav__link">
     OPTIMADEParseError
   </a>
@@ -782,55 +768,6 @@
 
 
 
-<h2 id="oteapi_optimade.exceptions.InconsistentBaseUrl" class="doc doc-heading">
-          <code>InconsistentBaseUrl</code>
-
-
-
-<a href="#oteapi_optimade.exceptions.InconsistentBaseUrl" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.ConfigurationError" href="#oteapi_optimade.exceptions.ConfigurationError">ConfigurationError</a></code></p>
-
-
-      <p>Inconsistent base URL.</p>
-<p>The provided <a class="autorefs autorefs-internal" href="../models/config/#oteapi_optimade.models.config.OPTIMADEConfig.base_url">base URL</a> is
-inconsistent with the provided
-<a class="autorefs autorefs-internal" href="../models/resource/#oteapi_optimade.models.resource.OPTIMADEResourceConfig.accessUrl"><code>accessUrl</code></a>.</p>
-
-
-          <details class="quote">
-            <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">InconsistentBaseUrl</span><span class="p">(</span><span class="n">ConfigurationError</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Inconsistent base URL.</span>
-
-<span class="sd">    The provided [base URL][oteapi_optimade.models.config.OPTIMADEConfig.base_url] is</span>
-<span class="sd">    inconsistent with the provided</span>
-<span class="sd">    [`accessUrl`][oteapi_optimade.models.resource.OPTIMADEResourceConfig.accessUrl].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div>
-</td></tr></table>
-          </details>
-
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-class">
-
-
-
 <h2 id="oteapi_optimade.exceptions.OPTIMADEParseError" class="doc doc-heading">
           <code>OPTIMADEParseError</code>
 
@@ -849,8 +786,8 @@ inconsistent with the provided
 
           <details class="quote">
             <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
-<span class="normal">30</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Could not use OPTIMADE Python tools to parse an OPTIMADE API response.&quot;&quot;&quot;</span>
 </code></pre></div>
 </td></tr></table>
@@ -885,8 +822,8 @@ inconsistent with the provided
 
           <details class="quote">
             <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
-<span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResponseError</span><span class="p">(</span><span class="n">RequestError</span><span class="p">):</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResponseError</span><span class="p">(</span><span class="n">RequestError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An OPTIMADE error was returned from a URL request.&quot;&quot;&quot;</span>
 </code></pre></div>
 </td></tr></table>
@@ -921,8 +858,8 @@ inconsistent with the provided
 
           <details class="quote">
             <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
-<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">RequestError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">RequestError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A general error occured when performing a URL request.&quot;&quot;&quot;</span>
 </code></pre></div>
 </td></tr></table>

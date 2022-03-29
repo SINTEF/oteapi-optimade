@@ -544,13 +544,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#oteapi_optimade.strategies.resource.OPTIMADEResourceStrategy._use_session" class="md-nav__link">
-    _use_session()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#oteapi_optimade.strategies.resource.OPTIMADEResourceStrategy.get" class="md-nav__link">
     get()
   </a>
@@ -633,13 +626,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#oteapi_optimade.strategies.resource.OPTIMADEResourceStrategy._use_session" class="md-nav__link">
-    _use_session()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#oteapi_optimade.strategies.resource.OPTIMADEResourceStrategy.get" class="md-nav__link">
     get()
   </a>
@@ -719,13 +705,7 @@
 
           <details class="quote">
             <summary>Source code in <code>oteapi_optimade/strategies/resource.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 34</span>
-<span class="normal"> 35</span>
-<span class="normal"> 36</span>
-<span class="normal"> 37</span>
-<span class="normal"> 38</span>
-<span class="normal"> 39</span>
-<span class="normal"> 40</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 40</span>
 <span class="normal"> 41</span>
 <span class="normal"> 42</span>
 <span class="normal"> 43</span>
@@ -910,7 +890,17 @@
 <span class="normal">222</span>
 <span class="normal">223</span>
 <span class="normal">224</span>
-<span class="normal">225</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OPTIMADEResourceStrategy</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;OPTIMADE Resource Strategy.</span>
 
@@ -972,35 +962,22 @@
         <span class="n">session</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">OPTIMADEResourceSession</span><span class="p">(</span><span class="o">**</span><span class="n">session</span><span class="p">)</span> <span class="k">if</span> <span class="n">session</span> <span class="k">else</span> <span class="n">OPTIMADEResourceSession</span><span class="p">()</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_use_session</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span>
 
         <span class="n">optimade_base_url</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">base_url</span>
-            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span>
+            <span class="c1"># self.resource_config.configuration.base_url</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span>
         <span class="p">)</span>
-        <span class="n">optimade_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">optimade_endpoint</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="s2">&quot;structures&quot;</span>
+        <span class="p">)</span>
         <span class="n">optimade_query</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">query_parameters</span>
             <span class="ow">or</span> <span class="n">OPTIMADEQueryParameters</span><span class="p">()</span>
         <span class="p">)</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;resource_config: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">base_url</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span>
-                <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">base_url</span>
-            <span class="p">):</span>
-                <span class="n">optimade_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="p">)[</span>
-                    <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">base_url</span><span class="p">)</span> <span class="p">:</span>
-                <span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="p">:</span>
-                <span class="n">optimade_path</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span>
-            <span class="n">optimade_path</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span>
-                <span class="k">else</span> <span class="s2">&quot;structures&quot;</span>
-            <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">query</span><span class="p">:</span>
             <span class="n">parsed_query</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">parsed_query</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1014,8 +991,11 @@
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;optimade_query after update: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_query</span><span class="p">)</span>
 
         <span class="n">optimade_url</span> <span class="o">=</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_base_url</span><span class="si">}{</span><span class="n">optimade_path</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_base_url</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;OPTIMADE URL will be requests: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_url</span><span class="p">)</span>
 
         <span class="c1"># Set cache access key to the full OPTIMADE URL.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="o">.</span><span class="n">accessKey</span> <span class="o">=</span> <span class="n">optimade_url</span>
@@ -1040,7 +1020,10 @@
 
         <span class="n">parse_config</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;downloadUrl&quot;</span><span class="p">:</span> <span class="n">optimade_url</span><span class="p">,</span>
-            <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;application/vnd.optimade+</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;application/vnd.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;+&#39;</span> <span class="o">+</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span> <span class="k">if</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+            <span class="p">),</span>
             <span class="s2">&quot;configuration&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;datacache_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">,</span>
                 <span class="s2">&quot;return_object&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -1056,32 +1039,45 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;&#39;optimade_response_object&#39; was expected to be present in the session.&quot;</span>
             <span class="p">)</span>
-        <span class="n">optimade_response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;optimade_response_object&quot;</span><span class="p">)</span>
+        <span class="n">optimade_response</span><span class="p">:</span> <span class="s2">&quot;OPTIMADEResponse&quot;</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;optimade_response_object&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;optimade_response&quot;</span> <span class="ow">in</span> <span class="n">session</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;optimade_response&quot;</span><span class="p">):</span>
+            <span class="k">del</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;optimade_response&quot;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">ErrorResponse</span><span class="p">):</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">optimade_errors</span> <span class="o">=</span> <span class="n">optimade_response</span><span class="o">.</span><span class="n">errors</span>
+            <span class="n">optimade_resources</span> <span class="o">=</span> <span class="n">optimade_response</span><span class="o">.</span><span class="n">errors</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">OptimadeError</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:OptimadeError&quot;</span>
+            <span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">ReferenceResponseMany</span><span class="p">):</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">optimade_references</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">Reference</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="n">Reference</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+            <span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">Reference</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">Reference</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span><span class="o">.</span><span class="n">as_dict</span>
                 <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span>
             <span class="p">]</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Reference</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:Reference&quot;</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">ReferenceResponseOne</span><span class="p">):</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">optimade_references</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">Reference</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">Reference</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-                <span class="k">else</span> <span class="n">Reference</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+                <span class="k">else</span> <span class="n">Reference</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span><span class="o">.</span><span class="n">as_dict</span>
             <span class="p">]</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Reference</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:Reference&quot;</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">StructureResponseMany</span><span class="p">):</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">optimade_structures</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">Structure</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="n">Structure</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+            <span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">Structure</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">Structure</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span><span class="o">.</span><span class="n">as_dict</span>
                 <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span>
             <span class="p">]</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Structure</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:Structure&quot;</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">StructureResponseOne</span><span class="p">):</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">optimade_structures</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">Structure</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">Structure</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-                <span class="k">else</span> <span class="n">Structure</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+                <span class="k">else</span> <span class="n">Structure</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span><span class="o">.</span><span class="n">as_dict</span>
             <span class="p">]</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Structure</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:Structure&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                 <span class="s2">&quot;Could not parse response as errors, references or structures. &quot;</span>
@@ -1095,13 +1091,11 @@
                 <span class="s2">&quot;invalid response completely.&quot;</span>
             <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">session</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">model2dict</span><span class="p">(</span><span class="n">resource</span><span class="p">)</span> <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">optimade_resources</span>
+        <span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_use_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">OPTIMADEResourceSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Update OPTIMADE-specific configuration according to values found in the</span>
-<span class="sd">        session.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span>
+        <span class="k">return</span> <span class="n">session</span>
 </code></pre></div>
 </td></tr></table>
           </details>
@@ -1115,42 +1109,6 @@
 
 
 
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-<h3 id="oteapi_optimade.strategies.resource.OPTIMADEResourceStrategy._use_session" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">_use_session</span><span class="p">(</span><span class="n">session</span><span class="p">)</span></code>
-
-
-<a href="#oteapi_optimade.strategies.resource.OPTIMADEResourceStrategy._use_session" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-      <p>Update OPTIMADE-specific configuration according to values found in the
-session.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/strategies/resource.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_use_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">OPTIMADEResourceSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Update OPTIMADE-specific configuration according to values found in the</span>
-<span class="sd">    session.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span>
-</code></pre></div>
-</td></tr></table>
-        </details>
-    </div>
-
-  </div>
 
 
 
@@ -1230,13 +1188,7 @@ precedence over the derived values from <code>accessUrl</code>.</p>
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/strategies/resource.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 66</span>
-<span class="normal"> 67</span>
-<span class="normal"> 68</span>
-<span class="normal"> 69</span>
-<span class="normal"> 70</span>
-<span class="normal"> 71</span>
-<span class="normal"> 72</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 72</span>
 <span class="normal"> 73</span>
 <span class="normal"> 74</span>
 <span class="normal"> 75</span>
@@ -1383,7 +1335,23 @@ precedence over the derived values from <code>accessUrl</code>.</p>
 <span class="normal">216</span>
 <span class="normal">217</span>
 <span class="normal">218</span>
-<span class="normal">219</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span>  <span class="c1"># pylint: disable=too-many-branches</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span>  <span class="c1"># pylint: disable=too-many-branches</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[SessionUpdate, Dict[str, Any]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEResourceSession</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Execute an OPTIMADE query to `accessUrl`.</span>
@@ -1413,35 +1381,22 @@ precedence over the derived values from <code>accessUrl</code>.</p>
     <span class="n">session</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">OPTIMADEResourceSession</span><span class="p">(</span><span class="o">**</span><span class="n">session</span><span class="p">)</span> <span class="k">if</span> <span class="n">session</span> <span class="k">else</span> <span class="n">OPTIMADEResourceSession</span><span class="p">()</span>
     <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_use_session</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span>
 
     <span class="n">optimade_base_url</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">base_url</span>
-        <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span>
+        <span class="c1"># self.resource_config.configuration.base_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span>
     <span class="p">)</span>
-    <span class="n">optimade_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">optimade_endpoint</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="s2">&quot;structures&quot;</span>
+    <span class="p">)</span>
     <span class="n">optimade_query</span> <span class="o">=</span> <span class="p">(</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">query_parameters</span>
         <span class="ow">or</span> <span class="n">OPTIMADEQueryParameters</span><span class="p">()</span>
     <span class="p">)</span>
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;resource_config: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">base_url</span><span class="p">:</span>
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span>
-            <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">base_url</span>
-        <span class="p">):</span>
-            <span class="n">optimade_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="p">)[</span>
-                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">base_url</span><span class="p">)</span> <span class="p">:</span>
-            <span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="p">:</span>
-            <span class="n">optimade_path</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span>
-        <span class="n">optimade_path</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span>
-            <span class="k">else</span> <span class="s2">&quot;structures&quot;</span>
-        <span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">query</span><span class="p">:</span>
         <span class="n">parsed_query</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">parsed_query</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1455,8 +1410,11 @@ precedence over the derived values from <code>accessUrl</code>.</p>
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;optimade_query after update: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_query</span><span class="p">)</span>
 
     <span class="n">optimade_url</span> <span class="o">=</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_base_url</span><span class="si">}{</span><span class="n">optimade_path</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_base_url</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;OPTIMADE URL will be requests: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_url</span><span class="p">)</span>
 
     <span class="c1"># Set cache access key to the full OPTIMADE URL.</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="o">.</span><span class="n">accessKey</span> <span class="o">=</span> <span class="n">optimade_url</span>
@@ -1481,7 +1439,10 @@ precedence over the derived values from <code>accessUrl</code>.</p>
 
     <span class="n">parse_config</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;downloadUrl&quot;</span><span class="p">:</span> <span class="n">optimade_url</span><span class="p">,</span>
-        <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;application/vnd.optimade+</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;application/vnd.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;+&#39;</span> <span class="o">+</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span> <span class="k">if</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+        <span class="p">),</span>
         <span class="s2">&quot;configuration&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;datacache_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">,</span>
             <span class="s2">&quot;return_object&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -1497,32 +1458,45 @@ precedence over the derived values from <code>accessUrl</code>.</p>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">&quot;&#39;optimade_response_object&#39; was expected to be present in the session.&quot;</span>
         <span class="p">)</span>
-    <span class="n">optimade_response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;optimade_response_object&quot;</span><span class="p">)</span>
+    <span class="n">optimade_response</span><span class="p">:</span> <span class="s2">&quot;OPTIMADEResponse&quot;</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;optimade_response_object&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;optimade_response&quot;</span> <span class="ow">in</span> <span class="n">session</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;optimade_response&quot;</span><span class="p">):</span>
+        <span class="k">del</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;optimade_response&quot;</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">ErrorResponse</span><span class="p">):</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">optimade_errors</span> <span class="o">=</span> <span class="n">optimade_response</span><span class="o">.</span><span class="n">errors</span>
+        <span class="n">optimade_resources</span> <span class="o">=</span> <span class="n">optimade_response</span><span class="o">.</span><span class="n">errors</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">OptimadeError</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:OptimadeError&quot;</span>
+        <span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">ReferenceResponseMany</span><span class="p">):</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">optimade_references</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">Reference</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="n">Reference</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+        <span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Reference</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">Reference</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span><span class="o">.</span><span class="n">as_dict</span>
             <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span>
         <span class="p">]</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Reference</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:Reference&quot;</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">ReferenceResponseOne</span><span class="p">):</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">optimade_references</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">Reference</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Reference</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-            <span class="k">else</span> <span class="n">Reference</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+            <span class="k">else</span> <span class="n">Reference</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span><span class="o">.</span><span class="n">as_dict</span>
         <span class="p">]</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Reference</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:Reference&quot;</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">StructureResponseMany</span><span class="p">):</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">optimade_structures</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">Structure</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="n">Structure</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+        <span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Structure</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">Structure</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span><span class="o">.</span><span class="n">as_dict</span>
             <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span>
         <span class="p">]</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Structure</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:Structure&quot;</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">StructureResponseOne</span><span class="p">):</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">optimade_structures</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">Structure</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Structure</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-            <span class="k">else</span> <span class="n">Structure</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+            <span class="k">else</span> <span class="n">Structure</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span><span class="o">.</span><span class="n">as_dict</span>
         <span class="p">]</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">optimade_resource_model</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Structure</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">:Structure&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
             <span class="s2">&quot;Could not parse response as errors, references or structures. &quot;</span>
@@ -1535,6 +1509,10 @@ precedence over the derived values from <code>accessUrl</code>.</p>
             <span class="s2">&quot;however it may not be supported by OTEAPI-OPTIMADE. It may also be an &quot;</span>
             <span class="s2">&quot;invalid response completely.&quot;</span>
         <span class="p">)</span>
+
+    <span class="n">session</span><span class="o">.</span><span class="n">optimade_resources</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">model2dict</span><span class="p">(</span><span class="n">resource</span><span class="p">)</span> <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">optimade_resources</span>
+    <span class="p">]</span>
 
     <span class="k">return</span> <span class="n">session</span>
 </code></pre></div>
@@ -1613,13 +1591,7 @@ Services.</p>
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/strategies/resource.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
@@ -1629,7 +1601,13 @@ Services.</p>
 <span class="normal">61</span>
 <span class="normal">62</span>
 <span class="normal">63</span>
-<span class="normal">64</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span>  <span class="c1"># pylint: disable=no-self-use,unused-argument</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span>  <span class="c1"># pylint: disable=no-self-use,unused-argument</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="s2">&quot;Optional[Dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SessionUpdate</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
