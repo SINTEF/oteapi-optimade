@@ -7,7 +7,7 @@ page_limit_max: 500
 base_url: "http://localhost:8000"
 implementation:
   name: "OTEAPI OPTIMADE"
-  version: "0.0.2"
+  version: "0.1.0"
   source_url: "https://github.com/SINTEF/oteapi-optimade"
   issue_tracker: "https://github.com/SINTEF/oteapi-optimade/issues/new"
   maintainer:
