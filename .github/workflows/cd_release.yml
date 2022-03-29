@@ -82,7 +82,7 @@ jobs:
 
     - name: Build source distribution
       run: |
-        git status
+        git checkout -- .
         flit build
 
     # - name: Get tagged versions
