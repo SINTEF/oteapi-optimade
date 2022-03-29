@@ -11,6 +11,7 @@
 
 **Fixed bugs:**
 
+- Fix CI connection refusal for pytest-real-backend job [\#26](https://github.com/SINTEF/oteapi-optimade/issues/26)
 - CD workflow failing - flit not building [\#23](https://github.com/SINTEF/oteapi-optimade/issues/23)
 - Black issue with click [\#21](https://github.com/SINTEF/oteapi-optimade/issues/21)
 - CD workflow failing [\#18](https://github.com/SINTEF/oteapi-optimade/issues/18)
@@ -23,6 +24,8 @@
 
 **Merged pull requests:**
 
+- Fix pytest-real-backend CI job [\#27](https://github.com/SINTEF/oteapi-optimade/pull/27) ([CasperWA](https://github.com/CasperWA))
+- Test release workflow [\#25](https://github.com/SINTEF/oteapi-optimade/pull/25) ([CasperWA](https://github.com/CasperWA))
 - Build package prior to polluting git tree [\#24](https://github.com/SINTEF/oteapi-optimade/pull/24) ([CasperWA](https://github.com/CasperWA))
 - Update pre-commit hooks [\#22](https://github.com/SINTEF/oteapi-optimade/pull/22) ([CasperWA](https://github.com/CasperWA))
 - Fix failing release workflow [\#20](https://github.com/SINTEF/oteapi-optimade/pull/20) ([CasperWA](https://github.com/CasperWA))
