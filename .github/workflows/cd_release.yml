@@ -66,6 +66,9 @@ jobs:
         tags: true
         unprotect_reviews: true
 
+    - name: Build source distribution
+      run: flit build
+
     - name: Get tagged versions
       run: echo "PREVIOUS_VERSION=$(git tag -l --sort -version:refname | sed -n 2p)" >> $GITHUB_ENV
 
@@ -84,9 +87,6 @@ jobs:
         gh api /repos/${{ github.repository }}/releases/${{ github.event.release.id }} -X PATCH -F body='@release_body.md'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Build source distribution
-      run: flit build
 
     - name: Publish package to PyPI
       uses: pypa/gh-action-pypi-publish@v1.5.0
