@@ -2533,13 +2533,7 @@ Services.</p>
 <span class="normal">226</span>
 <span class="normal">227</span>
 <span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="normal">229</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OPTIMADEResourceStrategy</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;OPTIMADE Resource Strategy.</span>
 
@@ -2604,13 +2598,7 @@ Services.</p>
         <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span>
 
-        <span class="n">optimade_base_url</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="c1"># self.resource_config.configuration.base_url</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span>
-        <span class="p">)</span>
-        <span class="n">optimade_endpoint</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="s2">&quot;structures&quot;</span>
-        <span class="p">)</span>
+        <span class="n">optimade_endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="s2">&quot;structures&quot;</span>
         <span class="n">optimade_query</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">query_parameters</span>
             <span class="ow">or</span> <span class="n">OPTIMADEQueryParameters</span><span class="p">()</span>
@@ -2630,9 +2618,9 @@ Services.</p>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;optimade_query after update: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_query</span><span class="p">)</span>
 
         <span class="n">optimade_url</span> <span class="o">=</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_base_url</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s1">&#39;/v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+            <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;OPTIMADE URL will be requests: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_url</span><span class="p">)</span>
 
@@ -2984,13 +2972,7 @@ precedence over the derived values from <code>accessUrl</code>.</p>
 <span class="normal">226</span>
 <span class="normal">227</span>
 <span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span>  <span class="c1"># pylint: disable=too-many-branches</span>
+<span class="normal">229</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span>  <span class="c1"># pylint: disable=too-many-branches</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[SessionUpdate, Dict[str, Any]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEResourceSession</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Execute an OPTIMADE query to `accessUrl`.</span>
@@ -3023,13 +3005,7 @@ precedence over the derived values from <code>accessUrl</code>.</p>
     <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span>
 
-    <span class="n">optimade_base_url</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="c1"># self.resource_config.configuration.base_url</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span>
-    <span class="p">)</span>
-    <span class="n">optimade_endpoint</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="s2">&quot;structures&quot;</span>
-    <span class="p">)</span>
+    <span class="n">optimade_endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="s2">&quot;structures&quot;</span>
     <span class="n">optimade_query</span> <span class="o">=</span> <span class="p">(</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">query_parameters</span>
         <span class="ow">or</span> <span class="n">OPTIMADEQueryParameters</span><span class="p">()</span>
@@ -3049,9 +3025,9 @@ precedence over the derived values from <code>accessUrl</code>.</p>
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;optimade_query after update: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_query</span><span class="p">)</span>
 
     <span class="n">optimade_url</span> <span class="o">=</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_base_url</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s1">&#39;/v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+        <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="p">)</span>
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;OPTIMADE URL will be requests: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_url</span><span class="p">)</span>
 
