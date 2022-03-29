@@ -320,7 +320,7 @@ class OPTIMADEUrl(str):
             base_url = base_url[: -(len(path_endpoint) + 1)]
 
         optimade_parts = {
-            "base_url": base_url,
+            "base_url": base_url.rstrip("/"),
             "version": path_version or None,
             "endpoint": path_endpoint or None,
             "query": parts["query"],
