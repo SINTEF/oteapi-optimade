@@ -87,6 +87,10 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         """Generate a valid URL query string based on the set fields."""
         res = {}
         for field, value in self.dict().items():
-            if value or field in self.__fields_set__:
+            if (
+                value
+                or field
+                in self.__fields_set__  # pylint: disable=unsupported-membership-test
+            ):
                 res[field] = unquote(value) if isinstance(value, str) else value
         return urlencode(res, quote_via=quote)
