@@ -187,7 +187,7 @@ jobs:
         docker-compose -f .github/utils/docker-compose.yml pull
         docker-compose -f .github/utils/docker-compose.yml up &
         .github/utils/wait_for_it.sh localhost:${PORT} -t 240
-        sleep 15
+        sleep 30
       env:
         DOCKER_OTEAPI_VERSION: latest
 
