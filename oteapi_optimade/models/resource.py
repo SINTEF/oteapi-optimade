@@ -1,17 +1,12 @@
 """Models specific to the resource strategy."""
 # pylint: disable=no-self-use
-from typing import TYPE_CHECKING, List, Literal, Optional, Union
+from typing import Any, Dict, List, Literal, Optional
 
-from optimade.adapters import Reference, Structure
-from optimade.models import OptimadeError
 from oteapi.models import ResourceConfig, SessionUpdate
-from pydantic import Field, validator
+from pydantic import Field
 
 from oteapi_optimade.models.config import OPTIMADEConfig
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
-
-if TYPE_CHECKING:
-    from typing import Any, Dict
 
 
 class OPTIMADEResourceConfig(ResourceConfig):
@@ -21,9 +16,7 @@ class OPTIMADEResourceConfig(ResourceConfig):
         ...,
         description="Either a base OPTIMADE URL or a full OPTIMADE URL.",
     )
-    accessService: Union[
-        Literal["optimade"], Literal["OPTIMADE"], Literal["OPTiMaDe"]
-    ] = Field(
+    accessService: Literal["optimade", "OPTIMADE", "OPTiMaDe"] = Field(
         ...,
         description="The registered strategy name for OPTIMADEResourceStrategy.",
     )
@@ -34,25 +27,6 @@ class OPTIMADEResourceConfig(ResourceConfig):
             "perform OPTIMADE queries."
         ),
     )
-
-    @validator("configuration", allow_reuse=True)
-    def check_base_url(
-        cls, value: OPTIMADEConfig, values: "Dict[str, Any]"
-    ) -> OPTIMADEConfig:
-        """Check that `configuration.base_url` is a sub-set of `accessUrl`."""
-        if value.base_url and str(value.base_url) not in str(
-            values.get("accessUrl", "")
-        ):
-            raise ValueError(
-                f"`configuration.base_url` ({value.base_url}) must be a sub-set of "
-                f"`accessUrl` {values.get('accessUrl', '')}."
-            )
-        return value
-
-    class Config:
-        """Pydantic configuration for `OPTIMADEResourceConfig`."""
-
-        allow_reuse = True
 
 
 class OPTIMADEResourceSession(SessionUpdate):
@@ -65,17 +39,27 @@ class OPTIMADEResourceSession(SessionUpdate):
             "perform OPTIMADE queries."
         ),
     )
-    optimade_errors: List[OptimadeError] = Field(
+    optimade_resources: List[Dict[str, Any]] = Field(
         [],
-        description="List of errors returned from the OPTIMADE request.",
+        description=(
+            "List of OPTIMADE resources (structures, references, errors, ...) returned"
+            " from the OPTIMADE request."
+        ),
     )
-    optimade_structures: List[Structure] = Field(
-        [],
-        description="List of OPTIMADE structures.",
-    )
-    optimade_references: List[Reference] = Field(
-        [],
-        description="List of OPTIMADE references.",
+    optimade_resource_model: str = Field(
+        "",
+        description=(
+            "Importable path to the resource model to be used to parse the OPTIMADE "
+            "resources in `optimade_resource`. The importable path should be a fully "
+            "importable path to a module separated by a colon (`:`) to then define the "
+            "resource model class name. This means one can then do:\n\n```python\n"
+            "from PACKAGE.MODULE import RESOURCE_CLS\n```\nFrom the value "
+            "`PACKAGE.MODULE:RESOURCE_CLS`"
+        ),
+        regex=(
+            r"^([a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)*"  # package.module
+            r":[a-zA-Z][a-zA-Z0-9_]*)?$"  # class
+        ),
     )
 
     class Config:

@@ -1,5 +1,6 @@
 """OPTIMADE resource strategy."""
 import logging
+import sys
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qs
 
@@ -7,6 +8,7 @@ import requests
 from optimade.adapters import Reference, Structure
 from optimade.models import (
     ErrorResponse,
+    OptimadeError,
     ReferenceResponseMany,
     ReferenceResponseOne,
     StructureResponseMany,
@@ -22,13 +24,17 @@ from oteapi_optimade.exceptions import OPTIMADEParseError
 from oteapi_optimade.models import OPTIMADEResourceConfig, OPTIMADEResourceSession
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
+from oteapi_optimade.utils import model2dict
 
 if TYPE_CHECKING:
     from typing import Any, Dict, Optional, Union
 
+    from optimade.models import Response as OPTIMADEResponse
+
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
 LOGGER.setLevel(logging.DEBUG)
+LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 @dataclass
@@ -93,35 +99,22 @@ class OPTIMADEResourceStrategy:
         session = (
             OPTIMADEResourceSession(**session) if session else OPTIMADEResourceSession()
         )
-        self._use_session(session)
+        if session.optimade_config:
+            self.resource_config.configuration = session.optimade_config
 
         optimade_base_url = (
-            self.resource_config.configuration.base_url
-            or self.resource_config.accessUrl.base_url
+            # self.resource_config.configuration.base_url
+            self.resource_config.accessUrl.base_url
         )
-        optimade_path = ""
+        optimade_endpoint = "/" + (
+            self.resource_config.accessUrl.endpoint or "structures"
+        )
         optimade_query = (
             self.resource_config.configuration.query_parameters
             or OPTIMADEQueryParameters()
         )
         LOGGER.debug("resource_config: %r", self.resource_config)
 
-        if self.resource_config.configuration.base_url:
-            if (
-                self.resource_config.accessUrl.base_url
-                != self.resource_config.configuration.base_url
-            ):
-                optimade_path = str(self.resource_config.accessUrl)[
-                    len(self.resource_config.configuration.base_url) :
-                ]
-        else:
-            if self.resource_config.accessUrl.version:
-                optimade_path += "/" + self.resource_config.accessUrl.version
-            optimade_path += "/" + (
-                self.resource_config.accessUrl.endpoint
-                if self.resource_config.accessUrl.endpoint
-                else "structures"
-            )
         if self.resource_config.accessUrl.query:
             parsed_query = parse_qs(self.resource_config.accessUrl.query)
             for field, value in parsed_query.items():
@@ -135,8 +128,11 @@ class OPTIMADEResourceStrategy:
         LOGGER.debug("optimade_query after update: %r", optimade_query)
 
         optimade_url = OPTIMADEUrl(
-            f"{optimade_base_url}{optimade_path}?{optimade_query.generate_query_string()}"
+            f"{optimade_base_url}"
+            f"{'/' + self.resource_config.accessUrl.version if self.resource_config.accessUrl.version else ''}"  # pylint: disable=line-too-long
+            f"{optimade_endpoint}?{optimade_query.generate_query_string()}"
         )
+        LOGGER.debug("OPTIMADE URL will be requests: %s", optimade_url)
 
         # Set cache access key to the full OPTIMADE URL.
         self.resource_config.configuration.datacache_config.accessKey = optimade_url
@@ -161,7 +157,10 @@ class OPTIMADEResourceStrategy:
 
         parse_config = {
             "downloadUrl": optimade_url,
-            "mediaType": f"application/vnd.optimade+{optimade_query.response_format}",
+            "mediaType": (
+                f"application/vnd.{self.resource_config.accessService}"
+                f"{'+' + optimade_query.response_format if optimade_query.response_format else ''}"  # pylint: disable=line-too-long
+            ),
             "configuration": {
                 "datacache_config": self.resource_config.configuration.datacache_config,
                 "return_object": True,
@@ -177,32 +176,45 @@ class OPTIMADEResourceStrategy:
             raise ValueError(
                 "'optimade_response_object' was expected to be present in the session."
             )
-        optimade_response = session.pop("optimade_response_object")
+        optimade_response: "OPTIMADEResponse" = session.pop("optimade_response_object")
+        if "optimade_response" in session and not session.get("optimade_response"):
+            del session["optimade_response"]
 
         if isinstance(optimade_response, ErrorResponse):
-            session.optimade_errors = optimade_response.errors
+            optimade_resources = optimade_response.errors
+            session.optimade_resource_model = (
+                f"{OptimadeError.__module__}:OptimadeError"
+            )
         elif isinstance(optimade_response, ReferenceResponseMany):
-            session.optimade_references = [
-                Reference(entry) if isinstance(entry, dict) else Reference(entry.dict())
+            optimade_resources = [
+                Reference(entry).as_dict
+                if isinstance(entry, dict)
+                else Reference(entry.dict()).as_dict
                 for entry in optimade_response.data
             ]
+            session.optimade_resource_model = f"{Reference.__module__}:Reference"
         elif isinstance(optimade_response, ReferenceResponseOne):
-            session.optimade_references = [
-                Reference(optimade_response.data)
+            optimade_resources = [
+                Reference(optimade_response.data).as_dict
                 if isinstance(optimade_response.data, dict)
-                else Reference(optimade_response.data.dict())
+                else Reference(optimade_response.data.dict()).as_dict
             ]
+            session.optimade_resource_model = f"{Reference.__module__}:Reference"
         elif isinstance(optimade_response, StructureResponseMany):
-            session.optimade_structures = [
-                Structure(entry) if isinstance(entry, dict) else Structure(entry.dict())
+            optimade_resources = [
+                Structure(entry).as_dict
+                if isinstance(entry, dict)
+                else Structure(entry.dict()).as_dict
                 for entry in optimade_response.data
             ]
+            session.optimade_resource_model = f"{Structure.__module__}:Structure"
         elif isinstance(optimade_response, StructureResponseOne):
-            session.optimade_structures = [
-                Structure(optimade_response.data)
+            optimade_resources = [
+                Structure(optimade_response.data).as_dict
                 if isinstance(optimade_response.data, dict)
-                else Structure(optimade_response.data.dict())
+                else Structure(optimade_response.data.dict()).as_dict
             ]
+            session.optimade_resource_model = f"{Structure.__module__}:Structure"
         else:
             LOGGER.debug(
                 "Could not parse response as errors, references or structures. "
@@ -216,10 +228,8 @@ class OPTIMADEResourceStrategy:
                 "invalid response completely."
             )
 
-        return session
+        session.optimade_resources = [
+            model2dict(resource) for resource in optimade_resources
+        ]
 
-    def _use_session(self, session: OPTIMADEResourceSession) -> None:
-        """Update OPTIMADE-specific configuration according to values found in the
-        session."""
-        if session.optimade_config:
-            self.resource_config.configuration = session.optimade_config
+        return session

@@ -5,7 +5,6 @@ from typing import Optional
 from oteapi.models import AttrDict, DataCacheConfig
 from pydantic import Field, validator
 
-from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
 DEFAULT_CACHE_CONFIG_VALUES = {
@@ -18,14 +17,6 @@ DEFAULT_CACHE_CONFIG_VALUES = {
 class OPTIMADEConfig(AttrDict):
     """OPTIMADE configuration."""
 
-    base_url: Optional[OPTIMADEUrl] = Field(
-        None,
-        description=(
-            "Base OPTIMADE URL. Must be a sub-part of the provided `accessUrl`. If not"
-            " provided, it is assumed `accessUrl` is either complete or an OPTIMADE "
-            "base URL itself."
-        ),
-    )
     query_parameters: Optional[OPTIMADEQueryParameters] = Field(
         None,
         description="URL query parameters to be used in the OPTIMADE query.",
@@ -37,16 +28,11 @@ class OPTIMADEConfig(AttrDict):
     return_object: bool = Field(
         False,
         description=(
-            "Whether or not to return a response object (using the pydantic model)."
+            "Whether or not to return a response object (using the pydantic model).\n"
+            "\nImportant:\n    This should _only_ be used if the strategy is called "
+            "directly and not via an OTEAPI REST API service."
         ),
     )
-
-    @validator("base_url")
-    def check_base_url(cls, value: OPTIMADEUrl) -> OPTIMADEUrl:
-        """Make sure `base_url` is just the base URL."""
-        if str(value) != value.base_url:
-            return OPTIMADEUrl(value.base_url, base_url=value.base_url)
-        return value
 
     @validator("datacache_config")
     def default_datacache_config(cls, value: DataCacheConfig) -> DataCacheConfig:
