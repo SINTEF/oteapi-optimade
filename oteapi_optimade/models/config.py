@@ -1,6 +1,6 @@
 """General OPTIMADE configuration models."""
 # pylint: disable=no-self-use
-from typing import Optional
+from typing import Literal, Optional
 
 from oteapi.models import AttrDict, DataCacheConfig
 from pydantic import Field, validator
@@ -17,6 +17,15 @@ DEFAULT_CACHE_CONFIG_VALUES = {
 class OPTIMADEConfig(AttrDict):
     """OPTIMADE configuration."""
 
+    version: str = Field(
+        "v1",
+        description="The version part of the OPTIMADE versioned base URL.",
+        regex=r"^v[0-9]+(\.[0-9]+){,2}$",
+    )
+    endpoint: Literal["references", "structures"] = Field(
+        "structures",
+        description="Supported OPTIMADE entry resource endpoint.",
+    )
     query_parameters: Optional[OPTIMADEQueryParameters] = Field(
         None,
         description="URL query parameters to be used in the OPTIMADE query.",

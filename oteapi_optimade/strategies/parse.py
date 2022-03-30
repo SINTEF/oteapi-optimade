@@ -1,7 +1,7 @@
 """Demo strategy class for text/json."""
-# pylint: disable=no-self-use,unused-argument
 import json
 import logging
+import sys
 from typing import TYPE_CHECKING
 
 from optimade.models import ErrorResponse, Success
@@ -22,6 +22,7 @@ if TYPE_CHECKING:
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
 LOGGER.setLevel(logging.DEBUG)
+LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 @dataclass
@@ -44,7 +45,9 @@ class OPTIMADEParseStrategy:
 
     parse_config: OPTIMADEParseConfig
 
-    def initialize(self, session: "Optional[Dict[str, Any]]" = None) -> SessionUpdate:
+    def initialize(  # pylint: disable=no-self-use,unused-argument
+        self, session: "Optional[Dict[str, Any]]" = None
+    ) -> SessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -61,7 +64,7 @@ class OPTIMADEParseStrategy:
         return SessionUpdate()
 
     def get(  # pylint: disable=too-many-branches
-        self, session: "Optional[Union[OPTIMADEParseSession, Dict[str, Any]]]" = None
+        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
     ) -> OPTIMADEParseSession:
         """Request and parse an OPTIMADE response using OPT.
 
@@ -85,7 +88,11 @@ class OPTIMADEParseStrategy:
         """
         session = OPTIMADEParseSession(**session) if session else OPTIMADEParseSession()
         if session.optimade_config:
-            self.parse_config.configuration = session.optimade_config
+            self.parse_config.configuration.update(
+                model2dict(
+                    session.optimade_config, exclude_defaults=True, exclude_unset=True
+                )
+            )
 
         cache = DataCache(self.parse_config.configuration.datacache_config)
         if self.parse_config.downloadUrl in cache:

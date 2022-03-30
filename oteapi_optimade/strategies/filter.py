@@ -1,33 +1,22 @@
 """Demo filter strategy."""
-# pylint: disable=no-self-use,unused-argument
-from typing import TYPE_CHECKING, List
+import logging
+import sys
+from typing import TYPE_CHECKING
 
-from oteapi.models import AttrDict, FilterConfig, SessionUpdate
-from pydantic import Field
+from oteapi.models import SessionUpdate
 from pydantic.dataclasses import dataclass
 
+from oteapi_optimade.models import OPTIMADEFilterConfig, OPTIMADEFilterSession
+from oteapi_optimade.models.query import OPTIMADEQueryParameters
+from oteapi_optimade.utils import model2dict
+
 if TYPE_CHECKING:
-    from typing import Any, Dict, Optional
+    from typing import Any, Dict, Optional, Union
 
 
-class DemoDataModel(AttrDict):
-    """Demo filter data model."""
-
-    demo_data: List[int] = Field([], description="List of demo data.")
-
-
-class DemoFilterConfig(FilterConfig):
-    """Demo filter strategy filter config."""
-
-    configuration: DemoDataModel = Field(
-        DemoDataModel(), description="Demo filter data model."
-    )
-
-
-class SessionUpdateDemoFilter(SessionUpdate):
-    """Class for returning values from Download File strategy."""
-
-    key: str = Field(..., description="Key to access the data in the cache.")
+LOGGER = logging.getLogger("oteapi_optimade.strategies")
+LOGGER.setLevel(logging.DEBUG)
+LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 @dataclass
@@ -42,13 +31,22 @@ class OPTIMADEFilterStrategy:
 
     """
 
-    filter_config: DemoFilterConfig
+    filter_config: OPTIMADEFilterConfig
 
-    def initialize(self, session: "Optional[Dict[str, Any]]" = None) -> SessionUpdate:
+    def initialize(
+        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
+    ) -> OPTIMADEFilterSession:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
         Services.
+
+        Configuration values, specifically URL query parameters, can be provided to the
+        OPTIMADE resource strategy through this filter strategy.
+
+        Workflow:
+        1. Compile received information.
+        2. Update session with compiled information.
 
         Parameters:
             session: A session-specific dictionary context.
@@ -58,11 +56,35 @@ class OPTIMADEFilterStrategy:
             session-specific context from services.
 
         """
-        return SessionUpdate()
+        session = (
+            OPTIMADEFilterSession(**session) if session else OPTIMADEFilterSession()
+        )
+        if session.optimade_config:
+            self.filter_config.configuration.update(
+                model2dict(
+                    session.optimade_config, exclude_defaults=True, exclude_unset=True
+                )
+            )
 
-    def get(
-        self, session: "Optional[Dict[str, Any]]" = None
-    ) -> SessionUpdateDemoFilter:
+        optimade_config = self.filter_config.configuration.copy()
+
+        if not optimade_config.query_parameters:
+            optimade_config.query_parameters = OPTIMADEQueryParameters()
+
+        if self.filter_config.query:
+            LOGGER.debug("Setting filter from query.")
+            optimade_config.query_parameters.filter = self.filter_config.query
+
+        if self.filter_config.limit:
+            LOGGER.debug("Setting page_limit from limit.")
+            optimade_config.query_parameters.page_limit = self.filter_config.limit
+
+        return session.copy(update={"optimade_config": optimade_config})
+
+    def get(  # pylint: disable=no-self-use,unused-argument
+        self,
+        session: "Optional[Dict[str, Any]]" = None,
+    ) -> SessionUpdate:
         """Execute the strategy.
 
         This method will be called through the strategy-specific endpoint of the
@@ -76,4 +98,4 @@ class OPTIMADEFilterStrategy:
             session-specific context from services.
 
         """
-        return SessionUpdateDemoFilter(key=self.filter_config.configuration.demo_data)
+        return SessionUpdate()

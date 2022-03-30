@@ -100,7 +100,11 @@ class OPTIMADEResourceStrategy:
             OPTIMADEResourceSession(**session) if session else OPTIMADEResourceSession()
         )
         if session.optimade_config:
-            self.resource_config.configuration = session.optimade_config
+            self.resource_config.configuration.update(
+                model2dict(
+                    session.optimade_config, exclude_defaults=True, exclude_unset=True
+                )
+            )
 
         optimade_endpoint = self.resource_config.accessUrl.endpoint or "structures"
         optimade_query = (
