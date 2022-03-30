@@ -45,7 +45,7 @@ def test_get_no_session(
     """Test the `get()` method - session is `None`."""
     from optimade.adapters import Structure
 
-    from oteapi_optimade.models.resource import OPTIMADEResourceSession
+    from oteapi_optimade.models.strategies.resource import OPTIMADEResourceSession
     from oteapi_optimade.strategies.resource import OPTIMADEResourceStrategy
 
     sample_file = static_files / "optimade_response.json"
