@@ -86,7 +86,15 @@ class OPTIMADEParseStrategy:
             context from services.
 
         """
-        session = OPTIMADEParseSession(**session) if session else OPTIMADEParseSession()
+        if session and isinstance(session, dict):
+            session = OPTIMADEParseSession(**session)
+        elif session and isinstance(session, SessionUpdate):
+            session = OPTIMADEParseSession(
+                **model2dict(session, exclude_defaults=True, exclude_unset=True)
+            )
+        else:
+            session = OPTIMADEParseSession()
+
         if session.optimade_config:
             self.parse_config.configuration.update(
                 model2dict(
@@ -108,11 +116,13 @@ class OPTIMADEParseStrategy:
             download_config = self.parse_config.copy()
             session.update(
                 create_strategy(StrategyType.DOWNLOAD, download_config).initialize(
-                    session
+                    model2dict(session, exclude_defaults=True, exclude_unset=True)
                 )
             )
             session.update(
-                create_strategy(StrategyType.DOWNLOAD, download_config).get(session)
+                create_strategy(StrategyType.DOWNLOAD, download_config).get(
+                    model2dict(session, exclude_defaults=True, exclude_unset=True)
+                )
             )
 
             response = {"json": json.loads(cache.get(session.pop("key")))}
@@ -184,4 +194,20 @@ class OPTIMADEParseStrategy:
             session.optimade_response_object = response_object
         else:
             session.optimade_response = model2dict(response_object)
+
+        if session.optimade_config and session.optimade_config.query_parameters:
+            session = session.copy(
+                update={
+                    "optimade_config": session.optimade_config.copy(
+                        update={
+                            "query_parameters": model2dict(
+                                session.optimade_config.query_parameters,
+                                exclude_defaults=True,
+                                exclude_unset=True,
+                            )
+                        }
+                    )
+                }
+            )
+
         return session

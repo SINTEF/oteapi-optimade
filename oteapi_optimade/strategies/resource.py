@@ -69,7 +69,7 @@ class OPTIMADEResourceStrategy:
         """
         return SessionUpdate()
 
-    def get(  # pylint: disable=too-many-branches
+    def get(  # pylint: disable=too-many-branches,too-many-statements
         self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
     ) -> OPTIMADEResourceSession:
         """Execute an OPTIMADE query to `accessUrl`.
@@ -96,9 +96,15 @@ class OPTIMADEResourceStrategy:
             context from services.
 
         """
-        session = (
-            OPTIMADEResourceSession(**session) if session else OPTIMADEResourceSession()
-        )
+        if session and isinstance(session, dict):
+            session = OPTIMADEResourceSession(**session)
+        elif session and isinstance(session, SessionUpdate):
+            session = OPTIMADEResourceSession(
+                **model2dict(session, exclude_defaults=True, exclude_unset=True)
+            )
+        else:
+            session = OPTIMADEResourceSession()
+
         if session.optimade_config:
             self.resource_config.configuration.update(
                 model2dict(
@@ -130,7 +136,7 @@ class OPTIMADEResourceStrategy:
             f"{'/' + self.resource_config.accessUrl.version if self.resource_config.accessUrl.version else '/v1'}"  # pylint: disable=line-too-long
             f"/{optimade_endpoint}?{optimade_query.generate_query_string()}"
         )
-        LOGGER.debug("OPTIMADE URL will be requests: %s", optimade_url)
+        LOGGER.debug("OPTIMADE URL to be requested: %s", optimade_url)
 
         # Set cache access key to the full OPTIMADE URL.
         self.resource_config.configuration.datacache_config.accessKey = optimade_url
@@ -166,9 +172,15 @@ class OPTIMADEResourceStrategy:
         }
 
         session.update(
-            create_strategy(StrategyType.PARSE, parse_config).initialize(session)
+            create_strategy(StrategyType.PARSE, parse_config).initialize(
+                model2dict(session, exclude_defaults=True, exclude_unset=True)
+            )
         )
-        session.update(create_strategy(StrategyType.PARSE, parse_config).get(session))
+        session.update(
+            create_strategy(StrategyType.PARSE, parse_config).get(
+                model2dict(session, exclude_defaults=True, exclude_unset=True)
+            )
+        )
 
         if "optimade_response_object" not in session:
             raise ValueError(
@@ -229,5 +241,20 @@ class OPTIMADEResourceStrategy:
         session.optimade_resources = [
             model2dict(resource) for resource in optimade_resources
         ]
+
+        if session.optimade_config and session.optimade_config.query_parameters:
+            session = session.copy(
+                update={
+                    "optimade_config": session.optimade_config.copy(
+                        update={
+                            "query_parameters": model2dict(
+                                session.optimade_config.query_parameters,
+                                exclude_defaults=True,
+                                exclude_unset=True,
+                            )
+                        }
+                    )
+                }
+            )
 
         return session

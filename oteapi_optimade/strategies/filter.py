@@ -56,9 +56,15 @@ class OPTIMADEFilterStrategy:
             session-specific context from services.
 
         """
-        session = (
-            OPTIMADEFilterSession(**session) if session else OPTIMADEFilterSession()
-        )
+        if session and isinstance(session, dict):
+            session = OPTIMADEFilterSession(**session)
+        elif session and isinstance(session, SessionUpdate):
+            session = OPTIMADEFilterSession(
+                **model2dict(session, exclude_defaults=True, exclude_unset=True)
+            )
+        else:
+            session = OPTIMADEFilterSession()
+
         if session.optimade_config:
             self.filter_config.configuration.update(
                 model2dict(
@@ -79,7 +85,19 @@ class OPTIMADEFilterStrategy:
             LOGGER.debug("Setting page_limit from limit.")
             optimade_config.query_parameters.page_limit = self.filter_config.limit
 
-        return session.copy(update={"optimade_config": optimade_config})
+        return session.copy(
+            update={
+                "optimade_config": optimade_config.copy(
+                    update={
+                        "query_parameters": model2dict(
+                            optimade_config.query_parameters,
+                            exclude_defaults=True,
+                            exclude_unset=True,
+                        )
+                    }
+                )
+            },
+        )
 
     def get(  # pylint: disable=no-self-use,unused-argument
         self,
