@@ -43,6 +43,8 @@ def main(oteapi_url: str) -> None:
 
     The test information is taken from here:
     https://github.com/Materials-Consortia/optimade-python-tools/blob/master/tests/server/query_params/test_filter.py#L52
+    and here:
+    https://github.com/Materials-Consortia/optimade-python-tools/blob/master/tests/server/query_params/test_filter.py#L391
 
     """
     from optimade.adapters import Structure
@@ -62,7 +64,7 @@ def main(oteapi_url: str) -> None:
 
     source = client.create_dataresource(
         accessService="OPTIMADE",
-        accessUrl="http://optimade:5000/structures",
+        accessUrl="http://optimade:5000/",
         configuration=config,
     )
 
@@ -78,10 +80,43 @@ def main(oteapi_url: str) -> None:
     assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
     assert len(session.optimade_resources) == 2
 
-    results = []
     for resource in tuple(session.optimade_resources):
-        results.append(Structure(resource))
-        assert results[-1].id in ["mpf_1", "mpf_110"]
+        parsed_resource = Structure(resource)
+        assert parsed_resource.id in ["mpf_1", "mpf_110"]
+
+    # Use a filter strategy
+    query = client.create_filter(
+        filterType="OPTIMADE",
+        query='NOT( elements HAS "Ag" AND nelements>1 )',
+        limit=4,
+        configuration=config,
+    )
+
+    pipeline = query >> source
+    session = pipeline.get()
+
+    try:
+        # Should be an OPTIMADEResourceSession because `source` is last in the pipeline
+        session = OPTIMADEResourceSession(**json.loads(session))
+    except ValidationError as exc_:
+        raise RuntimeError(
+            "Could not parse returned session as an OPTIMADEResourceStrategy."
+        ) from exc_
+
+    assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
+    assert len(session.optimade_resources) == 4
+
+    for resource in tuple(session.optimade_resources):
+        parsed_resource = Structure(resource)
+        assert parsed_resource.id in [
+            "mpf_1",
+            "mpf_23",
+            "mpf_30",
+            "mpf_110",
+            "mpf_3803",
+            "mpf_3819",
+            "mpf_200",
+        ]
 
 
 if __name__ == "__main__":

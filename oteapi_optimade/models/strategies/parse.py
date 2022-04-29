@@ -41,7 +41,7 @@ class OPTIMADEParseConfig(ResourceConfig):
 
 
 class OPTIMADEParseSession(SessionUpdate):
-    """OPTIMADE session for the resource strategy."""
+    """OPTIMADE session for the parse strategy."""
 
     optimade_config: Optional[OPTIMADEConfig] = Field(
         None,
