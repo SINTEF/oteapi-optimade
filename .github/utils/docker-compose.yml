@@ -15,6 +15,7 @@ services:
       - redis
     networks:
       - otenet
+      - hostnet
     volumes:
       - "${PWD}:/oteapi-optimade"
     entrypoint: /bin/bash -c "pip install -v -e /oteapi-optimade && ./entrypoint.sh"
@@ -53,5 +54,6 @@ volumes:
 
 networks:
   otenet:
+  hostnet:
     external: true
     name: host
