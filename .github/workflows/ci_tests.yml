@@ -178,6 +178,8 @@ jobs:
         curl -o docker-compose https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64
         chmod +x docker-compose
         sudo mkdir -p /usr/lib/docker/cli-plugins
+        mkdir -p /usr/local/bin
+        sudo cp -f docker-compose /usr/local/bin
         sudo mv -f docker-compose /usr/lib/docker/cli-plugins
         which docker-compose
 
