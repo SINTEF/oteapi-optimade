@@ -174,7 +174,12 @@ jobs:
         python-version: "3.9"
 
     - name: Install docker-compose from pip
-      run: pip install -U docker-compose
+      run: |
+        curl -o docker-compose https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64
+        chmod +x docker-compose
+        mkdir -p /usr/lib/docker/cli-plugins
+        mv -f docker-compose /usr/lib/docker/cli-plugins
+        which docker-compose
 
     - name: Install python dependencies
       run: |
