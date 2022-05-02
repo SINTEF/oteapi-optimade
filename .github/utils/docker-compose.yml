@@ -15,7 +15,6 @@ services:
       - redis
     networks:
       - otenet
-      - default
     volumes:
       - "${PWD}:/oteapi-optimade"
     entrypoint: /bin/bash -c "pip install -v -e /oteapi-optimade && ./entrypoint.sh"
@@ -54,5 +53,5 @@ volumes:
 
 networks:
   otenet:
-  default:
-    driver: host
+
+network_mode: host
