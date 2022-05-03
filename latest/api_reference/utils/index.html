@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://SINTEF.github.io/oteapi-optimade/latest/api_reference/utils/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
     
     
       
@@ -21,10 +21,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e411adfe.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cc9b2e1e.min.css">
         
           
           
@@ -764,7 +764,7 @@ Note, this will be used for <em>all</em> <code>dict()</code> method calls.</p></
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/utils.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
@@ -802,7 +802,7 @@ Note, this will be used for <em>all</em> <code>dict()</code> method calls.</p></
 <span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
-<span class="normal">49</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">model2dict</span><span class="p">(</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">model2dict</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Union[BaseModel, dict[str, Any]]&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">dict_kwargs</span><span class="p">:</span> <span class="s2">&quot;Any&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;dict[str, Any]&quot;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Convert a pydantic model to a Python dictionary.</span>
@@ -841,8 +841,7 @@ Note, this will be used for <em>all</em> <code>dict()</code> method calls.</p></
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;model must be either a pydantic model or a dict.&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">_internal</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
         </details>
     </div>
 
@@ -950,7 +949,7 @@ Note, this will be used for <em>all</em> <code>dict()</code> method calls.</p></
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
+      <script src="../../assets/javascripts/bundle.ed9748b7.min.js"></script>
       
     
   </body>
