@@ -229,7 +229,7 @@ jobs:
           --network "host" \
           --volume "${PWD}:/oteapi-optimade" \
           --entrypoint "/bin/bash -c \"pip install -v -e /oteapi-optimade && ./entrypoint.sh\"" \
-          oteapi:${DOCKER_OTEAPI_VERSION} &
+          ghcr.io/emmc-asbl/oteapi:${DOCKER_OTEAPI_VERSION} &
 
         .github/utils/wait_for_it.sh localhost:8080 -t 240
         sleep 15
