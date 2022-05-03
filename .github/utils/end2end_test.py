@@ -64,7 +64,7 @@ def main(oteapi_url: str) -> None:
 
     source = client.create_dataresource(
         accessService="OPTIMADE",
-        accessUrl="http://localhost:5000/",
+        accessUrl=f"http://localhost:{os.getenv('OPTIMADE_PORT', '5000')}/",
         configuration=config,
     )
 
