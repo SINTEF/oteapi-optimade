@@ -212,7 +212,7 @@ jobs:
           --env "MAIN=main" \
           --env "OPTIMADE_CONFIG_FILE=/app/config.json" \
           --publish "${OPTIMADE_PORT}:5000" \
-          optimade:latest
+          optimade:latest &
 
         .github/utils/wait_for_it.sh localhost:${OPTIMADE_PORT} -t 240
         sleep 15
@@ -229,7 +229,7 @@ jobs:
           --network "host" \
           --volume "${PWD}:/oteapi-optimade" \
           --entrypoint "/bin/bash -c \"pip install -v -e /oteapi-optimade && ./entrypoint.sh\"" \
-          oteapi:${DOCKER_OTEAPI_VERSION}
+          oteapi:${DOCKER_OTEAPI_VERSION} &
 
         .github/utils/wait_for_it.sh localhost:8080 -t 240
         sleep 15
