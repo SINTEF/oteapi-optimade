@@ -205,19 +205,22 @@ jobs:
         docker build \
           --build-arg "CONFIG_FILE=.docker/docker_config.json" \
           --build-arg "PORT=5000" \
-          --tag "optimade:latest"
+          --tag "optimade:latest" \
           /tmp/optimade-python-tools
+
         docker run \
           --env "MAIN=main" \
           --env "OPTIMADE_CONFIG_FILE=/app/config.json" \
           --publish "${OPTIMADE_PORT}:5000" \
           optimade:latest
+
         .github/utils/wait_for_it.sh localhost:${OPTIMADE_PORT} -t 240
         sleep 15
 
     - name: Run OTEAPI Service
       run: |
         docker pull ghcr.io/emmc-asbl/oteapi:${DOCKER_OTEAPI_VERSION}
+
         docker run \
           --env "OTEAPI_REDIS_TYPE=redis" \
           --env "OTEAPI_REDIS_HOST=redis" \
@@ -227,6 +230,7 @@ jobs:
           --volume "${PWD}:/oteapi-optimade" \
           --entrypoint "/bin/bash -c \"pip install -v -e /oteapi-optimade && ./entrypoint.sh\"" \
           oteapi:${DOCKER_OTEAPI_VERSION}
+
         .github/utils/wait_for_it.sh localhost:8080 -t 240
         sleep 15
       env:
