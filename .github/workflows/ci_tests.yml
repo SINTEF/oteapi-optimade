@@ -156,12 +156,19 @@ jobs:
   pytest-real-backend:
     runs-on: ubuntu-latest
     name: pytest-real backend
-    # timeout-minutes: 15
 
     env:
-      PORT: 8080
+      OTEAPI_PORT: 8080
       OPTIMADE_PORT: 5000
       OTEAPI_prefix: "/api/v1"
+
+    services:
+      redis:
+        image: redis:latest
+        volumes:
+          - redis-persist:/data
+        ports:
+          - "6379:6379"
 
     steps:
     - uses: actions/checkout@v3
@@ -182,13 +189,40 @@ jobs:
     - name: Retrieve OPT for a test OPTIMADE server
       run: git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools /tmp/optimade-python-tools
 
-    - name: Run services
+    - name: Run OPTIMADE server
       run: |
-        docker-compose -f .github/utils/docker-compose.yml pull
-        docker-compose -f .github/utils/docker-compose.yml build
-        docker-compose -f .github/utils/docker-compose.yml up &
-        .github/utils/wait_for_it.sh localhost:${PORT} -t 240
-        sleep 30
+        docker build \
+          --build-arg "CONFIG_FILE=.docker/docker_config.json" \
+          --build-arg "PORT=5000" \
+          --tag "optimade:latest" \
+          /tmp/optimade-python-tools
+
+        docker run \
+          --env "MAIN=main" \
+          --env "OPTIMADE_CONFIG_FILE=/app/config.json" \
+          --publish "${OPTIMADE_PORT}:5000" \
+          optimade:latest &
+
+        .github/utils/wait_for_it.sh localhost:${OPTIMADE_PORT} -t 240
+        sleep 10
+
+    - name: Run OTEAPI Service
+      run: |
+        docker pull ghcr.io/emmc-asbl/oteapi:${DOCKER_OTEAPI_VERSION}
+
+        docker run \
+          --env "OTEAPI_REDIS_TYPE=redis" \
+          --env "OTEAPI_REDIS_HOST=localhost" \
+          --env "OTEAPI_REDIS_PORT=6379" \
+          --env "OTEAPI_prefix=${OTEAPI_prefix}" \
+          --network "host" \
+          --volume "$(pwd):/oteapi-optimade" \
+          --entrypoint "" \
+          ghcr.io/emmc-asbl/oteapi:${DOCKER_OTEAPI_VERSION} \
+          /bin/bash -c "pip install -v -e /oteapi-optimade && ./entrypoint.sh" &
+
+        .github/utils/wait_for_it.sh localhost:${OTEAPI_PORT} -t 240
+        sleep 5
       env:
         DOCKER_OTEAPI_VERSION: latest
 
