@@ -1,5 +1,31 @@
 # Changelog
 
+## [v0.2.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.2.0) (2022-05-18)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.1.0...v0.2.0)
+
+**Implemented enhancements:**
+
+- Implement OPTIMADE filter strategy [\#4](https://github.com/SINTEF/oteapi-optimade/issues/4)
+
+**Fixed bugs:**
+
+- CI docker connection issues [\#34](https://github.com/SINTEF/oteapi-optimade/issues/34)
+
+**Closed issues:**
+
+- Use the `optimade` container image in CI [\#41](https://github.com/SINTEF/oteapi-optimade/issues/41)
+- Extend acknowledgements in README [\#38](https://github.com/SINTEF/oteapi-optimade/issues/38)
+
+**Merged pull requests:**
+
+- Use the optimade container image in CI [\#42](https://github.com/SINTEF/oteapi-optimade/pull/42) ([CasperWA](https://github.com/CasperWA))
+- \[Auto-generated\] Update dependencies [\#40](https://github.com/SINTEF/oteapi-optimade/pull/40) ([TEAM4-0](https://github.com/TEAM4-0))
+- Add VIPCOAT and OpenModel to README ack [\#39](https://github.com/SINTEF/oteapi-optimade/pull/39) ([CasperWA](https://github.com/CasperWA))
+- Fix real backend CI job [\#37](https://github.com/SINTEF/oteapi-optimade/pull/37) ([CasperWA](https://github.com/CasperWA))
+- \[Auto-generated\] Update dependencies [\#36](https://github.com/SINTEF/oteapi-optimade/pull/36) ([TEAM4-0](https://github.com/TEAM4-0))
+- Add a Filter strategy [\#33](https://github.com/SINTEF/oteapi-optimade/pull/33) ([CasperWA](https://github.com/CasperWA))
+
 ## [v0.1.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.1.0) (2022-03-29)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.0.2...v0.1.0)
