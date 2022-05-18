@@ -172,9 +172,9 @@ jobs:
       optimade:
         image: ghcr.io/materials-consortia/optimade:develop
         ports:
-          - "${{ env.OPTIMADE_PORT }}:5000"
+          - "5000:5000"  # the first value should equal `OPTIMADE_PORT`
         env:
-          OPTIMADE_BASE_URL: "http://localhost:${{ env.OPTIMADE_PORT }}"
+          OPTIMADE_BASE_URL: "http://localhost:5000"  # port value should equal `OPTIMADE_PORT`
 
     steps:
     - uses: actions/checkout@v3
