@@ -169,6 +169,12 @@ jobs:
           - redis-persist:/data
         ports:
           - "6379:6379"
+      optimade:
+        image: ghcr.io/materials-consortia/optimade:develop
+        ports:
+          - "${{ env.OPTIMADE_PORT }}:5000"
+        env:
+          OPTIMADE_BASE_URL: "http://localhost:${{ env.OPTIMADE_PORT }}"
 
     steps:
     - uses: actions/checkout@v3
@@ -186,37 +192,16 @@ jobs:
         pip install -U setuptools wheel flit
         pip install -e .[dev]
 
-    - name: Retrieve OPT for a test OPTIMADE server
-      run: git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools /tmp/optimade-python-tools
-
-    - name: Run OPTIMADE server
-      run: |
-        docker build \
-          --build-arg "CONFIG_FILE=.docker/docker_config.json" \
-          --build-arg "PORT=5000" \
-          --tag "optimade:latest" \
-          /tmp/optimade-python-tools
-
-        docker run \
-          --env "MAIN=main" \
-          --env "OPTIMADE_CONFIG_FILE=/app/config.json" \
-          --publish "${OPTIMADE_PORT}:5000" \
-          optimade:latest &
-
-        .github/utils/wait_for_it.sh localhost:${OPTIMADE_PORT} -t 240
-        sleep 10
-
     - name: Run OTEAPI Service
       run: |
         docker pull ghcr.io/emmc-asbl/oteapi:${DOCKER_OTEAPI_VERSION}
-
         docker run \
           --env "OTEAPI_REDIS_TYPE=redis" \
           --env "OTEAPI_REDIS_HOST=localhost" \
           --env "OTEAPI_REDIS_PORT=6379" \
           --env "OTEAPI_prefix=${OTEAPI_prefix}" \
           --network "host" \
-          --volume "$(pwd):/oteapi-optimade" \
+          --volume "${PWD}:/oteapi-optimade" \
           --entrypoint "" \
           ghcr.io/emmc-asbl/oteapi:${DOCKER_OTEAPI_VERSION} \
           /bin/bash -c "pip install -v -e /oteapi-optimade && ./entrypoint.sh" &
