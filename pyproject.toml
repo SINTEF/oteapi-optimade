@@ -26,42 +26,42 @@ requires-python = "~=3.9"
 dynamic = ["version"]
 
 dependencies = [
-    "optimade[server] ~=0.16",
+    "optimade[server] ~=0.18",
     "oteapi-core ~=0.1",
-    "requests ~=2.27",
+    "requests ~=2.28",
 ]
 
 [project.optional-dependencies]
 doc = [
-    "invoke ~=1.6",
+    "invoke ~=1.7",
     "mike ~=1.1",
-    "mkdocs ~=1.2",
+    "mkdocs ~=1.3",
     "mkdocs-awesome-pages-plugin ~=2.7",
-    "mkdocs-material ~=8.2",
-    "mkdocstrings[python] ~=0.18.0",
+    "mkdocs-material ~=8.3",
+    "mkdocstrings[python] ~=0.19.0",
 ]
 test = [
-    "pytest ~=7.0",
+    "pytest ~=7.1",
     "pytest-cov ~=3.0",
     "pyyaml ~=6.0",
     "requests-mock ~=1.9",
 ]
 pre-commit = [
-    "invoke ~=1.6",
-    "pre-commit ~=2.17",
-    "pylint ~=2.12",
+    "invoke ~=1.7",
+    "pre-commit ~=2.19",
+    "pylint ~=2.14",
 ]
 dev = [
-    "invoke ~=1.6",
+    "invoke ~=1.7",
     "mike ~=1.1",
-    "mkdocs ~=1.2",
+    "mkdocs ~=1.3",
     "mkdocs-awesome-pages-plugin ~=2.7",
-    "mkdocs-material ~=8.2",
-    "mkdocstrings[python] ~=0.18.0",
+    "mkdocs-material ~=8.3",
+    "mkdocstrings[python] ~=0.19.0",
     "otelib ~=0.1",
-    "pre-commit ~=2.17",
-    "pylint ~=2.12",
-    "pytest ~=7.0",
+    "pre-commit ~=2.19",
+    "pylint ~=2.14",
+    "pytest ~=7.1",
     "pytest-cov ~=3.0",
     "pyyaml ~=6.0",
     "requests-mock ~=1.9",
