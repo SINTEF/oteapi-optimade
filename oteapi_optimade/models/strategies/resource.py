@@ -1,5 +1,4 @@
 """Models specific to the resource strategy."""
-# pylint: disable=no-self-use
 from typing import Any, Dict, List, Literal, Optional
 
 from oteapi.models import ResourceConfig, SessionUpdate

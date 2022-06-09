@@ -99,7 +99,7 @@ class OPTIMADEFilterStrategy:
             },
         )
 
-    def get(  # pylint: disable=no-self-use,unused-argument
+    def get(  # pylint: disable=unused-argument
         self,
         session: "Optional[Dict[str, Any]]" = None,
     ) -> SessionUpdate:
