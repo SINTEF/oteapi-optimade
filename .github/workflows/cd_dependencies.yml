@@ -49,6 +49,7 @@ jobs:
           git commit -m "Update dependencies"
         else
           echo "UPDATE_DEPS=false" >> $GITHUB_ENV
+        fi
 
     - name: Fetch PR body
       if: env.UPDATE_DEPS == 'true'
