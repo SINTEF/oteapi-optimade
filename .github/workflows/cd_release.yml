@@ -11,7 +11,6 @@ env:
   GIT_USER_EMAIL: "Team4.0@SINTEF.no"
 
 jobs:
-
   update-and-publish:
     name: Update CHANGELOG and version and publish to PyPI
     runs-on: ubuntu-latest
