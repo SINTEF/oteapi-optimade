@@ -53,10 +53,10 @@ jobs:
         pip install safety
 
     - name: Run pylint
-      run: pylint --rcfile=pyproject.toml --ignore-paths=tests/ --extension-pkg-whitelist='pydantic' -- *.py oteapi_optimade
+      run: pylint --rcfile=pyproject.toml --ignore-paths=tests/ --extension-pkg-whitelist='pydantic' *.py oteapi_optimade
 
     - name: Run pylint - tests
-      run: pylint --rcfile=pyproject.toml --extension-pkg-whitelist='pydantic' --disable=import-outside-toplevel,redefined-outer-name -- tests
+      run: pylint --rcfile=pyproject.toml --extension-pkg-whitelist='pydantic' --disable=import-outside-toplevel,redefined-outer-name tests
 
     # Ignore ID 44715 for now.
     # See this NumPy issue for more information: https://github.com/numpy/numpy/issues/19038
