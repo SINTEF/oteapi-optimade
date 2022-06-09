@@ -1,5 +1,4 @@
 """General OPTIMADE configuration models."""
-# pylint: disable=no-self-use
 from typing import Literal, Optional
 
 from oteapi.models import AttrDict, DataCacheConfig

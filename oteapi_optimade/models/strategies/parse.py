@@ -1,5 +1,4 @@
 """Models specific to the parse strategy."""
-# pylint: disable=no-self-use
 from typing import Any, Dict, Literal, Optional
 
 from optimade.models import Response
