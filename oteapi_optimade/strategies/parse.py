@@ -45,7 +45,7 @@ class OPTIMADEParseStrategy:
 
     parse_config: OPTIMADEParseConfig
 
-    def initialize(  # pylint: disable=no-self-use,unused-argument
+    def initialize(  # pylint: disable=unused-argument
         self, session: "Optional[Dict[str, Any]]" = None
     ) -> SessionUpdate:
         """Initialize strategy.
