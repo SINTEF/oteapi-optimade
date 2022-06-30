@@ -7,20 +7,15 @@ on:
   workflow_dispatch:
   pull_request:
 
-env:
-  DEPENDENCIES_BRANCH: ci/dependency-updates
-  GIT_USER_NAME: "TEAM 4.0[bot]"
-  GIT_USER_EMAIL: "Team4.0@SINTEF.no"
-
 jobs:
   check-dependencies:
     name: Check & update dependencies
     uses: CasperWA/gh-actions/.github/workflows/ci_check_pyproject_dependencies.yml@main
     if: github.repository_owner == 'SINTEF'
     with:
-      git_username: ${{ env.GIT_USER_NAME }}
-      git_email: ${{ env.GIT_USER_EMAIL }}
-      permanent_dependencies_branch: ${{ env.DEPENDENCIES_BRANCH }}
+      git_username: "TEAM 4.0[bot]"
+      git_email: "Team4.0@SINTEF.no"
+      permanent_dependencies_branch: "ci/dependency-updates"
       python_version: "3.9"
       install_extras: "[dev]"
       pr_body_file: ".github/utils/pyproject_toml_update_pr_body.txt"
