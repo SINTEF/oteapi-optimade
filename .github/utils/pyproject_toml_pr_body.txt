@@ -1,3 +1,0 @@
-### Update dependencies (`pyproject.toml`)
-
-Automatically created PR from the [`cd_dependencies.yml` workflow](https://github.com/SINTEF/oteapi-optimade/blob/main/.github/workflows/cd_dependencies.yml).
