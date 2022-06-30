@@ -15,7 +15,7 @@ jobs:
     with:
       git_username: "TEAM 4.0[bot]"
       git_email: "Team4.0@SINTEF.no"
-      permanent_dependencies_branch: "ci/dependency-updates"
+      permanent_dependencies_branch: "cwa/use-CasperWA/gh-actions"  # "ci/dependency-updates"
       python_version: "3.9"
       install_extras: "[dev]"
       pr_body_file: ".github/utils/pyproject_toml_update_pr_body.txt"
