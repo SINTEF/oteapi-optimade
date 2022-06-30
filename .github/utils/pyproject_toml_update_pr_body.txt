@@ -1,0 +1,3 @@
+### Update dependencies ()
+
+Automatically created PR based on the [ workflow](https://github.com/CasperWA/gh-actions/blob/main/.github/workflows/ci_check_pyproject_dependencies.yml) in [CasperWA/gh-actions](https://github.com/CasperWA/gh-actions).
