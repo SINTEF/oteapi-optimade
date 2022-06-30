@@ -11,7 +11,7 @@ on:
 
 jobs:
   check-dependencies:
-    # name: Check & update dependencies
+    name: ""
     uses: CasperWA/gh-actions/.github/workflows/ci_check_pyproject_dependencies.yml@main
     if: github.repository_owner == 'SINTEF'
     with:
