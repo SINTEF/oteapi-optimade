@@ -5,9 +5,6 @@ on:
     # At 7:30 every Monday (5:30 UTC)
     - cron: "30 5 * * 1"
   workflow_dispatch:
-  push:
-    branches:
-      - "cwa/use-CasperWA/gh-actions"
 
 jobs:
   check-dependencies:
@@ -17,7 +14,7 @@ jobs:
     with:
       git_username: "TEAM 4.0[bot]"
       git_email: "Team4.0@SINTEF.no"
-      permanent_dependencies_branch: "cwa/use-CasperWA/gh-actions"  # "ci/dependency-updates"
+      permanent_dependencies_branch: "ci/dependency-updates"
       python_version: "3.9"
       install_extras: "[dev]"
       pr_labels: "CI/CD"
