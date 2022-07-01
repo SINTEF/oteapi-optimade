@@ -17,7 +17,7 @@ jobs:
       package_dir: oteapi_optimade
       git_username: "TEAM 4.0[bot]"
       git_email: "Team4.0@SINTEF.no"
-      release_branch: main
+      release_branch: cwa/use-CasperWA/gh-actions  # main
       install_extras: "[dev]"
       python_version: "3.9"
       update_docs: true
