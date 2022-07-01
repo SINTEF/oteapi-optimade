@@ -1,9 +1,12 @@
 name: CD - Publish
 
 on:
-  release:
-    types:
-    - published
+  # release:
+  #   types:
+  #   - published
+  push:
+    tags:
+      - "v0.2.1-alpha.*"
 
 jobs:
   publish-package-and-docs:
@@ -20,8 +23,9 @@ jobs:
       update_docs: true
       doc_extras: "[doc]"
       build_cmd: "pip install -U flit && flit build"
+      test: true
     secrets:
-      PyPI_token: ${{ secrets.PYPI_TOKEN }}
+      PyPI_token: ${{ secrets.TESTPYPI_TOKEN }}
       release_PAT: ${{ secrets.RELEASE_PAT }}
 
 

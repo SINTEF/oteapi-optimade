@@ -28,35 +28,35 @@ def update_file(filename: Path, sub_line: "Tuple[str, str]", strip: str = None) 
     filename.write_text("\n".join(lines) + "\n", encoding="utf8")
 
 
-@task(help={"version": "oteapi-optimade version to set"})
-def setver(_, version=""):
-    """Sets the oteapi-optimade version."""
-    match = re.fullmatch(
-        (
-            r"v?(?P<version>[0-9]+(\.[0-9]+){2}"  # Major.Minor.Patch
-            r"(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?"  # pre-release
-            r"(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?)"  # build metadata
-        ),
-        version,
-    )
-    if not match:
-        sys.exit(
-            "Error: Please specify version as "
-            "'Major.Minor.Patch(-Pre-Release+Build Metadata)' or "
-            "'vMajor.Minor.Patch(-Pre-Release+Build Metadata)'"
-        )
-    version = match.group("version")
+# @task(help={"version": "oteapi-optimade version to set"})
+# def setver(_, version=""):
+#     """Sets the oteapi-optimade version."""
+#     match = re.fullmatch(
+#         (
+#             r"v?(?P<version>[0-9]+(\.[0-9]+){2}"  # Major.Minor.Patch
+#             r"(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?"  # pre-release
+#             r"(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?)"  # build metadata
+#         ),
+#         version,
+#     )
+#     if not match:
+#         sys.exit(
+#             "Error: Please specify version as "
+#             "'Major.Minor.Patch(-Pre-Release+Build Metadata)' or "
+#             "'vMajor.Minor.Patch(-Pre-Release+Build Metadata)'"
+#         )
+#     version = match.group("version")
 
-    update_file(
-        TOP_DIR / "oteapi_optimade" / "__init__.py",
-        (r'__version__ = (\'|").*(\'|")', f'__version__ = "{version}"'),
-    )
-    update_file(
-        TOP_DIR / "tests" / "static" / "test_optimade_config.yml",
-        (r"version: ('|\").*('|\")", f'version: "{version}"'),
-    )
+#     update_file(
+#         TOP_DIR / "oteapi_optimade" / "__init__.py",
+#         (r'__version__ = (\'|").*(\'|")', f'__version__ = "{version}"'),
+#     )
+#     update_file(
+#         TOP_DIR / "tests" / "static" / "test_optimade_config.yml",
+#         (r"version: ('|\").*('|\")", f'version: "{version}"'),
+#     )
 
-    print(f"Bumped version to {version}.")
+#     print(f"Bumped version to {version}.")
 
 
 @task(
