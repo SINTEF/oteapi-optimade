@@ -33,7 +33,7 @@ dependencies = [
 
 [project.optional-dependencies]
 doc = [
-    "invoke ~=1.6",
+    "invoke ~=1.7",
     "mike ~=1.1",
     "mkdocs ~=1.3",
     "mkdocs-awesome-pages-plugin ~=2.7",
@@ -47,12 +47,12 @@ test = [
     "requests-mock ~=1.9",
 ]
 pre-commit = [
-    "invoke ~=1.6",
+    "invoke ~=1.7",
     "pre-commit ~=2.19",
     "pylint ~=2.14",
 ]
 dev = [
-    "invoke ~=1.6",
+    "invoke ~=1.7",
     "mike ~=1.1",
     "mkdocs ~=1.3",
     "mkdocs-awesome-pages-plugin ~=2.7",
