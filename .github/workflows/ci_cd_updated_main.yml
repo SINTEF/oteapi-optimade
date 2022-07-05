@@ -2,7 +2,7 @@ name: CI/CD - New updates to 'main'
 
 on:
   push:
-    branches: [main]
+    branches: [main, "cwa/fix-64-properly-create-API-reference"]
 
 jobs:
   update-deps-branch-and-docs:
@@ -21,5 +21,6 @@ jobs:
       python_version: "3.9"
       doc_extras: "[doc]"
       full_docs_dirs: models
+      test: true
     secrets:
       PAT: ${{ secrets.RELEASE_PAT }}
