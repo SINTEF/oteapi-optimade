@@ -136,6 +136,8 @@ jobs:
     - name: Checkout CasperWA/gh-actions
       uses: actions/checkout@v3
       with:
+        repository: CasperWA/gh-actions
+        ref: main
         path: gh-actions
 
     - name: Set up Python 3.9
