@@ -8,3 +8,4 @@ updates:
   target-branch: ci/dependency-updates
   labels:
     - CI/CD
+    - skip_changelog
