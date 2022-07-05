@@ -1,4 +1,4 @@
-name: CI - Check dependencies
+name: CI - Check dependencies PR
 
 on:
   schedule:
@@ -17,6 +17,6 @@ jobs:
       permanent_dependencies_branch: "ci/dependency-updates"
       python_version: "3.9"
       install_extras: "[dev]"
-      pr_labels: "CI/CD"
+      pr_labels: "CI/CD,skip_changelog"
     secrets:
-      release_PAT: ${{ secrets.RELEASE_PAT }}
+      PAT: ${{ secrets.RELEASE_PAT }}

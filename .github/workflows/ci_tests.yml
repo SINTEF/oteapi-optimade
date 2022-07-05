@@ -8,10 +8,8 @@ on:
       - 'push-action/**'  # Allow pushing to protected branches (using CasperWA/push-protected)
 
 jobs:
-
   pre-commit:
     runs-on: ubuntu-latest
-    # timeout-minutes: 2
 
     steps:
     - name: Checkout oteapi-optimade
@@ -67,7 +65,6 @@ jobs:
   pytest:
     name: pytest (${{ matrix.os[1] }}-py${{ matrix.python-version }})
     runs-on: ${{ matrix.os[0] }}
-    # timeout-minutes: 15
 
     strategy:
       fail-fast: false
@@ -107,7 +104,6 @@ jobs:
   build-package:
     name: Build distribution package
     runs-on: ubuntu-latest
-    # timeout-minutes: 5
 
     steps:
     - name: Checkout oteapi-optimade
