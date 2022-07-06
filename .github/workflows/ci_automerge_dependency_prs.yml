@@ -7,7 +7,7 @@ on:
 jobs:
   update-dependencies-branch:
     name: Call external workflow
-    uses: CasperWA/gh-actions/.github/workflows/ci_automerge_prs.yml@main
+    uses: CasperWA/ci-cd/.github/workflows/ci_automerge_prs.yml@main
     if: github.repository_owner == 'SINTEF' && ( ( startsWith(github.event.pull_request.head.ref, 'dependabot/') && github.actor == 'dependabot[bot]' ) || ( github.event.pull_request.head.ref == 'ci/update-pyproject' && github.actor == 'TEAM4-0' ) )
     secrets:
       PAT: ${{ secrets.RELEASE_PAT }}

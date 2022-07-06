@@ -133,10 +133,10 @@ jobs:
         fetch-depth: 2
         path: main
 
-    - name: Checkout CasperWA/gh-actions
+    - name: Checkout CasperWA/ci-cd
       uses: actions/checkout@v3
       with:
-        repository: CasperWA/gh-actions
+        repository: CasperWA/ci-cd
         ref: main
         path: gh-actions
 
