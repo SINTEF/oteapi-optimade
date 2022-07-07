@@ -145,8 +145,8 @@ jobs:
 
     - name: Update API Reference and landing page
       run: |
-        pre-commit run --all-files docs-api-reference
-        pre-commit run --all-files docs-landing-page
+        pre-commit run --all-files --verbose docs-api-reference
+        pre-commit run --all-files --verbose docs-landing-page
 
     - name: Build documentation
       run: mkdocs build --strict
