@@ -131,14 +131,6 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 2
-        path: main
-
-    - name: Checkout CasperWA/ci-cd
-      uses: actions/checkout@v3
-      with:
-        repository: CasperWA/ci-cd
-        ref: v1
-        path: ci-cd
 
     - name: Set up Python 3.9
       uses: actions/setup-python@v4
@@ -149,27 +141,15 @@ jobs:
       run: |
         python -m pip install -U pip
         pip install -U setuptools wheel flit
-        pip install ./main[doc]
-        pip install -r ./ci-cd/requirements.txt
+        pip install .[doc,pre-commit]
 
     - name: Update API Reference and landing page
       run: |
-        invoke create-api-reference-docs \
-          --pre-clean \
-          --repo-folder=main \
-          --package-dir="oteapi_optimade" \
-          --unwanted-dirs="__pycache__" \
-          --unwanted-files="__init__.py" \
-          --full-docs-dirs="models"
-
-        invoke create-docs-index \
-          --repo-folder=main \
-          --replacements="(LICENSE),(LICENSE.md)"
-      working-directory: ./ci-cd
+        pre-commit run --all-files docs-api-reference
+        pre-commit run --all-files docs-landing-page
 
     - name: Build documentation
       run: mkdocs build --strict
-      working-directory: ./main
 
   pytest-real-backend:
     runs-on: ubuntu-latest
