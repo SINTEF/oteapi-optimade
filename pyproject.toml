@@ -27,7 +27,7 @@ dynamic = ["version"]
 
 dependencies = [
     "optimade[server] ~=0.18",
-    "oteapi-core ~=0.1",
+    "oteapi-core ~=0.2",
     "requests ~=2.28",
 ]
 
@@ -46,7 +46,7 @@ test = [
     "requests-mock ~=1.9",
 ]
 pre-commit = [
-    "pre-commit ~=2.19",
+    "pre-commit ~=2.20",
     "pylint ~=2.14",
 ]
 dev = [
@@ -56,13 +56,13 @@ dev = [
     "mkdocs-material ~=8.3",
     "mkdocstrings[python] ~=0.19.0",
     "otelib ~=0.1",
-    "pre-commit ~=2.19",
+    "pre-commit ~=2.20",
     "pylint ~=2.14",
     "pytest ~=7.1",
     "pytest-cov ~=3.0",
     "pyyaml ~=6.0",
     "requests-mock ~=1.9",
-    "tomlkit ~=0.11.0",
+    "tomlkit ~=0.11.1",
 ]
 
 [project.urls]
