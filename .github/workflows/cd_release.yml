@@ -8,7 +8,7 @@ on:
 jobs:
   publish-package-and-docs:
     name: Call external workflow
-    uses: CasperWA/ci-cd/.github/workflows/cd_release.yml@v1
+    uses: SINTEF/ci-cd/.github/workflows/cd_release.yml@v1
     if: github.repository == 'SINTEF/oteapi-optimade' && startsWith(github.ref, 'refs/tags/v')
     with:
       git_username: "TEAM 4.0[bot]"

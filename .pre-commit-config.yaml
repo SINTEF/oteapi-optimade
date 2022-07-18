@@ -42,17 +42,14 @@ repos:
         - "types-requests"
         - "pydantic"
 
-  - repo: https://github.com/CasperWA/ci-cd
-    rev: e177317eeeef00f5c968f2cc986ad8f45c911866  # frozen: v1
+  - repo: https://github.com/SINTEF/ci-cd
+    rev: e46548040dd6afa0b8204151d7ed988d96252a4b  # frozen: v1
     hooks:
     - id: docs-api-reference
       args:
       - "--package-dir=oteapi_optimade"
-      - "--full-docs-dirs=models"
+      - "--full-docs-folder=models"
     - id: docs-landing-page
-      args:
-      - "--replacements"
-      - "(LICENSE),(LICENSE.md)"
 
   - repo: local
     hooks:
