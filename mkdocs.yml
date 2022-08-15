@@ -24,7 +24,7 @@ edit_uri: ""
 
 extra:
   social:
-    - icon: fontawesome/brands/github-square
+    - icon: fontawesome/brands/square-github
       link: https://github.com/SINTEF
       name: "SINTEF on GitHub"
     - icon: fontawesome/brands/github
