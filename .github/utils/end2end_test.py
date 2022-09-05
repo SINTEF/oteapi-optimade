@@ -30,7 +30,7 @@ def _check_service_availability(service_url: str) -> None:
     import requests
 
     try:
-        response = requests.get(f"{service_url}/docs", allow_redirects=True)
+        response = requests.get(f"{service_url}/docs", allow_redirects=True, timeout=30)
     except (requests.ConnectionError, requests.ConnectTimeout) as exc_:
         raise RuntimeError(f"Cannot connect to {service_url} !") from exc_
     else:
