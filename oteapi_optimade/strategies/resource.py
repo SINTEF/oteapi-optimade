@@ -142,7 +142,11 @@ class OPTIMADEResourceStrategy:
         self.resource_config.configuration.datacache_config.accessKey = optimade_url
 
         # Perform query
-        response = requests.get(optimade_url, allow_redirects=True)
+        response = requests.get(
+            optimade_url,
+            allow_redirects=True,
+            timeout=(3, 27),  # timeout in seconds (connect, read)
+        )
 
         if optimade_query.response_format and optimade_query.response_format != "json":
             raise NotImplementedError(

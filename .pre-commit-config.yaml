@@ -22,7 +22,7 @@ repos:
       args: ["--profile", "black", "--filter-files", "--skip-gitignore"]
 
   - repo: https://github.com/ambv/black
-    rev: 22.6.0
+    rev: 22.8.0
     hooks:
     - id: black
 
@@ -43,7 +43,7 @@ repos:
         - "pydantic"
 
   - repo: https://github.com/SINTEF/ci-cd
-    rev: e46548040dd6afa0b8204151d7ed988d96252a4b  # frozen: v1
+    rev: 62fa434c2dec3acdc53c0ed336ab2827f7381e52  # frozen: v1
     hooks:
     - id: docs-api-reference
       args:
