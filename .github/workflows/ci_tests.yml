@@ -13,7 +13,7 @@ jobs:
     uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v1
     with:
       # General setup
-      install_extras: "[dev,pre-commit,doc]"
+      install_extras: "[dev]"
 
       # pre-commit
       python_version_pre-commit: "3.9"
