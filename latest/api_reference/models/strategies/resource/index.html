@@ -519,6 +519,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_config" class="md-nav__link">
+    optimade_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_resource_model" class="md-nav__link">
+    optimade_resource_model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_resources" class="md-nav__link">
+    optimade_resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.Config" class="md-nav__link">
     Config
   </a>
@@ -683,6 +704,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_config" class="md-nav__link">
+    optimade_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_resource_model" class="md-nav__link">
+    optimade_resource_model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_resources" class="md-nav__link">
+    optimade_resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.Config" class="md-nav__link">
     Config
   </a>
@@ -712,15 +754,14 @@
 <h1 id="resource">resource<a class="headerlink" href="#resource" title="Permanent link">&para;</a></h1>
 
 
-<div class="doc doc-object doc-module">
-
+  <div class="doc doc-object doc-module">
 
 <a id="oteapi_optimade.models.strategies.resource"></a>
-  <div class="doc doc-contents first">
-  
+    <div class="doc doc-contents first">
+
       <p>Models specific to the resource strategy.</p>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -730,46 +771,29 @@
 
 
 
-
-<div class="doc doc-object doc-class">
+  <div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.models.strategies.resource.OPTIMADEResourceConfig" class="doc doc-heading">
-        <code>OPTIMADEResourceConfig</code>
+        <code>
+OPTIMADEResourceConfig            (<span title="oteapi.models.resourceconfig.ResourceConfig">ResourceConfig</span>)
+        </code>
 
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-model"><code>pydantic-model</code></small>
+  </span>
 
 <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceConfig" class="headerlink" title="Permanent link">&para;</a></h2>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="oteapi.models.ResourceConfig">ResourceConfig</span></code></p>
-
-  
       <p>OPTIMADE-specific resource strategy config.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/strategies/resource.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResourceConfig</span><span class="p">(</span><span class="n">ResourceConfig</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResourceConfig</span><span class="p">(</span><span class="n">ResourceConfig</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;OPTIMADE-specific resource strategy config.&quot;&quot;&quot;</span>
 
     <span class="n">accessUrl</span><span class="p">:</span> <span class="n">OPTIMADEUrl</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
@@ -787,88 +811,39 @@
             <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
         <span class="p">),</span>
     <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
 
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
+    </div>
 
   </div>
 
-  </div>
 
-</div>
 
-<div class="doc doc-object doc-class">
+  <div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession" class="doc doc-heading">
-        <code>OPTIMADEResourceSession</code>
+        <code>
+OPTIMADEResourceSession            (<span title="oteapi.models.sessionupdate.SessionUpdate">SessionUpdate</span>)
+        </code>
 
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-model"><code>pydantic-model</code></small>
+  </span>
 
 <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession" class="headerlink" title="Permanent link">&para;</a></h2>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="oteapi.models.SessionUpdate">SessionUpdate</span></code></p>
-
-  
       <p>OPTIMADE session for the resource strategy.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/strategies/resource.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResourceSession</span><span class="p">(</span><span class="n">SessionUpdate</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResourceSession</span><span class="p">(</span><span class="n">SessionUpdate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;OPTIMADE session for the resource strategy.&quot;&quot;&quot;</span>
 
     <span class="n">optimade_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEConfig</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
@@ -906,10 +881,10 @@
 
         <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -918,40 +893,103 @@
 
 
 
+  <div class="doc doc-object doc-attribute">
 
 
-<div class="doc doc-object doc-class">
+
+<h3 id="oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_config" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">optimade_config</span><span class="p">:</span> <span class="n">OPTIMADEConfig</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+  </span>
+
+<a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_config" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>OPTIMADE configuration. Contains relevant information necessary to perform OPTIMADE queries.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_resource_model" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">optimade_resource_model</span><span class="p">:</span> <span class="n">ConstrainedStrValue</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+  </span>
+
+<a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_resource_model" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Importable path to the resource model to be used to parse the OPTIMADE resources in <code>optimade_resource</code>. The importable path should be a fully importable path to a module separated by a colon (<code>:</code>) to then define the resource model class name. This means one can then do:</p>
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">PACKAGE.MODULE</span> <span class="kn">import</span> <span class="n">RESOURCE_CLS</span>
+</code></pre></div>
+From the value <code>PACKAGE.MODULE:RESOURCE_CLS</code></p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_resources" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">optimade_resources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+  </span>
+
+<a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.optimade_resources" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>List of OPTIMADE resources (structures, references, errors, ...) returned from the OPTIMADE request.</p>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.Config" class="doc doc-heading">
-        <code>Config</code>
+        <code>
+Config        </code>
+
 
 
 <a href="#oteapi_optimade.models.strategies.resource.OPTIMADEResourceSession.Config" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-
-  
       <p>Pydantic configuration for <code>OPTIMADEResourceSession</code>.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/strategies/resource.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Pydantic configuration for `OPTIMADEResourceSession`.&quot;&quot;&quot;</span>
 
     <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -965,29 +1003,37 @@
 
 
 
-  </div>
-
-  </div>
-
-</div>
-
-
 
 
   </div>
 
+    </div>
+
   </div>
 
-</div>
+
+
 
 
 
 
   </div>
 
+    </div>
+
   </div>
 
-</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
 
 
 

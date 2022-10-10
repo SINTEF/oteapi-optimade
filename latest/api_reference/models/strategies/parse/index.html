@@ -505,6 +505,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_config" class="md-nav__link">
+    optimade_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_response" class="md-nav__link">
+    optimade_response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_response_object" class="md-nav__link">
+    optimade_response_object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.Config" class="md-nav__link">
     Config
   </a>
@@ -683,6 +704,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_config" class="md-nav__link">
+    optimade_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_response" class="md-nav__link">
+    optimade_response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_response_object" class="md-nav__link">
+    optimade_response_object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.Config" class="md-nav__link">
     Config
   </a>
@@ -712,15 +754,14 @@
 <h1 id="parse">parse<a class="headerlink" href="#parse" title="Permanent link">&para;</a></h1>
 
 
-<div class="doc doc-object doc-module">
-
+  <div class="doc doc-object doc-module">
 
 <a id="oteapi_optimade.models.strategies.parse"></a>
-  <div class="doc doc-contents first">
-  
+    <div class="doc doc-contents first">
+
       <p>Models specific to the parse strategy.</p>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -730,56 +771,29 @@
 
 
 
-
-<div class="doc doc-object doc-class">
+  <div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.models.strategies.parse.OPTIMADEParseConfig" class="doc doc-heading">
-        <code>OPTIMADEParseConfig</code>
+        <code>
+OPTIMADEParseConfig            (<span title="oteapi.models.resourceconfig.ResourceConfig">ResourceConfig</span>)
+        </code>
 
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-model"><code>pydantic-model</code></small>
+  </span>
 
 <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseConfig" class="headerlink" title="Permanent link">&para;</a></h2>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="oteapi.models.ResourceConfig">ResourceConfig</span></code></p>
-
-  
       <p>OPTIMADE-specific parse strategy config.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/strategies/parse.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseConfig</span><span class="p">(</span><span class="n">ResourceConfig</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseConfig</span><span class="p">(</span><span class="n">ResourceConfig</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;OPTIMADE-specific parse strategy config.&quot;&quot;&quot;</span>
 
     <span class="n">downloadUrl</span><span class="p">:</span> <span class="n">OPTIMADEUrl</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
@@ -807,74 +821,39 @@
             <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
         <span class="p">),</span>
     <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
 
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
+    </div>
 
   </div>
 
-  </div>
 
-</div>
 
-<div class="doc doc-object doc-class">
+  <div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.models.strategies.parse.OPTIMADEParseSession" class="doc doc-heading">
-        <code>OPTIMADEParseSession</code>
+        <code>
+OPTIMADEParseSession            (<span title="oteapi.models.sessionupdate.SessionUpdate">SessionUpdate</span>)
+        </code>
 
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-model"><code>pydantic-model</code></small>
+  </span>
 
 <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession" class="headerlink" title="Permanent link">&para;</a></h2>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="oteapi.models.SessionUpdate">SessionUpdate</span></code></p>
-
-  
       <p>OPTIMADE session for the parse strategy.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/strategies/parse.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseSession</span><span class="p">(</span><span class="n">SessionUpdate</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseSession</span><span class="p">(</span><span class="n">SessionUpdate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;OPTIMADE session for the parse strategy.&quot;&quot;&quot;</span>
 
     <span class="n">optimade_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEConfig</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
@@ -898,10 +877,10 @@
 
         <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -910,40 +889,100 @@
 
 
 
+  <div class="doc doc-object doc-attribute">
 
 
-<div class="doc doc-object doc-class">
+
+<h3 id="oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_config" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">optimade_config</span><span class="p">:</span> <span class="n">OPTIMADEConfig</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+  </span>
+
+<a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_config" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>OPTIMADE configuration. Contains relevant information necessary to perform OPTIMADE queries.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_response" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">optimade_response</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+  </span>
+
+<a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_response" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>An OPTIMADE response as a Python dictionary.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_response_object" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">optimade_response_object</span><span class="p">:</span> <span class="n">Response</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+  </span>
+
+<a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.optimade_response_object" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>An OPTIMADE Python tools (OPT) pydantic response object.</p>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.Config" class="doc doc-heading">
-        <code>Config</code>
+        <code>
+Config        </code>
+
 
 
 <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseSession.Config" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-
-  
       <p>Pydantic configuration for <code>OPTIMADEParseSession</code>.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/strategies/parse.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Pydantic configuration for `OPTIMADEParseSession`.&quot;&quot;&quot;</span>
 
     <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -957,29 +996,37 @@
 
 
 
-  </div>
-
-  </div>
-
-</div>
-
-
 
 
   </div>
 
+    </div>
+
   </div>
 
-</div>
+
+
 
 
 
 
   </div>
 
+    </div>
+
   </div>
 
-</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
 
 
 
