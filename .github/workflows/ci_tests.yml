@@ -12,9 +12,15 @@ jobs:
     name: Call external workflow
     uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v1
     with:
-      python_version: "3.9"
+      # General setup
       install_extras: "[dev,pre-commit,doc]"
+
+      # pre-commit
+      python_version_pre-commit: "3.9"
       skip_pre-commit_hooks: pylint,pylint-tests
+
+      # pylint & safety
+      python_version_pylint_safety: "3.9"
       pylint_runs: |
         --rcfile=pyproject.toml --ignore-paths=tests/ --extension-pkg-whitelist='pydantic' oteapi_optimade
         --rcfile=pyproject.toml --extension-pkg-whitelist='pydantic' --disable=import-outside-toplevel,redefined-outer-name tests
@@ -22,9 +28,15 @@ jobs:
       # See this NumPy issue for more information: https://github.com/numpy/numpy/issues/19038
       # NumPy is a sub-dependency of `oteapi-core`
       safety_options: "--ignore=44715"
+
+      # Build dist
+      python_version_package: "3.9"
       build_libs: flit
       build_cmd: flit build
-      package_dir: oteapi_optimade
+
+      # Build documentation
+      python_version_docs: "3.9"
+      package_dirs: oteapi_optimade
       full_docs_dirs: "models"
 
   pytest:

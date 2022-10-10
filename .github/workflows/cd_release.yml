@@ -13,12 +13,13 @@ jobs:
     with:
       git_username: "TEAM 4.0[bot]"
       git_email: "Team4.0@SINTEF.no"
-      package_dir: oteapi_optimade
+      package_dirs: oteapi_optimade
       release_branch: main
       install_extras: "[dev]"
-      python_version: "3.9"
+      python_version_build: "3.9"
       build_cmd: "pip install -U flit && flit build"
       update_docs: true
+      python_version_docs: "3.9"
       doc_extras: "[doc]"
       changelog_exclude_labels: "skip_changelog,duplicate,question,invalid,wontfix"
     secrets:
