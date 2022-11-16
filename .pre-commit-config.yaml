@@ -22,7 +22,7 @@ repos:
       args: ["--profile", "black", "--filter-files", "--skip-gitignore"]
 
   - repo: https://github.com/ambv/black
-    rev: 22.8.0
+    rev: 22.10.0
     hooks:
     - id: black
 
@@ -34,7 +34,7 @@ repos:
       files: ^oteapi_optimade/.*$
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.981
+    rev: v0.991
     hooks:
     - id: mypy
       exclude: ^tests/.*$
@@ -43,7 +43,7 @@ repos:
         - "pydantic"
 
   - repo: https://github.com/SINTEF/ci-cd
-    rev: 6a258b3bce2d2db022908c127d0532c8a7591707  # frozen: v1
+    rev: d525ea0f069b6615aa352a7f385c21b31f29b985  # frozen: v1.3.4
     hooks:
     - id: docs-api-reference
       args:
