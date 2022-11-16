@@ -139,9 +139,9 @@ if __name__ == "__main__":
     try:
         _check_service_availability(service_url=OTEAPI_SERVICE_URL)
     except RuntimeError as exc:
-        sys.exit(exc)
+        sys.exit(str(exc))
 
     try:
         main(oteapi_url=OTEAPI_SERVICE_URL)
     except Exception as exc:  # pylint: disable=broad-except
-        sys.exit(exc)
+        sys.exit(str(exc))

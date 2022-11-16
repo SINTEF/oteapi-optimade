@@ -23,7 +23,7 @@ jobs:
       python_version_pylint_safety: "3.9"
       pylint_runs: |
         --rcfile=pyproject.toml --ignore-paths=tests/ --extension-pkg-whitelist='pydantic' oteapi_optimade
-        --rcfile=pyproject.toml --extension-pkg-whitelist='pydantic' --disable=import-outside-toplevel,redefined-outer-name tests
+        --rcfile=pyproject.toml --extension-pkg-whitelist='pydantic' --disable=import-outside-toplevel,redefined-outer-name --recursive=yes tests
       # Ignore ID 44715 for now.
       # See this NumPy issue for more information: https://github.com/numpy/numpy/issues/19038
       # NumPy is a sub-dependency of `oteapi-core`
