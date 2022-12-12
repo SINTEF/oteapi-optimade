@@ -26,7 +26,7 @@ requires-python = "~=3.9"
 dynamic = ["version"]
 
 dependencies = [
-    "optimade[server] ~=0.19",
+    "optimade[server] ~=0.20",
     "oteapi-core ~=0.2",
     "requests ~=2.28",
 ]
