@@ -794,7 +794,7 @@ OPTIMADEParseConfig            (<span title="oteapi.models.resourceconfig.Resour
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/strategies/parse.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseConfig</span><span class="p">(</span><span class="n">ResourceConfig</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;OPTIMADE-specific parse strategy config.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE-specific parse strategy config.&quot;&quot;&quot;</span>
 
     <span class="n">downloadUrl</span><span class="p">:</span> <span class="n">OPTIMADEUrl</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="o">...</span><span class="p">,</span>
@@ -854,7 +854,7 @@ OPTIMADEParseSession            (<span title="oteapi.models.sessionupdate.Sessio
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/strategies/parse.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseSession</span><span class="p">(</span><span class="n">SessionUpdate</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;OPTIMADE session for the parse strategy.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE session for the parse strategy.&quot;&quot;&quot;</span>
 
     <span class="n">optimade_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEConfig</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
@@ -873,7 +873,7 @@ OPTIMADEParseSession            (<span title="oteapi.models.sessionupdate.Sessio
     <span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Pydantic configuration for `OPTIMADEParseSession`.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pydantic configuration for `OPTIMADEParseSession`.&quot;&quot;&quot;</span>
 
         <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span>
@@ -975,7 +975,7 @@ Config        </code>
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/strategies/parse.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Pydantic configuration for `OPTIMADEParseSession`.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pydantic configuration for `OPTIMADEParseSession`.&quot;&quot;&quot;</span>
 
     <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span>

@@ -757,7 +757,7 @@ OPTIMADEResourceStrategy        </code>
           <summary>Source code in <code>oteapi_optimade/strategies/resource.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OPTIMADEResourceStrategy</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;OPTIMADE Resource Strategy.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE Resource Strategy.</span>
 
 <span class="sd">    **Implements strategies**:</span>
 
@@ -772,7 +772,7 @@ OPTIMADEResourceStrategy        </code>
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span>  <span class="c1"># pylint: disable=unused-argument</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="s2">&quot;Optional[Dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SessionUpdate</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
 
 <span class="sd">        This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">        Services.</span>
@@ -790,7 +790,7 @@ OPTIMADEResourceStrategy        </code>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>  <span class="c1"># pylint: disable=too-many-branches,too-many-statements</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[SessionUpdate, Dict[str, Any]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEResourceSession</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Execute an OPTIMADE query to `accessUrl`.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute an OPTIMADE query to `accessUrl`.</span>
 
 <span class="sd">        This method will be called through the strategy-specific endpoint of the</span>
 <span class="sd">        OTE-API Services.</span>
@@ -851,7 +851,7 @@ OPTIMADEResourceStrategy        </code>
 
         <span class="n">optimade_url</span> <span class="o">=</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s1">&#39;/v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;/v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
             <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;OPTIMADE URL to be requested: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_url</span><span class="p">)</span>
@@ -885,7 +885,7 @@ OPTIMADEResourceStrategy        </code>
             <span class="s2">&quot;downloadUrl&quot;</span><span class="p">:</span> <span class="n">optimade_url</span><span class="p">,</span>
             <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;application/vnd.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;+&#39;</span> <span class="o">+</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span> <span class="k">if</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;+&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
             <span class="p">),</span>
             <span class="s2">&quot;configuration&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;datacache_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">,</span>
@@ -1062,7 +1062,7 @@ context from services.</p></td>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span>  <span class="c1"># pylint: disable=too-many-branches,too-many-statements</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[SessionUpdate, Dict[str, Any]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEResourceSession</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Execute an OPTIMADE query to `accessUrl`.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute an OPTIMADE query to `accessUrl`.</span>
 
 <span class="sd">    This method will be called through the strategy-specific endpoint of the</span>
 <span class="sd">    OTE-API Services.</span>
@@ -1123,7 +1123,7 @@ context from services.</p></td>
 
     <span class="n">optimade_url</span> <span class="o">=</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span> <span class="k">else</span> <span class="s1">&#39;/v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;/v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
         <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="p">)</span>
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;OPTIMADE URL to be requested: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_url</span><span class="p">)</span>
@@ -1157,7 +1157,7 @@ context from services.</p></td>
         <span class="s2">&quot;downloadUrl&quot;</span><span class="p">:</span> <span class="n">optimade_url</span><span class="p">,</span>
         <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;application/vnd.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;+&#39;</span> <span class="o">+</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span> <span class="k">if</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;+&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
         <span class="p">),</span>
         <span class="s2">&quot;configuration&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;datacache_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">,</span>
@@ -1316,7 +1316,7 @@ context from services.</p></td>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span>  <span class="c1"># pylint: disable=unused-argument</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="s2">&quot;Optional[Dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SessionUpdate</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
 
 <span class="sd">    This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">    Services.</span>

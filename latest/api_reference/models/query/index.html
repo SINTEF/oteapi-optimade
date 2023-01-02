@@ -952,7 +952,7 @@ OPTIMADEQueryParameters            (<span title="pydantic.main.BaseModel">BaseMo
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/query.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEQueryParameters</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">validate_assignment</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Common OPTIMADE entry listing endpoint query parameters.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Common OPTIMADE entry listing endpoint query parameters.&quot;&quot;&quot;</span>
 
     <span class="nb">filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">QUERY_PARAMETERS</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
@@ -1025,7 +1025,7 @@ OPTIMADEQueryParameters            (<span title="pydantic.main.BaseModel">BaseMo
     <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">generate_query_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Generate a valid URL query string based on the set fields.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a valid URL query string based on the set fields.&quot;&quot;&quot;</span>
         <span class="n">res</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="p">(</span>
@@ -1386,7 +1386,7 @@ An example is shown in the section Entry Listing Info Endpoints.</p>
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/query.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_query_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Generate a valid URL query string based on the set fields.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a valid URL query string based on the set fields.&quot;&quot;&quot;</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="p">(</span>

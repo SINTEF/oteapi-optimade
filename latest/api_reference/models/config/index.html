@@ -839,7 +839,7 @@ OPTIMADEConfig            (<span title="oteapi.models.genericconfig.AttrDict">At
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/config.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEConfig</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;OPTIMADE configuration.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE configuration.&quot;&quot;&quot;</span>
 
     <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="s2">&quot;v1&quot;</span><span class="p">,</span>
@@ -869,7 +869,7 @@ OPTIMADEConfig            (<span title="oteapi.models.genericconfig.AttrDict">At
 
     <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;datacache_config&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">default_datacache_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DataCacheConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataCacheConfig</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Use default values for `DataCacheConfig` if not supplied.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use default values for `DataCacheConfig` if not supplied.&quot;&quot;&quot;</span>
         <span class="n">original_set_values</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">__fields_set__</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">default_value</span> <span class="ow">in</span> <span class="n">DEFAULT_CACHE_CONFIG_VALUES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1038,7 +1038,7 @@ OPTIMADEConfig            (<span title="oteapi.models.genericconfig.AttrDict">At
           <summary>Source code in <code>oteapi_optimade/models/config.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;datacache_config&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">default_datacache_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DataCacheConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataCacheConfig</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Use default values for `DataCacheConfig` if not supplied.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use default values for `DataCacheConfig` if not supplied.&quot;&quot;&quot;</span>
     <span class="n">original_set_values</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">__fields_set__</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">default_value</span> <span class="ow">in</span> <span class="n">DEFAULT_CACHE_CONFIG_VALUES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>

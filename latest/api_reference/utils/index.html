@@ -751,7 +751,7 @@ converted to Python dictionaries.</p></td>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">model2dict</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Union[BaseModel, dict[str, Any]]&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">dict_kwargs</span><span class="p">:</span> <span class="s2">&quot;Any&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;dict[str, Any]&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Convert a pydantic model to a Python dictionary.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a pydantic model to a Python dictionary.</span>
 
 <span class="sd">    This works similarly to the `dict()` method for pydantic models, but ensures any</span>
 <span class="sd">    and all nested pydantic models are also converted to dictionaries.</span>
@@ -770,7 +770,7 @@ converted to Python dictionaries.</p></td>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_internal</span><span class="p">(</span><span class="n">model_</span><span class="p">:</span> <span class="s2">&quot;Any&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Any&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Internal function to be used recursively.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Internal function to be used recursively.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model_</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">_internal</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">model_</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model_</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model_</span><span class="p">,</span> <span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>

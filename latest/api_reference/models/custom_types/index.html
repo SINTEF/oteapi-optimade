@@ -1007,7 +1007,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/custom_types.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEUrl</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A deconstructed OPTIMADE URL.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A deconstructed OPTIMADE URL.</span>
 
 <span class="sd">    An OPTIMADE URL is made up in the following way:</span>
 
@@ -1072,7 +1072,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
         <span class="n">query</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">_kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Build complete URL from URL parts.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build complete URL from URL parts.&quot;&quot;&quot;</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
             <span class="n">url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -1097,7 +1097,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">urlquote_qs</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Use `urllib.parse.quote` for query part of URL.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use `urllib.parse.quote` for query part of URL.&quot;&quot;&quot;</span>
         <span class="n">parsed_url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">quoted_query</span> <span class="o">=</span> <span class="n">urlquote</span><span class="p">(</span><span class="n">parsed_url</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="s2">&quot;=&amp;,&quot;</span><span class="p">)</span>
         <span class="n">parsed_url_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parsed_url</span><span class="p">)</span>
@@ -1108,7 +1108,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s2">&quot;Any&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s2">&quot;ModelField&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="s2">&quot;BaseConfig&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;OPTIMADEUrl&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Pydantic validation of an OPTIMADE URL.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pydantic validation of an OPTIMADE URL.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">==</span> <span class="bp">cls</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">value</span>
 
@@ -1144,7 +1144,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate_host</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Tuple[str, Optional[str], str, bool]&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Validate host-part of the URL.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate host-part of the URL.&quot;&quot;&quot;</span>
         <span class="n">host</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">tld</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">rebuild</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1188,12 +1188,12 @@ OPTIMADEUrl            (<span title="str">str</span>)
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_default_parts</span><span class="p">(</span><span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Parts&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Dictionary of default URL-part values.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dictionary of default URL-part values.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="s2">&quot;80&quot;</span> <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="s2">&quot;scheme&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span> <span class="k">else</span> <span class="s2">&quot;443&quot;</span><span class="p">}</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">apply_default_parts</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Parts&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Apply default URL-part values if no value is given.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply default URL-part values if no value is given.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_default_parts</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>  <span class="c1"># type: ignore[literal-required]</span>
                 <span class="n">parts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>  <span class="c1"># type: ignore[literal-required]</span>
@@ -1201,7 +1201,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">build_optimade_parts</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;OPTIMADEParts&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Convert URL parts to equivalent OPTIMADE URL parts.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert URL parts to equivalent OPTIMADE URL parts.&quot;&quot;&quot;</span>
         <span class="n">base_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;scheme&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">://&quot;</span>
         <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]:</span>
             <span class="n">base_url</span> <span class="o">+=</span> <span class="n">parts</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span>
@@ -1255,7 +1255,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
     <span class="k">def</span> <span class="nf">validate_parts</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">,</span> <span class="n">optimade_parts</span><span class="p">:</span> <span class="s2">&quot;OPTIMADEParts&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;OPTIMADEParts&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method used to validate parts of an URL.</span>
 <span class="sd">        Could be overridden to set default values for parts if missing</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1282,14 +1282,14 @@ OPTIMADEUrl            (<span title="str">str</span>)
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">extra</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="si">!r}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="si">!r}</span><span class="s2">&quot;</span>
             <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__slots__</span>
             <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">)&quot;</span>
 
     <span class="k">def</span> <span class="nf">response_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Union[Tuple[Success, ...], Success, None]&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return the endpoint&#39;s corresponding response model (from OPT).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the endpoint&#39;s corresponding response model (from OPT).&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">==</span> <span class="s2">&quot;versions&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="p">{</span>
@@ -1489,7 +1489,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
           <summary>Source code in <code>oteapi_optimade/models/custom_types.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">apply_default_parts</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Parts&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Apply default URL-part values if no value is given.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply default URL-part values if no value is given.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_default_parts</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>  <span class="c1"># type: ignore[literal-required]</span>
             <span class="n">parts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>  <span class="c1"># type: ignore[literal-required]</span>
@@ -1531,7 +1531,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
     <span class="n">query</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">_kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Build complete URL from URL parts.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build complete URL from URL parts.&quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
         <span class="n">url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -1569,7 +1569,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
           <summary>Source code in <code>oteapi_optimade/models/custom_types.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">build_optimade_parts</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;OPTIMADEParts&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Convert URL parts to equivalent OPTIMADE URL parts.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert URL parts to equivalent OPTIMADE URL parts.&quot;&quot;&quot;</span>
     <span class="n">base_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;scheme&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">://&quot;</span>
     <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]:</span>
         <span class="n">base_url</span> <span class="o">+=</span> <span class="n">parts</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span>
@@ -1647,7 +1647,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
           <summary>Source code in <code>oteapi_optimade/models/custom_types.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">get_default_parts</span><span class="p">(</span><span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Parts&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Dictionary of default URL-part values.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dictionary of default URL-part values.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="s2">&quot;80&quot;</span> <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="s2">&quot;scheme&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span> <span class="k">else</span> <span class="s2">&quot;443&quot;</span><span class="p">}</span>
 </code></pre></div>
         </details>
@@ -1674,7 +1674,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/custom_types.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">response_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Union[Tuple[Success, ...], Success, None]&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return the endpoint&#39;s corresponding response model (from OPT).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the endpoint&#39;s corresponding response model (from OPT).&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">==</span> <span class="s2">&quot;versions&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="p">{</span>
@@ -1713,7 +1713,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
           <summary>Source code in <code>oteapi_optimade/models/custom_types.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">urlquote_qs</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Use `urllib.parse.quote` for query part of URL.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use `urllib.parse.quote` for query part of URL.&quot;&quot;&quot;</span>
     <span class="n">parsed_url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="n">quoted_query</span> <span class="o">=</span> <span class="n">urlquote</span><span class="p">(</span><span class="n">parsed_url</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="s2">&quot;=&amp;,&quot;</span><span class="p">)</span>
     <span class="n">parsed_url_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parsed_url</span><span class="p">)</span>
@@ -1750,7 +1750,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
 <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span>
     <span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s2">&quot;Any&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s2">&quot;ModelField&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="s2">&quot;BaseConfig&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;OPTIMADEUrl&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Pydantic validation of an OPTIMADE URL.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pydantic validation of an OPTIMADE URL.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">==</span> <span class="bp">cls</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">value</span>
 
@@ -1812,7 +1812,7 @@ OPTIMADEUrl            (<span title="str">str</span>)
           <summary>Source code in <code>oteapi_optimade/models/custom_types.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">validate_host</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Tuple[str, Optional[str], str, bool]&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Validate host-part of the URL.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate host-part of the URL.&quot;&quot;&quot;</span>
     <span class="n">host</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">tld</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">rebuild</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1885,7 +1885,7 @@ Could be overridden to set default values for parts if missing</p>
 <span class="k">def</span> <span class="nf">validate_parts</span><span class="p">(</span>
     <span class="bp">cls</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="s2">&quot;Parts&quot;</span><span class="p">,</span> <span class="n">optimade_parts</span><span class="p">:</span> <span class="s2">&quot;OPTIMADEParts&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;OPTIMADEParts&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A method used to validate parts of an URL.</span>
 <span class="sd">    Could be overridden to set default values for parts if missing</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1945,7 +1945,7 @@ Could be overridden to set default values for parts if missing</p>
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/custom_types.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">optimade_base_url_regex</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;Pattern[str]&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A regular expression for an OPTIMADE base URL.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A regular expression for an OPTIMADE base URL.&quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">_OPTIMADE_BASE_URL_REGEX</span>  <span class="c1"># pylint: disable=global-statement</span>
     <span class="k">if</span> <span class="n">_OPTIMADE_BASE_URL_REGEX</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_OPTIMADE_BASE_URL_REGEX</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
@@ -1989,7 +1989,7 @@ Could be overridden to set default values for parts if missing</p>
         <details class="quote">
           <summary>Source code in <code>oteapi_optimade/models/custom_types.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">optimade_endpoint_regex</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;Pattern[str]&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A regular expression for an OPTIMADE base URL.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A regular expression for an OPTIMADE base URL.&quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">_OPTIMADE_ENDPOINT_REGEX</span>  <span class="c1"># pylint: disable=global-statement</span>
     <span class="k">if</span> <span class="n">_OPTIMADE_ENDPOINT_REGEX</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_OPTIMADE_ENDPOINT_REGEX</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
