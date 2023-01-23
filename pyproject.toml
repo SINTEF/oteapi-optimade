@@ -37,7 +37,7 @@ doc = [
     "mkdocs ~=1.4",
     "mkdocs-awesome-pages-plugin ~=2.8",
     "mkdocs-material ~=9.0",
-    "mkdocstrings[python-legacy] ~=0.19.1",
+    "mkdocstrings[python-legacy] ~=0.20.0",
 ]
 test = [
     "pytest ~=7.2",
@@ -54,7 +54,7 @@ dev = [
     "mkdocs ~=1.4",
     "mkdocs-awesome-pages-plugin ~=2.8",
     "mkdocs-material ~=9.0",
-    "mkdocstrings[python-legacy] ~=0.19.1",
+    "mkdocstrings[python-legacy] ~=0.20.0",
     "otelib ~=0.2",
     "pre-commit ~=2.21",
     "pylint ~=2.15",
