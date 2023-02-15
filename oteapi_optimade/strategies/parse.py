@@ -16,7 +16,7 @@ from oteapi_optimade.exceptions import OPTIMADEParseError
 from oteapi_optimade.models import OPTIMADEParseConfig, OPTIMADEParseSession
 from oteapi_optimade.utils import model2dict
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from typing import Any, Dict, Optional, Union
 
 

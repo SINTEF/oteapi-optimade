@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Iterable
 
 from pydantic import BaseModel
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from typing import Any, Union
 
 
