@@ -133,7 +133,7 @@ class OPTIMADEResourceStrategy:
 
         optimade_url = OPTIMADEUrl(
             f"{self.resource_config.accessUrl.base_url}"
-            f"{'/' + self.resource_config.accessUrl.version if self.resource_config.accessUrl.version else '/v1'}"  # pylint: disable=line-too-long
+            f"/{self.resource_config.accessUrl.version or 'v1'}"
             f"/{optimade_endpoint}?{optimade_query.generate_query_string()}"
         )
         LOGGER.debug("OPTIMADE URL to be requested: %s", optimade_url)
