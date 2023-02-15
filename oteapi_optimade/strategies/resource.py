@@ -20,7 +20,14 @@ from oteapi.plugins import create_strategy
 from oteapi.plugins.entry_points import StrategyType
 from pydantic.dataclasses import dataclass
 
-from oteapi_optimade.exceptions import OPTIMADEParseError
+try:
+    from oteapi_dlite import __version__ as oteapi_dlite_version
+    from oteapi_dlite.models import DLiteSessionUpdate
+    from oteapi_dlite.utils import get_collection
+except ImportError:
+    oteapi_dlite_version = None
+
+from oteapi_optimade.exceptions import MissingDependency, OPTIMADEParseError
 from oteapi_optimade.models import OPTIMADEResourceConfig, OPTIMADEResourceSession
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
@@ -35,6 +42,26 @@ if TYPE_CHECKING:  # pragma: no cover
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
 LOGGER.setLevel(logging.DEBUG)
 LOGGER.addHandler(logging.StreamHandler(sys.stdout))
+
+
+def use_dlite(access_service: str) -> bool:
+    """Determine whether DLite should be utilized in the Resource strategy.
+
+    Parameters:
+        access_service: The accessService value from the resource's configuration.
+
+    Returns:
+        Based on the accessService value, then whether DLite should be used or not.
+
+    """
+    if any(dlite_form in access_service for dlite_form in ["DLite", "dlite", "Dlite"]):
+        if oteapi_dlite_version is not None:
+            raise MissingDependency(
+                "OTEAPI-DLite is not found on the system. This is required to use "
+                "DLite with the OTEAPI-OPTIMADE strategies."
+            )
+        return True
+    return False
 
 
 @dataclass
@@ -53,7 +80,7 @@ class OPTIMADEResourceStrategy:
 
     def initialize(  # pylint: disable=unused-argument
         self, session: "Optional[Dict[str, Any]]" = None
-    ) -> SessionUpdate:
+    ) -> "Union[SessionUpdate, DLiteSessionUpdate]":
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -67,6 +94,8 @@ class OPTIMADEResourceStrategy:
             context from services.
 
         """
+        if use_dlite(self.resource_config.accessService):
+            return DLiteSessionUpdate(collection_id=get_collection(session).uuid)
         return SessionUpdate()
 
     def get(  # pylint: disable=too-many-branches,too-many-statements

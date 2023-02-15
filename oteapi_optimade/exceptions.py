@@ -5,6 +5,10 @@ class BaseOteapiOptimadeException(Exception):
     """Base OTE-API OPTIMADE exception."""
 
 
+class MissingDependency(BaseOteapiOptimadeException):
+    """A required dependency is missing."""
+
+
 class ConfigurationError(BaseOteapiOptimadeException):
     """An error occurred when dealing with strategy configurations."""
 
