@@ -26,7 +26,7 @@ requires-python = "~=3.9"
 dynamic = ["version"]
 
 dependencies = [
-    "optimade[server] ~=0.21",
+    "optimade[server] ~=0.22",
     "oteapi-core ~=0.4",
     "requests ~=2.28",
 ]
@@ -36,7 +36,7 @@ doc = [
     "mike ~=1.1",
     "mkdocs ~=1.4",
     "mkdocs-awesome-pages-plugin ~=2.8",
-    "mkdocs-material ~=9.0",
+    "mkdocs-material ~=9.1",
     "mkdocstrings[python-legacy] ~=0.20.0",
 ]
 test = [
@@ -53,7 +53,7 @@ dev = [
     "mike ~=1.1",
     "mkdocs ~=1.4",
     "mkdocs-awesome-pages-plugin ~=2.8",
-    "mkdocs-material ~=9.0",
+    "mkdocs-material ~=9.1",
     "mkdocstrings[python-legacy] ~=0.20.0",
     "otelib ~=0.2",
     "pre-commit ~=3.1",
