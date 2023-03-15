@@ -8,8 +8,8 @@ on:
 
 jobs:
   check-dependencies:
-    name: Call external workflow
-    uses: SINTEF/ci-cd/.github/workflows/ci_check_pyproject_dependencies.yml@v1
+    name: External
+    uses: SINTEF/ci-cd/.github/workflows/ci_check_pyproject_dependencies.yml@v2.2.1
     if: github.repository_owner == 'SINTEF'
     with:
       git_username: "TEAM 4.0[bot]"

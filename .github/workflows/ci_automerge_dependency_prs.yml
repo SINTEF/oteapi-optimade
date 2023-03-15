@@ -6,8 +6,8 @@ on:
 
 jobs:
   update-dependencies-branch:
-    name: Call external workflow
-    uses: SINTEF/ci-cd/.github/workflows/ci_automerge_prs.yml@v1
+    name: External
+    uses: SINTEF/ci-cd/.github/workflows/ci_automerge_prs.yml@v2.2.1
     if: github.repository_owner == 'SINTEF' && ( ( startsWith(github.event.pull_request.head.ref, 'dependabot/') && github.actor == 'dependabot[bot]' ) || ( github.event.pull_request.head.ref == 'ci/update-pyproject' && github.actor == 'TEAM4-0' ) )
     secrets:
       PAT: ${{ secrets.RELEASE_PAT }}
