@@ -9,7 +9,7 @@ on:
 
 jobs:
   basic-tests:
-    name: Call external workflow
+    name: External
     uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v2.2.1
     with:
       # General setup

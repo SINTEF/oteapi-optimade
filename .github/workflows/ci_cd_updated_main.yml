@@ -6,20 +6,27 @@ on:
 
 jobs:
   update-deps-branch-and-docs:
-    name: Call external workflow
+    name: External
     uses: SINTEF/ci-cd/.github/workflows/ci_cd_updated_default_branch.yml@v2.2.1
     if: github.repository_owner == 'SINTEF'
     with:
+      # General
       git_username: "TEAM 4.0[bot]"
       git_email: "Team4.0@SINTEF.no"
+
+      # Update dependency branch
       permanent_dependencies_branch: "ci/dependency-updates"
       default_repo_branch: main
-      package_dirs: oteapi_optimade
+
+      # Update documentation
       update_docs: true
       update_python_api_ref: true
       update_docs_landing_page: true
+      package_dirs: oteapi_optimade
       python_version: "3.9"
       doc_extras: "[doc]"
       full_docs_dirs: models
+      changelog_exclude_labels: "skip_changelog,duplicate,question,invalid,wontfix"
+
     secrets:
       PAT: ${{ secrets.RELEASE_PAT }}
