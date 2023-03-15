@@ -75,6 +75,7 @@ class OPTIMADEParseStrategy:
         precedence over the derived values from `downloadUrl`.
 
         Workflow:
+
         1. Request OPTIMADE response.
         2. Parse as an OPTIMADE Python tools (OPT) pydantic response model.
 

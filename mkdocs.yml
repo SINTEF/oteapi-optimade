@@ -84,8 +84,6 @@ plugins:
           setup_commands:
             - import os
             - os.environ["MKDOCS_BUILD"] = "1"
-      watch:
-        - "oteapi_optimade"
   - awesome-pages
 
 nav:
@@ -94,3 +92,6 @@ nav:
   - Changelog: CHANGELOG.md
   - all_strategies.md
   - ... | api_reference/**
+
+watch:
+  - "oteapi_optimade"

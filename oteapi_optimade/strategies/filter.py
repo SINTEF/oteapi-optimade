@@ -45,6 +45,7 @@ class OPTIMADEFilterStrategy:
         OPTIMADE resource strategy through this filter strategy.
 
         Workflow:
+
         1. Compile received information.
         2. Update session with compiled information.
 
