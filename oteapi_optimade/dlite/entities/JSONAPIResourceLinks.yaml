@@ -1,0 +1,8 @@
+uri: http://onto-ns.com/meta/1.0/JSONAPIResourceLinks
+meta: http://onto-ns.com/meta/0.3/EntitySchema
+description: A Resource Links object.
+dimensions: []
+properties:
+  self:
+    type: string
+    description: A link that identifies the resource represented by the resource object.
