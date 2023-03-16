@@ -26,7 +26,7 @@ from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 from oteapi_optimade.utils import model2dict
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from typing import Any, Dict, Optional, Union
 
     from optimade.models import Response as OPTIMADEResponse

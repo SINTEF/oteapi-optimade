@@ -21,7 +21,7 @@ from pydantic.networks import ascii_domain_regex, errors, int_domain_regex, url_
 from pydantic.utils import update_not_none
 from pydantic.validators import constr_length_validator, str_validator
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from typing import Any, Dict, Optional, Pattern, Tuple, TypedDict, Union
 
     from pydantic.config import BaseConfig
