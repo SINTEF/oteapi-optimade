@@ -25,6 +25,6 @@ properties:
   #   type: ref
   #   $ref: http://onto-ns.com/meta/1.0/JSONAPIMeta
   #   description: A meta object containing non-standard meta-information about a resource that can not be represented as an attribute or relationship.
-  meta:
-    type: blob
-    description: A meta object containing non-standard meta-information about a resource that can not be represented as an attribute or relationship.
+  # meta:
+  #   type: blob
+  #   description: A meta object containing non-standard meta-information about a resource that can not be represented as an attribute or relationship.
