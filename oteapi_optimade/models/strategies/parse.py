@@ -63,3 +63,19 @@ class OPTIMADEParseSession(SessionUpdate):
 
         validate_assignment = True
         arbitrary_types_allowed = True
+
+
+class OPTIMADEDLiteParseConfig(OPTIMADEParseConfig):
+    """OPTIMADE-specific parse strategy config."""
+
+    mediaType: Literal[
+        "application/vnd.optimade+dlite",
+        "application/vnd.OPTIMADE+dlite",
+        "application/vnd.OPTiMaDe+dlite",
+        "application/vnd.optimade+DLite",
+        "application/vnd.OPTIMADE+DLite",
+        "application/vnd.OPTiMaDe+Dlite",
+    ] = Field(  # type: ignore[assignment]
+        ...,
+        description="The registered strategy name for OPTIMADEDLiteParseStrategy.",
+    )

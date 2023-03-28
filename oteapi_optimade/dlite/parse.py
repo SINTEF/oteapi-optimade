@@ -2,21 +2,20 @@
 # pylint: disable=invalid-name,too-many-branches,too-many-statements
 import logging
 import sys
-from copy import deepcopy
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 import dlite
 from optimade.adapters import Structure
-from optimade.models import StructureResponseMany, StructureResponseOne
+from optimade.models import StructureResponseMany, StructureResponseOne, Success
 from oteapi.models import SessionUpdate
 from oteapi_dlite.models import DLiteSessionUpdate
 from oteapi_dlite.utils import get_collection, update_collection
-from pydantic import ValidationError
+from pydantic import BaseModel, ValidationError
 from pydantic.dataclasses import dataclass
 
 from oteapi_optimade.exceptions import OPTIMADEParseError
-from oteapi_optimade.models import OPTIMADEParseConfig, OPTIMADEParseSession
+from oteapi_optimade.models import OPTIMADEDLiteParseConfig, OPTIMADEParseSession
 from oteapi_optimade.strategies.parse import OPTIMADEParseStrategy
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -43,7 +42,7 @@ class OPTIMADEDLiteParseStrategy:
 
     """
 
-    parse_config: OPTIMADEParseConfig
+    parse_config: OPTIMADEDLiteParseConfig
 
     def initialize(
         self, session: "Optional[Dict[str, Any]]" = None
@@ -138,6 +137,28 @@ class OPTIMADEDLiteParseStrategy:
                     if isinstance(session.optimade_response_object.data, dict)
                     else Structure(session.optimade_response_object.data.dict())
                 ]
+            elif isinstance(session.optimade_response_object, Success):
+                if isinstance(session.optimade_response_object.data, dict):
+                    structures = [Structure(session.optimade_response_object.data)]
+                elif isinstance(session.optimade_response_object.data, BaseModel):
+                    structures = [
+                        Structure(session.optimade_response_object.data.dict())
+                    ]
+                elif isinstance(session.optimade_response_object.data, list):
+                    structures = [
+                        Structure(entry)
+                        if isinstance(entry, dict)
+                        else Structure(entry.dict())
+                        for entry in session.optimade_response_object.data
+                    ]
+                else:
+                    LOGGER.debug(
+                        "Could not determine what to do with `data`. Type %s.",
+                        type(session.optimade_response_object.data),
+                    )
+                    raise OPTIMADEParseError(
+                        "Could not parse `data` entry in response."
+                    )
             else:
                 LOGGER.debug(
                     "Got currently unsupported response type %s. Only structures are "
@@ -208,19 +229,28 @@ class OPTIMADEDLiteParseStrategy:
                 dimensions = {
                     "nelements": structure.attributes.nelements,
                     "nattached_elements": max(
-                        _.nattached for _ in structure.attributes.species
+                        _.nattached or 0 for _ in structure.attributes.species
                     ),
                 }
-                new_structure_attributes["species"] = OPTIMADEStructureSpecies(
-                    dimensions=dimensions,
-                    properties=structure.attributes.species,
-                )
+                new_structure_attributes["species"] = [
+                    OPTIMADEStructureSpecies(
+                        dimensions=dimensions,
+                        properties=species,
+                    )
+                    for species in structure.attributes.species
+                ]
 
             # Attributes
-            attributes = deepcopy(structure.attributes)
-            attributes.pop("species", None)
-            attributes.pop("assemblies", None)
-            new_structure_attributes.update(attributes)
+            new_structure_attributes.update(
+                structure.attributes.dict(exclude={"species", "assemblies"})
+            )
+            for key in list(new_structure_attributes):
+                if key.startswith("_"):
+                    new_structure_attributes.pop(key)
+
+            new_structure_attributes["structure_features"] = [
+                _.value for _ in new_structure_attributes["structure_features"]
+            ]
 
             new_structure = OPTIMADEStructure(
                 dimensions={},

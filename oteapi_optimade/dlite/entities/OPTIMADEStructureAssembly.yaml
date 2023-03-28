@@ -7,7 +7,7 @@ dimensions:
 properties:
   sites_in_groups:
     type: int
-    shape: [ngroups, nsites]
+    shape: [nsites, ngroups]
     description: Index of the sites (0-based) that belong to each group for each assembly.
   group_probabilities:
     type: float

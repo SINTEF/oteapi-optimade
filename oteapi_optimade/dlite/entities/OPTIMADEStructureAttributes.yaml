@@ -45,7 +45,7 @@ properties:
     description: The three lattice vectors in Cartesian coordinates, in ångström (Å).
   cartesian_site_positions:
     type: float
-    shape: [dimensionality, nsites]
+    shape: [nsites, dimensionality]
     description: Cartesian positions of each site in the structure. A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the `species_at_sites` property, and the species themselves are described in the `species` property.
   nsites:
     type: int
