@@ -53,4 +53,3 @@ def test_parse(static_files: "Path", return_object: bool) -> None:
 
     dlite_collection = get_collection(session)
     assert dlite_collection
-    print(dlite_collection)

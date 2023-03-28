@@ -74,7 +74,7 @@ class OPTIMADEDLiteParseConfig(OPTIMADEParseConfig):
         "application/vnd.OPTiMaDe+dlite",
         "application/vnd.optimade+DLite",
         "application/vnd.OPTIMADE+DLite",
-        "application/vnd.OPTiMaDe+Dlite",
+        "application/vnd.OPTiMaDe+DLite",
     ] = Field(  # type: ignore[assignment]
         ...,
         description="The registered strategy name for OPTIMADEDLiteParseStrategy.",

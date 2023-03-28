@@ -106,6 +106,12 @@ Package = "https://pypi.org/project/oteapi-optimade"
 "oteapi_optimade.optimade" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 "oteapi_optimade.OPTIMADE" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 "oteapi_optimade.OPTiMaDe" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.optimade+dlite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTIMADE+dlite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTiMaDe+dlite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.optimade+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTIMADE+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTiMaDe+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 
 [project.entry-points."oteapi.transformation"]
 

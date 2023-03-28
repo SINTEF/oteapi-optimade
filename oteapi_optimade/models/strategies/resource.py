@@ -15,7 +15,17 @@ class OPTIMADEResourceConfig(ResourceConfig):
         ...,
         description="Either a base OPTIMADE URL or a full OPTIMADE URL.",
     )
-    accessService: Literal["optimade", "OPTIMADE", "OPTiMaDe"] = Field(
+    accessService: Literal[
+        "optimade",
+        "OPTIMADE",
+        "OPTiMaDe",
+        "optimade+dlite",
+        "OPTIMADE+dlite",
+        "OPTiMaDe+dlite",
+        "optimade+DLite",
+        "OPTIMADE+DLite",
+        "OPTiMaDe+DLite",
+    ] = Field(
         ...,
         description="The registered strategy name for OPTIMADEResourceStrategy.",
     )

@@ -44,18 +44,22 @@ LOGGER.setLevel(logging.DEBUG)
 LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
-def use_dlite(access_service: str) -> bool:
+def use_dlite(access_service: str, use_dlite_flag: bool) -> bool:
     """Determine whether DLite should be utilized in the Resource strategy.
 
     Parameters:
         access_service: The accessService value from the resource's configuration.
+        use_dlite_flag: The strategy-specific `use_dlite` configuration option.
 
     Returns:
         Based on the accessService value, then whether DLite should be used or not.
 
     """
-    if any(dlite_form in access_service for dlite_form in ["DLite", "dlite", "Dlite"]):
-        if oteapi_dlite_version is not None:
+    if (
+        any(dlite_form in access_service for dlite_form in ["DLite", "dlite"])
+        or use_dlite_flag
+    ):
+        if oteapi_dlite_version is None:
             raise MissingDependency(
                 "OTEAPI-DLite is not found on the system. This is required to use "
                 "DLite with the OTEAPI-OPTIMADE strategies."
@@ -73,6 +77,12 @@ class OPTIMADEResourceStrategy:
     - `("accessService", "optimade")`
     - `("accessService", "OPTIMADE")`
     - `("accessService", "OPTiMaDe")`
+    - `("accessService", "optimade+dlite")`
+    - `("accessService", "OPTIMADE+dlite")`
+    - `("accessService", "OPTiMaDe+dlite")`
+    - `("accessService", "optimade+DLite")`
+    - `("accessService", "OPTIMADE+DLite")`
+    - `("accessService", "OPTiMaDe+DLite")`
 
     """
 
@@ -94,7 +104,10 @@ class OPTIMADEResourceStrategy:
             context from services.
 
         """
-        if use_dlite(self.resource_config.accessService):
+        if use_dlite(
+            self.resource_config.accessService,
+            self.resource_config.configuration.use_dlite,
+        ):
             return DLiteSessionUpdate(collection_id=get_collection(session).uuid)
         return SessionUpdate()
 
@@ -192,12 +205,22 @@ class OPTIMADEResourceStrategy:
             }
         )
 
+        parse_with_dlite = use_dlite(
+            self.resource_config.accessService,
+            self.resource_config.configuration.use_dlite,
+        )
+
+        parse_mediaType = f"application/vnd.{self.resource_config.accessService.split('+', maxsplit=1)[0]}"  # pylint: disable=invalid-name,line-too-long
+        if parse_with_dlite:
+            parse_mediaType += "+DLite"  # pylint: disable=invalid-name
+        elif optimade_query.response_format:
+            parse_mediaType += (  # pylint: disable=invalid-name
+                f"+{optimade_query.response_format}"
+            )
+
         parse_config = {
             "downloadUrl": optimade_url,
-            "mediaType": (
-                f"application/vnd.{self.resource_config.accessService}"
-                f"{'+' + optimade_query.response_format if optimade_query.response_format else ''}"  # pylint: disable=line-too-long
-            ),
+            "mediaType": parse_mediaType,
             "configuration": {
                 "datacache_config": self.resource_config.configuration.datacache_config,
                 "return_object": True,
