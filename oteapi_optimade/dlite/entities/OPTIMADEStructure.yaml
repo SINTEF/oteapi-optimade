@@ -17,10 +17,10 @@ properties:
   #   type: ref
   #   $ref: http://onto-ns.com/meta/1.0/OPTIMADERelationships
   #   description: A dictionary containing references to other entries according to the description in section Relationships encoded as [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships). The OPTIONAL human-readable description of the relationship MAY be provided in the `description` field inside the `meta` dictionary of the JSON API resource identifier object.
-  links:
-    type: ref
-    $ref: http://onto-ns.com/meta/1.0/JSONAPIResourceLinks
-    description: A links object containing links related to the resource.
+  # links:
+  #   type: ref
+  #   $ref: http://onto-ns.com/meta/1.0/JSONAPIResourceLinks
+  #   description: A links object containing links related to the resource.
   # meta:
   #   type: ref
   #   $ref: http://onto-ns.com/meta/1.0/JSONAPIMeta

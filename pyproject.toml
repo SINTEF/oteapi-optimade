@@ -51,11 +51,11 @@ pre-commit = [
     "pylint ~=2.17",
 ]
 dlite = [
-    "DLite-Python >=0.3.17,<1",
+    "DLite-Python >=0.3.18,<1",
     "oteapi-dlite ~=0.1.1",
 ]
 dev = [
-    "DLite-Python >=0.3.17,<1",
+    "DLite-Python >=0.3.18,<1",
     "mike ~=1.1",
     "mkdocs ~=1.4",
     "mkdocs-awesome-pages-plugin ~=2.8",
