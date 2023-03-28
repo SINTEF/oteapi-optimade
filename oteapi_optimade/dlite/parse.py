@@ -11,7 +11,7 @@ from optimade.adapters import Structure
 from optimade.models import StructureResponseMany, StructureResponseOne
 from oteapi.models import SessionUpdate
 from oteapi_dlite.models import DLiteSessionUpdate
-from oteapi_dlite.utils import get_collection
+from oteapi_dlite.utils import get_collection, update_collection
 from pydantic import ValidationError
 from pydantic.dataclasses import dataclass
 
@@ -244,5 +244,7 @@ class OPTIMADEDLiteParseStrategy:
                 },
             )
             dlite_collection.add(label=structure.entry.id, inst=new_structure)
+
+        update_collection(collection=dlite_collection)
 
         return session
