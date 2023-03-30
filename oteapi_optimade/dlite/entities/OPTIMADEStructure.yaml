@@ -1,0 +1,30 @@
+uri: http://onto-ns.com/meta/1.0/OPTIMADEStructure
+meta: http://onto-ns.com/meta/0.3/EntitySchema
+description: An OPTIMADE structure.
+dimensions: []
+properties:
+  type:
+    type: string
+    description: The name of the type of an entry. Must always be 'structures'.
+  attributes:
+    type: ref
+    $ref: http://onto-ns.com/meta/1.0/OPTIMADEStructureAttributes
+    description: The attributes used to represent a structure, e.g. unit cell, atoms, positions.
+  id:
+    type: str
+    description: An entry's ID as defined in section Definition of Terms.
+  # relationships:
+  #   type: ref
+  #   $ref: http://onto-ns.com/meta/1.0/OPTIMADERelationships
+  #   description: A dictionary containing references to other entries according to the description in section Relationships encoded as [JSON API Relationships](https://jsonapi.org/format/1.0/#document-resource-object-relationships). The OPTIONAL human-readable description of the relationship MAY be provided in the `description` field inside the `meta` dictionary of the JSON API resource identifier object.
+  # links:
+  #   type: ref
+  #   $ref: http://onto-ns.com/meta/1.0/JSONAPIResourceLinks
+  #   description: A links object containing links related to the resource.
+  # meta:
+  #   type: ref
+  #   $ref: http://onto-ns.com/meta/1.0/JSONAPIMeta
+  #   description: A meta object containing non-standard meta-information about a resource that can not be represented as an attribute or relationship.
+  # meta:
+  #   type: blob
+  #   description: A meta object containing non-standard meta-information about a resource that can not be represented as an attribute or relationship.

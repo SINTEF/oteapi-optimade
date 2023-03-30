@@ -30,3 +30,11 @@ def top_dir() -> "Path":
 def static_files(top_dir: "Path") -> "Path":
     """Return Path object to the `static` folder."""
     return (top_dir / "tests" / "static").resolve()
+
+
+@pytest.fixture(scope="session", autouse=True)
+def load_strategies() -> None:
+    """Load entry points strategies."""
+    from oteapi.plugins import load_strategies
+
+    load_strategies(test_for_uniqueness=False)

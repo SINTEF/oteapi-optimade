@@ -20,13 +20,20 @@ from oteapi.plugins import create_strategy
 from oteapi.plugins.entry_points import StrategyType
 from pydantic.dataclasses import dataclass
 
-from oteapi_optimade.exceptions import OPTIMADEParseError
+try:
+    from oteapi_dlite import __version__ as oteapi_dlite_version
+    from oteapi_dlite.models import DLiteSessionUpdate
+    from oteapi_dlite.utils import get_collection
+except ImportError:
+    oteapi_dlite_version = None
+
+from oteapi_optimade.exceptions import MissingDependency, OPTIMADEParseError
 from oteapi_optimade.models import OPTIMADEResourceConfig, OPTIMADEResourceSession
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 from oteapi_optimade.utils import model2dict
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from typing import Any, Dict, Optional, Union
 
     from optimade.models import Response as OPTIMADEResponse
@@ -35,6 +42,30 @@ if TYPE_CHECKING:
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
 LOGGER.setLevel(logging.DEBUG)
 LOGGER.addHandler(logging.StreamHandler(sys.stdout))
+
+
+def use_dlite(access_service: str, use_dlite_flag: bool) -> bool:
+    """Determine whether DLite should be utilized in the Resource strategy.
+
+    Parameters:
+        access_service: The accessService value from the resource's configuration.
+        use_dlite_flag: The strategy-specific `use_dlite` configuration option.
+
+    Returns:
+        Based on the accessService value, then whether DLite should be used or not.
+
+    """
+    if (
+        any(dlite_form in access_service for dlite_form in ["DLite", "dlite"])
+        or use_dlite_flag
+    ):
+        if oteapi_dlite_version is None:
+            raise MissingDependency(
+                "OTEAPI-DLite is not found on the system. This is required to use "
+                "DLite with the OTEAPI-OPTIMADE strategies."
+            )
+        return True
+    return False
 
 
 @dataclass
@@ -46,6 +77,12 @@ class OPTIMADEResourceStrategy:
     - `("accessService", "optimade")`
     - `("accessService", "OPTIMADE")`
     - `("accessService", "OPTiMaDe")`
+    - `("accessService", "optimade+dlite")`
+    - `("accessService", "OPTIMADE+dlite")`
+    - `("accessService", "OPTiMaDe+dlite")`
+    - `("accessService", "optimade+DLite")`
+    - `("accessService", "OPTIMADE+DLite")`
+    - `("accessService", "OPTiMaDe+DLite")`
 
     """
 
@@ -53,7 +90,7 @@ class OPTIMADEResourceStrategy:
 
     def initialize(  # pylint: disable=unused-argument
         self, session: "Optional[Dict[str, Any]]" = None
-    ) -> SessionUpdate:
+    ) -> "Union[SessionUpdate, DLiteSessionUpdate]":
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -67,6 +104,11 @@ class OPTIMADEResourceStrategy:
             context from services.
 
         """
+        if use_dlite(
+            self.resource_config.accessService,
+            self.resource_config.configuration.use_dlite,
+        ):
+            return DLiteSessionUpdate(collection_id=get_collection(session).uuid)
         return SessionUpdate()
 
     def get(  # pylint: disable=too-many-branches,too-many-statements
@@ -133,7 +175,7 @@ class OPTIMADEResourceStrategy:
 
         optimade_url = OPTIMADEUrl(
             f"{self.resource_config.accessUrl.base_url}"
-            f"{'/' + self.resource_config.accessUrl.version if self.resource_config.accessUrl.version else '/v1'}"  # pylint: disable=line-too-long
+            f"/{self.resource_config.accessUrl.version or 'v1'}"
             f"/{optimade_endpoint}?{optimade_query.generate_query_string()}"
         )
         LOGGER.debug("OPTIMADE URL to be requested: %s", optimade_url)
@@ -163,12 +205,22 @@ class OPTIMADEResourceStrategy:
             }
         )
 
+        parse_with_dlite = use_dlite(
+            self.resource_config.accessService,
+            self.resource_config.configuration.use_dlite,
+        )
+
+        parse_mediaType = f"application/vnd.{self.resource_config.accessService.split('+', maxsplit=1)[0]}"  # pylint: disable=invalid-name,line-too-long
+        if parse_with_dlite:
+            parse_mediaType += "+DLite"  # pylint: disable=invalid-name
+        elif optimade_query.response_format:
+            parse_mediaType += (  # pylint: disable=invalid-name
+                f"+{optimade_query.response_format}"
+            )
+
         parse_config = {
             "downloadUrl": optimade_url,
-            "mediaType": (
-                f"application/vnd.{self.resource_config.accessService}"
-                f"{'+' + optimade_query.response_format if optimade_query.response_format else ''}"  # pylint: disable=line-too-long
-            ),
+            "mediaType": parse_mediaType,
             "configuration": {
                 "datacache_config": self.resource_config.configuration.datacache_config,
                 "return_object": True,

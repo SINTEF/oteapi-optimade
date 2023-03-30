@@ -41,6 +41,10 @@ class OPTIMADEConfig(AttrDict):
             "directly and not via an OTEAPI REST API service."
         ),
     )
+    use_dlite: bool = Field(
+        False,
+        description="Whether or not to store the results in a DLite Collection.",
+    )
 
     @validator("datacache_config")
     def default_datacache_config(cls, value: DataCacheConfig) -> DataCacheConfig:
