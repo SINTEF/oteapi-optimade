@@ -19,7 +19,7 @@
         <link rel="next" href="../resource/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.c4a75a56.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.240905d7.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a0c5b2b5.min.css">
@@ -496,6 +496,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEDLiteParseConfig" class="md-nav__link">
+    OPTIMADEDLiteParseConfig
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseConfig" class="md-nav__link">
     OPTIMADEParseConfig
   </a>
@@ -696,6 +703,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEDLiteParseConfig" class="md-nav__link">
+    OPTIMADEDLiteParseConfig
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseConfig" class="md-nav__link">
     OPTIMADEParseConfig
   </a>
@@ -775,6 +789,52 @@
 
 
 
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="oteapi_optimade.models.strategies.parse.OPTIMADEDLiteParseConfig" class="doc doc-heading">
+        <code>
+OPTIMADEDLiteParseConfig            (<a class="autorefs autorefs-internal" title="oteapi_optimade.models.strategies.parse.OPTIMADEParseConfig" href="#oteapi_optimade.models.strategies.parse.OPTIMADEParseConfig">OPTIMADEParseConfig</a>)
+        </code>
+
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-model"><code>pydantic-model</code></small>
+  </span>
+
+<a href="#oteapi_optimade.models.strategies.parse.OPTIMADEDLiteParseConfig" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>OPTIMADE-specific parse strategy config.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>oteapi_optimade/models/strategies/parse.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEDLiteParseConfig</span><span class="p">(</span><span class="n">OPTIMADEParseConfig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE-specific parse strategy config.&quot;&quot;&quot;</span>
+
+    <span class="n">mediaType</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">&quot;application/vnd.optimade+dlite&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;application/vnd.OPTIMADE+dlite&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;application/vnd.OPTiMaDe+dlite&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;application/vnd.optimade+DLite&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;application/vnd.OPTIMADE+DLite&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;application/vnd.OPTiMaDe+DLite&quot;</span><span class="p">,</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The registered strategy name for OPTIMADEDLiteParseStrategy.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+        </details>
+
+
+    </div>
+
+  </div>
 
 
 
@@ -1103,7 +1163,7 @@ Config        </code>
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.efa0ade1.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.19047be9.min.js"></script>
       
     
   </body>

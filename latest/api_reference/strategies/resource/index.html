@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
     
     
       
@@ -25,7 +25,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.c4a75a56.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.240905d7.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
@@ -615,6 +615,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#oteapi_optimade.strategies.resource.use_dlite" class="md-nav__link">
+    use_dlite()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -697,6 +704,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#oteapi_optimade.strategies.resource.use_dlite" class="md-nav__link">
+    use_dlite()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -756,6 +770,12 @@ OPTIMADEResourceStrategy        </code>
 <li><code>("accessService", "optimade")</code></li>
 <li><code>("accessService", "OPTIMADE")</code></li>
 <li><code>("accessService", "OPTiMaDe")</code></li>
+<li><code>("accessService", "optimade+dlite")</code></li>
+<li><code>("accessService", "OPTIMADE+dlite")</code></li>
+<li><code>("accessService", "OPTiMaDe+dlite")</code></li>
+<li><code>("accessService", "optimade+DLite")</code></li>
+<li><code>("accessService", "OPTIMADE+DLite")</code></li>
+<li><code>("accessService", "OPTiMaDe+DLite")</code></li>
 </ul>
 
         <details class="quote">
@@ -769,6 +789,12 @@ OPTIMADEResourceStrategy        </code>
 <span class="sd">    - `(&quot;accessService&quot;, &quot;optimade&quot;)`</span>
 <span class="sd">    - `(&quot;accessService&quot;, &quot;OPTIMADE&quot;)`</span>
 <span class="sd">    - `(&quot;accessService&quot;, &quot;OPTiMaDe&quot;)`</span>
+<span class="sd">    - `(&quot;accessService&quot;, &quot;optimade+dlite&quot;)`</span>
+<span class="sd">    - `(&quot;accessService&quot;, &quot;OPTIMADE+dlite&quot;)`</span>
+<span class="sd">    - `(&quot;accessService&quot;, &quot;OPTiMaDe+dlite&quot;)`</span>
+<span class="sd">    - `(&quot;accessService&quot;, &quot;optimade+DLite&quot;)`</span>
+<span class="sd">    - `(&quot;accessService&quot;, &quot;OPTIMADE+DLite&quot;)`</span>
+<span class="sd">    - `(&quot;accessService&quot;, &quot;OPTiMaDe+DLite&quot;)`</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -776,7 +802,7 @@ OPTIMADEResourceStrategy        </code>
 
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span>  <span class="c1"># pylint: disable=unused-argument</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="s2">&quot;Optional[Dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SessionUpdate</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Union[SessionUpdate, DLiteSessionUpdate]&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
 
 <span class="sd">        This method will be called through the `/initialize` endpoint of the OTE-API</span>
@@ -790,6 +816,11 @@ OPTIMADEResourceStrategy        </code>
 <span class="sd">            context from services.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">use_dlite</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">use_dlite</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="n">DLiteSessionUpdate</span><span class="p">(</span><span class="n">collection_id</span><span class="o">=</span><span class="n">get_collection</span><span class="p">(</span><span class="n">session</span><span class="p">)</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">SessionUpdate</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>  <span class="c1"># pylint: disable=too-many-branches,too-many-statements</span>
@@ -856,7 +887,7 @@ OPTIMADEResourceStrategy        </code>
 
         <span class="n">optimade_url</span> <span class="o">=</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;/v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+            <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;OPTIMADE URL to be requested: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_url</span><span class="p">)</span>
@@ -886,12 +917,22 @@ OPTIMADEResourceStrategy        </code>
             <span class="p">}</span>
         <span class="p">)</span>
 
+        <span class="n">parse_with_dlite</span> <span class="o">=</span> <span class="n">use_dlite</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">use_dlite</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">parse_mediaType</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;application/vnd.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=invalid-name,line-too-long</span>
+        <span class="k">if</span> <span class="n">parse_with_dlite</span><span class="p">:</span>
+            <span class="n">parse_mediaType</span> <span class="o">+=</span> <span class="s2">&quot;+DLite&quot;</span>  <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="k">elif</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="p">:</span>
+            <span class="n">parse_mediaType</span> <span class="o">+=</span> <span class="p">(</span>  <span class="c1"># pylint: disable=invalid-name</span>
+                <span class="sa">f</span><span class="s2">&quot;+</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
         <span class="n">parse_config</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;downloadUrl&quot;</span><span class="p">:</span> <span class="n">optimade_url</span><span class="p">,</span>
-            <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;application/vnd.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;+&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
-            <span class="p">),</span>
+            <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="n">parse_mediaType</span><span class="p">,</span>
             <span class="s2">&quot;configuration&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;datacache_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">,</span>
                 <span class="s2">&quot;return_object&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -1128,7 +1169,7 @@ context from services.</p></td>
 
     <span class="n">optimade_url</span> <span class="o">=</span> <span class="n">OPTIMADEUrl</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">base_url</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;/v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
+        <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessUrl</span><span class="o">.</span><span class="n">version</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;v1&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">optimade_endpoint</span><span class="si">}</span><span class="s2">?</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">generate_query_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="p">)</span>
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;OPTIMADE URL to be requested: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">optimade_url</span><span class="p">)</span>
@@ -1158,12 +1199,22 @@ context from services.</p></td>
         <span class="p">}</span>
     <span class="p">)</span>
 
+    <span class="n">parse_with_dlite</span> <span class="o">=</span> <span class="n">use_dlite</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">use_dlite</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">parse_mediaType</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;application/vnd.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=invalid-name,line-too-long</span>
+    <span class="k">if</span> <span class="n">parse_with_dlite</span><span class="p">:</span>
+        <span class="n">parse_mediaType</span> <span class="o">+=</span> <span class="s2">&quot;+DLite&quot;</span>  <span class="c1"># pylint: disable=invalid-name</span>
+    <span class="k">elif</span> <span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="p">:</span>
+        <span class="n">parse_mediaType</span> <span class="o">+=</span> <span class="p">(</span>  <span class="c1"># pylint: disable=invalid-name</span>
+            <span class="sa">f</span><span class="s2">&quot;+</span><span class="si">{</span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
     <span class="n">parse_config</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;downloadUrl&quot;</span><span class="p">:</span> <span class="n">optimade_url</span><span class="p">,</span>
-        <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;application/vnd.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;+&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">optimade_query</span><span class="o">.</span><span class="n">response_format</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># pylint: disable=line-too-long</span>
-        <span class="p">),</span>
+        <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="n">parse_mediaType</span><span class="p">,</span>
         <span class="s2">&quot;configuration&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;datacache_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">,</span>
             <span class="s2">&quot;return_object&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -1310,7 +1361,7 @@ Services.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>SessionUpdate</code></td>
+      <td><code>Union[SessionUpdate, DLiteSessionUpdate]</code></td>
       <td><p>An update model of key/value-pairs to be stored in the session-specific
 context from services.</p></td>
     </tr>
@@ -1320,7 +1371,7 @@ context from services.</p></td>
           <summary>Source code in <code>oteapi_optimade/strategies/resource.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span>  <span class="c1"># pylint: disable=unused-argument</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="s2">&quot;Optional[Dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SessionUpdate</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Union[SessionUpdate, DLiteSessionUpdate]&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
 
 <span class="sd">    This method will be called through the `/initialize` endpoint of the OTE-API</span>
@@ -1334,6 +1385,11 @@ context from services.</p></td>
 <span class="sd">        context from services.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">use_dlite</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">accessService</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">use_dlite</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="n">DLiteSessionUpdate</span><span class="p">(</span><span class="n">collection_id</span><span class="o">=</span><span class="n">get_collection</span><span class="p">(</span><span class="n">session</span><span class="p">)</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">SessionUpdate</span><span class="p">()</span>
 </code></pre></div>
         </details>
@@ -1351,6 +1407,92 @@ context from services.</p></td>
 
   </div>
 
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="oteapi_optimade.strategies.resource.use_dlite" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">use_dlite</span><span class="p">(</span><span class="n">access_service</span><span class="p">,</span> <span class="n">use_dlite_flag</span><span class="p">)</span></code>
+
+
+<a href="#oteapi_optimade.strategies.resource.use_dlite" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Determine whether DLite should be utilized in the Resource strategy.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>access_service</code></td>
+        <td><code>str</code></td>
+        <td><p>The accessService value from the resource's configuration.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>use_dlite_flag</code></td>
+        <td><code>bool</code></td>
+        <td><p>The strategy-specific <code>use_dlite</code> configuration option.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>Based on the accessService value, then whether DLite should be used or not.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>oteapi_optimade/strategies/resource.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">use_dlite</span><span class="p">(</span><span class="n">access_service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">use_dlite_flag</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine whether DLite should be utilized in the Resource strategy.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        access_service: The accessService value from the resource&#39;s configuration.</span>
+<span class="sd">        use_dlite_flag: The strategy-specific `use_dlite` configuration option.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Based on the accessService value, then whether DLite should be used or not.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="nb">any</span><span class="p">(</span><span class="n">dlite_form</span> <span class="ow">in</span> <span class="n">access_service</span> <span class="k">for</span> <span class="n">dlite_form</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;DLite&quot;</span><span class="p">,</span> <span class="s2">&quot;dlite&quot;</span><span class="p">])</span>
+        <span class="ow">or</span> <span class="n">use_dlite_flag</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">oteapi_dlite_version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MissingDependency</span><span class="p">(</span>
+                <span class="s2">&quot;OTEAPI-DLite is not found on the system. This is required to use &quot;</span>
+                <span class="s2">&quot;DLite with the OTEAPI-OPTIMADE strategies.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
 
 
 
@@ -1431,7 +1573,7 @@ context from services.</p></td>
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.top"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.efa0ade1.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.19047be9.min.js"></script>
       
     
   </body>
