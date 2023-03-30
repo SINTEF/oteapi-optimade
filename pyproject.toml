@@ -28,7 +28,7 @@ dynamic = ["version"]
 dependencies = [
     "optimade[server] ~=0.22",
     "oteapi-core ~=0.4",
-    "oteapi-dlite ~=0.1",
+    "oteapi-dlite ~=0.1.1",
     "requests ~=2.28",
 ]
 
