@@ -10,7 +10,7 @@ from oteapi_optimade.models import OPTIMADEFilterConfig, OPTIMADEFilterSession
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 from oteapi_optimade.utils import model2dict
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from typing import Any, Dict, Optional, Union
 
 
@@ -45,6 +45,7 @@ class OPTIMADEFilterStrategy:
         OPTIMADE resource strategy through this filter strategy.
 
         Workflow:
+
         1. Compile received information.
         2. Update session with compiled information.
 

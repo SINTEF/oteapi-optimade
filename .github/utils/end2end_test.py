@@ -17,8 +17,8 @@ def _check_import(package_: str) -> str:
             f"Please install {package_} by running:\n\n"
             f"    pip install {package_}\n\n"
         )
-    else:
-        return ""
+
+    return ""
 
 
 def _check_service_availability(service_url: str) -> None:
@@ -33,9 +33,9 @@ def _check_service_availability(service_url: str) -> None:
         response = requests.get(f"{service_url}/docs", allow_redirects=True, timeout=30)
     except (requests.ConnectionError, requests.ConnectTimeout) as exc_:
         raise RuntimeError(f"Cannot connect to {service_url} !") from exc_
-    else:
-        if not response.ok:
-            raise RuntimeError(f"Cannot connect to {service_url} !")
+
+    if not response.ok:
+        raise RuntimeError(f"Cannot connect to {service_url} !")
 
 
 def main(oteapi_url: str) -> None:
@@ -62,7 +62,7 @@ def main(oteapi_url: str) -> None:
         }
     }
 
-    source = client.create_dataresource(
+    source = client.create_dataresource(  # pylint: disable=no-member
         accessService="OPTIMADE",
         accessUrl=f"http://localhost:{os.getenv('OPTIMADE_PORT', '5000')}/",
         configuration=config,
@@ -85,7 +85,7 @@ def main(oteapi_url: str) -> None:
         assert parsed_resource.id in ["mpf_1", "mpf_110"]
 
     # Use a filter strategy
-    query = client.create_filter(
+    query = client.create_filter(  # pylint: disable=no-member
         filterType="OPTIMADE",
         query='NOT( elements HAS "Ag" AND nelements>1 )',
         limit=4,

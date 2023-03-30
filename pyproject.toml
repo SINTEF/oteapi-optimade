@@ -26,8 +26,10 @@ requires-python = "~=3.9"
 dynamic = ["version"]
 
 dependencies = [
+    "DLite-Python >=0.3.18,<1",
     "optimade[server] ~=0.22",
     "oteapi-core ~=0.4",
+    "oteapi-dlite >=0.1.1,<1",
     "requests ~=2.28",
 ]
 
@@ -89,15 +91,35 @@ Package = "https://pypi.org/project/oteapi-optimade"
 "oteapi_optimade.application/vnd.optimade" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
 "oteapi_optimade.application/vnd.OPTIMADE" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
 "oteapi_optimade.application/vnd.OPTiMaDe" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.application/vnd.optimade+dlite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.application/vnd.OPTIMADE+dlite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.application/vnd.OPTiMaDe+dlite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.application/vnd.optimade+DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.application/vnd.OPTIMADE+DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.application/vnd.OPTiMaDe+DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
 [project.entry-points."oteapi.resource"]
 "oteapi_optimade.optimade" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 "oteapi_optimade.OPTIMADE" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 "oteapi_optimade.OPTiMaDe" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.optimade+dlite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTIMADE+dlite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTiMaDe+dlite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.optimade+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTIMADE+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTiMaDe+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 
 [project.entry-points."oteapi.transformation"]
 
 [tool.flit.module]
 name = "oteapi_optimade"
+
+[tool.flit.sdist]
+exclude = [
+    ".github/",
+    "tests/",
+    ".gitignore",
+    ".pre-commit-config.yaml",
+]
 
 [tool.mypy]
 python_version = "3.9"

@@ -1,5 +1,6 @@
 """`oteapi_optimade.models` module - pydantic data models."""
 from .strategies import (
+    OPTIMADEDLiteParseConfig,
     OPTIMADEFilterConfig,
     OPTIMADEFilterSession,
     OPTIMADEParseConfig,
@@ -9,6 +10,7 @@ from .strategies import (
 )
 
 __all__ = (
+    "OPTIMADEDLiteParseConfig",
     "OPTIMADEFilterConfig",
     "OPTIMADEFilterSession",
     "OPTIMADEParseConfig",
