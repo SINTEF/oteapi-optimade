@@ -1,5 +1,31 @@
 # Changelog
 
+## [v0.3.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.3.0) (2023-03-30)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.2.2...v0.3.0)
+
+**Implemented enhancements:**
+
+- Use `SINTEF/ci-cd` CI - Tests workflow [\#71](https://github.com/SINTEF/oteapi-optimade/issues/71)
+- Implement support for DLite [\#31](https://github.com/SINTEF/oteapi-optimade/issues/31)
+
+**Fixed bugs:**
+
+- Fix CI/CD workflows for external usage [\#84](https://github.com/SINTEF/oteapi-optimade/issues/84)
+- Update to `SINTEF/ci-cd` instead of `CasperWA/ci-cd` [\#72](https://github.com/SINTEF/oteapi-optimade/issues/72)
+
+**Closed issues:**
+
+- Use SINTEF/ci-cd v2 [\#104](https://github.com/SINTEF/oteapi-optimade/issues/104)
+- Reinstate pre-commit hooks for docs [\#68](https://github.com/SINTEF/oteapi-optimade/issues/68)
+
+**Merged pull requests:**
+
+- Support DLite [\#109](https://github.com/SINTEF/oteapi-optimade/pull/109) ([CasperWA](https://github.com/CasperWA))
+- Update to SINTEF/ci-cd v2 [\#105](https://github.com/SINTEF/oteapi-optimade/pull/105) ([CasperWA](https://github.com/CasperWA))
+- Update input keywords for SINTEF/ci-cd workflows [\#85](https://github.com/SINTEF/oteapi-optimade/pull/85) ([CasperWA](https://github.com/CasperWA))
+- Use CasperWA/ci-cd pre-commit hooks [\#69](https://github.com/SINTEF/oteapi-optimade/pull/69) ([CasperWA](https://github.com/CasperWA))
+
 ## [v0.2.2](https://github.com/SINTEF/oteapi-optimade/tree/v0.2.2) (2022-07-06)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.2.1...v0.2.2)
