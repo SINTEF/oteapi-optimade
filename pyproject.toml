@@ -28,7 +28,6 @@ dynamic = ["version"]
 dependencies = [
     "optimade[server] ~=0.22",
     "oteapi-core ~=0.4",
-    "oteapi-dlite ~=0.1.1",
     "requests ~=2.28",
 ]
 
@@ -52,7 +51,7 @@ pre-commit = [
 ]
 dlite = [
     "DLite-Python >=0.3.18,<1",
-    "oteapi-dlite ~=0.1.1",
+    "oteapi-dlite >=0.1.1,<1",
 ]
 dev = [
     "DLite-Python >=0.3.18,<1",
@@ -61,7 +60,7 @@ dev = [
     "mkdocs-awesome-pages-plugin ~=2.8",
     "mkdocs-material ~=9.1",
     "mkdocstrings[python-legacy] ~=0.20.0",
-    "oteapi-dlite ~=0.1.1",
+    "oteapi-dlite >=0.1.1,<1",
     "otelib ~=0.2",
     "pre-commit ~=3.1",
     "pylint ~=2.17",
