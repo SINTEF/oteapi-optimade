@@ -85,9 +85,13 @@ plugins:
             - import os
             - os.environ["MKDOCS_BUILD"] = "1"
   - awesome-pages
+  - mkdocs-jupyter:
+      include_source: True
+      include_requirejs: True
 
 nav:
   - Home: index.md
+  - ... | examples/**
   - License: LICENSE.md
   - Changelog: CHANGELOG.md
   - all_strategies.md
