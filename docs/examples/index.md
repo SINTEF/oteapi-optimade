@@ -2,7 +2,7 @@
 
 This section provides examples of how to use this OTEAPI plugin to perform OPTIMADE queries and handle the results.
 
-In [Use OTEAPI-OPTIMADE with OTElib](otelib) you can find an example of how to use this plugin with the [OTElib](https://github.com/EMMC-ASBL/otelib) client.
+In [_Use OTEAPI-OPTIMADE with OTElib_](otelib) you can find an example of how to use this plugin with the [OTElib](https://github.com/EMMC-ASBL/otelib) client.
 
 It is worth noting that there are several different ways to use the strategies in this plugin.
 For example, an OPTIMADE query can be provided using the `OPTIMADE` filter strategy, but it can also be provided directly in the URL value of the `OPTIMADE` data resource strategy's `accessUlr` parameter.
