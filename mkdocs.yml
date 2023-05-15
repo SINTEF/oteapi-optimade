@@ -17,6 +17,7 @@ theme:
   features:
     - navigation.instant
     - navigation.top
+  custom_dir: mkdocs_material_overrides
 
 repo_name: "oteapi-optimade"
 repo_url: "https://github.com/SINTEF/oteapi-optimade"
@@ -87,7 +88,6 @@ plugins:
   - awesome-pages
   - mkdocs-jupyter:
       include_source: True
-      include_requirejs: True
 
 nav:
   - Home: index.md
