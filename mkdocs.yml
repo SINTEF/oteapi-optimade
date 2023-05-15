@@ -99,3 +99,4 @@ nav:
 
 watch:
   - "oteapi_optimade"
+  - "mkdocs_material_overrides"
