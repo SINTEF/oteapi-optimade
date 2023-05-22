@@ -17,6 +17,7 @@ theme:
   features:
     - navigation.instant
     - navigation.top
+    - content.code.copy
   custom_dir: mkdocs_material_overrides
 
 repo_name: "oteapi-optimade"
