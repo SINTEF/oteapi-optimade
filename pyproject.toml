@@ -27,7 +27,7 @@ dynamic = ["version"]
 
 dependencies = [
     "DLite-Python >=0.3.19,<1",
-    "optimade[server] ~=0.23",
+    "optimade[server] ~=0.24",
     "oteapi-core ~=0.4",
     "oteapi-dlite >=0.1.2,<1",
     "psycopg2-binary !=2.9.6",
