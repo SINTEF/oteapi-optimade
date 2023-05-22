@@ -1,5 +1,5 @@
-<!-- markdownlint-disable MD046 -->
 # Overview
+<!-- markdownlint-disable MD046 -->
 
 This section provides examples of how to use this OTEAPI plugin to perform OPTIMADE queries and handle the results.
 
