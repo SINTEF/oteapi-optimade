@@ -46,7 +46,7 @@ test = [
     "pytest ~=7.3",
     "pytest-cov ~=4.1",
     "pyyaml ~=6.0",
-    "requests-mock ~=1.10",
+    "requests-mock ~=1.11",
 ]
 pre-commit = [
     "pre-commit ~=3.3",
@@ -64,7 +64,7 @@ dev = [
     "pytest ~=7.3",
     "pytest-cov ~=4.1",
     "pyyaml ~=6.0",
-    "requests-mock ~=1.10",
+    "requests-mock ~=1.11",
 ]
 
 [project.urls]
