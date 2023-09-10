@@ -10,12 +10,14 @@
 
 **Fixed bugs:**
 
+- Pipeline figure not being shown in docs [\#144](https://github.com/SINTEF/oteapi-optimade/issues/144)
 - Updated DLite installation pathway [\#136](https://github.com/SINTEF/oteapi-optimade/issues/136)
 - `Segmentation fault` from dlite in CI [\#115](https://github.com/SINTEF/oteapi-optimade/issues/115)
 - init file missing in the new `dlite` module [\#113](https://github.com/SINTEF/oteapi-optimade/issues/113)
 
 **Merged pull requests:**
 
+- Use relative link, which works only in production [\#145](https://github.com/SINTEF/oteapi-optimade/pull/145) ([CasperWA](https://github.com/CasperWA))
 - Avoid DLite v0.4.0 [\#139](https://github.com/SINTEF/oteapi-optimade/pull/139) ([CasperWA](https://github.com/CasperWA))
 - Add example to documentation [\#125](https://github.com/SINTEF/oteapi-optimade/pull/125) ([CasperWA](https://github.com/CasperWA))
 - Add \_\_init\_\_ file to dlite submodule [\#122](https://github.com/SINTEF/oteapi-optimade/pull/122) ([CasperWA](https://github.com/CasperWA))

@@ -2228,8 +2228,10 @@ client = OTEClient("http://localhost:80")</div>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="search-through-materials-project-for-all-structures-with-the-formula-al2o3">Search through Materials Project for all structures with the formula <code>Al2O3</code><a class="anchor-link" href="#search-through-materials-project-for-all-structures-with-the-formula-al2o3">¶</a></h3><p>To search through Materials Project for all structures with the formula <code>Al2O3</code>, we need to create the OTE strategies that we want to use for creating the OTE pipeline:</p>
 <!-- The mkdocs-jupyter plugin creates a folder 'otelib' wherein it puts the generated HTML
-Therefore, we here use the "full" path (minus the base URL) to reference the image -->
-<p><img alt="Pipeline example 1" src="/oteapi-optimade/img/chem_formula_pipeline.png"/></p>
+Therefore, we need to go up one more folder level to reference the image.
+One could use an "absolute" link, however, in production, mike will append the version to the path,
+which this link could not dynamically include. -->
+<p><img alt="Pipeline example 1" src="../../img/chem_formula_pipeline.png"/></p>
 <p>To create the strategies, we need to know how to configure them.
 This information is available in the <a href="https://emmc-asbl.github.io/oteapi-core">OTEAPI Core documentation</a>, specifically for <a href="https://emmc-asbl.github.io/oteapi-core/latest/api_reference/models/resourceconfig/#oteapi.models.resourceconfig.ResourceConfig">Data Resource strategies</a> and for <a href="https://emmc-asbl.github.io/oteapi-core/latest/api_reference/models/filterconfig/#oteapi.models.filterconfig.FilterConfig">Filter strategies</a>.</p>
 <p>For the data resource strategy, i.e., the OPTIMADE DB strategy, we need to know the base URL of the OPTIMADE API for Materials Project.
