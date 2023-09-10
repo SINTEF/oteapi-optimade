@@ -35,10 +35,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+examples = [
+    "jupyter ~=1.0",
+    "otelib ~=0.3",
+]
 doc = [
     "mike ~=1.1",
     "mkdocs ~=1.5",
     "mkdocs-awesome-pages-plugin ~=2.9",
+    "mkdocs-jupyter ~=0.24.1",
     "mkdocs-material ~=9.1",
     "mkdocstrings[python-legacy] ~=0.22.0",
 ]
@@ -56,8 +61,10 @@ dev = [
     "mike ~=1.1",
     "mkdocs ~=1.5",
     "mkdocs-awesome-pages-plugin ~=2.9",
+    "mkdocs-jupyter ~=0.24.1",
     "mkdocs-material ~=9.1",
     "mkdocstrings[python-legacy] ~=0.22.0",
+    "jupyter ~=1.0",
     "otelib ~=0.3",
     "pre-commit ~=3.3",
     "pylint ~=2.17",
