@@ -40,6 +40,8 @@ examples = [
     "otelib ~=0.3",
 ]
 doc = [
+    "jupyter ~=1.0",
+    "otelib ~=0.3",
     "mike ~=1.1",
     "mkdocs ~=1.5",
     "mkdocs-awesome-pages-plugin ~=2.9",
