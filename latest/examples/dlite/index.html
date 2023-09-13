@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://SINTEF.github.io/oteapi-optimade/latest/examples/otelib/">
+        <link rel="canonical" href="https://SINTEF.github.io/oteapi-optimade/latest/examples/dlite/">
       
       
-        <link rel="prev" href="../dlite/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../../LICENSE/">
+        <link rel="next" href="../otelib/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Use OTEAPI-OPTIMADE with OTElib - OTE-API OPTIMADE</title>
+        <title>Use DLite strategies from OTEAPI-OPTIMADE - OTE-API OPTIMADE</title>
       
     
     
@@ -79,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#use-oteapi-optimade-with-otelib" class="md-skip">
+        <a href="#use-dlite-strategies-from-oteapi-optimade" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Use OTEAPI-OPTIMADE with OTElib
+              Use DLite strategies from OTEAPI-OPTIMADE
             
           </span>
         </div>
@@ -307,26 +307,6 @@
                 
   
   
-  
-    <li class="md-nav__item">
-      <a href="../dlite/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Use DLite strategies from OTEAPI-OPTIMADE
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -342,7 +322,7 @@
           
   
   <span class="md-ellipsis">
-    Use OTEAPI-OPTIMADE with OTElib
+    Use DLite strategies from OTEAPI-OPTIMADE
   </span>
   
 
@@ -353,7 +333,7 @@
         
   
   <span class="md-ellipsis">
-    Use OTEAPI-OPTIMADE with OTElib
+    Use DLite strategies from OTEAPI-OPTIMADE
   </span>
   
 
@@ -375,26 +355,19 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#http-requests-based-backend" class="md-nav__link">
-    HTTP requests-based backend
-  </a>
-  
-    <nav class="md-nav" aria-label="HTTP requests-based backend">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#setup" class="md-nav__link">
     Setup
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+    <nav class="md-nav" aria-label="Example">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#create-a-client" class="md-nav__link">
@@ -404,64 +377,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#search-through-materials-project-for-all-structures-with-the-formula-al2o3" class="md-nav__link">
-    Search through Materials Project for all structures with the formula Al2O3
+  <a href="#data-resource-strategy" class="md-nav__link">
+    Data Resource strategy
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#search-through-materials-project-for-all-structures-that-include-al-and-o-in-their-chemical-formula" class="md-nav__link">
-    Search through Materials Project for all structures that include Al and O in their chemical formula
+  <a href="#filter-strategy" class="md-nav__link">
+    Filter strategy
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Filter strategy">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#search-through-mc3d-database-in-materials-cloud-for-all-structures-that-include-al-and-o-in-their-chemical-formula" class="md-nav__link">
-    Search through MC3D database in Materials Cloud for all structures that include Al and O in their chemical formula
+  <a href="#setup-execute-and-inspect-the-pipeline" class="md-nav__link">
+    Setup, execute and inspect the pipeline
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#python-based-backend" class="md-nav__link">
-    Python-based backend
-  </a>
-  
-    <nav class="md-nav" aria-label="Python-based backend">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-a-client_1" class="md-nav__link">
-    Create a client
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-through-materials-project-for-all-structures-with-the-formula-al2o3_1" class="md-nav__link">
-    Search through Materials Project for all structures with the formula Al2O3
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-through-materials-project-for-all-structures-that-include-al-and-o-in-their-chemical-formula_1" class="md-nav__link">
-    Search through Materials Project for all structures that include Al and O in their chemical formula
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-through-mc3d-database-in-materials-cloud-for-all-structures-that-include-al-and-o-in-their-chemical-formula_1" class="md-nav__link">
-    Search through MC3D database in Materials Cloud for all structures that include Al and O in their chemical formula
-  </a>
   
 </li>
         
@@ -474,6 +412,26 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../otelib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use OTEAPI-OPTIMADE with OTElib
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1019,26 +977,19 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#http-requests-based-backend" class="md-nav__link">
-    HTTP requests-based backend
-  </a>
-  
-    <nav class="md-nav" aria-label="HTTP requests-based backend">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#setup" class="md-nav__link">
     Setup
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+    <nav class="md-nav" aria-label="Example">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#create-a-client" class="md-nav__link">
@@ -1048,64 +999,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#search-through-materials-project-for-all-structures-with-the-formula-al2o3" class="md-nav__link">
-    Search through Materials Project for all structures with the formula Al2O3
+  <a href="#data-resource-strategy" class="md-nav__link">
+    Data Resource strategy
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#search-through-materials-project-for-all-structures-that-include-al-and-o-in-their-chemical-formula" class="md-nav__link">
-    Search through Materials Project for all structures that include Al and O in their chemical formula
+  <a href="#filter-strategy" class="md-nav__link">
+    Filter strategy
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Filter strategy">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#search-through-mc3d-database-in-materials-cloud-for-all-structures-that-include-al-and-o-in-their-chemical-formula" class="md-nav__link">
-    Search through MC3D database in Materials Cloud for all structures that include Al and O in their chemical formula
+  <a href="#setup-execute-and-inspect-the-pipeline" class="md-nav__link">
+    Setup, execute and inspect the pipeline
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#python-based-backend" class="md-nav__link">
-    Python-based backend
-  </a>
-  
-    <nav class="md-nav" aria-label="Python-based backend">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-a-client_1" class="md-nav__link">
-    Create a client
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-through-materials-project-for-all-structures-with-the-formula-al2o3_1" class="md-nav__link">
-    Search through Materials Project for all structures with the formula Al2O3
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-through-materials-project-for-all-structures-that-include-al-and-o-in-their-chemical-formula_1" class="md-nav__link">
-    Search through Materials Project for all structures that include Al and O in their chemical formula
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-through-mc3d-database-in-materials-cloud-for-all-structures-that-include-al-and-o-in-their-chemical-formula_1" class="md-nav__link">
-    Search through MC3D database in Materials Cloud for all structures that include Al and O in their chemical formula
-  </a>
   
 </li>
         
@@ -1127,7 +1043,7 @@
               <article class="md-content__inner md-typeset">
                 
 
-    <a href="/oteapi-optimade/latest/examples/otelib/otelib.ipynb" title="Download Notebook" class="md-content__button md-icon">
+    <a href="/oteapi-optimade/latest/examples/dlite/dlite.ipynb" title="Download Notebook" class="md-content__button md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7 7-7Z"/></svg>
     </a>
 
@@ -2163,48 +2079,16 @@ Licensed under the Apache License, Version 2.0.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="use-oteapi-optimade-with-otelib">Use OTEAPI-OPTIMADE with OTElib<a class="anchor-link" href="#use-oteapi-optimade-with-otelib">¶</a></h1><p><a href="https://github.com/EMMC-ASBL/otelib">OTElib</a> is a Python client library for the OTEAPI system.
-It has two usable backends:</p>
-<ol>
-<li>Python-based.
-This uses the <a href="https://github.com/EMMC-ASBL/oteapi-core">OTEAPI Core</a> library directly to exectue pipelines.
-This backend should mainly be used for <em>development</em> purposes.</li>
-<li>HTTP requests-based.
-This uses the <a href="https://github.com/EMMC-ASBL/oteapi-services">OTEAPI Services</a> library to execute pipelines via HTTP requests to a running OTEAPI server.
-This backend should be used for <em>production</em> purposes.</li>
-</ol>
-<p>This notebook demonstrates how to use OTEAPI-OPTIMADE with OTElib.</p>
-<h2 id="example">Example<a class="anchor-link" href="#example">¶</a></h2><p>Using OTElib we will do different OPTIMADE queries.
-First, we will search through <a href="https://materialsproject.org">the Materials Project</a> database for all structures with the formula <code>Al2O3</code>.
-Then, we will search through the Materials Project database for all structures that include <code>Al</code> and <code>O</code> in their chemical formula.
-Finally, we will search through <a href="https://materialscloud.org">the Materials Cloud</a> <a href="https://mc3d.materialscloud.org/">MC3D - Materials Cloud three-dimensional crystals database</a> for all structures that include <code>Al</code> and <code>O</code> in their chemical formula.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="http-requests-based-backend">HTTP requests-based backend<a class="anchor-link" href="#http-requests-based-backend">¶</a></h2><p>This backend is equivalent to running in production.
-It requires a running OTEAPI server.</p>
-<h3 id="setup">Setup<a class="anchor-link" href="#setup">¶</a></h3><p>First, we need to have a running OTEAPI server.
-If one is not available, we can start one using <a href="https://docker.com">Docker</a>.
-See the <a href="/oteapi-optimade/examples/#setup-for-examples">overview</a> for instructions on how to start a server.</p>
-<p>Further documentation about the OTEAPI Service is available as <a href="https://github.com/EMMC-ASBL/oteapi-services#run-in-docker">a README on GitHub</a>.</p>
-<!-- The mkdocs-jupyter plugin does not support admonitions and similar stuff,
-so we need to write in the HTML directly here. -->
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>
-    It is advisable to run the OTEAPI server in a separate terminal window, so that we can see the logs from the server.
-    Furthermore, we can stop the server by pressing <code>Ctrl+C</code> in the terminal window.
-  </p>
-</div>
-<p>After following the instructions, we should have a running OTEAPI server at <a href="http://localhost:80/docs">localhost:80</a>.</p>
-<h3 id="create-a-client">Create a client<a class="anchor-link" href="#create-a-client">¶</a></h3>
+<h1 id="use-dlite-strategies-from-oteapi-optimade">Use DLite strategies from OTEAPI-OPTIMADE<a class="anchor-link" href="#use-dlite-strategies-from-oteapi-optimade">¶</a></h1><p>This example shows how to use the DLite strategies from the OTEAPI-OPTIMADE plugin.</p>
+<p><a href="https://github.com/SINTEF/dlite">DLite</a> is a Python library for working with data models and semantics.
+It is considered to be the default semantic data model backend for use with OTEAPI.</p>
+<p>To see more fundamental examples of how to use OTEAPI-OPTIMADE, see the example <a href="/oteapi-optimade/examples/otelib/"><em>Use OTEAPI-OPTIMADE with OTElib</em></a>.
+OTElib will also be used as a client in the current example.
+Furthermore, only the HTTP requests-based backend will be used in this example.</p>
+<h2 id="setup">Setup<a class="anchor-link" href="#setup">¶</a></h2><p>Please see the <a href="/oteapi-optimade/examples/otelib/#setup">setup instructions in <em>Use OTEAPI-OPTIMADE with OTElib</em></a> for how to ensure you have a proper environment to run the example in.</p>
+<h2 id="example">Example<a class="anchor-link" href="#example">¶</a></h2><p>In this example, we will use the DLite strategies to query the <a href="https://www.materialsproject.org/">Materials Project</a> OPTIMADE API.
+We are interested in finding all structures that include the elements <code>Si</code> and <code>O</code>, and that have a maximum of 4 elements in total.</p>
+<h3 id="create-a-client">Create a client<a class="anchor-link" href="#create-a-client">¶</a></h3><p>Let's start by initializing a client:</p>
 </div>
 </div>
 </div>
@@ -2229,11 +2113,11 @@ so we need to write in the HTML directly here. -->
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">otelib</span> <span class="kn">import</span> <span class="n">OTEClient</span>
 
-<span class="n">client</span> <span class="o">=</span> <span class="n">OTEClient</span><span class="p">(</span><span class="s2">"http://localhost:80"</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OTEClient</span><span class="p">(</span><span class="s2">"python"</span><span class="p">)</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-1">from otelib import OTEClient
 
-client = OTEClient("http://localhost:80")</div>
+client = OTEClient("python")</div>
 </div>
 </div>
 </div>
@@ -2246,17 +2130,14 @@ client = OTEClient("http://localhost:80")</div>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="search-through-materials-project-for-all-structures-with-the-formula-al2o3">Search through Materials Project for all structures with the formula <code>Al2O3</code><a class="anchor-link" href="#search-through-materials-project-for-all-structures-with-the-formula-al2o3">¶</a></h3><p>To search through Materials Project for all structures with the formula <code>Al2O3</code>, we need to create the OTE strategies that we want to use for creating the OTE pipeline:</p>
-<!-- The mkdocs-jupyter plugin creates a folder 'otelib' wherein it puts the generated HTML
+<h3 id="data-resource-strategy">Data Resource strategy<a class="anchor-link" href="#data-resource-strategy">¶</a></h3><p>The general pipeline is the same as it was for <a href="otelib##search-through-materials-project-for-all-structures-with-the-formula-al2o3"><em>Use OTEAPI-OPTIMADE with OTElib</em></a>:</p>
+<!-- The mkdocs-jupyter plugin creates a folder 'dlite' wherein it puts the generated HTML
 Therefore, we need to go up one more folder level to reference the image.
 One could use an "absolute" link, however, in production, mike will append the version to the path,
 which this link could not dynamically include. -->
 <p><img alt="Pipeline example 1" src="../../img/chem_formula_pipeline.png"/></p>
-<p>To create the strategies, we need to know how to configure them.
-This information is available in the <a href="https://emmc-asbl.github.io/oteapi-core">OTEAPI Core documentation</a>, specifically for <a href="https://emmc-asbl.github.io/oteapi-core/latest/api_reference/models/resourceconfig/#oteapi.models.resourceconfig.ResourceConfig">Data Resource strategies</a> and for <a href="https://emmc-asbl.github.io/oteapi-core/latest/api_reference/models/filterconfig/#oteapi.models.filterconfig.FilterConfig">Filter strategies</a>.</p>
-<p>For the data resource strategy, i.e., the OPTIMADE DB strategy, we need to know the base URL of the OPTIMADE API for Materials Project.
-OPTIMADE has a useful <a href="https://www.optimade.org/providers-dashboard/">providers dashboard</a> that lists all known OPTIMADE providers and their (sub-)databases.
-Here we can find the base URL for <a href="https://www.optimade.org/providers-dashboard/providers/mp.html">the Materials Project</a>: <code>https://optimade.materialsproject.org</code>.</p>
+<p>However, in order to use DLite we need to <em>either</em> reference a specific <code>accessService</code> <strong>or</strong> set a flag in the configuration of the data resource strategy.</p>
+<p>Note, it is <em>only</em> for the data resource strategy we need to specify the usage of DLite, as the filter strategy is generic and merely a helper for more explicitly setting the query parameters to be used for the underlying OPTIMADE query.</p>
 </div>
 </div>
 </div>
@@ -2280,14 +2161,28 @@ Here we can find the base URL for <a href="https://www.optimade.org/providers-da
 </clipboard-copy>
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">data_resource_strategy</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_dataresource</span><span class="p">(</span>
-    <span class="n">accessService</span><span class="o">=</span><span class="s2">"OPTIMADE"</span><span class="p">,</span>
-    <span class="n">accessUrl</span><span class="o">=</span><span class="s2">"https://optimade.materialsproject.org/"</span><span class="p">,</span>
+    <span class="n">accessService</span><span class="o">=</span><span class="s2">"OPTIMADE+DLite"</span><span class="p">,</span>
+    <span class="n">accessUrl</span><span class="o">=</span><span class="s2">"https://optimade.materialsproject.org"</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="c1"># This is equivalent to:</span>
+<span class="c1"># data_resource_strategy = client.create_dataresource(</span>
+<span class="c1">#     accessService="OPTIMADE",</span>
+<span class="c1">#     accessUrl="https://optimade.materialsproject.org",</span>
+<span class="c1">#     configuration={"use_dlite": True},</span>
+<span class="c1"># )</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-2">data_resource_strategy = client.create_dataresource(
-    accessService="OPTIMADE",
-    accessUrl="https://optimade.materialsproject.org/",
-)</div>
+    accessService="OPTIMADE+DLite",
+    accessUrl="https://optimade.materialsproject.org",
+)
+
+# This is equivalent to:
+# data_resource_strategy = client.create_dataresource(
+#     accessService="OPTIMADE",
+#     accessUrl="https://optimade.materialsproject.org",
+#     configuration={"use_dlite": True},
+# )</div>
 </div>
 </div>
 </div>
@@ -2300,9 +2195,8 @@ Here we can find the base URL for <a href="https://www.optimade.org/providers-da
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>For the filter strategy, we need to know the OPTIMADE query that we want to execute.</p>
-<p>For retrieving all structures with the formula <code>Al2O3</code>, we can use the following OPTIMADE filter query:</p>
-<pre><code>chemical_formula_descriptive = "Al2O3" OR chemical_formula_reduced = "Al2O3" OR chemical_formula_hill = "Al2O3"
+<h3 id="filter-strategy">Filter strategy<a class="anchor-link" href="#filter-strategy">¶</a></h3><p>The OPTIMADE filter query to fulfill <a href="#example">the interests outlined above</a> should look like this:</p>
+<pre><code>elements HAS ALL "Si","O" AND nelements&lt;=4
 </code></pre>
 </div>
 </div>
@@ -2328,12 +2222,12 @@ Here we can find the base URL for <a href="https://www.optimade.org/providers-da
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">filter_strategy</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_filter</span><span class="p">(</span>
     <span class="n">filterType</span><span class="o">=</span><span class="s2">"OPTIMADE"</span><span class="p">,</span>
-    <span class="n">query</span><span class="o">=</span><span class="s1">'chemical_formula_descriptive = "Al2O3" OR chemical_formula_reduced = "Al2O3" OR chemical_formula_hill = "Al2O3"'</span><span class="p">,</span>
+    <span class="n">query</span><span class="o">=</span><span class="s1">'elements HAS ALL "Si","O" AND nelements&lt;=4'</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-3">filter_strategy = client.create_filter(
     filterType="OPTIMADE",
-    query='chemical_formula_descriptive = "Al2O3" OR chemical_formula_reduced = "Al2O3" OR chemical_formula_hill = "Al2O3"',
+    query='elements HAS ALL "Si","O" AND nelements&lt;=4',
 )</div>
 </div>
 </div>
@@ -2347,12 +2241,12 @@ Here we can find the base URL for <a href="https://www.optimade.org/providers-da
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now we can create the OTE pipeline shown above and execute it.</p>
+<h4 id="setup-execute-and-inspect-the-pipeline">Setup, execute and inspect the pipeline<a class="anchor-link" href="#setup-execute-and-inspect-the-pipeline">¶</a></h4>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2370,24 +2264,55 @@ Here we can find the base URL for <a href="https://www.optimade.org/providers-da
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">filter_strategy</span> <span class="o">&gt;&gt;</span> <span class="n">data_resource_strategy</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">filter_strategy</span> <span class="o">&gt;&gt;</span> <span class="n">data_resource_strategy</span>
 <span class="n">session</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">parsed_session</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+<span class="n">parsed_session</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-4">pipeline = filter_strategy &gt;&gt; data_resource_strategy
-session = pipeline.get()</div>
+<div class="clipboard-copy-txt" id="cell-4">import json
+
+pipeline = filter_strategy &gt;&gt; data_resource_strategy
+session = pipeline.get()
+parsed_session = json.loads(session)
+parsed_session.keys()</div>
 </div>
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Setting filter from query.
+Setting filter from query.
+resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='elements HAS ALL "Si","O" AND nelements&lt;=4', response_format='json', email_address='', response_fields='', sort='', page_limit=20, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://optimade.materialsproject.org', base_url='https://optimade.materialsproject.org', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE+DLite', license=None, accessRights=None, publisher=None)
+resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='elements HAS ALL "Si","O" AND nelements&lt;=4', response_format='json', email_address='', response_fields='', sort='', page_limit=20, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://optimade.materialsproject.org', base_url='https://optimade.materialsproject.org', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE+DLite', license=None, accessRights=None, publisher=None)
+optimade_query after update: OPTIMADEQueryParameters(filter='elements HAS ALL "Si","O" AND nelements&lt;=4', response_format='json', email_address='', response_fields='', sort='', page_limit=20, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
+optimade_query after update: OPTIMADEQueryParameters(filter='elements HAS ALL "Si","O" AND nelements&lt;=4', response_format='json', email_address='', response_fields='', sort='', page_limit=20, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
+OPTIMADE URL to be requested: https://optimade.materialsproject.org/v1/structures?filter=elements%20HAS%20ALL%20%22Si%22%2C%22O%22%20AND%20nelements%3C%3D4&amp;response_format=json&amp;page_limit=20&amp;include=references
+OPTIMADE URL to be requested: https://optimade.materialsproject.org/v1/structures?filter=elements%20HAS%20ALL%20%22Si%22%2C%22O%22%20AND%20nelements%3C%3D4&amp;response_format=json&amp;page_limit=20&amp;include=references
+</pre>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/hostedtoolcache/Python/3.9.18/x64/lib/python3.9/site-packages/optimade/server/config.py:113: UserWarning: Unable to find config file at /home/runner/.optimade.json, using the default settings instead.
+  warnings.warn(
+</pre>
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The returned session is a JSON object we can parse and investigate.</p>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>dict_keys(['optimade_config', 'optimade_resources', 'optimade_resource_model', 'collection_id'])</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2410,15 +2335,23 @@ session = pipeline.get()</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
 
-<span class="n">parsed_session</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">parsed_session</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">import_path</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resource_model"</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ResourceClass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">import_module</span><span class="p">(</span><span class="n">import_path</span><span class="p">),</span> <span class="n">class_name</span><span class="p">)</span>
+
+<span class="n">parsed_structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">ResourceClass</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span> <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resources"</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The query resulted in </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_structures</span><span class="p">)</span><span class="si">}</span><span class="s2"> structures found (on page 1) of the returned data."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Their Materials Project IDs are: </span><span class="si">{</span><span class="p">[</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">parsed_structures</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-5">import json
+<div class="clipboard-copy-txt" id="cell-5">from importlib import import_module
 
-parsed_session: dict = json.loads(session)
-print(parsed_session.keys())</div>
+import_path, class_name = parsed_session["optimade_resource_model"].split(":", maxsplit=1)
+ResourceClass = getattr(import_module(import_path), class_name)
+
+parsed_structures = [ResourceClass(structure) for structure in parsed_session["optimade_resources"]]
+print(f"The query resulted in {len(parsed_structures)} structures found (on page 1) of the returned data.")
+print(f"Their Materials Project IDs are: {[structure.id for structure in parsed_structures]}")</div>
 </div>
 </div>
 </div>
@@ -2430,25 +2363,11 @@ print(parsed_session.keys())</div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>dict_keys(['optimade_resources', 'optimade_config', 'optimade_resource_model'])
+<pre>The query resulted in 20 structures found (on page 1) of the returned data.
+Their Materials Project IDs are: ['mp-1033911', 'mp-757887', 'mp-1219366', 'mp-733539', 'mp-542090', 'mp-758465', 'mp-560675', 'mp-774171', 'mp-1304778', 'mp-1016821', 'mp-1363556', 'mp-757013', 'mp-683953', 'mp-1020609', 'mp-17612', 'mp-558129', 'mp-1210628', 'mp-1197149', 'mp-21791', 'mp-752892']
 </pre>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>As can be seen, there are three keys in the returned session.
-<code>optimade_config</code> summarizes the query that has been performed to Materials Project.
-The OPTIMADE structures are listed under the <code>optimade_resources</code>. It is named as such due to there being different OPTIMADE resources, e.g., <code>structures</code>, <code>references</code>, <code>links</code>, etc.
-The <a href="https://github.com/Materials-Consortia/optimate-python-tools">OPTIMADE Python tools</a> has a useful <a href="http://www.optimade.org/optimade-python-tools/latest/api_reference/adapters/structures/adapter/#optimade.adapters.structures.adapter.Structure">OPTIMADE Structure model class</a> that can be used to parse the OPTIMADE structures into Python objects as well as validating them according to the <a href="https://github.com/Materials-Consortia/OPTIMADE/blob/master/optimade.rst">OPTIMADE specification</a>.
-Again, since one can query for different OPTIMADE resources, the specific Python class to use is given in <code>optimade_resource_model</code>.</p>
 </div>
 </div>
 </div>
@@ -2471,23 +2390,15 @@ Again, since one can query for different OPTIMADE resources, the specific Python
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">oteapi_dlite.utils</span> <span class="kn">import</span> <span class="n">get_collection</span>
 
-<span class="n">import_path</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resource_model"</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ResourceClass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">import_module</span><span class="p">(</span><span class="n">import_path</span><span class="p">),</span> <span class="n">class_name</span><span class="p">)</span>
-
-<span class="n">parsed_structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">ResourceClass</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span> <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resources"</span><span class="p">]]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The query resulted in </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_structures</span><span class="p">)</span><span class="si">}</span><span class="s2"> structures found (on page 1) of the returned data."</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Their Materials Project IDs are: </span><span class="si">{</span><span class="p">[</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">parsed_structures</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="n">get_collection</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">parsed_session</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-6">from importlib import import_module
+<div class="clipboard-copy-txt" id="cell-6">from oteapi_dlite.utils import get_collection
 
-import_path, class_name = parsed_session["optimade_resource_model"].split(":", maxsplit=1)
-ResourceClass = getattr(import_module(import_path), class_name)
-
-parsed_structures = [ResourceClass(structure) for structure in parsed_session["optimade_resources"]]
-print(f"The query resulted in {len(parsed_structures)} structures found (on page 1) of the returned data.")
-print(f"Their Materials Project IDs are: {[structure.id for structure in parsed_structures]}")</div>
+collection = get_collection(session=parsed_session)
+print(collection)</div>
 </div>
 </div>
 </div>
@@ -2499,24 +2410,20 @@ print(f"Their Materials Project IDs are: {[structure.id for structure in parsed_
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>The query resulted in 20 structures found (on page 1) of the returned data.
-Their Materials Project IDs are: ['mp-1228448', 'mp-755483', 'mp-1245081', 'mp-1244878', 'mp-1105018', 'mp-754401', 'mp-1245063', 'mp-1245265', 'mp-684591', 'mp-1244898', 'mp-1245211', 'mp-1245056', 'mp-642363', 'mp-1244930', 'mp-1244937', 'mp-1244967', 'mp-1244954', 'mp-1244874', 'mp-1245008', 'mp-1245023']
+<pre>{
+  "c24b2ac2-9328-4b80-88b5-9da271864869":  {
+    "meta": "http://onto-ns.com/meta/0.1/Collection",
+    "dimensions": {
+      "nrelations": 60
+    },
+    "properties": {
+      "relations": [["mp-1033911", "_is-a", "Instance"], ["mp-1033911", "_has-uuid", "863295fa-db0e-42e5-8196-973049dacb21"], ["mp-1033911", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-757887", "_is-a", "Instance"], ["mp-757887", "_has-uuid", "b4d4c3ea-5d41-49b9-b4d4-7dd845cf6622"], ["mp-757887", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-1219366", "_is-a", "Instance"], ["mp-1219366", "_has-uuid", "492b8f9e-62be-4e63-ae76-23c5c4ec5581"], ["mp-1219366", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-733539", "_is-a", "Instance"], ["mp-733539", "_has-uuid", "3efc6d96-7cb1-4af3-85e6-bbee6bd3f0a2"], ["mp-733539", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-542090", "_is-a", "Instance"], ["mp-542090", "_has-uuid", "403cbfde-5fa0-4d29-8e06-2708a34ad5d2"], ["mp-542090", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-758465", "_is-a", "Instance"], ["mp-758465", "_has-uuid", "f6622b65-06c9-4a09-8002-b34246bf9633"], ["mp-758465", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-560675", "_is-a", "Instance"], ["mp-560675", "_has-uuid", "d0ad3555-2d6a-4c78-b60b-8c4d1d6bd4e7"], ["mp-560675", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-774171", "_is-a", "Instance"], ["mp-774171", "_has-uuid", "c36fd581-42b6-4be5-adf1-d4553fd7b3e3"], ["mp-774171", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-1304778", "_is-a", "Instance"], ["mp-1304778", "_has-uuid", "dfdcdb6c-224d-4383-bb7c-6bb852558fc6"], ["mp-1304778", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-1016821", "_is-a", "Instance"], ["mp-1016821", "_has-uuid", "526d457a-c7ca-464e-b78c-0efbc2751ca0"], ["mp-1016821", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-1363556", "_is-a", "Instance"], ["mp-1363556", "_has-uuid", "5c440268-288d-4f4c-86b9-3da83db6fe00"], ["mp-1363556", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-757013", "_is-a", "Instance"], ["mp-757013", "_has-uuid", "d9d0fc33-51b9-403e-ad4f-893086f72962"], ["mp-757013", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-683953", "_is-a", "Instance"], ["mp-683953", "_has-uuid", "47f8f6ec-7983-4be1-ad52-d4c331a361ee"], ["mp-683953", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-1020609", "_is-a", "Instance"], ["mp-1020609", "_has-uuid", "b0ff8bed-eb54-4447-aeb7-b1f1af13d0d8"], ["mp-1020609", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-17612", "_is-a", "Instance"], ["mp-17612", "_has-uuid", "fb8f031d-b1f3-4359-8005-a12d0c7caaf1"], ["mp-17612", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-558129", "_is-a", "Instance"], ["mp-558129", "_has-uuid", "695a6ec7-bf04-40ba-ad23-aca6f6e2f599"], ["mp-558129", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-1210628", "_is-a", "Instance"], ["mp-1210628", "_has-uuid", "20440f28-348c-4d19-81d1-b27b92e9c5d1"], ["mp-1210628", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-1197149", "_is-a", "Instance"], ["mp-1197149", "_has-uuid", "04b58e7a-6983-43b0-ae9e-60b07bc646a9"], ["mp-1197149", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-21791", "_is-a", "Instance"], ["mp-21791", "_has-uuid", "4b000b05-36f7-4c43-a41d-adea886864e2"], ["mp-21791", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"], ["mp-752892", "_is-a", "Instance"], ["mp-752892", "_has-uuid", "1c2943e4-ad04-48fe-9510-a3939487842f"], ["mp-752892", "_has-meta", "http://onto-ns.com/meta/1.0/OPTIMADEStructure"]]
+    }
+  }
+}
 </pre>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>To find them on the Materials Project website, go to <code>materialsproject.org/materials/&lt;ID&gt;</code>, for example: <a href="https://materialsproject.org/materials/mp-1228448">materialsproject.org/materials/mp-1228448</a>.</p>
-<p>What is more, we can investigate the structure according to the <a href="https://github.com/Materials-Consortia/OPTIMADE/blob/master/optimade.rst#82structures-entries">well-defined OPTIMADE structure model attributes</a>.
-For example, so assert the chemical formula is what we expected, we can check the different chemical formula attributes:</p>
 </div>
 </div>
 </div>
@@ -2539,15 +2446,11 @@ For example, so assert the chemical formula is what we expected, we can check th
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">structure</span> <span class="o">=</span> <span class="n">parsed_structures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"descriptive"</span><span class="p">,</span> <span class="s2">"reduced"</span><span class="p">,</span> <span class="s2">"hill"</span><span class="p">,</span> <span class="s2">"anonymous"</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">'chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span><span class="w"> </span><span class="s1">'(not defined)'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">collection</span><span class="o">.</span><span class="n">get_instances</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-7">structure = parsed_structures[0]
-print(structure.id)
-for attribute in ("descriptive", "reduced", "hill", "anonymous"):
-    print(f"chemical_formula_{attribute}: {getattr(structure, f'chemical_formula_{attribute}', '(not defined)')}")</div>
+<div class="clipboard-copy-txt" id="cell-7">for inst in collection.get_instances():
+    print(inst)</div>
 </div>
 </div>
 </div>
@@ -2559,35 +2462,254 @@ for attribute in ("descriptive", "reduced", "hill", "anonymous"):
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>mp-1228448
-chemical_formula_descriptive: Al2O3
-chemical_formula_reduced: Al2O3
-chemical_formula_hill: Al2O3
-chemical_formula_anonymous: A3B2
+<pre>{
+  "863295fa-db0e-42e5-8196-973049dacb21":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "84833134-8f0c-4b7f-86da-e88e18fbc8a5",
+      "id": "mp-1033911"
+    }
+  }
+}
+{
+  "b4d4c3ea-5d41-49b9-b4d4-7dd845cf6622":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "ed51bcce-8b91-44d0-8267-d6d03dca37bc",
+      "id": "mp-757887"
+    }
+  }
+}
+{
+  "492b8f9e-62be-4e63-ae76-23c5c4ec5581":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "ee0a66b0-7914-4e7d-ba86-e79b36b632a3",
+      "id": "mp-1219366"
+    }
+  }
+}
+{
+  "3efc6d96-7cb1-4af3-85e6-bbee6bd3f0a2":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "3288acee-b4d0-4865-9c61-bd82916bf59e",
+      "id": "mp-733539"
+    }
+  }
+}
+{
+  "403cbfde-5fa0-4d29-8e06-2708a34ad5d2":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "e8f509e1-f9f6-4788-9ebc-9557f0754b6c",
+      "id": "mp-542090"
+    }
+  }
+}
+{
+  "f6622b65-06c9-4a09-8002-b34246bf9633":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "deb90626-ca63-4101-8f88-61b3d96c5568",
+      "id": "mp-758465"
+    }
+  }
+}
+{
+  "d0ad3555-2d6a-4c78-b60b-8c4d1d6bd4e7":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "7bcc78c0-0b99-4410-bf4d-6cba6f7a869e",
+      "id": "mp-560675"
+    }
+  }
+}
+{
+  "c36fd581-42b6-4be5-adf1-d4553fd7b3e3":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "60fec0e5-82f2-451c-8b3a-50eaf6c04e8a",
+      "id": "mp-774171"
+    }
+  }
+}
+{
+  "dfdcdb6c-224d-4383-bb7c-6bb852558fc6":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "81898910-3655-455b-a869-f88df5751af6",
+      "id": "mp-1304778"
+    }
+  }
+}
+{
+  "526d457a-c7ca-464e-b78c-0efbc2751ca0":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "3debf443-54b3-4d2f-ba33-308ce1237dea",
+      "id": "mp-1016821"
+    }
+  }
+}
+{
+  "5c440268-288d-4f4c-86b9-3da83db6fe00":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "2d8e8672-30e5-415f-89d9-8a9ee49ef4c5",
+      "id": "mp-1363556"
+    }
+  }
+}
+{
+  "d9d0fc33-51b9-403e-ad4f-893086f72962":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "767118a4-1a33-456a-b04e-8980caa8bc15",
+      "id": "mp-757013"
+    }
+  }
+}
+{
+  "47f8f6ec-7983-4be1-ad52-d4c331a361ee":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "d6891bf6-78ae-4908-a951-66421bc05136",
+      "id": "mp-683953"
+    }
+  }
+}
+{
+  "b0ff8bed-eb54-4447-aeb7-b1f1af13d0d8":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "e5b9f124-6610-4514-a816-e87774de2a0b",
+      "id": "mp-1020609"
+    }
+  }
+}
+{
+  "fb8f031d-b1f3-4359-8005-a12d0c7caaf1":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "e8491f25-fe44-40d3-9a65-6c395a8bee83",
+      "id": "mp-17612"
+    }
+  }
+}
+{
+  "695a6ec7-bf04-40ba-ad23-aca6f6e2f599":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "04a583d9-9106-45bf-b88a-b2e13e102b48",
+      "id": "mp-558129"
+    }
+  }
+}
+{
+  "20440f28-348c-4d19-81d1-b27b92e9c5d1":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "9ab20c1f-6573-4723-836d-7511dd77d59a",
+      "id": "mp-1210628"
+    }
+  }
+}
+{
+  "04b58e7a-6983-43b0-ae9e-60b07bc646a9":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "4c55857d-b819-4585-9f94-9c550f3d96ac",
+      "id": "mp-1197149"
+    }
+  }
+}
+{
+  "4b000b05-36f7-4c43-a41d-adea886864e2":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "e03d8b63-2d3e-40a9-8e02-1eece5aea846",
+      "id": "mp-21791"
+    }
+  }
+}
+{
+  "1c2943e4-ad04-48fe-9510-a3939487842f":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+    "dimensions": {
+    },
+    "properties": {
+      "type": "structures",
+      "attributes": "94711a23-a0a6-4af5-9046-6215627daa37",
+      "id": "mp-752892"
+    }
+  }
+}
 </pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="search-through-materials-project-for-all-structures-that-include-al-and-o-in-their-chemical-formula">Search through Materials Project for all structures that include <code>Al</code> and <code>O</code> in their chemical formula<a class="anchor-link" href="#search-through-materials-project-for-all-structures-that-include-al-and-o-in-their-chemical-formula">¶</a></h3><p>We must use a different OPTIMADE filter query for this search:</p>
-<pre><code>elements HAS ALL "Al","O"
-</code></pre>
-<p><code>elements</code> is a structure attribute that lists all elements in the structure.
-The <code>HAS ALL</code> operator matches if, for each value, there is at least one element in <code>elements</code> equal to that value. (This implements the set operator <code>&gt;=</code>.)</p>
-<p>To do this search, we can reuse the OTE pipeline from the previous search, but change the filter strategy.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2605,70 +2727,21 @@ The <code>HAS ALL</code> operator matches if, for each value, there is at least 
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">filter_strategy</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_filter</span><span class="p">(</span>
-    <span class="n">filterType</span><span class="o">=</span><span class="s2">"OPTIMADE"</span><span class="p">,</span>
-    <span class="n">query</span><span class="o">=</span><span class="s1">'elements HAS ALL "Al","O"'</span><span class="p">,</span>
-    <span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-8">filter_strategy = client.create_filter(
-    filterType="OPTIMADE",
-    query='elements HAS ALL "Al","O"',
-    limit=5,
-)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>For this query, we have added the <code>limit</code> parameter to the filter configuration, which will pass a <code>page_limit</code> query parameter to the OPTIMADE API ensuring that we only retrieve the first 5 structures (it limits each result's page to 5 resources).</p>
-<p>Let us investigate the result again, checking the list of elements and the chemical formula attributes:</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-9">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">filter_strategy</span> <span class="o">&gt;&gt;</span> <span class="n">data_resource_strategy</span>
-<span class="n">parsed_session</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The query resulted in </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_session</span><span class="p">[</span><span class="s1">'optimade_resources'</span><span class="p">])</span><span class="si">}</span><span class="s2"> structures found (on page 1) of the returned data."</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">dlite</span>
 
-<span class="n">import_path</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resource_model"</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ResourceClass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">import_module</span><span class="p">(</span><span class="n">import_path</span><span class="p">),</span> <span class="n">class_name</span><span class="p">)</span>
-<span class="n">structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">ResourceClass</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span> <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resources"</span><span class="p">]]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Their Materials Project IDs are: </span><span class="si">{</span><span class="p">[</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">structures</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-9">pipeline = filter_strategy &gt;&gt; data_resource_strategy
-parsed_session = json.loads(pipeline.get())
-print(f"The query resulted in {len(parsed_session['optimade_resources'])} structures found (on page 1) of the returned data.")
+<span class="n">structure_instances</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">collection</span><span class="o">.</span><span class="n">get_instances</span><span class="p">())</span>
 
-import_path, class_name = parsed_session["optimade_resource_model"].split(":", maxsplit=1)
-ResourceClass = getattr(import_module(import_path), class_name)
-structures = [ResourceClass(structure) for structure in parsed_session["optimade_resources"]]
-print(f"Their Materials Project IDs are: {[structure.id for structure in structures]}")</div>
+<span class="n">structure_attributes_instance</span><span class="p">:</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span> <span class="o">=</span> <span class="n">dlite</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="n">structure_instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">structure_attributes_instance</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-8">import dlite
+
+structure_instances: list[dlite.Instance] = list(collection.get_instances())
+
+structure_attributes_instance: dlite.Instance = dlite.get_instance(structure_instances[0].attributes)
+
+print(structure_attributes_instance)</div>
 </div>
 </div>
 </div>
@@ -2680,924 +2753,38 @@ print(f"Their Materials Project IDs are: {[structure.id for structure in structu
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>The query resulted in 5 structures found (on page 1) of the returned data.
-Their Materials Project IDs are: ['mp-1038042', 'mp-1182891', 'mp-1208627', 'mp-1247835', 'mp-1521059']
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let us also check the query parameters used for the request to the OPTIMADE API to ensure that the <code>page_limit</code> query parameter was passed:</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-10">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_config"</span><span class="p">]</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-10">parsed_session["optimade_config"]</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>{'query_parameters': {'filter': 'elements HAS ALL "Al","O"', 'page_limit': 5}}</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-11">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">structure</span> <span class="o">=</span> <span class="n">structures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"elements: </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">elements</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"descriptive"</span><span class="p">,</span> <span class="s2">"reduced"</span><span class="p">,</span> <span class="s2">"hill"</span><span class="p">,</span> <span class="s2">"anonymous"</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">'chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span><span class="w"> </span><span class="s1">'(not defined)'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-11">structure = structures[0]
-print(structure.id)
-print(f"elements: {structure.elements}")
-for attribute in ("descriptive", "reduced", "hill", "anonymous"):
-    print(f"chemical_formula_{attribute}: {getattr(structure, f'chemical_formula_{attribute}', '(not defined)')}")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>mp-1038042
-elements: ['Al', 'Cr', 'Mg', 'O']
-chemical_formula_descriptive: AlCrMg30O32
-chemical_formula_reduced: AlCrMg30O32
-chemical_formula_hill: AlCrMg30O32
-chemical_formula_anonymous: A32B30CD
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="search-through-mc3d-database-in-materials-cloud-for-all-structures-that-include-al-and-o-in-their-chemical-formula">Search through MC3D database in Materials Cloud for all structures that include <code>Al</code> and <code>O</code> in their chemical formula<a class="anchor-link" href="#search-through-mc3d-database-in-materials-cloud-for-all-structures-that-include-al-and-o-in-their-chemical-formula">¶</a></h3><p>Finally, let us reuse the same filter strategy we used for the previous search, but change the data resource strategy to point to the MC3D database in Materials Cloud.</p>
-<p>The base URL for the MC3D database is <code>https://aiida.materialscloud.org/mc3d/optimade</code> as found in the <a href="https://www.optimade.org/providers-dashboard/providers/mcloud.html">providers dashboard</a>.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-12">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">data_resource_strategy</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_dataresource</span><span class="p">(</span>
-    <span class="n">accessService</span><span class="o">=</span><span class="s2">"OPTIMADE"</span><span class="p">,</span>
-    <span class="n">accessUrl</span><span class="o">=</span><span class="s2">"https://aiida.materialscloud.org/mc3d/optimade"</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-12">data_resource_strategy = client.create_dataresource(
-    accessService="OPTIMADE",
-    accessUrl="https://aiida.materialscloud.org/mc3d/optimade",
-)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-13">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">filter_strategy</span> <span class="o">&gt;&gt;</span> <span class="n">data_resource_strategy</span>
-<span class="n">parsed_session</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The query resulted in </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_session</span><span class="p">[</span><span class="s1">'optimade_resources'</span><span class="p">])</span><span class="si">}</span><span class="s2"> structures found (on page 1) of the returned data."</span><span class="p">)</span>
-
-<span class="n">import_path</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resource_model"</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ResourceClass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">import_module</span><span class="p">(</span><span class="n">import_path</span><span class="p">),</span> <span class="n">class_name</span><span class="p">)</span>
-<span class="n">structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">ResourceClass</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span> <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resources"</span><span class="p">]]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Their Materials Cloud (AiiDA) IDs are: </span><span class="si">{</span><span class="p">[</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">structures</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-13">pipeline = filter_strategy &gt;&gt; data_resource_strategy
-parsed_session = json.loads(pipeline.get())
-print(f"The query resulted in {len(parsed_session['optimade_resources'])} structures found (on page 1) of the returned data.")
-
-import_path, class_name = parsed_session["optimade_resource_model"].split(":", maxsplit=1)
-ResourceClass = getattr(import_module(import_path), class_name)
-structures = [ResourceClass(structure) for structure in parsed_session["optimade_resources"]]
-print(f"Their Materials Cloud (AiiDA) IDs are: {[structure.id for structure in structures]}")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>The query resulted in 5 structures found (on page 1) of the returned data.
-Their Materials Cloud (AiiDA) IDs are: ['13952', '43703', '43800', '56101', '56270']
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Again, let's check the query parameters used for the request to the OPTIMADE API to ensure it is equivalent to the previous search:</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-14">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_config"</span><span class="p">]</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-14">parsed_session["optimade_config"]</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>{'query_parameters': {'filter': 'elements HAS ALL "Al","O"', 'page_limit': 5}}</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-15">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">structure</span> <span class="o">=</span> <span class="n">structures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"elements: </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">elements</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"descriptive"</span><span class="p">,</span> <span class="s2">"reduced"</span><span class="p">,</span> <span class="s2">"hill"</span><span class="p">,</span> <span class="s2">"anonymous"</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">'chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span><span class="w"> </span><span class="s1">'(not defined)'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-15">structure = structures[0]
-print(structure.id)
-print(f"elements: {structure.elements}")
-for attribute in ("descriptive", "reduced", "hill", "anonymous"):
-    print(f"chemical_formula_{attribute}: {getattr(structure, f'chemical_formula_{attribute}', '(not defined)')}")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>13952
-elements: ['Al', 'O']
-chemical_formula_descriptive: Al2O6
-chemical_formula_reduced: AlO3
-chemical_formula_hill: Al2O6
-chemical_formula_anonymous: A3B
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The MC3D structures can, unfortunately, not be found easily in the Materials Cloud website, as the ID in the DISCOVER section does not match the ID in the OPTIMADE structure.
-However, the full OPTIMADE structure can be found at <code>&lt;OPTIMADE_BASE_URL&gt;/structures/&lt;ID&gt;</code>, for example: <a href="https://aiida.materialscloud.org/mc3d/optimade/structures/13952">aiida.materialscloud.org/mc3d/optimade/structures/13952</a>.</p>
-<!-- The mkdocs-jupyter plugin does not support admonitions and similar stuff,
-so we need to write in the HTML directly here. -->
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>
-    The structure with the OPTIMADE ID 13952 is found with the Materials Cloud DISCOVER ID <code>mc3d-76896</code> and can be found <a href="https://mc3d.materialscloud.org/#/details/Al2O6/mc3d-76896/pbe">here</a>.
-  </p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="python-based-backend">Python-based backend<a class="anchor-link" href="#python-based-backend">¶</a></h2><p>With this backend, we do not need a running OTEAPI server.</p>
-<h3 id="create-a-client">Create a client<a class="anchor-link" href="#create-a-client">¶</a></h3>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-16">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">OTEClient</span><span class="p">(</span><span class="s2">"python"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-16">client = OTEClient("python")</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now we can go through the same searches as we did with the HTTP requests-based backend.
-The result should not change.</p>
-<h3 id="search-through-materials-project-for-all-structures-with-the-formula-al2o3">Search through Materials Project for all structures with the formula <code>Al2O3</code><a class="anchor-link" href="#search-through-materials-project-for-all-structures-with-the-formula-al2o3">¶</a></h3>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-17">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">data_resource_strategy</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_dataresource</span><span class="p">(</span>
-    <span class="n">accessService</span><span class="o">=</span><span class="s2">"OPTIMADE"</span><span class="p">,</span>
-    <span class="n">accessUrl</span><span class="o">=</span><span class="s2">"https://optimade.materialsproject.org/"</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">filter_strategy</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_filter</span><span class="p">(</span>
-    <span class="n">filterType</span><span class="o">=</span><span class="s2">"OPTIMADE"</span><span class="p">,</span>
-    <span class="n">query</span><span class="o">=</span><span class="s1">'chemical_formula_descriptive = "Al2O3" OR chemical_formula_reduced = "Al2O3" OR chemical_formula_hill = "Al2O3"'</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">pipeline</span> <span class="o">=</span> <span class="n">filter_strategy</span> <span class="o">&gt;&gt;</span> <span class="n">data_resource_strategy</span>
-<span class="n">session</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-17">data_resource_strategy = client.create_dataresource(
-    accessService="OPTIMADE",
-    accessUrl="https://optimade.materialsproject.org/",
-)
-
-filter_strategy = client.create_filter(
-    filterType="OPTIMADE",
-    query='chemical_formula_descriptive = "Al2O3" OR chemical_formula_reduced = "Al2O3" OR chemical_formula_hill = "Al2O3"',
-)
-
-pipeline = filter_strategy &gt;&gt; data_resource_strategy
-session = pipeline.get()</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Setting filter from query.
-Setting filter from query.
-resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='chemical_formula_descriptive = "Al2O3" OR chemical_formula_reduced = "Al2O3" OR chemical_formula_hill = "Al2O3"', response_format='json', email_address='', response_fields='', sort='', page_limit=20, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://optimade.materialsproject.org/', base_url='https://optimade.materialsproject.org', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE', license=None, accessRights=None, publisher=None)
-resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='chemical_formula_descriptive = "Al2O3" OR chemical_formula_reduced = "Al2O3" OR chemical_formula_hill = "Al2O3"', response_format='json', email_address='', response_fields='', sort='', page_limit=20, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://optimade.materialsproject.org/', base_url='https://optimade.materialsproject.org', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE', license=None, accessRights=None, publisher=None)
-optimade_query after update: OPTIMADEQueryParameters(filter='chemical_formula_descriptive = "Al2O3" OR chemical_formula_reduced = "Al2O3" OR chemical_formula_hill = "Al2O3"', response_format='json', email_address='', response_fields='', sort='', page_limit=20, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
-optimade_query after update: OPTIMADEQueryParameters(filter='chemical_formula_descriptive = "Al2O3" OR chemical_formula_reduced = "Al2O3" OR chemical_formula_hill = "Al2O3"', response_format='json', email_address='', response_fields='', sort='', page_limit=20, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
-OPTIMADE URL to be requested: https://optimade.materialsproject.org/v1/structures?filter=chemical_formula_descriptive%20%3D%20%22Al2O3%22%20OR%20chemical_formula_reduced%20%3D%20%22Al2O3%22%20OR%20chemical_formula_hill%20%3D%20%22Al2O3%22&amp;response_format=json&amp;page_limit=20&amp;include=references
-OPTIMADE URL to be requested: https://optimade.materialsproject.org/v1/structures?filter=chemical_formula_descriptive%20%3D%20%22Al2O3%22%20OR%20chemical_formula_reduced%20%3D%20%22Al2O3%22%20OR%20chemical_formula_hill%20%3D%20%22Al2O3%22&amp;response_format=json&amp;page_limit=20&amp;include=references
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>/home/cwa/.venvs/oteapi-optimade/lib/python3.9/site-packages/optimade/server/config.py:113: UserWarning: Unable to find config file at /home/cwa/.optimade.json, using the default settings instead.
-  warnings.warn(
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>As one can see, this backend runs locally within the same Python environment as the notebook. This is useful for development purposes, where the logging messages are shown directly in the output.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-18">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">parsed_session</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">parsed_session</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-18">parsed_session: dict = json.loads(session)
-print(parsed_session.keys())</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>dict_keys(['optimade_config', 'optimade_resources', 'optimade_resource_model'])
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We get the same keys in the returned session as we did with the HTTP requests-based backend.
-If we again import the OPTIMADE Structure model class from the OPTIMADE Python tools, we can parse the OPTIMADE structures into Python objects as well as validating them according to the OPTIMADE specification, just as we did with the HTTP requests-based backend.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-19">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">import_path</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resource_model"</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ResourceClass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">import_module</span><span class="p">(</span><span class="n">import_path</span><span class="p">),</span> <span class="n">class_name</span><span class="p">)</span>
-
-<span class="n">parsed_structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">ResourceClass</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span> <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resources"</span><span class="p">]]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The query resulted in </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_structures</span><span class="p">)</span><span class="si">}</span><span class="s2"> structures found (on page 1) of the returned data."</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Their Materials Project IDs are: </span><span class="si">{</span><span class="p">[</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">parsed_structures</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">structure</span> <span class="o">=</span> <span class="n">parsed_structures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"descriptive"</span><span class="p">,</span> <span class="s2">"reduced"</span><span class="p">,</span> <span class="s2">"hill"</span><span class="p">,</span> <span class="s2">"anonymous"</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">'chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span><span class="w"> </span><span class="s1">'(not defined)'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-19">import_path, class_name = parsed_session["optimade_resource_model"].split(":", maxsplit=1)
-ResourceClass = getattr(import_module(import_path), class_name)
-
-parsed_structures = [ResourceClass(structure) for structure in parsed_session["optimade_resources"]]
-print(f"The query resulted in {len(parsed_structures)} structures found (on page 1) of the returned data.")
-print(f"Their Materials Project IDs are: {[structure.id for structure in parsed_structures]}")
-
-structure = parsed_structures[0]
-print(structure.id)
-for attribute in ("descriptive", "reduced", "hill", "anonymous"):
-    print(f"chemical_formula_{attribute}: {getattr(structure, f'chemical_formula_{attribute}', '(not defined)')}")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>The query resulted in 20 structures found (on page 1) of the returned data.
-Their Materials Project IDs are: ['mp-1228448', 'mp-755483', 'mp-1245081', 'mp-1244878', 'mp-1105018', 'mp-754401', 'mp-1245063', 'mp-1245265', 'mp-684591', 'mp-1244898', 'mp-1245211', 'mp-1245056', 'mp-642363', 'mp-1244930', 'mp-1244937', 'mp-1244967', 'mp-1244954', 'mp-1244874', 'mp-1245008', 'mp-1245023']
-mp-1228448
-chemical_formula_descriptive: Al2O3
-chemical_formula_reduced: Al2O3
-chemical_formula_hill: Al2O3
-chemical_formula_anonymous: A3B2
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="search-through-materials-project-for-all-structures-that-include-al-and-o-in-their-chemical-formula">Search through Materials Project for all structures that include <code>Al</code> and <code>O</code> in their chemical formula<a class="anchor-link" href="#search-through-materials-project-for-all-structures-that-include-al-and-o-in-their-chemical-formula">¶</a></h3>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-20">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">filter_strategy</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_filter</span><span class="p">(</span>
-    <span class="n">filterType</span><span class="o">=</span><span class="s2">"OPTIMADE"</span><span class="p">,</span>
-    <span class="n">query</span><span class="o">=</span><span class="s1">'elements HAS ALL "Al","O"'</span><span class="p">,</span>
-    <span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">pipeline</span> <span class="o">=</span> <span class="n">filter_strategy</span> <span class="o">&gt;&gt;</span> <span class="n">data_resource_strategy</span>
-<span class="n">parsed_session</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The query resulted in </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_session</span><span class="p">[</span><span class="s1">'optimade_resources'</span><span class="p">])</span><span class="si">}</span><span class="s2"> structures found (on page 1) of the returned data."</span><span class="p">)</span>
-
-<span class="n">import_path</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resource_model"</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ResourceClass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">import_module</span><span class="p">(</span><span class="n">import_path</span><span class="p">),</span> <span class="n">class_name</span><span class="p">)</span>
-<span class="n">structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">ResourceClass</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span> <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resources"</span><span class="p">]]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Their Materials Project IDs are: </span><span class="si">{</span><span class="p">[</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">structures</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-20">filter_strategy = client.create_filter(
-    filterType="OPTIMADE",
-    query='elements HAS ALL "Al","O"',
-    limit=5,
-)
-
-pipeline = filter_strategy &gt;&gt; data_resource_strategy
-parsed_session = json.loads(pipeline.get())
-print(f"The query resulted in {len(parsed_session['optimade_resources'])} structures found (on page 1) of the returned data.")
-
-import_path, class_name = parsed_session["optimade_resource_model"].split(":", maxsplit=1)
-ResourceClass = getattr(import_module(import_path), class_name)
-structures = [ResourceClass(structure) for structure in parsed_session["optimade_resources"]]
-print(f"Their Materials Project IDs are: {[structure.id for structure in structures]}")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Setting filter from query.
-Setting filter from query.
-Setting filter from query.
-Setting page_limit from limit.
-Setting page_limit from limit.
-Setting page_limit from limit.
-resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://optimade.materialsproject.org/', base_url='https://optimade.materialsproject.org', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE', license=None, accessRights=None, publisher=None)
-resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://optimade.materialsproject.org/', base_url='https://optimade.materialsproject.org', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE', license=None, accessRights=None, publisher=None)
-resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://optimade.materialsproject.org/', base_url='https://optimade.materialsproject.org', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE', license=None, accessRights=None, publisher=None)
-optimade_query after update: OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
-optimade_query after update: OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
-optimade_query after update: OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
-OPTIMADE URL to be requested: https://optimade.materialsproject.org/v1/structures?filter=elements%20HAS%20ALL%20%22Al%22%2C%22O%22&amp;response_format=json&amp;page_limit=5&amp;include=references
-OPTIMADE URL to be requested: https://optimade.materialsproject.org/v1/structures?filter=elements%20HAS%20ALL%20%22Al%22%2C%22O%22&amp;response_format=json&amp;page_limit=5&amp;include=references
-OPTIMADE URL to be requested: https://optimade.materialsproject.org/v1/structures?filter=elements%20HAS%20ALL%20%22Al%22%2C%22O%22&amp;response_format=json&amp;page_limit=5&amp;include=references
-The query resulted in 5 structures found (on page 1) of the returned data.
-Their Materials Project IDs are: ['mp-1038042', 'mp-1182891', 'mp-1208627', 'mp-1247835', 'mp-1521059']
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The configuration in <code>optimade_config</code> is quite more extensive than with the HTTP requests-based backend, as it includes more information, automatically setting the default values so they are shown in the config:</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-21">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_config"</span><span class="p">]</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-21">parsed_session["optimade_config"]</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[21]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>{'version': 'v1',
- 'endpoint': 'structures',
- 'query_parameters': {'filter': 'elements HAS ALL "Al","O"', 'page_limit': 5},
- 'datacache_config': {'cacheDir': 'oteapi',
-  'accessKey': None,
-  'hashType': 'md5',
-  'expireTime': 86400,
-  'tag': 'optimade'},
- 'return_object': False,
- 'use_dlite': False}</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let's look at the first structure again:</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-22">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">structure</span> <span class="o">=</span> <span class="n">structures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"elements: </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">elements</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"descriptive"</span><span class="p">,</span> <span class="s2">"reduced"</span><span class="p">,</span> <span class="s2">"hill"</span><span class="p">,</span> <span class="s2">"anonymous"</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">'chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span><span class="w"> </span><span class="s1">'(not defined)'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-22">structure = structures[0]
-print(structure.id)
-print(f"elements: {structure.elements}")
-for attribute in ("descriptive", "reduced", "hill", "anonymous"):
-    print(f"chemical_formula_{attribute}: {getattr(structure, f'chemical_formula_{attribute}', '(not defined)')}")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>mp-1038042
-elements: ['Al', 'Cr', 'Mg', 'O']
-chemical_formula_descriptive: AlCrMg30O32
-chemical_formula_reduced: AlCrMg30O32
-chemical_formula_hill: AlCrMg30O32
-chemical_formula_anonymous: A32B30CD
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="search-through-mc3d-database-in-materials-cloud-for-all-structures-that-include-al-and-o-in-their-chemical-formula">Search through MC3D database in Materials Cloud for all structures that include <code>Al</code> and <code>O</code> in their chemical formula<a class="anchor-link" href="#search-through-mc3d-database-in-materials-cloud-for-all-structures-that-include-al-and-o-in-their-chemical-formula">¶</a></h3>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy for="cell-23">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">data_resource_strategy</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_dataresource</span><span class="p">(</span>
-    <span class="n">accessService</span><span class="o">=</span><span class="s2">"OPTIMADE"</span><span class="p">,</span>
-    <span class="n">accessUrl</span><span class="o">=</span><span class="s2">"https://aiida.materialscloud.org/mc3d/optimade"</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">pipeline</span> <span class="o">=</span> <span class="n">filter_strategy</span> <span class="o">&gt;&gt;</span> <span class="n">data_resource_strategy</span>
-<span class="n">parsed_session</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The query resulted in </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_session</span><span class="p">[</span><span class="s1">'optimade_resources'</span><span class="p">])</span><span class="si">}</span><span class="s2"> structures found (on page 1) of the returned data."</span><span class="p">)</span>
-
-<span class="n">import_path</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resource_model"</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ResourceClass</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">import_module</span><span class="p">(</span><span class="n">import_path</span><span class="p">),</span> <span class="n">class_name</span><span class="p">)</span>
-<span class="n">structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">ResourceClass</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span> <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_resources"</span><span class="p">]]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Their Materials Cloud (AiiDA) IDs are: </span><span class="si">{</span><span class="p">[</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">structures</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">parsed_session</span><span class="p">[</span><span class="s2">"optimade_config"</span><span class="p">])</span>
-
-<span class="n">structure</span> <span class="o">=</span> <span class="n">structures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"elements: </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">elements</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"descriptive"</span><span class="p">,</span> <span class="s2">"reduced"</span><span class="p">,</span> <span class="s2">"hill"</span><span class="p">,</span> <span class="s2">"anonymous"</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">'chemical_formula_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span><span class="w"> </span><span class="s1">'(not defined)'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-23">data_resource_strategy = client.create_dataresource(
-    accessService="OPTIMADE",
-    accessUrl="https://aiida.materialscloud.org/mc3d/optimade",
-)
-
-pipeline = filter_strategy &gt;&gt; data_resource_strategy
-parsed_session = json.loads(pipeline.get())
-print(f"The query resulted in {len(parsed_session['optimade_resources'])} structures found (on page 1) of the returned data.")
-
-import_path, class_name = parsed_session["optimade_resource_model"].split(":", maxsplit=1)
-ResourceClass = getattr(import_module(import_path), class_name)
-structures = [ResourceClass(structure) for structure in parsed_session["optimade_resources"]]
-print(f"Their Materials Cloud (AiiDA) IDs are: {[structure.id for structure in structures]}")
-
-print(parsed_session["optimade_config"])
-
-structure = structures[0]
-print(structure.id)
-print(f"elements: {structure.elements}")
-for attribute in ("descriptive", "reduced", "hill", "anonymous"):
-    print(f"chemical_formula_{attribute}: {getattr(structure, f'chemical_formula_{attribute}', '(not defined)')}")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Setting filter from query.
-Setting filter from query.
-Setting filter from query.
-Setting page_limit from limit.
-Setting page_limit from limit.
-Setting page_limit from limit.
-resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://aiida.materialscloud.org/mc3d/optimade', base_url='https://aiida.materialscloud.org/mc3d/optimade', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE', license=None, accessRights=None, publisher=None)
-resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://aiida.materialscloud.org/mc3d/optimade', base_url='https://aiida.materialscloud.org/mc3d/optimade', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE', license=None, accessRights=None, publisher=None)
-resource_config: OPTIMADEResourceConfig(user=None, password=None, token=None, client_id=None, client_secret=None, configuration=OPTIMADEConfig(version='v1', endpoint='structures', query_parameters=OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint=''), datacache_config=DataCacheConfig(cacheDir=PosixPath('oteapi'), accessKey=None, hashType='md5', expireTime=86400, tag='optimade'), return_object=False, use_dlite=False), description='Resource Strategy Data Configuration.\n\n    Important:\n        Either of the pairs of attributes `downloadUrl`/`mediaType` or\n        `accessUrl`/`accessService` MUST be specified.\n\n    ', downloadUrl=None, mediaType=None, accessUrl=OPTIMADEUrl('https://aiida.materialscloud.org/mc3d/optimade', base_url='https://aiida.materialscloud.org/mc3d/optimade', scheme='https', tld='org', host_type='domain'), accessService='OPTIMADE', license=None, accessRights=None, publisher=None)
-optimade_query after update: OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
-optimade_query after update: OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
-optimade_query after update: OPTIMADEQueryParameters(filter='elements HAS ALL "Al","O"', response_format='json', email_address='', response_fields='', sort='', page_limit=5, page_offset=0, page_number=None, page_cursor=0, page_above=None, page_below=None, include='references', api_hint='')
-OPTIMADE URL to be requested: https://aiida.materialscloud.org/mc3d/optimade/v1/structures?filter=elements%20HAS%20ALL%20%22Al%22%2C%22O%22&amp;response_format=json&amp;page_limit=5&amp;include=references
-OPTIMADE URL to be requested: https://aiida.materialscloud.org/mc3d/optimade/v1/structures?filter=elements%20HAS%20ALL%20%22Al%22%2C%22O%22&amp;response_format=json&amp;page_limit=5&amp;include=references
-OPTIMADE URL to be requested: https://aiida.materialscloud.org/mc3d/optimade/v1/structures?filter=elements%20HAS%20ALL%20%22Al%22%2C%22O%22&amp;response_format=json&amp;page_limit=5&amp;include=references
-The query resulted in 5 structures found (on page 1) of the returned data.
-Their Materials Cloud (AiiDA) IDs are: ['13952', '43703', '43800', '56101', '56270']
-{'version': 'v1', 'endpoint': 'structures', 'query_parameters': {'filter': 'elements HAS ALL "Al","O"', 'page_limit': 5}, 'datacache_config': {'cacheDir': 'oteapi', 'accessKey': None, 'hashType': 'md5', 'expireTime': 86400, 'tag': 'optimade'}, 'return_object': False, 'use_dlite': False}
-13952
-elements: ['Al', 'O']
-chemical_formula_descriptive: Al2O6
-chemical_formula_reduced: AlO3
-chemical_formula_hill: Al2O6
-chemical_formula_anonymous: A3B
+<pre>{
+  "84833134-8f0c-4b7f-86da-e88e18fbc8a5":  {
+    "meta": "http://onto-ns.com/meta/1.0/OPTIMADEStructureAttributes",
+    "dimensions": {
+      "nelements": 4,
+      "dimensionality": 3,
+      "nsites": 32,
+      "nspecies": 4,
+      "nstructure_features": 0
+    },
+    "properties": {
+      "elements": ["K", "Mg", "O", "Si"],
+      "nelements": 4,
+      "elements_ratios": [0.03125, 0.4375, 0.03125, 0.5],
+      "chemical_formula_descriptive": "KMg14O16Si",
+      "chemical_formula_reduced": "KMg14O16Si",
+      "chemical_formula_hill": "KMg14O16Si",
+      "chemical_formula_anonymous": "A16B14CD",
+      "dimension_types": [1, 1, 1],
+      "nperiodic_dimensions": 3,
+      "lattice_vectors": [[8.59318, 0, 0], [0, 8.59318, 0], [0, 0, 4.41201]],
+      "cartesian_site_positions": [[0, 0, 0], [0, 4.29659, 0], [4.29659, 0, 0], [0, 2.1438, 2.20601], [0, 6.44938, 2.20601], [4.29659, 2.13079, 2.20601], [4.29659, 6.46238, 2.20601], [2.1438, 0, 2.20601], [2.13079, 4.29659, 2.20601], [6.44938, 0, 2.20601], [6.46238, 4.29659, 2.20601], [2.12673, 2.12673, 0], [2.12673, 6.46645, 0], [6.46645, 2.12673, 0], [6.46645, 6.46645, 0], [4.29659, 4.29659, 0], [2.37689, 0, 0], [2.32997, 4.29659, 0], [6.21628, 0, 0], [6.2632, 4.29659, 0], [2.16162, 2.16162, 2.20601], [2.16162, 6.43155, 2.20601], [6.43155, 2.16162, 2.20601], [6.43155, 6.43155, 2.20601], [0, 0, 2.20601], [0, 4.29659, 2.20601], [4.29659, 0, 2.20601], [4.29659, 4.29659, 2.20601], [0, 2.37689, 0], [0, 6.21628, 0], [4.29659, 2.32997, 0], [4.29659, 6.2632, 0]],
+      "nsites": 32,
+      "species": ["443b150d-54f8-41d6-a462-3da7be3607b6", "814fd06a-9b13-45a0-8280-373109c57a80", "aa32d89c-8fea-4bf9-846e-0a1f8384ccf4", "9d1fd72d-1db5-4e74-b49f-a7975d8cc32e"],
+      "species_at_sites": ["K", "Mg", "Mg", "Mg", "Mg", "Mg", "Mg", "Mg", "Mg", "Mg", "Mg", "Mg", "Mg", "Mg", "Mg", "Si", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+      "assemblies": null,
+      "structure_features": [],
+      "immutable_id": "645d2b74bcd30f748b4746a3",
+      "last_modified": "2019-10-23 12:27:13+00:00"
+    }
+  }
+}
 </pre>
 </div>
 </div>

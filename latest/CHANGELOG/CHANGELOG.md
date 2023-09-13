@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2023-09-10)
+## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2023-09-13)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.3.0...Unreleased changes)
 
@@ -19,6 +19,7 @@
 
 - Use relative link, which works only in production [\#145](https://github.com/SINTEF/oteapi-optimade/pull/145) ([CasperWA](https://github.com/CasperWA))
 - Avoid DLite v0.4.0 [\#139](https://github.com/SINTEF/oteapi-optimade/pull/139) ([CasperWA](https://github.com/CasperWA))
+- DLite notebook example [\#127](https://github.com/SINTEF/oteapi-optimade/pull/127) ([CasperWA](https://github.com/CasperWA))
 - Add example to documentation [\#125](https://github.com/SINTEF/oteapi-optimade/pull/125) ([CasperWA](https://github.com/CasperWA))
 - Add \_\_init\_\_ file to dlite submodule [\#122](https://github.com/SINTEF/oteapi-optimade/pull/122) ([CasperWA](https://github.com/CasperWA))
 - Avoid psycopg2-binary v2.9.6 [\#117](https://github.com/SINTEF/oteapi-optimade/pull/117) ([CasperWA](https://github.com/CasperWA))
