@@ -88,7 +88,12 @@ plugins:
             - os.environ["MKDOCS_BUILD"] = "1"
   - awesome-pages
   - mkdocs-jupyter:
-      include_source: True
+      include_source: true
+      execute: true
+      allow_errors: false
+      execute_ignore:
+        - "**/examples/otelib.ipynb"
+      kernel_name: python3
 
 nav:
   - Home: index.md
