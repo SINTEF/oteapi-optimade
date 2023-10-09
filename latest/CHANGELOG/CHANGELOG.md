@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2023-10-02)
+## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2023-10-09)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.3.0...Unreleased changes)
 
@@ -15,8 +15,13 @@
 - `Segmentation fault` from dlite in CI [\#115](https://github.com/SINTEF/oteapi-optimade/issues/115)
 - init file missing in the new `dlite` module [\#113](https://github.com/SINTEF/oteapi-optimade/issues/113)
 
+**Closed issues:**
+
+- Use ruff instead of pylint \(and isort\) [\#156](https://github.com/SINTEF/oteapi-optimade/issues/156)
+
 **Merged pull requests:**
 
+- Move from pylint \(& isort\) to ruff [\#157](https://github.com/SINTEF/oteapi-optimade/pull/157) ([CasperWA](https://github.com/CasperWA))
 - Use relative link, which works only in production [\#145](https://github.com/SINTEF/oteapi-optimade/pull/145) ([CasperWA](https://github.com/CasperWA))
 - Avoid DLite v0.4.0 [\#139](https://github.com/SINTEF/oteapi-optimade/pull/139) ([CasperWA](https://github.com/CasperWA))
 - DLite notebook example [\#127](https://github.com/SINTEF/oteapi-optimade/pull/127) ([CasperWA](https://github.com/CasperWA))
