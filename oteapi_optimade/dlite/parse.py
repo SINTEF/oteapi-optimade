@@ -1,5 +1,4 @@
 """OTEAPI strategy for parsing OPTIMADE structure resources to DLite instances."""
-# pylint: disable=invalid-name,too-many-branches,too-many-statements
 import logging
 import sys
 from pathlib import Path
@@ -177,7 +176,7 @@ class OPTIMADEDLiteParseStrategy:
                     "'optimade_response' was expected to be present in the session."
                 )
 
-            if not session.optimade_response or not "data" in session.optimade_response:
+            if not session.optimade_response or "data" not in session.optimade_response:
                 LOGGER.debug("Not a successful response - no 'data' entry found.")
                 return session
 
