@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from pathlib import Path
 
 
-def pytest_configure(config) -> None:  # pylint: disable=unused-argument
+def pytest_configure(config) -> None:
     """Method that runs before pytest collects tests, so no modules are imported."""
     import os
     from pathlib import Path
