@@ -85,7 +85,7 @@ def test_use_dlite(
     resource_config: dict[str, str],
     static_files: "Path",
     requests_mock: "Mocker",
-    accessService: str,  # pylint: disable=invalid-name
+    accessService: str,
     use_dlite: bool,
 ) -> None:
     """Test the `get()` method - session is `None` and use_dlite is True."""

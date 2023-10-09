@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """End-to-end testing in CI for OTEAPI OPTIMADE (using OTELib)."""
-# pylint: disable=import-outside-toplevel
 import importlib
 import json
 import os
@@ -62,7 +61,7 @@ def main(oteapi_url: str) -> None:
         }
     }
 
-    source = client.create_dataresource(  # pylint: disable=no-member
+    source = client.create_dataresource(
         accessService="OPTIMADE",
         accessUrl=f"http://localhost:{os.getenv('OPTIMADE_PORT', '5000')}/",
         configuration=config,
@@ -85,7 +84,7 @@ def main(oteapi_url: str) -> None:
         assert parsed_resource.id in ["mpf_1", "mpf_110"]
 
     # Use a filter strategy
-    query = client.create_filter(  # pylint: disable=no-member
+    query = client.create_filter(
         filterType="OPTIMADE",
         query='NOT( elements HAS "Ag" AND nelements>1 )',
         limit=4,
@@ -143,5 +142,5 @@ if __name__ == "__main__":
 
     try:
         main(oteapi_url=OTEAPI_SERVICE_URL)
-    except Exception as exc:  # pylint: disable=broad-except
+    except Exception as exc:
         sys.exit(str(exc))

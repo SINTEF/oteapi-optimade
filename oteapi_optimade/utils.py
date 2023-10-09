@@ -34,7 +34,7 @@ def model2dict(
         if isinstance(model_, dict):
             return {key: _internal(value) for key, value in model_.items()}
         if isinstance(model_, Iterable) and not isinstance(model_, (bytes, str)):
-            return type(model_)(_internal(value) for value in model_)  # type: ignore[call-arg]  # pylint: disable=line-too-long
+            return type(model_)(_internal(value) for value in model_)  # type: ignore[call-arg]
         if isinstance(model_, BaseModel):
             return _internal(model_.dict(**dict_kwargs))
         return model_

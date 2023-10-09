@@ -45,9 +45,7 @@ class OPTIMADEParseStrategy:
 
     parse_config: OPTIMADEParseConfig
 
-    def initialize(  # pylint: disable=unused-argument
-        self, session: "Optional[Dict[str, Any]]" = None
-    ) -> SessionUpdate:
+    def initialize(self, session: "Optional[Dict[str, Any]]" = None) -> SessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -63,7 +61,7 @@ class OPTIMADEParseStrategy:
         """
         return SessionUpdate()
 
-    def get(  # pylint: disable=too-many-branches
+    def get(
         self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
     ) -> OPTIMADEParseSession:
         """Request and parse an OPTIMADE response using OPT.

@@ -24,6 +24,5 @@ jobs:
       update_pre-commit: true
       python_version: "3.9"
       install_extras: "[pre-commit]"
-      skip_pre-commit_hooks: "pylint,pylint-tests"
     secrets:
       PAT: ${{ secrets.RELEASE_PAT }}

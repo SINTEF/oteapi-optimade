@@ -46,7 +46,7 @@ LOGGER.setLevel(logging.DEBUG)
 
 def optimade_base_url_regex() -> "Pattern[str]":
     """A regular expression for an OPTIMADE base URL."""
-    global _OPTIMADE_BASE_URL_REGEX  # pylint: disable=global-statement
+    global _OPTIMADE_BASE_URL_REGEX
     if _OPTIMADE_BASE_URL_REGEX is None:
         _OPTIMADE_BASE_URL_REGEX = re.compile(
             r"^(?P<base_url>"
@@ -68,7 +68,7 @@ def optimade_base_url_regex() -> "Pattern[str]":
 
 def optimade_endpoint_regex() -> "Pattern[str]":
     """A regular expression for an OPTIMADE base URL."""
-    global _OPTIMADE_ENDPOINT_REGEX  # pylint: disable=global-statement
+    global _OPTIMADE_ENDPOINT_REGEX
     if _OPTIMADE_ENDPOINT_REGEX is None:
         _OPTIMADE_ENDPOINT_REGEX = re.compile(
             # version
@@ -94,7 +94,7 @@ class OPTIMADEUrl(str):
 
     strip_whitespace = True
     min_length = 1
-    # https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers  # pylint: disable=line-too-long
+    # https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
     max_length = 2083
     allowed_schemes = {"http", "https"}
     tld_required = False
@@ -114,7 +114,7 @@ class OPTIMADEUrl(str):
     def __new__(cls, url: "Optional[str]" = None, **kwargs) -> object:
         return str.__new__(
             cls,
-            cls.build(**kwargs) if url is None else url,  # pylint: disable=missing-kwoa
+            cls.build(**kwargs) if url is None else url,
         )
 
     def __init__(

@@ -88,7 +88,7 @@ class OPTIMADEResourceStrategy:
 
     resource_config: OPTIMADEResourceConfig
 
-    def initialize(  # pylint: disable=unused-argument
+    def initialize(
         self, session: "Optional[Dict[str, Any]]" = None
     ) -> "Union[SessionUpdate, DLiteSessionUpdate]":
         """Initialize strategy.
@@ -111,7 +111,7 @@ class OPTIMADEResourceStrategy:
             return DLiteSessionUpdate(collection_id=get_collection(session).uuid)
         return SessionUpdate()
 
-    def get(  # pylint: disable=too-many-branches,too-many-statements
+    def get(
         self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
     ) -> OPTIMADEResourceSession:
         """Execute an OPTIMADE query to `accessUrl`.
@@ -210,13 +210,14 @@ class OPTIMADEResourceStrategy:
             self.resource_config.configuration.use_dlite,
         )
 
-        parse_mediaType = f"application/vnd.{self.resource_config.accessService.split('+', maxsplit=1)[0]}"  # pylint: disable=invalid-name,line-too-long
+        parse_mediaType = (
+            "application/vnd."
+            f"{self.resource_config.accessService.split('+', maxsplit=1)[0]}"
+        )
         if parse_with_dlite:
-            parse_mediaType += "+DLite"  # pylint: disable=invalid-name
+            parse_mediaType += "+DLite"
         elif optimade_query.response_format:
-            parse_mediaType += (  # pylint: disable=invalid-name
-                f"+{optimade_query.response_format}"
-            )
+            parse_mediaType += f"+{optimade_query.response_format}"
 
         parse_config = {
             "downloadUrl": optimade_url,

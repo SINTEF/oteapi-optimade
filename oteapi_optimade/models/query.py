@@ -7,7 +7,7 @@ from pydantic import BaseModel, EmailStr, Field
 
 QUERY_PARAMETERS = EntryListingQueryParams()
 """Entry listing URL query parameters from the `optimade` package
-([`EntryListingQueryParams`](https://www.optimade.org/optimade-python-tools/api_reference/server/query_params/#optimade.server.query_params.EntryListingQueryParams))."""  # pylint: disable=line-too-long
+([`EntryListingQueryParams`](https://www.optimade.org/optimade-python-tools/api_reference/server/query_params/#optimade.server.query_params.EntryListingQueryParams))."""
 
 
 class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
@@ -87,10 +87,6 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         """Generate a valid URL query string based on the set fields."""
         res = {}
         for field, value in self.dict().items():
-            if (
-                value
-                or field
-                in self.__fields_set__  # pylint: disable=unsupported-membership-test
-            ):
+            if value or field in self.__fields_set__:
                 res[field] = unquote(value) if isinstance(value, str) else value
         return urlencode(res, quote_via=quote)
