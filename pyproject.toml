@@ -26,9 +26,9 @@ requires-python = "~=3.9"
 dynamic = ["version"]
 
 dependencies = [
-    "DLite-Python >=0.3.22,<1,!=0.4.0,!=0.4.1",
+    "DLite-Python >=0.4.2,<1,!=0.4.0,!=0.4.1",
     "optimade[server] ~=0.25",
-    "oteapi-core ~=0.5",
+    "oteapi-core ~=0.6",
     "oteapi-dlite >=0.1.5,<1",
     "psycopg2-binary !=2.9.9",
     "requests ~=2.31",
@@ -45,7 +45,7 @@ doc = [
     "mike ~=1.1",
     "mkdocs ~=1.5",
     "mkdocs-awesome-pages-plugin ~=2.9",
-    "mkdocs-jupyter ~=0.24.5",
+    "mkdocs-jupyter ~=0.24.6",
     "mkdocs-material ~=9.4",
     "mkdocstrings[python-legacy] ~=0.23.0",
 ]
@@ -56,18 +56,18 @@ test = [
     "requests-mock ~=1.11",
 ]
 pre-commit = [
-    "pre-commit ~=3.4",
+    "pre-commit ~=3.5",
 ]
 dev = [
     "mike ~=1.1",
     "mkdocs ~=1.5",
     "mkdocs-awesome-pages-plugin ~=2.9",
-    "mkdocs-jupyter ~=0.24.5",
+    "mkdocs-jupyter ~=0.24.6",
     "mkdocs-material ~=9.4",
     "mkdocstrings[python-legacy] ~=0.23.0",
     "jupyter ~=1.0",
     "otelib ~=0.3",
-    "pre-commit ~=3.4",
+    "pre-commit ~=3.5",
     "pytest ~=7.4",
     "pytest-cov ~=4.1",
     "pyyaml ~=6.0",
