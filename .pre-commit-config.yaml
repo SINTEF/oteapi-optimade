@@ -4,7 +4,7 @@
 #   pre-commit autoupdate
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
     - id: end-of-file-fixer
     - id: debug-statements
@@ -16,13 +16,13 @@ repos:
       args: [--markdown-linebreak-ext=md]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.292
+    rev: v0.1.1
     hooks:
     - id: ruff
       args: ["--fix", "--exit-non-zero-on-fix"]
 
   - repo: https://github.com/ambv/black
-    rev: 23.9.1
+    rev: 23.10.0
     hooks:
     - id: black
 
@@ -34,7 +34,7 @@ repos:
       files: ^oteapi_optimade/.*$
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1
+    rev: v1.6.1
     hooks:
     - id: mypy
       exclude: ^tests/.*$
@@ -43,7 +43,7 @@ repos:
         - "pydantic<2"
 
   - repo: https://github.com/SINTEF/ci-cd
-    rev: v2.5.1
+    rev: v2.5.2
     hooks:
     - id: docs-api-reference
       args:
