@@ -24,6 +24,7 @@
 
 **Merged pull requests:**
 
+- Write Ångström such that it is understandable by Pint in datamodel [\#170](https://github.com/SINTEF/oteapi-optimade/pull/170) ([jesper-friis](https://github.com/jesper-friis))
 - Update data models [\#169](https://github.com/SINTEF/oteapi-optimade/pull/169) ([CasperWA](https://github.com/CasperWA))
 - Move from pylint \(& isort\) to ruff [\#157](https://github.com/SINTEF/oteapi-optimade/pull/157) ([CasperWA](https://github.com/CasperWA))
 - Use relative link, which works only in production [\#145](https://github.com/SINTEF/oteapi-optimade/pull/145) ([CasperWA](https://github.com/CasperWA))
