@@ -10,6 +10,8 @@
 
 **Fixed bugs:**
 
+- Wrong OPTIMADEStructureAttributes datamodel [\#164](https://github.com/SINTEF/oteapi-optimade/issues/164)
+- OPTIMADE plugin produces empty instances of http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies  [\#162](https://github.com/SINTEF/oteapi-optimade/issues/162)
 - Pipeline figure not being shown in docs [\#144](https://github.com/SINTEF/oteapi-optimade/issues/144)
 - Updated DLite installation pathway [\#136](https://github.com/SINTEF/oteapi-optimade/issues/136)
 - `Segmentation fault` from dlite in CI [\#115](https://github.com/SINTEF/oteapi-optimade/issues/115)
@@ -17,10 +19,12 @@
 
 **Closed issues:**
 
+- Make the JSON-serialisation of entities human readable [\#160](https://github.com/SINTEF/oteapi-optimade/issues/160)
 - Use ruff instead of pylint \(and isort\) [\#156](https://github.com/SINTEF/oteapi-optimade/issues/156)
 
 **Merged pull requests:**
 
+- Update data models [\#169](https://github.com/SINTEF/oteapi-optimade/pull/169) ([CasperWA](https://github.com/CasperWA))
 - Move from pylint \(& isort\) to ruff [\#157](https://github.com/SINTEF/oteapi-optimade/pull/157) ([CasperWA](https://github.com/CasperWA))
 - Use relative link, which works only in production [\#145](https://github.com/SINTEF/oteapi-optimade/pull/145) ([CasperWA](https://github.com/CasperWA))
 - Avoid DLite v0.4.0 [\#139](https://github.com/SINTEF/oteapi-optimade/pull/139) ([CasperWA](https://github.com/CasperWA))
