@@ -95,22 +95,22 @@ class OPTIMADEDLiteParseStrategy:
 
         entities_path = Path(__file__).resolve().parent.resolve() / "entities"
 
-        dlite.storage_path.append(str(entities_path / "*.json"))
+        dlite.storage_path.append(str(entities_path / "*.yaml"))
 
         # JSONAPIResourceLinks = dlite.Instance.from_url(
-        #     f"json://{entities_path}/JSONAPIResourceLinks.json"
+        #     f"yaml://{entities_path}/JSONAPIResourceLinks.yaml"
         # )
         OPTIMADEStructure = dlite.Instance.from_url(
-            f"json://{entities_path}/OPTIMADEStructure.json"
+            f"yaml://{entities_path}/OPTIMADEStructure.yaml"
         )
         OPTIMADEStructureAssembly = dlite.Instance.from_url(
-            f"json://{entities_path}/OPTIMADEStructureAssembly.json"
+            f"yaml://{entities_path}/OPTIMADEStructureAssembly.yaml"
         )
         OPTIMADEStructureAttributes = dlite.Instance.from_url(
-            f"json://{entities_path}/OPTIMADEStructureAttributes.json"
+            f"yaml://{entities_path}/OPTIMADEStructureAttributes.yaml"
         )
         OPTIMADEStructureSpecies = dlite.Instance.from_url(
-            f"json://{entities_path}/OPTIMADEStructureSpecies.json"
+            f"yaml://{entities_path}/OPTIMADEStructureSpecies.yaml"
         )
 
         if self.parse_config.configuration.return_object:

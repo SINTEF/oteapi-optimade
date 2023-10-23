@@ -12,9 +12,6 @@ properties:
     type: string
     shape: [nelements]
     description: The chemical symbols of the different elements present in the structure.
-  nelements:
-    type: int
-    description: Number of different elements in the structure as an integer.
   elements_ratios:
     type: float
     shape: [nelements]
@@ -47,9 +44,6 @@ properties:
     type: float
     shape: [nsites, dimensionality]
     description: Cartesian positions of each site in the structure. A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the `species_at_sites` property, and the species themselves are described in the `species` property.
-  nsites:
-    type: int
-    description: An integer specifying the length of the `cartesian_site_positions` property.
   species:
     type: ref
     $ref: http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies
