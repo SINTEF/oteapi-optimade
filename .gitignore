@@ -4,8 +4,7 @@ __pycache__
 *.pyc
 
 # Testing and tools
-.pytest_cache/
-.mypy_cache/
+.*_cache/
 .ipynb_checkpoints/
 
 # Coverage
