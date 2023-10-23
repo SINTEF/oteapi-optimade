@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2023-10-23)
+## [v0.4.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.0) (2023-10-23)
 
-[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.3.0...Unreleased changes)
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.3.0...v0.4.0)
 
 **Implemented enhancements:**
 
