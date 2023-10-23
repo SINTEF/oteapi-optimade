@@ -241,12 +241,16 @@ class OPTIMADEDLiteParseStrategy:
 
             # Attributes
             new_structure_attributes.update(
-                structure.attributes.dict(exclude={"species", "assemblies"})
+                structure.attributes.dict(
+                    exclude={"species", "assemblies", "nelements", "nsites"}
+                )
             )
             for key in list(new_structure_attributes):
                 if key.startswith("_"):
                     new_structure_attributes.pop(key)
 
+            # Structure features values are Enum values, so we need to convert them to
+            # their string (true) values
             new_structure_attributes["structure_features"] = [
                 _.value for _ in new_structure_attributes["structure_features"]
             ]
