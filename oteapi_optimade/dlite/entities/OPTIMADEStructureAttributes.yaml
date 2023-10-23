@@ -38,7 +38,7 @@ properties:
   lattice_vectors:
     type: float
     shape: [dimensionality, dimensionality]
-    unit: Ångström
+    unit: Å
     description: The three lattice vectors in Cartesian coordinates, in ångström (Å).
   cartesian_site_positions:
     type: float
