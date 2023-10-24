@@ -15,8 +15,6 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
-LOGGER.setLevel(logging.DEBUG)
-LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 @dataclass

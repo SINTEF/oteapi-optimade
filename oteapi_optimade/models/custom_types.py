@@ -41,7 +41,6 @@ _OPTIMADE_BASE_URL_REGEX = None
 _OPTIMADE_ENDPOINT_REGEX = None
 
 LOGGER = logging.getLogger("oteapi_optimade.models")
-LOGGER.setLevel(logging.DEBUG)
 
 
 def optimade_base_url_regex() -> "Pattern[str]":
