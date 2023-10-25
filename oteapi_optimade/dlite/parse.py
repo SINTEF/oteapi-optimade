@@ -213,31 +213,61 @@ class OPTIMADEDLiteParseStrategy:
 
         # DLite-fy OPTIMADE structures
         for structure in structures:
-            new_structure_attributes = {}
+            new_structure_attributes: dict[str, "Any"] = {}
 
             # Most inner layer: assemblies & species
             if structure.attributes.assemblies:
-                dimensions = {
-                    "ngroups": len(structure.attributes.assemblies),
-                    "nsites": max(len(_) for _ in structure.attributes.assemblies),
-                }
-                new_structure_attributes["assemblies"] = OPTIMADEStructureAssembly(
-                    dimensions=dimensions, properties=structure.attributes.assemblies
-                )
-            if structure.attributes.species:
-                dimensions = {
-                    "nelements": structure.attributes.nelements,
-                    "nattached_elements": max(
-                        _.nattached or 0 for _ in structure.attributes.species
-                    ),
-                }
-                new_structure_attributes["species"] = [
-                    OPTIMADEStructureSpecies(
-                        dimensions=dimensions,
-                        properties=species,
+                # Non-zero length list of assemblies (which could be a list of dicts or
+                # a list of pydantic models)
+
+                new_structure_attributes["assemblies"] = []
+
+                for assembly in structure.attributes.assemblies:
+                    # Ensure we're dealing with a normal Python dict
+                    assembly = (
+                        assembly.dict(exclude_none=True)
+                        if isinstance(assembly, BaseModel)
+                        else assembly
                     )
-                    for species in structure.attributes.species
-                ]
+
+                    dimensions = {
+                        "ngroups": len(assembly.get("group_probabilities", []) or []),
+                        "nsites": len(assembly.get("sites_in_groups", []) or []),
+                    }
+                    new_structure_attributes["assemblies"].append(
+                        OPTIMADEStructureAssembly(
+                            dimensions=dimensions, properties=assembly
+                        )
+                    )
+
+            if structure.attributes.species:
+                # Non-zero length list of species (which could be a list of dicts or a
+                # list of pydantic models)
+
+                new_structure_attributes["species"] = []
+
+                for species_individual in structure.attributes.species:
+                    # Ensure we're dealing with a normal Python dict
+                    species_individual = (
+                        species_individual.dict(exclude_none=True)
+                        if isinstance(species_individual, BaseModel)
+                        else species_individual
+                    )
+
+                    dimensions = {
+                        "nelements": len(
+                            species_individual.get("chemical_symbols", []) or []
+                        ),
+                        "nattached_elements": len(
+                            species_individual.get("attached", []) or []
+                        ),
+                    }
+                    new_structure_attributes["species"].append(
+                        OPTIMADEStructureSpecies(
+                            dimensions=dimensions,
+                            properties=species_individual,
+                        )
+                    )
 
             # Attributes
             new_structure_attributes.update(
