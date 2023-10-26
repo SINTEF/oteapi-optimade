@@ -1,6 +1,5 @@
 """OTEAPI strategy for parsing OPTIMADE structure resources to DLite instances."""
 import logging
-import sys
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -22,8 +21,6 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 LOGGER = logging.getLogger("oteapi_optimade.dlite")
-LOGGER.setLevel(logging.DEBUG)
-LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 @dataclass

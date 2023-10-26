@@ -1,7 +1,6 @@
 """Demo strategy class for text/json."""
 import json
 import logging
-import sys
 from typing import TYPE_CHECKING
 
 from optimade.models import ErrorResponse, Success
@@ -21,8 +20,6 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
-LOGGER.setLevel(logging.DEBUG)
-LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 @dataclass
