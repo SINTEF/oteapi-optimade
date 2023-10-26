@@ -3,7 +3,7 @@ meta: http://onto-ns.com/meta/0.3/EntitySchema
 description: Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).
 dimensions:
   nelements: Number of chemical elements composing this species.
-  nattached_elements: Number of checmical symbols for the elements attached to this species.
+  nattached_elements: Number of chemical symbols for the elements attached to this species.
 properties:
   name:
     type: string
