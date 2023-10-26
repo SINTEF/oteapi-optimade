@@ -1,7 +1,6 @@
 """Demo strategy class for text/json."""
 import json
 import logging
-import sys
 from typing import TYPE_CHECKING
 
 from optimade.models import ErrorResponse, Success

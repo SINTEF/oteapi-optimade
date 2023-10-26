@@ -1,6 +1,5 @@
 """Demo filter strategy."""
 import logging
-import sys
 from typing import TYPE_CHECKING
 
 from oteapi.models import SessionUpdate

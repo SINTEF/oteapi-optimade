@@ -1,6 +1,5 @@
 """OPTIMADE resource strategy."""
 import logging
-import sys
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qs
 
