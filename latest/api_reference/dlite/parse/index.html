@@ -1260,31 +1260,61 @@ OPTIMADEDLiteParseStrategy        </code>
 
         <span class="c1"># DLite-fy OPTIMADE structures</span>
         <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">structures</span><span class="p">:</span>
-            <span class="n">new_structure_attributes</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">new_structure_attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Any&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
             <span class="c1"># Most inner layer: assemblies &amp; species</span>
             <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">:</span>
-                <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="s2">&quot;ngroups&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">),</span>
-                    <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">),</span>
-                <span class="p">}</span>
-                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPTIMADEStructureAssembly</span><span class="p">(</span>
-                    <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
-                <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span><span class="p">,</span>
-                    <span class="s2">&quot;nattached_elements&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span>
-                        <span class="n">_</span><span class="o">.</span><span class="n">nattached</span> <span class="ow">or</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span>
-                    <span class="p">),</span>
-                <span class="p">}</span>
-                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="n">OPTIMADEStructureSpecies</span><span class="p">(</span>
-                        <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
-                        <span class="n">properties</span><span class="o">=</span><span class="n">species</span><span class="p">,</span>
+                <span class="c1"># Non-zero length list of assemblies (which could be a list of dicts or</span>
+                <span class="c1"># a list of pydantic models)</span>
+
+                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="k">for</span> <span class="n">assembly</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">:</span>
+                    <span class="c1"># Ensure we&#39;re dealing with a normal Python dict</span>
+                    <span class="n">assembly</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">assembly</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">)</span>
+                        <span class="k">else</span> <span class="n">assembly</span>
                     <span class="p">)</span>
-                    <span class="k">for</span> <span class="n">species</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span>
-                <span class="p">]</span>
+
+                    <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;ngroups&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;group_probabilities&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]),</span>
+                        <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sites_in_groups&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]),</span>
+                    <span class="p">}</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">OPTIMADEStructureAssembly</span><span class="p">(</span>
+                            <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">assembly</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
+                <span class="c1"># Non-zero length list of species (which could be a list of dicts or a</span>
+                <span class="c1"># list of pydantic models)</span>
+
+                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="k">for</span> <span class="n">species_individual</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
+                    <span class="c1"># Ensure we&#39;re dealing with a normal Python dict</span>
+                    <span class="n">species_individual</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">species_individual</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">species_individual</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">)</span>
+                        <span class="k">else</span> <span class="n">species_individual</span>
+                    <span class="p">)</span>
+
+                    <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
+                            <span class="n">species_individual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chemical_symbols&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]</span>
+                        <span class="p">),</span>
+                        <span class="s2">&quot;nattached_elements&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
+                            <span class="n">species_individual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;attached&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]</span>
+                        <span class="p">),</span>
+                    <span class="p">}</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">OPTIMADEStructureSpecies</span><span class="p">(</span>
+                            <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
+                            <span class="n">properties</span><span class="o">=</span><span class="n">species_individual</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
 
             <span class="c1"># Attributes</span>
             <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
@@ -1561,31 +1591,61 @@ context from services.</p></td>
 
     <span class="c1"># DLite-fy OPTIMADE structures</span>
     <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">structures</span><span class="p">:</span>
-        <span class="n">new_structure_attributes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">new_structure_attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Any&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># Most inner layer: assemblies &amp; species</span>
         <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">:</span>
-            <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;ngroups&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">),</span>
-                <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">),</span>
-            <span class="p">}</span>
-            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPTIMADEStructureAssembly</span><span class="p">(</span>
-                <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
-            <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span><span class="p">,</span>
-                <span class="s2">&quot;nattached_elements&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span>
-                    <span class="n">_</span><span class="o">.</span><span class="n">nattached</span> <span class="ow">or</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span>
-                <span class="p">),</span>
-            <span class="p">}</span>
-            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">OPTIMADEStructureSpecies</span><span class="p">(</span>
-                    <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
-                    <span class="n">properties</span><span class="o">=</span><span class="n">species</span><span class="p">,</span>
+            <span class="c1"># Non-zero length list of assemblies (which could be a list of dicts or</span>
+            <span class="c1"># a list of pydantic models)</span>
+
+            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">assembly</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">:</span>
+                <span class="c1"># Ensure we&#39;re dealing with a normal Python dict</span>
+                <span class="n">assembly</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">assembly</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="n">assembly</span>
                 <span class="p">)</span>
-                <span class="k">for</span> <span class="n">species</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span>
-            <span class="p">]</span>
+
+                <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;ngroups&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;group_probabilities&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]),</span>
+                    <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sites_in_groups&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]),</span>
+                <span class="p">}</span>
+                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">OPTIMADEStructureAssembly</span><span class="p">(</span>
+                        <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">assembly</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
+            <span class="c1"># Non-zero length list of species (which could be a list of dicts or a</span>
+            <span class="c1"># list of pydantic models)</span>
+
+            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">species_individual</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
+                <span class="c1"># Ensure we&#39;re dealing with a normal Python dict</span>
+                <span class="n">species_individual</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">species_individual</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">species_individual</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="n">species_individual</span>
+                <span class="p">)</span>
+
+                <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
+                        <span class="n">species_individual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chemical_symbols&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]</span>
+                    <span class="p">),</span>
+                    <span class="s2">&quot;nattached_elements&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
+                        <span class="n">species_individual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;attached&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]</span>
+                    <span class="p">),</span>
+                <span class="p">}</span>
+                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">OPTIMADEStructureSpecies</span><span class="p">(</span>
+                        <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
+                        <span class="n">properties</span><span class="o">=</span><span class="n">species_individual</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
 
         <span class="c1"># Attributes</span>
         <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>

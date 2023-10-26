@@ -7,9 +7,11 @@
 **Fixed bugs:**
 
 - Invalid use of logging [\#174](https://github.com/SINTEF/oteapi-optimade/issues/174)
+- OPTIMADE plugin produces empty instances of http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies  [\#162](https://github.com/SINTEF/oteapi-optimade/issues/162)
 
 **Merged pull requests:**
 
+- Properly create assemblies and species [\#172](https://github.com/SINTEF/oteapi-optimade/pull/172) ([CasperWA](https://github.com/CasperWA))
 - Proper use of logging [\#171](https://github.com/SINTEF/oteapi-optimade/pull/171) ([jesper-friis](https://github.com/jesper-friis))
 
 ## [v0.4.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.0) (2023-10-23)
