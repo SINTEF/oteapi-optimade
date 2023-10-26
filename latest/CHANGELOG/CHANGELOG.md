@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2023-10-26)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.0...Unreleased changes)
+
+**Fixed bugs:**
+
+- Invalid use of logging [\#174](https://github.com/SINTEF/oteapi-optimade/issues/174)
+
+**Merged pull requests:**
+
+- Proper use of logging [\#171](https://github.com/SINTEF/oteapi-optimade/pull/171) ([jesper-friis](https://github.com/jesper-friis))
+
 ## [v0.4.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.0) (2023-10-23)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.3.0...v0.4.0)
@@ -11,7 +23,6 @@
 **Fixed bugs:**
 
 - Wrong OPTIMADEStructureAttributes datamodel [\#164](https://github.com/SINTEF/oteapi-optimade/issues/164)
-- OPTIMADE plugin produces empty instances of http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies  [\#162](https://github.com/SINTEF/oteapi-optimade/issues/162)
 - Pipeline figure not being shown in docs [\#144](https://github.com/SINTEF/oteapi-optimade/issues/144)
 - Updated DLite installation pathway [\#136](https://github.com/SINTEF/oteapi-optimade/issues/136)
 - `Segmentation fault` from dlite in CI [\#115](https://github.com/SINTEF/oteapi-optimade/issues/115)
