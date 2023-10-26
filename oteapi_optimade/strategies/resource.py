@@ -1,6 +1,5 @@
 """OPTIMADE resource strategy."""
 import logging
-import sys
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qs
 
@@ -40,8 +39,6 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
-LOGGER.setLevel(logging.DEBUG)
-LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 def use_dlite(access_service: str, use_dlite_flag: bool) -> bool:
