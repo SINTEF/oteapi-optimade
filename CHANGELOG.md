@@ -1,12 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/SINTEF/oteapi-optimade/tree/HEAD)
+## [v0.4.2](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.2) (2023-10-26)
 
-[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.1...HEAD)
-
-**Fixed bugs:**
-
-- OPTIMADE plugin produces empty instances of http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies  [\#162](https://github.com/SINTEF/oteapi-optimade/issues/162)
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.1...v0.4.2)
 
 ## [v0.4.1](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.1) (2023-10-26)
 
@@ -15,6 +11,7 @@
 **Fixed bugs:**
 
 - Invalid use of logging [\#174](https://github.com/SINTEF/oteapi-optimade/issues/174)
+- OPTIMADE plugin produces empty instances of http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies  [\#162](https://github.com/SINTEF/oteapi-optimade/issues/162)
 
 **Merged pull requests:**
 
