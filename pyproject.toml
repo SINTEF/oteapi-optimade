@@ -26,7 +26,7 @@ requires-python = "~=3.9"
 dynamic = ["version"]
 
 dependencies = [
-    "DLite-Python >=0.4.3,<1",
+    "DLite-Python >=0.4.5,<1",
     "optimade[server] ~=0.25",
     "oteapi-core ~=0.5.2",
     "oteapi-dlite >=0.1.6,<1",
@@ -39,7 +39,7 @@ examples = [
     "otelib ~=0.3.2",
 ]
 doc = [
-    "mike ~=1.1",
+    "mike ~=2.0",
     "mkdocs ~=1.5",
     "mkdocs-awesome-pages-plugin ~=2.9",
     "mkdocs-jupyter ~=0.24.6",
