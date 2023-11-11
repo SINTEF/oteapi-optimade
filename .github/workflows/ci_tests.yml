@@ -33,14 +33,6 @@ jobs:
       package_dirs: oteapi_optimade
       full_docs_dirs: "models"
 
-  ruff:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - uses: chartboost/ruff-action@v1
-
   pytest:
     name: pytest (${{ matrix.os[1] }}-py${{ matrix.python-version }})
     runs-on: ${{ matrix.os[0] }}
