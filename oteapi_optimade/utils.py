@@ -13,7 +13,7 @@ def model2dict(
 ) -> "dict[str, Any]":
     """Convert a pydantic model to a Python dictionary.
 
-    This works similarly to the `dict()` method for pydantic models, but ensures any
+    This works similarly to the `model_dump()` method for pydantic models, but ensures any
     and all nested pydantic models are also converted to dictionaries.
 
     Parameters:
@@ -36,11 +36,11 @@ def model2dict(
         if isinstance(model_, Iterable) and not isinstance(model_, (bytes, str)):
             return type(model_)(_internal(value) for value in model_)  # type: ignore[call-arg]
         if isinstance(model_, BaseModel):
-            return _internal(model_.dict(**dict_kwargs))
+            return _internal(model_.model_dump(**dict_kwargs))
         return model_
 
     if isinstance(model, BaseModel):
-        res = model.dict(**dict_kwargs)
+        res = model.model_dump(**dict_kwargs)
     elif isinstance(model, dict):
         res = deepcopy(model)
     else:
