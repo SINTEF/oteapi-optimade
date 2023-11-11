@@ -13,7 +13,6 @@ from pydantic.dataclasses import dataclass
 
 from oteapi_optimade.exceptions import OPTIMADEParseError
 from oteapi_optimade.models import OPTIMADEParseConfig, OPTIMADEParseSession
-from oteapi_optimade.utils import model2dict
 
 if TYPE_CHECKING:  # pragma: no cover
     from typing import Any, Dict, Optional, Union
@@ -86,15 +85,15 @@ class OPTIMADEParseStrategy:
             session = OPTIMADEParseSession(**session)
         elif session and isinstance(session, SessionUpdate):
             session = OPTIMADEParseSession(
-                **model2dict(session, exclude_defaults=True, exclude_unset=True)
+                **session.model_dump(exclude_defaults=True, exclude_unset=True)
             )
         else:
             session = OPTIMADEParseSession()
 
         if session.optimade_config:
             self.parse_config.configuration.update(
-                model2dict(
-                    session.optimade_config, exclude_defaults=True, exclude_unset=True
+                session.optimade_config.model_dump(
+                    exclude_defaults=True, exclude_unset=True
                 )
             )
 
@@ -112,12 +111,12 @@ class OPTIMADEParseStrategy:
             download_config = self.parse_config.model_copy()
             session.update(
                 create_strategy(StrategyType.DOWNLOAD, download_config).initialize(
-                    model2dict(session, exclude_defaults=True, exclude_unset=True)
+                    session.model_dump(exclude_defaults=True, exclude_unset=True)
                 )
             )
             session.update(
                 create_strategy(StrategyType.DOWNLOAD, download_config).get(
-                    model2dict(session, exclude_defaults=True, exclude_unset=True)
+                    session.model_dump(exclude_defaults=True, exclude_unset=True)
                 )
             )
 
@@ -193,15 +192,14 @@ class OPTIMADEParseStrategy:
             response_object.__class__.__module__,
             response_object.__class__.__name__,
         )
-        session.optimade_response = model2dict(response_object, exclude_unset=True)
+        session.optimade_response = response_object.model_dump(exclude_unset=True)
 
         if session.optimade_config and session.optimade_config.query_parameters:
             session = session.model_copy(
                 update={
                     "optimade_config": session.optimade_config.model_copy(
                         update={
-                            "query_parameters": model2dict(
-                                session.optimade_config.query_parameters,
+                            "query_parameters": session.optimade_config.query_parameters.model_dump(
                                 exclude_defaults=True,
                                 exclude_unset=True,
                             )

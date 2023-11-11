@@ -32,7 +32,6 @@ from oteapi_optimade.exceptions import MissingDependency, OPTIMADEParseError
 from oteapi_optimade.models import OPTIMADEResourceConfig, OPTIMADEResourceSession
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
-from oteapi_optimade.utils import model2dict
 
 if TYPE_CHECKING:  # pragma: no cover
     from typing import Any, Dict, Optional, Union
@@ -141,15 +140,15 @@ class OPTIMADEResourceStrategy:
             session = OPTIMADEResourceSession(**session)
         elif session and isinstance(session, SessionUpdate):
             session = OPTIMADEResourceSession(
-                **model2dict(session, exclude_defaults=True, exclude_unset=True)
+                **session.model_dump(exclude_defaults=True, exclude_unset=True)
             )
         else:
             session = OPTIMADEResourceSession()
 
         if session.optimade_config:
             self.resource_config.configuration.update(
-                model2dict(
-                    session.optimade_config, exclude_defaults=True, exclude_unset=True
+                session.optimade_config.model_dump(
+                    exclude_defaults=True, exclude_unset=True
                 )
             )
 
@@ -230,12 +229,12 @@ class OPTIMADEResourceStrategy:
 
         session.update(
             create_strategy(StrategyType.PARSE, parse_config).initialize(
-                model2dict(session, exclude_defaults=True, exclude_unset=True)
+                session.model_dump(exclude_defaults=True, exclude_unset=True)
             )
         )
         session.update(
             create_strategy(StrategyType.PARSE, parse_config).get(
-                model2dict(session, exclude_defaults=True, exclude_unset=True)
+                session.model_dump(exclude_defaults=True, exclude_unset=True)
             )
         )
 
@@ -339,7 +338,8 @@ class OPTIMADEResourceStrategy:
             )
 
         session.optimade_resources = [
-            model2dict(resource) for resource in optimade_resources
+            resource if isinstance(resource, dict) else resource.model_dump()
+            for resource in optimade_resources
         ]
 
         if session.optimade_config and session.optimade_config.query_parameters:
@@ -347,8 +347,7 @@ class OPTIMADEResourceStrategy:
                 update={
                     "optimade_config": session.optimade_config.model_copy(
                         update={
-                            "query_parameters": model2dict(
-                                session.optimade_config.query_parameters,
+                            "query_parameters": session.optimade_config.query_parameters.model_dump(
                                 exclude_defaults=True,
                                 exclude_unset=True,
                             )
