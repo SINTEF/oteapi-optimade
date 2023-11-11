@@ -129,8 +129,13 @@ addopts = "-rs --cov=oteapi_optimade --cov-report=term-missing"
 filterwarnings = [
     # Make all warnings errors (failing pytest)
     "error",
-    # Except the following
+
+    # Except the following:
+
     # reset_field() from oteapi.models.AttrDict implements the previous behaviour of
     # __delattr__().
     "ignore:.*reset_field().*:DeprecationWarning",
+
+    # Python 3.10 deprecation warning coming from oteapi-core
+    "ignore:.*SelectableGroups dict interface is deprecated.*:DeprecationWarning",
 ]
