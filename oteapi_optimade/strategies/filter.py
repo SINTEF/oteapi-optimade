@@ -70,7 +70,7 @@ class OPTIMADEFilterStrategy:
                 )
             )
 
-        optimade_config = self.filter_config.configuration.copy()
+        optimade_config = self.filter_config.configuration.model_copy()
 
         if not optimade_config.query_parameters:
             optimade_config.query_parameters = OPTIMADEQueryParameters()
@@ -83,9 +83,9 @@ class OPTIMADEFilterStrategy:
             LOGGER.debug("Setting page_limit from limit.")
             optimade_config.query_parameters.page_limit = self.filter_config.limit
 
-        return session.copy(
+        return session.model_copy(
             update={
-                "optimade_config": optimade_config.copy(
+                "optimade_config": optimade_config.model_copy(
                     update={
                         "query_parameters": model2dict(
                             optimade_config.query_parameters,

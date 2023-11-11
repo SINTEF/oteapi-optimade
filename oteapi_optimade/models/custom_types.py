@@ -15,7 +15,7 @@ from optimade.models import (
     StructureResponseOne,
     Success,
 )
-from pydantic import AnyHttpUrl
+from pydantic import AnyHttpUrl, ValidationError
 from pydantic_core import Url, core_schema
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -45,6 +45,7 @@ def optimade_base_url_regex() -> "Pattern[str]":
     global _OPTIMADE_BASE_URL_REGEX
     if _OPTIMADE_BASE_URL_REGEX is None:
         _OPTIMADE_BASE_URL_REGEX = re.compile(
+            r"(?i)"  # ignore case
             r"^(?P<base_url>"
             # scheme https://tools.ietf.org/html/rfc3986#appendix-A
             r"(?:[a-z][a-z0-9+\-.]+://)?"
@@ -57,7 +58,6 @@ def optimade_base_url_regex() -> "Pattern[str]":
             r"(?::\d+)?"  # port
             r"(?P<path>/[^\s?#]*)?"  # path
             r")",
-            re.IGNORECASE,
         )
     return _OPTIMADE_BASE_URL_REGEX
 
@@ -88,7 +88,6 @@ class OPTIMADEUrl(str):
     Where parts in square brackets (`[]`) are optional.
     """
 
-    min_length = 1
     # https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
     max_length = 2083
     allowed_schemes = ["http", "https"]
@@ -98,7 +97,7 @@ class OPTIMADEUrl(str):
     def __new__(cls, url: "Optional[str]" = None, **kwargs) -> object:
         return str.__new__(
             cls,
-            cls._build(**kwargs) if url is None else url,
+            url if url else cls._build(**kwargs),
         )
 
     def __init__(
@@ -111,22 +110,51 @@ class OPTIMADEUrl(str):
         query: "Optional[str]" = None,
     ) -> None:
         str.__init__(url)
-        self._base_url = base_url
-        self._version = version
-        self._endpoint = endpoint
-        self._query = query
+
+        # Parse as URL
+        try:
+            pydantic_url = AnyHttpUrl(url)
+        except ValidationError:
+            try:
+                pydantic_url = AnyHttpUrl(
+                    self._build(
+                        base_url=base_url or "",
+                        version=version,
+                        endpoint=endpoint,
+                        query=query,
+                    )
+                )
+            except ValidationError:
+                pydantic_url = None
+
+        # Build OPTIMADE URL parts
+        optimade_parts: "Union[OPTIMADEParts, dict]" = {}
+        if pydantic_url:
+            optimade_parts = self._build_optimade_parts(pydantic_url)
+
+        self._base_url = base_url or optimade_parts.get("base_url", None)
+        self._version = version or optimade_parts.get("version", None)
+        self._endpoint = endpoint or optimade_parts.get("endpoint", None)
+        self._query = query or optimade_parts.get("query", None)
+
+    def __str__(self) -> str:
+        return self._build(
+            base_url=self.base_url,
+            version=self.version,
+            endpoint=self.endpoint,
+            query=self.query,
+        )
 
     def __repr__(self) -> str:
         extra = ", ".join(
             f"{n}={getattr(self, n)!r}"
-            for n in self.__slots__
+            for n in ("base_url", "version", "endpoint", "query")
             if getattr(self, n) is not None
         )
         return f"{self.__class__.__name__}({super().__repr__()}, {extra})"
 
-    @classmethod
+    @staticmethod
     def _build(
-        cls,
         *,
         base_url: str,
         version: "Optional[str]" = None,
@@ -192,34 +220,36 @@ class OPTIMADEUrl(str):
         - Nothing else will pass validation
         - Serialization will always return just a str.
         """
-        from_str_schema = (
-            core_schema.no_info_before_validator_function(
-                cls._validate_from_str_or_url,
-                schema=core_schema.str_schema(
+        from_str_schema = core_schema.chain_schema(
+            [
+                core_schema.url_schema(
                     max_length=cls.max_length,
-                    min_length=cls.min_length,
-                    strip_whitespace=True,
-                    regex_engine="rust-regex",
-                    pattern=optimade_base_url_regex(),
+                    host_required=cls.host_required,
+                    allowed_schemes=cls.allowed_schemes,
                 ),
-            ),
+                core_schema.no_info_plain_validator_function(
+                    cls._validate_from_str_or_url
+                ),
+            ],
         )
 
-        from_url_schema = (
-            core_schema.no_info_before_validator_function(
-                cls._validate_from_str_or_url,
-                schema=core_schema.is_instance_schema(Url),
-            ),
+        from_url_schema = core_schema.chain_schema(
+            [
+                core_schema.is_instance_schema(Url),
+                core_schema.no_info_plain_validator_function(
+                    cls._validate_from_str_or_url
+                ),
+            ],
         )
 
         return core_schema.json_or_python_schema(
             json_schema=from_str_schema,
             python_schema=core_schema.union_schema(
                 [
-                    core_schema.is_instance_schema(OPTIMADEUrl),
+                    core_schema.is_instance_schema(cls),
                     from_url_schema,
                     from_str_schema,
-                ]
+                ],
             ),
             serialization=core_schema.plain_serializer_function_ser_schema(str),
         )
@@ -232,7 +262,6 @@ class OPTIMADEUrl(str):
         return handler(
             core_schema.url_schema(
                 max_length=cls.max_length,
-                min_length=cls.min_length,
                 host_required=cls.host_required,
                 allowed_schemes=cls.allowed_schemes,
             )
@@ -277,7 +306,7 @@ class OPTIMADEUrl(str):
         base_url += url.host
 
         # Hide port if it's a standard HTTP (80) or HTTPS (443) port.
-        if url.port and url.port not in ("80", "443"):
+        if url.port and url.port not in (80, 443):
             base_url += f":{url.port}"
 
         if url.path:

@@ -1,7 +1,6 @@
 """Models specific to the parse strategy."""
 from typing import Any, Dict, Literal, Optional, Annotated
 
-from optimade.models import Response
 from oteapi.models import ResourceConfig, SessionUpdate
 from pydantic import ConfigDict, Field
 
@@ -59,10 +58,14 @@ class OPTIMADEParseSession(SessionUpdate):
             ),
         ),
     ] = None
-    optimade_response_object: Annotated[
-        Optional[Response],
+    optimade_response_model: Annotated[
+        Optional[tuple[str, str]],
         Field(
-            description="An OPTIMADE Python tools (OPT) pydantic response object.",
+            description=(
+                "An OPTIMADE Python tools (OPT) pydantic successful response model. "
+                "More specifically, a tuple of the module and name of the pydantic "
+                "model."
+            ),
         ),
     ] = None
     optimade_response: Annotated[

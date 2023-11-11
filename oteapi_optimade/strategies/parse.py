@@ -109,7 +109,7 @@ class OPTIMADEParseStrategy:
                 self.parse_config.configuration.datacache_config.accessKey
             )
         else:
-            download_config = self.parse_config.copy()
+            download_config = self.parse_config.model_copy()
             session.update(
                 create_strategy(StrategyType.DOWNLOAD, download_config).initialize(
                     model2dict(session, exclude_defaults=True, exclude_unset=True)
@@ -147,9 +147,11 @@ class OPTIMADEParseStrategy:
         else:
             # Successful response
             response_model = self.parse_config.downloadUrl.response_model()
+            LOGGER.debug("response_model=%r", response_model)
             if response_model:
                 if not isinstance(response_model, tuple):
                     response_model = (response_model,)
+
                 for model_cls in response_model:
                     try:
                         response_object = model_cls(**response.get("json", {}))
@@ -170,6 +172,7 @@ class OPTIMADEParseStrategy:
                     )
             else:
                 # No "endpoint" or unknown
+                LOGGER.debug("No response_model, using Success response model.")
                 try:
                     response_object = Success(**response.get("json", {}))
                 except ValidationError as exc:
@@ -186,15 +189,16 @@ class OPTIMADEParseStrategy:
                         "Unknown or unparseable endpoint."
                     ) from exc
 
-        if self.parse_config.configuration.return_object:
-            session.optimade_response_object = response_object
-        else:
-            session.optimade_response = model2dict(response_object)
+        session.optimade_response_model = (
+            response_object.__class__.__module__,
+            response_object.__class__.__name__,
+        )
+        session.optimade_response = model2dict(response_object, exclude_unset=True)
 
         if session.optimade_config and session.optimade_config.query_parameters:
-            session = session.copy(
+            session = session.model_copy(
                 update={
-                    "optimade_config": session.optimade_config.copy(
+                    "optimade_config": session.optimade_config.model_copy(
                         update={
                             "query_parameters": model2dict(
                                 session.optimade_config.query_parameters,

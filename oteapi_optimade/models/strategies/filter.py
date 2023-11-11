@@ -1,7 +1,6 @@
 """Models specific to the filter strategy."""
 from typing import Any, Dict, Literal, Optional, Annotated
 
-from optimade.models import Response
 from oteapi.models import FilterConfig, SessionUpdate
 from pydantic import ConfigDict, Field
 
@@ -72,10 +71,14 @@ class OPTIMADEFilterSession(SessionUpdate):
             ),
         ),
     ] = None
-    optimade_response_object: Annotated[
-        Optional[Response],
+    optimade_response_model: Annotated[
+        Optional[tuple[str, str]],
         Field(
-            description="An OPTIMADE Python tools (OPT) pydantic response object.",
+            description=(
+                "An OPTIMADE Python tools (OPT) pydantic successful response model. "
+                "More specifically, a tuple of the module and name of the pydantic "
+                "model."
+            ),
         ),
     ] = None
     optimade_response: Annotated[

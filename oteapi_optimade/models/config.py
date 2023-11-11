@@ -41,16 +41,6 @@ class OPTIMADEConfig(AttrDict):
             description="Configuration options for the local data cache.",
         ),
     ] = DataCacheConfig(**DEFAULT_CACHE_CONFIG_VALUES)
-    return_object: Annotated[
-        bool,
-        Field(
-            description=(
-                "Whether or not to return a response object (using the pydantic model).\n"
-                "\nImportant:\n    This should _only_ be used if the strategy is called "
-                "directly and not via an OTEAPI REST API service."
-            ),
-        ),
-    ] = False
     use_dlite: Annotated[
         bool,
         Field(
