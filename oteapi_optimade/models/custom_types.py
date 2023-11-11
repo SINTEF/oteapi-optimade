@@ -22,7 +22,8 @@ from pydantic.utils import update_not_none
 from pydantic.validators import constr_length_validator, str_validator
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Pattern, Tuple, TypedDict, Union
+    from typing import Any, Dict, Optional, Tuple, TypedDict, Union
+    from re import Pattern
 
     from pydantic.config import BaseConfig
     from pydantic.fields import ModelField

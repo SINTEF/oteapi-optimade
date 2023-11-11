@@ -1,6 +1,7 @@
 """Utility functions to be used in OTEAPI OPTIMADE."""
 from copy import deepcopy
-from typing import TYPE_CHECKING, Iterable
+from typing import TYPE_CHECKING
+from collections.abc import Iterable
 
 from pydantic import BaseModel
 

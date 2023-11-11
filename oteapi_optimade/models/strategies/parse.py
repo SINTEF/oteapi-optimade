@@ -1,5 +1,5 @@
 """Models specific to the parse strategy."""
-from typing import Any, Dict, Literal, Optional
+from typing import Any, Literal, Optional
 
 from optimade.models import Response
 from oteapi.models import ResourceConfig, SessionUpdate
@@ -53,7 +53,7 @@ class OPTIMADEParseSession(SessionUpdate):
         None,
         description="An OPTIMADE Python tools (OPT) pydantic response object.",
     )
-    optimade_response: Optional[Dict[str, Any]] = Field(
+    optimade_response: Optional[dict[str, Any]] = Field(
         None,
         description="An OPTIMADE response as a Python dictionary.",
     )

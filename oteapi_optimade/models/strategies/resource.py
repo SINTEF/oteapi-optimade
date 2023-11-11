@@ -1,5 +1,5 @@
 """Models specific to the resource strategy."""
-from typing import Any, Dict, List, Literal, Optional
+from typing import Any, Literal, Optional
 
 from oteapi.models import ResourceConfig, SessionUpdate
 from pydantic import Field
@@ -48,7 +48,7 @@ class OPTIMADEResourceSession(SessionUpdate):
             "perform OPTIMADE queries."
         ),
     )
-    optimade_resources: List[Dict[str, Any]] = Field(
+    optimade_resources: list[dict[str, Any]] = Field(
         [],
         description=(
             "List of OPTIMADE resources (structures, references, errors, ...) returned"

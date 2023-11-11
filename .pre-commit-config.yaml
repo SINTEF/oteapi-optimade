@@ -15,6 +15,12 @@ repos:
     - id: trailing-whitespace
       args: [--markdown-linebreak-ext=md]
 
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.0
+    hooks:
+    - id: pyupgrade
+      args: [--py39-plus]
+
   - repo: https://github.com/ambv/black
     rev: 23.11.0
     hooks:
