@@ -17,16 +17,16 @@ from optimade.models import (
     StructureResponseOne,
     Success,
 )
-from pydantic.networks import ascii_domain_regex, errors, int_domain_regex, url_regex
-from pydantic.utils import update_not_none
-from pydantic.validators import constr_length_validator, str_validator
+from pydantic.v1.networks import ascii_domain_regex, errors, int_domain_regex, url_regex
+from pydantic.v1.utils import update_not_none
+from pydantic.v1.validators import constr_length_validator, str_validator
 
 if TYPE_CHECKING:  # pragma: no cover
     from typing import Any, Dict, Optional, Pattern, Tuple, TypedDict, Union
 
-    from pydantic.config import BaseConfig
-    from pydantic.fields import FieldInfo
-    from pydantic.networks import CallableGenerator, Parts
+    from pydantic.v1.config import BaseConfig
+    from pydantic.v1.fields import ModelField
+    from pydantic.v1.networks import CallableGenerator, Parts
 
     class OPTIMADEParts(TypedDict, total=False):
         """Similar to `pydantic.networks.Parts`."""
@@ -185,7 +185,7 @@ class OPTIMADEUrl(str):
 
     @classmethod
     def validate(
-        cls, value: "Any", field: "FieldInfo", config: "BaseConfig"
+        cls, value: "Any", field: "ModelField", config: "BaseConfig"
     ) -> "OPTIMADEUrl":
         """Pydantic validation of an OPTIMADE URL."""
         if value.__class__ == cls:

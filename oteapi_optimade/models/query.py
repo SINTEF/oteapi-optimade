@@ -1,11 +1,21 @@
 """Data models related to OPTIMADE queries."""
+import inspect
 from typing import Optional, Annotated
 from urllib.parse import quote, unquote, urlencode
 
 from optimade.server.query_params import EntryListingQueryParams
 from pydantic import BaseModel, EmailStr, Field
+from pydantic.fields import FieldInfo
 
-QUERY_PARAMETERS = EntryListingQueryParams()
+QUERY_PARAMETERS = {
+    "annotations": {
+        name: FieldInfo.from_annotation(parameter.annotation)
+        for name, parameter in (
+            inspect.signature(EntryListingQueryParams).parameters.items()
+        )
+    },
+    "defaults": EntryListingQueryParams(),
+}
 """Entry listing URL query parameters from the `optimade` package
 ([`EntryListingQueryParams`](https://www.optimade.org/optimade-python-tools/api_reference/server/query_params/#optimade.server.query_params.EntryListingQueryParams))."""
 
@@ -16,83 +26,85 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
     filter: Annotated[
         Optional[str],
         Field(
-            description=QUERY_PARAMETERS.filter.description,
+            description=QUERY_PARAMETERS["annotations"]["filter"].description,
         ),
-    ] = QUERY_PARAMETERS.filter.default
+    ] = QUERY_PARAMETERS["defaults"].filter
     response_format: Annotated[
         Optional[str],
         Field(
-            description=QUERY_PARAMETERS.response_format.description,
+            description=QUERY_PARAMETERS["annotations"]["response_format"].description,
         ),
-    ] = QUERY_PARAMETERS.response_format.default
+    ] = QUERY_PARAMETERS["defaults"].response_format
     email_address: Annotated[
         Optional[EmailStr],
         Field(
-            description=QUERY_PARAMETERS.email_address.description,
+            description=QUERY_PARAMETERS["annotations"]["email_address"].description,
         ),
-    ] = QUERY_PARAMETERS.email_address.default
+    ] = QUERY_PARAMETERS["defaults"].email_address
     response_fields: Annotated[
         Optional[str],
         Field(
-            description=QUERY_PARAMETERS.response_fields.description,
-            pattern=QUERY_PARAMETERS.response_fields.pattern,
+            description=QUERY_PARAMETERS["annotations"]["response_fields"].description,
+            pattern=QUERY_PARAMETERS["annotations"]["response_fields"]
+            .metadata[0]
+            .pattern,
         ),
-    ] = QUERY_PARAMETERS.response_fields.default
+    ] = QUERY_PARAMETERS["defaults"].response_fields
     sort: Annotated[
         Optional[str],
         Field(
-            description=QUERY_PARAMETERS.sort.description,
-            pattern=QUERY_PARAMETERS.sort.pattern,
+            description=QUERY_PARAMETERS["annotations"]["sort"].description,
+            pattern=QUERY_PARAMETERS["annotations"]["sort"].metadata[0].pattern,
         ),
-    ] = QUERY_PARAMETERS.sort.default
+    ] = QUERY_PARAMETERS["defaults"].sort
     page_limit: Annotated[
         Optional[int],
         Field(
-            description=QUERY_PARAMETERS.page_limit.description,
-            ge=QUERY_PARAMETERS.page_limit.ge,
+            description=QUERY_PARAMETERS["annotations"]["page_limit"].description,
+            ge=QUERY_PARAMETERS["annotations"]["page_limit"].metadata[0].ge,
         ),
-    ] = QUERY_PARAMETERS.page_limit.default
+    ] = QUERY_PARAMETERS["defaults"].page_limit
     page_offset: Annotated[
         Optional[int],
         Field(
-            description=QUERY_PARAMETERS.page_offset.description,
-            ge=QUERY_PARAMETERS.page_offset.ge,
+            description=QUERY_PARAMETERS["annotations"]["page_offset"].description,
+            ge=QUERY_PARAMETERS["annotations"]["page_offset"].metadata[0].ge,
         ),
-    ] = QUERY_PARAMETERS.page_offset.default
+    ] = QUERY_PARAMETERS["defaults"].page_offset
     page_number: Annotated[
         Optional[int],
         Field(
-            description=QUERY_PARAMETERS.page_number.description,
-            ge=QUERY_PARAMETERS.page_number.ge,
+            description=QUERY_PARAMETERS["annotations"]["page_number"].description,
+            # ge=QUERY_PARAMETERS["annotations"]["page_number"].metadata[0].ge,
+            # This constraint is only 'RECOMMENDED' in the specification, so should not
+            # be included here or in the OpenAPI schema.
         ),
-    ] = QUERY_PARAMETERS.page_number.default
+    ] = QUERY_PARAMETERS["defaults"].page_number
     page_cursor: Annotated[
         Optional[int],
         Field(
-            description=QUERY_PARAMETERS.page_cursor.description,
-            ge=QUERY_PARAMETERS.page_cursor.ge,
+            description=QUERY_PARAMETERS["annotations"]["page_cursor"].description,
+            ge=QUERY_PARAMETERS["annotations"]["page_cursor"].metadata[0].ge,
         ),
-    ] = QUERY_PARAMETERS.page_cursor.default
+    ] = QUERY_PARAMETERS["defaults"].page_cursor
     page_above: Annotated[
         Optional[int],
         Field(
-            description=QUERY_PARAMETERS.page_above.description,
-            ge=QUERY_PARAMETERS.page_above.ge,
+            description=QUERY_PARAMETERS["annotations"]["page_above"].description,
         ),
-    ] = QUERY_PARAMETERS.page_above.default
+    ] = QUERY_PARAMETERS["defaults"].page_above
     page_below: Annotated[
         Optional[int],
         Field(
-            description=QUERY_PARAMETERS.page_below.description,
-            ge=QUERY_PARAMETERS.page_below.ge,
+            description=QUERY_PARAMETERS["annotations"]["page_below"].description,
         ),
-    ] = QUERY_PARAMETERS.page_below.default
+    ] = QUERY_PARAMETERS["defaults"].page_below
     include: Annotated[
         Optional[str],
         Field(
-            description=QUERY_PARAMETERS.include.description,
+            description=QUERY_PARAMETERS["annotations"]["include"].description,
         ),
-    ] = QUERY_PARAMETERS.include.default
+    ] = QUERY_PARAMETERS["defaults"].include
     # api_hint is not yet initialized in `EntryListingQueryParams`.
     # These values are copied verbatim from `optimade==0.16.10`.
     api_hint: Annotated[

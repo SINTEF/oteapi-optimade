@@ -20,7 +20,7 @@ class OPTIMADEConfig(AttrDict):
         str,
         Field(
             description="The version part of the OPTIMADE versioned base URL.",
-            pattern=r"^v[0-9]+(\.[0-9]+){,2}$",
+            pattern=r"^v[0-9]+(\.[0-9]+){0,2}$",
         ),
     ] = "v1"
     endpoint: Annotated[
