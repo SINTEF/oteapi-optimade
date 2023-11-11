@@ -27,16 +27,17 @@ dynamic = ["version"]
 
 dependencies = [
     "DLite-Python >=0.4.3,<1",
-    "optimade[server] ~=0.25",
-    "oteapi-core ~=0.5.2",
-    "oteapi-dlite >=0.1.6,<1",
+    "optimade[server] ~=1.0",
+    "oteapi-core ~=0.6.0",
+    # "oteapi-dlite >=0.1.6,<1",
+    "oteapi-dlite @ git+https://github.com/EMMC-ASBL/oteapi-dlite.git@cwa/close-187-migrate-to-pydantic-v2",
     "requests ~=2.31",
 ]
 
 [project.optional-dependencies]
 examples = [
     "jupyter ~=1.0",
-    "otelib ~=0.3.2",
+    "otelib ~=0.4.1",
 ]
 doc = [
     "mike ~=1.1",
