@@ -1,5 +1,6 @@
 """Data models related to OPTIMADE queries."""
-from typing import Optional
+from __future__ import annotations
+
 from urllib.parse import quote, unquote, urlencode
 
 from optimade.server.query_params import EntryListingQueryParams
@@ -13,65 +14,65 @@ QUERY_PARAMETERS = EntryListingQueryParams()
 class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
     """Common OPTIMADE entry listing endpoint query parameters."""
 
-    filter: Optional[str] = Field(
+    filter: str | None = Field(
         QUERY_PARAMETERS.filter.default,
         description=QUERY_PARAMETERS.filter.description,
     )
-    response_format: Optional[str] = Field(
+    response_format: str | None = Field(
         QUERY_PARAMETERS.response_format.default,
         description=QUERY_PARAMETERS.response_format.description,
     )
-    email_address: Optional[EmailStr] = Field(
+    email_address: EmailStr | None = Field(
         QUERY_PARAMETERS.email_address.default,
         description=QUERY_PARAMETERS.email_address.description,
     )
-    response_fields: Optional[str] = Field(
+    response_fields: str | None = Field(
         QUERY_PARAMETERS.response_fields.default,
         description=QUERY_PARAMETERS.response_fields.description,
         regex=QUERY_PARAMETERS.response_fields.regex,
     )
-    sort: Optional[str] = Field(
+    sort: str | None = Field(
         QUERY_PARAMETERS.sort.default,
         description=QUERY_PARAMETERS.sort.description,
         regex=QUERY_PARAMETERS.sort.regex,
     )
-    page_limit: Optional[int] = Field(
+    page_limit: int | None = Field(
         QUERY_PARAMETERS.page_limit.default,
         description=QUERY_PARAMETERS.page_limit.description,
         ge=QUERY_PARAMETERS.page_limit.ge,
     )
-    page_offset: Optional[int] = Field(
+    page_offset: int | None = Field(
         QUERY_PARAMETERS.page_offset.default,
         description=QUERY_PARAMETERS.page_offset.description,
         ge=QUERY_PARAMETERS.page_offset.ge,
     )
-    page_number: Optional[int] = Field(
+    page_number: int | None = Field(
         QUERY_PARAMETERS.page_number.default,
         description=QUERY_PARAMETERS.page_number.description,
         ge=QUERY_PARAMETERS.page_number.ge,
     )
-    page_cursor: Optional[int] = Field(
+    page_cursor: int | None = Field(
         QUERY_PARAMETERS.page_cursor.default,
         description=QUERY_PARAMETERS.page_cursor.description,
         ge=QUERY_PARAMETERS.page_cursor.ge,
     )
-    page_above: Optional[int] = Field(
+    page_above: int | None = Field(
         QUERY_PARAMETERS.page_above.default,
         description=QUERY_PARAMETERS.page_above.description,
         ge=QUERY_PARAMETERS.page_above.ge,
     )
-    page_below: Optional[int] = Field(
+    page_below: int | None = Field(
         QUERY_PARAMETERS.page_below.default,
         description=QUERY_PARAMETERS.page_below.description,
         ge=QUERY_PARAMETERS.page_below.ge,
     )
-    include: Optional[str] = Field(
+    include: str | None = Field(
         QUERY_PARAMETERS.include.default,
         description=QUERY_PARAMETERS.include.description,
     )
     # api_hint is not yet initialized in `EntryListingQueryParams`.
     # These values are copied verbatim from `optimade==0.16.10`.
-    api_hint: Optional[str] = Field(
+    api_hint: str | None = Field(
         "",
         description=(
             "If the client provides the parameter, the value SHOULD have the format "

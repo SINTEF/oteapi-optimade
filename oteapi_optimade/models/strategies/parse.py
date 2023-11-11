@@ -1,5 +1,7 @@
 """Models specific to the parse strategy."""
-from typing import Any, Literal, Optional
+from __future__ import annotations
+
+from typing import Any, Literal
 
 from optimade.models import Response
 from oteapi.models import ResourceConfig, SessionUpdate
@@ -9,7 +11,7 @@ from oteapi_optimade.models.config import OPTIMADEConfig
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 
 
-class OPTIMADEParseConfig(ResourceConfig):
+class OPTIMADEParseConfig(ResourceConfig):  # type: ignore[misc]
     """OPTIMADE-specific parse strategy config."""
 
     downloadUrl: OPTIMADEUrl = Field(
@@ -39,21 +41,21 @@ class OPTIMADEParseConfig(ResourceConfig):
     )
 
 
-class OPTIMADEParseSession(SessionUpdate):
+class OPTIMADEParseSession(SessionUpdate):  # type: ignore[misc]
     """OPTIMADE session for the parse strategy."""
 
-    optimade_config: Optional[OPTIMADEConfig] = Field(
+    optimade_config: OPTIMADEConfig | None = Field(
         None,
         description=(
             "OPTIMADE configuration. Contains relevant information necessary to "
             "perform OPTIMADE queries."
         ),
     )
-    optimade_response_object: Optional[Response] = Field(
+    optimade_response_object: Response | None = Field(
         None,
         description="An OPTIMADE Python tools (OPT) pydantic response object.",
     )
-    optimade_response: Optional[dict[str, Any]] = Field(
+    optimade_response: dict[str, Any] | None = Field(
         None,
         description="An OPTIMADE response as a Python dictionary.",
     )

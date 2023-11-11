@@ -1,4 +1,5 @@
 """OTE-API OPTIMADE-specific Python exceptions."""
+from __future__ import annotations
 
 
 class BaseOteapiOptimadeException(Exception):

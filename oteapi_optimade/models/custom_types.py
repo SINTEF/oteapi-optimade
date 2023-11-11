@@ -1,7 +1,9 @@
 """Custom "pydantic" types used in OTEAPI-OPTIMADE."""
+from __future__ import annotations
+
 import logging
 import re
-from typing import TYPE_CHECKING, cast, no_type_check
+from typing import TYPE_CHECKING, ClassVar, cast, no_type_check
 from urllib.parse import quote as urlquote
 from urllib.parse import urlparse, urlunparse
 
@@ -17,13 +19,13 @@ from optimade.models import (
     StructureResponseOne,
     Success,
 )
-from pydantic.networks import ascii_domain_regex, errors, int_domain_regex, url_regex
+from pydantic import errors
+from pydantic.networks import ascii_domain_regex, int_domain_regex, url_regex
 from pydantic.utils import update_not_none
 from pydantic.validators import constr_length_validator, str_validator
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Tuple, TypedDict, Union
-    from re import Pattern
+    from typing import Any, Literal, TypedDict
 
     from pydantic.config import BaseConfig
     from pydantic.fields import ModelField
@@ -33,53 +35,37 @@ if TYPE_CHECKING:  # pragma: no cover
         """Similar to `pydantic.networks.Parts`."""
 
         base_url: str
-        version: Optional[str]
-        endpoint: Optional[str]
-        query: Optional[str]
+        version: str | None
+        endpoint: str | None
+        query: str | None
 
 
-_OPTIMADE_BASE_URL_REGEX = None
-_OPTIMADE_ENDPOINT_REGEX = None
+_OPTIMADE_BASE_URL_REGEX = re.compile(
+    r"^(?P<base_url>"
+    # scheme https://tools.ietf.org/html/rfc3986#appendix-A
+    r"(?:[a-z][a-z0-9+\-.]+://)?"
+    r"(?:[^\s:/]*(?::[^\s/]*)?@)?"  # user info
+    r"(?:"
+    r"(?:\d{1,3}\.){3}\d{1,3}(?=$|[/:#?])|"  # ipv4
+    r"\[[A-F0-9]*:[A-F0-9:]+\](?=$|[/:#?])|"  # ipv6
+    r"[^\s/:?#]+"  # domain, validation occurs later
+    r")?"
+    r"(?::\d+)?"  # port
+    r"(?P<path>/[^\s?#]*)?"  # path
+    r")",
+    re.IGNORECASE,
+)
+_OPTIMADE_ENDPOINT_REGEX = re.compile(
+    # version
+    r"(?:/(?P<version>v[0-9]+(?:\.[0-9+]){0,2})"
+    r"(?=/info|/links|/version|/structures|/references|/calculations"
+    r"|/extensions))?"
+    # endpoint
+    r"(?:/(?P<endpoint>(?:info|links|versions|structures|references"
+    r"|calculations|extensions)(?:/[^\s?#]*)?))?$"
+)
 
 LOGGER = logging.getLogger("oteapi_optimade.models")
-
-
-def optimade_base_url_regex() -> "Pattern[str]":
-    """A regular expression for an OPTIMADE base URL."""
-    global _OPTIMADE_BASE_URL_REGEX
-    if _OPTIMADE_BASE_URL_REGEX is None:
-        _OPTIMADE_BASE_URL_REGEX = re.compile(
-            r"^(?P<base_url>"
-            # scheme https://tools.ietf.org/html/rfc3986#appendix-A
-            r"(?:[a-z][a-z0-9+\-.]+://)?"
-            r"(?:[^\s:/]*(?::[^\s/]*)?@)?"  # user info
-            r"(?:"
-            r"(?:\d{1,3}\.){3}\d{1,3}(?=$|[/:#?])|"  # ipv4
-            r"\[[A-F0-9]*:[A-F0-9:]+\](?=$|[/:#?])|"  # ipv6
-            r"[^\s/:?#]+"  # domain, validation occurs later
-            r")?"
-            r"(?::\d+)?"  # port
-            r"(?P<path>/[^\s?#]*)?"  # path
-            r")",
-            re.IGNORECASE,
-        )
-    return _OPTIMADE_BASE_URL_REGEX
-
-
-def optimade_endpoint_regex() -> "Pattern[str]":
-    """A regular expression for an OPTIMADE base URL."""
-    global _OPTIMADE_ENDPOINT_REGEX
-    if _OPTIMADE_ENDPOINT_REGEX is None:
-        _OPTIMADE_ENDPOINT_REGEX = re.compile(
-            # version
-            r"(?:/(?P<version>v[0-9]+(?:\.[0-9+]){0,2})"
-            r"(?=/info|/links|/version|/structures|/references|/calculations"
-            r"|/extensions))?"
-            # endpoint
-            r"(?:/(?P<endpoint>(?:info|links|versions|structures|references"
-            r"|calculations|extensions)(?:/[^\s?#]*)?))?$"
-        )
-    return _OPTIMADE_ENDPOINT_REGEX
 
 
 class OPTIMADEUrl(str):
@@ -96,7 +82,7 @@ class OPTIMADEUrl(str):
     min_length = 1
     # https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
     max_length = 2083
-    allowed_schemes = {"http", "https"}
+    allowed_schemes: ClassVar[set[Literal["http", "https"]]] = {"http", "https"}
     tld_required = False
     user_required = False
 
@@ -111,7 +97,7 @@ class OPTIMADEUrl(str):
     )
 
     @no_type_check
-    def __new__(cls, url: "Optional[str]" = None, **kwargs) -> object:
+    def __new__(cls, url: str | None = None, **kwargs) -> object:
         return str.__new__(
             cls,
             cls.build(**kwargs) if url is None else url,
@@ -121,12 +107,12 @@ class OPTIMADEUrl(str):
         self,
         url: str,
         *,
-        base_url: "Optional[str]" = None,
-        version: "Optional[str]" = None,
-        endpoint: "Optional[str]" = None,
-        query: "Optional[str]" = None,
-        scheme: "Optional[str]" = None,
-        tld: "Optional[str]" = None,
+        base_url: str | None = None,
+        version: str | None = None,
+        endpoint: str | None = None,
+        query: str | None = None,
+        scheme: str | None = None,
+        tld: str | None = None,
         host_type: str = "domain",
     ) -> None:
         str.__init__(url)
@@ -142,10 +128,10 @@ class OPTIMADEUrl(str):
     def build(
         cls,
         *,
-        base_url: "str",
-        version: "Optional[str]" = None,
-        endpoint: "Optional[str]" = None,
-        query: "Optional[str]" = None,
+        base_url: str,
+        version: str | None = None,
+        endpoint: str | None = None,
+        query: str | None = None,
         **_kwargs: str,
     ) -> str:
         """Build complete URL from URL parts."""
@@ -159,7 +145,7 @@ class OPTIMADEUrl(str):
         return url
 
     @classmethod
-    def __modify_schema__(cls, field_schema: "Dict[str, Any]") -> None:
+    def __modify_schema__(cls, field_schema: dict[str, Any]) -> None:
         update_not_none(
             field_schema,
             minLength=cls.min_length,
@@ -168,7 +154,7 @@ class OPTIMADEUrl(str):
         )
 
     @classmethod
-    def __get_validators__(cls) -> "CallableGenerator":
+    def __get_validators__(cls) -> CallableGenerator:
         yield cls.validate
 
     @staticmethod
@@ -181,11 +167,9 @@ class OPTIMADEUrl(str):
         return urlunparse(parsed_url_list)
 
     @classmethod
-    def validate(
-        cls, value: "Any", field: "ModelField", config: "BaseConfig"
-    ) -> "OPTIMADEUrl":
+    def validate(cls, value: Any, field: ModelField, config: BaseConfig) -> OPTIMADEUrl:
         """Pydantic validation of an OPTIMADE URL."""
-        if value.__class__ == cls:
+        if type(value) == cls:
             return value
 
         value: str = str_validator(value)
@@ -196,7 +180,8 @@ class OPTIMADEUrl(str):
 
         url_match = url_regex().match(url)
         if url_match is None:
-            raise ValueError(f"Cannot match URL ({url!r}) as a valid URL.")
+            error_message = f"Cannot match URL ({url!r}) as a valid URL."
+            raise ValueError(error_message)
 
         original_parts = cast("Parts", url_match.groupdict())
         parts = cls.apply_default_parts(original_parts)
@@ -207,7 +192,7 @@ class OPTIMADEUrl(str):
         if url_match.end() != len(url):
             raise errors.UrlExtraError(extra=url[url_match.end() :])
 
-        return cls(
+        return cls(  # type: ignore[no-any-return]
             None if rebuild else url,
             base_url=optimade_parts["base_url"],
             version=optimade_parts["version"],
@@ -219,10 +204,10 @@ class OPTIMADEUrl(str):
         )
 
     @classmethod
-    def validate_host(cls, parts: "Parts") -> "Tuple[str, Optional[str], str, bool]":
+    def validate_host(cls, parts: Parts) -> tuple[str, str | None, str, bool]:
         """Validate host-part of the URL."""
-        host: "Optional[str]" = None
-        tld: "Optional[str]" = None
+        host: str | None = None
+        tld: str | None = None
         rebuild: bool = False
         for host_type in ("domain", "ipv4", "ipv6"):
             host = parts[host_type]  # type: ignore[literal-required]
@@ -244,7 +229,8 @@ class OPTIMADEUrl(str):
             if tld is None and not is_international:
                 domain = int_domain_regex().fullmatch(host)
                 if domain is None:
-                    raise ValueError("domain cannot be None")
+                    error_message = "domain cannot be None"
+                    raise ValueError(error_message)
                 tld = domain.group("tld")
                 is_international = True
 
@@ -263,12 +249,12 @@ class OPTIMADEUrl(str):
         return host, tld, host_type, rebuild
 
     @staticmethod
-    def get_default_parts(parts: "Parts") -> "Parts":
+    def get_default_parts(parts: Parts) -> Parts:
         """Dictionary of default URL-part values."""
         return {"port": "80" if parts["scheme"] == "http" else "443"}
 
     @classmethod
-    def apply_default_parts(cls, parts: "Parts") -> "Parts":
+    def apply_default_parts(cls, parts: Parts) -> Parts:
         """Apply default URL-part values if no value is given."""
         for key, value in cls.get_default_parts(parts).items():
             if not parts[key]:  # type: ignore[literal-required]
@@ -276,7 +262,7 @@ class OPTIMADEUrl(str):
         return parts
 
     @classmethod
-    def build_optimade_parts(cls, parts: "Parts", host: str) -> "OPTIMADEParts":
+    def build_optimade_parts(cls, parts: Parts, host: str) -> OPTIMADEParts:
         """Convert URL parts to equivalent OPTIMADE URL parts."""
         base_url = f"{parts['scheme']}://"
         if parts["user"]:
@@ -292,21 +278,20 @@ class OPTIMADEUrl(str):
         if parts["path"]:
             base_url += parts["path"]
 
-        base_url_match = optimade_base_url_regex().fullmatch(base_url)
+        base_url_match = _OPTIMADE_BASE_URL_REGEX.fullmatch(base_url)
         LOGGER.debug(
             "OPTIMADE base URL regex match groups: %s",
             base_url_match.groupdict() if base_url_match else base_url_match,
         )
         if base_url_match is None:
-            raise ValueError(
-                "Could not match given string with OPTIMADE base URL regex."
-            )
+            error_message = "Could not match given string with OPTIMADE base URL regex."
+            raise ValueError(error_message)
 
-        endpoint_match = optimade_endpoint_regex().findall(
+        endpoint_match = _OPTIMADE_ENDPOINT_REGEX.findall(
             base_url_match.group("path") if base_url_match.group("path") else ""
         )
         LOGGER.debug("OPTIMADE endpoint regex matches: %s", endpoint_match)
-        for path_version, path_endpoint in endpoint_match:
+        for path_version, path_endpoint in endpoint_match:  # noqa: B007
             if path_endpoint:
                 break
         else:
@@ -329,8 +314,8 @@ class OPTIMADEUrl(str):
 
     @classmethod
     def validate_parts(
-        cls, parts: "Parts", optimade_parts: "OPTIMADEParts"
-    ) -> "OPTIMADEParts":
+        cls, parts: Parts, optimade_parts: OPTIMADEParts
+    ) -> OPTIMADEParts:
         """
         A method used to validate parts of an URL.
         Could be overridden to set default values for parts if missing
@@ -364,7 +349,7 @@ class OPTIMADEUrl(str):
         )
         return f"{self.__class__.__name__}({super().__repr__()}, {extra})"
 
-    def response_model(self) -> "Union[Tuple[Success, ...], Success, None]":
+    def response_model(self) -> tuple[Success, ...] | Success | None:
         """Return the endpoint's corresponding response model (from OPT)."""
         if not self.endpoint or self.endpoint == "versions":
             return None
