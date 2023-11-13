@@ -136,6 +136,7 @@ class OPTIMADEUrl(str):
         self._version = version or optimade_parts.get("version", None)
         self._endpoint = endpoint or optimade_parts.get("endpoint", None)
         self._query = query or optimade_parts.get("query", None)
+        self._scheme = self._base_url.split("://")[0] if self._base_url else None
 
     def __str__(self) -> str:
         return self._build(
@@ -148,7 +149,7 @@ class OPTIMADEUrl(str):
     def __repr__(self) -> str:
         extra = ", ".join(
             f"{n}={getattr(self, n)!r}"
-            for n in ("base_url", "version", "endpoint", "query")
+            for n in ("scheme", "base_url", "version", "endpoint", "query")
             if getattr(self, n) is not None
         )
         return f"{self.__class__.__name__}({super().__repr__()}, {extra})"
@@ -170,6 +171,13 @@ class OPTIMADEUrl(str):
         if query:
             url += f"?{query}"
         return url
+
+    @property
+    def scheme(self) -> str:
+        """The scheme of the OPTIMADE URL."""
+        if self._scheme is None:
+            raise ValueError("OPTIMADE URL has no scheme.")
+        return self._scheme
 
     @property
     def base_url(self) -> str:
