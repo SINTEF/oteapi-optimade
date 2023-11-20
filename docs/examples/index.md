@@ -80,12 +80,16 @@ docker run \
     --env OTEAPI_INCLUDE_REDISADMIN=False \
     --env OTEAPI_EXPOSE_SECRETS=True \
     --env OTEAPI_PLUGIN_PACKAGES=oteapi-optimade \
-    ghcr.io/emmc-asbl/oteapi:latest
+    ghcr.io/emmc-asbl/oteapi:1.20231108.329
 ```
 
 !!! note
     To use the `/triples` endpoint, an AllegroGraph triplestore needs to be running.
     For more information see the [OTEAPI Services README](https://github.com/EMMC-ASBL/oteapi-services#run-a-triplestore-allegrograph) to see how to set this up and run it.
+
+!!! important
+    Pinning to version '1.20231108.329' of the OTEAPI image is important, as the latest version is currently not compatible with this plugin.
+    To follow this issue, please see [GitHub issue #187](https://github.com/SINTEF/oteapi-optimade/issues/187) and [GitHub issue #163](https://github.com/SINTEF/oteapi-optimade/issues/163).
 
 #### Using Docker Compose
 
