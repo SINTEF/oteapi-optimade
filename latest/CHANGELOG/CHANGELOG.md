@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2023-11-20)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.2...Unreleased changes)
+
+**Fixed bugs:**
+
+- Pin to specific `oteapi` docker image version for testing [\#187](https://github.com/SINTEF/oteapi-optimade/issues/187)
+
+**Merged pull requests:**
+
+- Pin oteapi docker image to pre-pydantic v2 [\#188](https://github.com/SINTEF/oteapi-optimade/pull/188) ([CasperWA](https://github.com/CasperWA))
+
 ## [v0.4.2](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.2) (2023-10-26)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.1...v0.4.2)
