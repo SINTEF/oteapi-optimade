@@ -36,7 +36,7 @@ dependencies = [
 [project.optional-dependencies]
 examples = [
     "jupyter ~=1.0",
-    "otelib ~=0.4.1,<0.5",
+    "otelib >=0.3.2,<0.4",
 ]
 doc = [
     "mike ~=2.0",
