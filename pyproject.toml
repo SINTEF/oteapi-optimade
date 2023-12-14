@@ -159,5 +159,5 @@ filterwarnings = [
 
     # Temporarily ignore warning related to importlib.metadata
     # To follow the solution, see this issue: https://github.com/EMMC-ASBL/oteapi-core/issues/395
-    "ignore:SelectableGroups dict interface is deprecated:DeprecationWarning:importlib",
+    "ignore:.*SelectableGroups dict interface is deprecated.*:DeprecationWarning",
 ]
