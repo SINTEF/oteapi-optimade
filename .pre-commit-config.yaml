@@ -49,7 +49,7 @@ repos:
       files: ^oteapi_optimade/.*$
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.7.0
+    rev: v1.7.1
     hooks:
     - id: mypy
       exclude: ^tests/.*$
@@ -58,7 +58,7 @@ repos:
         - "pydantic<2"
 
   - repo: https://github.com/SINTEF/ci-cd
-    rev: v2.5.3
+    rev: v2.6.0
     hooks:
     - id: docs-api-reference
       args:

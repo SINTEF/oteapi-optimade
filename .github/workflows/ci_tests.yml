@@ -10,7 +10,7 @@ on:
 jobs:
   basic-tests:
     name: External
-    uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v2.5.3
+    uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v2.6.0
     with:
       # General setup
       install_extras: "[dev]"
@@ -128,7 +128,9 @@ jobs:
         .github/utils/wait_for_it.sh localhost:${OTEAPI_PORT} -t 240
         sleep 5
       env:
-        DOCKER_OTEAPI_VERSION: latest
+        # Pin to 1.20231108.329 until #163 has been closed.
+        # Related issue: https://github.com/SINTEF/oteapi-optimade/issues/187
+        DOCKER_OTEAPI_VERSION: '1.20231108.329'
 
     - name: Run end-2-end tests
       run: python .github/utils/end2end_test.py
