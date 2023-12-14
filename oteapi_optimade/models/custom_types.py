@@ -1,7 +1,9 @@
 """Custom "pydantic" types used in OTEAPI-OPTIMADE."""
+from __future__ import annotations
+
 import logging
 import re
-from typing import TYPE_CHECKING, cast, no_type_check
+from typing import TYPE_CHECKING, ClassVar, cast, no_type_check
 
 from optimade.models import (
     EntryInfoResponse,
@@ -19,7 +21,7 @@ from pydantic import AnyHttpUrl, ValidationError
 from pydantic_core import Url, core_schema
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Optional, Pattern, Tuple, TypedDict, Union
+    from typing import Any, Optional, TypedDict, Union
 
     from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
     from pydantic.json_schema import JsonSchemaValue
@@ -29,53 +31,37 @@ if TYPE_CHECKING:  # pragma: no cover
         """Similar to `pydantic.networks.Parts`."""
 
         base_url: str
-        version: Optional[str]
-        endpoint: Optional[str]
-        query: Optional[str]
+        version: str | None
+        endpoint: str | None
+        query: str | None
 
 
-_OPTIMADE_BASE_URL_REGEX = None
-_OPTIMADE_ENDPOINT_REGEX = None
+_OPTIMADE_BASE_URL_REGEX = re.compile(
+    r"^(?P<base_url>"
+    # scheme https://tools.ietf.org/html/rfc3986#appendix-A
+    r"(?:[a-z][a-z0-9+\-.]+://)?"
+    r"(?:[^\s:/]*(?::[^\s/]*)?@)?"  # user info
+    r"(?:"
+    r"(?:\d{1,3}\.){3}\d{1,3}(?=$|[/:#?])|"  # ipv4
+    r"\[[A-F0-9]*:[A-F0-9:]+\](?=$|[/:#?])|"  # ipv6
+    r"[^\s/:?#]+"  # domain, validation occurs later
+    r")?"
+    r"(?::\d+)?"  # port
+    r"(?P<path>/[^\s?#]*)?"  # path
+    r")",
+    re.IGNORECASE,
+)
+_OPTIMADE_ENDPOINT_REGEX = re.compile(
+    # version
+    r"(?:/(?P<version>v[0-9]+(?:\.[0-9+]){0,2})"
+    r"(?=/info|/links|/version|/structures|/references|/calculations"
+    r"|/extensions))?"
+    # endpoint
+    r"(?:/(?P<endpoint>(?:info|links|versions|structures|references"
+    r"|calculations|extensions)(?:/[^\s?#]*)?))?$"
+)
 
 LOGGER = logging.getLogger("oteapi_optimade.models")
-
-
-def optimade_base_url_regex() -> "Pattern[str]":
-    """A regular expression for an OPTIMADE base URL."""
-    global _OPTIMADE_BASE_URL_REGEX
-    if _OPTIMADE_BASE_URL_REGEX is None:
-        _OPTIMADE_BASE_URL_REGEX = re.compile(
-            r"(?i)"  # ignore case
-            r"^(?P<base_url>"
-            # scheme https://tools.ietf.org/html/rfc3986#appendix-A
-            r"(?:[a-z][a-z0-9+\-.]+://)?"
-            r"(?:[^\s:/]*(?::[^\s/]*)?@)?"  # user info
-            r"(?:"
-            r"(?:\d{1,3}\.){3}\d{1,3}(?=$|[/:#?])|"  # ipv4
-            r"\[[A-F0-9]*:[A-F0-9:]+\](?=$|[/:#?])|"  # ipv6
-            r"[^\s/:?#]+"  # domain, validation occurs later
-            r")?"
-            r"(?::\d+)?"  # port
-            r"(?P<path>/[^\s?#]*)?"  # path
-            r")",
-        )
-    return _OPTIMADE_BASE_URL_REGEX
-
-
-def optimade_endpoint_regex() -> "Pattern[str]":
-    """A regular expression for an OPTIMADE base URL."""
-    global _OPTIMADE_ENDPOINT_REGEX
-    if _OPTIMADE_ENDPOINT_REGEX is None:
-        _OPTIMADE_ENDPOINT_REGEX = re.compile(
-            # version
-            r"(?:/(?P<version>v[0-9]+(?:\.[0-9+]){0,2})"
-            r"(?=/info|/links|/version|/structures|/references|/calculations"
-            r"|/extensions))?"
-            # endpoint
-            r"(?:/(?P<endpoint>(?:info|links|versions|structures|references"
-            r"|calculations|extensions)(?:/[^\s?#]*)?))?$"
-        )
-    return _OPTIMADE_ENDPOINT_REGEX
 
 
 class OPTIMADEUrl(str):
@@ -90,11 +76,11 @@ class OPTIMADEUrl(str):
 
     # https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
     max_length = 2083
-    allowed_schemes = ["http", "https"]
+    allowed_schemes: ClassVar[list[str]] = ["http", "https"]
     host_required = True
 
     @no_type_check
-    def __new__(cls, url: "Optional[str]" = None, **kwargs) -> object:
+    def __new__(cls, url: str | None = None, **kwargs) -> object:
         return str.__new__(
             cls,
             url if url else cls._build(**kwargs),
@@ -104,10 +90,10 @@ class OPTIMADEUrl(str):
         self,
         url: str,
         *,
-        base_url: "Optional[str]" = None,
-        version: "Optional[str]" = None,
-        endpoint: "Optional[str]" = None,
-        query: "Optional[str]" = None,
+        base_url: Optional[str] = None,
+        version: Optional[str] = None,
+        endpoint: Optional[str] = None,
+        query: Optional[str] = None,
     ) -> None:
         str.__init__(url)
 
@@ -128,7 +114,7 @@ class OPTIMADEUrl(str):
                 pydantic_url = None
 
         # Build OPTIMADE URL parts
-        optimade_parts: "Union[OPTIMADEParts, dict]" = {}
+        optimade_parts: Union[OPTIMADEParts, dict[str, Any]] = {}
         if pydantic_url:
             optimade_parts = self._build_optimade_parts(pydantic_url)
 
@@ -158,9 +144,9 @@ class OPTIMADEUrl(str):
     def _build(
         *,
         base_url: str,
-        version: "Optional[str]" = None,
-        endpoint: "Optional[str]" = None,
-        query: "Optional[str]" = None,
+        version: Optional[str] = None,
+        endpoint: Optional[str] = None,
+        query: Optional[str] = None,
     ) -> str:
         """Build complete OPTIMADE URL from URL parts."""
         url = base_url.rstrip("/")
@@ -176,32 +162,34 @@ class OPTIMADEUrl(str):
     def scheme(self) -> str:
         """The scheme of the OPTIMADE URL."""
         if self._scheme is None:
-            raise ValueError("OPTIMADE URL has no scheme.")
+            error_message = "OPTIMADE URL has no scheme."
+            raise ValueError(error_message)
         return self._scheme
 
     @property
     def base_url(self) -> str:
         """The base URL of the OPTIMADE URL."""
         if self._base_url is None:
-            raise ValueError("OPTIMADE URL has no base URL.")
+            error_message = "OPTIMADE URL has no base URL."
+            raise ValueError(error_message)
         return self._base_url
 
     @property
-    def version(self) -> "Optional[str]":
+    def version(self) -> Optional[str]:
         """The version part of the OPTIMADE URL."""
         return self._version
 
     @property
-    def endpoint(self) -> "Optional[str]":
+    def endpoint(self) -> Optional[str]:
         """The endpoint part of the OPTIMADE URL."""
         return self._endpoint
 
     @property
-    def query(self) -> "Optional[str]":
+    def query(self) -> Optional[str]:
         """The query part of the OPTIMADE URL."""
         return self._query
 
-    def response_model(self) -> "Union[Tuple[Success, Success], Success, None]":
+    def response_model(self) -> Union[tuple[Success, Success], Success, None]:
         """Return the endpoint's corresponding response model(s) (from OPT)."""
         if not self.endpoint or self.endpoint == "versions":
             return None
@@ -217,8 +205,8 @@ class OPTIMADEUrl(str):
     # Pydantic-related methods
     @classmethod
     def __get_pydantic_core_schema__(
-        cls, _source_type: "Any", _handler: "GetCoreSchemaHandler"
-    ) -> "CoreSchema":
+        cls, _source_type: Any, _handler: GetCoreSchemaHandler
+    ) -> CoreSchema:
         """Pydantic core schema for an OPTIMADE URL.
 
         Behaviour:
@@ -264,8 +252,8 @@ class OPTIMADEUrl(str):
 
     @classmethod
     def __get_pydantic_json_schema__(
-        cls, _core_schema: "CoreSchema", handler: "GetJsonSchemaHandler"
-    ) -> "JsonSchemaValue":
+        cls, _core_schema: CoreSchema, handler: GetJsonSchemaHandler
+    ) -> JsonSchemaValue:
         # Use the same schema that would be used for an AnyHttpUrl
         return handler(
             core_schema.url_schema(
@@ -276,7 +264,7 @@ class OPTIMADEUrl(str):
         )
 
     @classmethod
-    def _validate_from_str_or_url(cls, value: "Union[Url, str]") -> "OPTIMADEUrl":
+    def _validate_from_str_or_url(cls, value: Union[Url, str]) -> OPTIMADEUrl:
         """Pydantic validation of an OPTIMADE URL."""
         # Parse as URL
         url = AnyHttpUrl(str(value))
@@ -284,7 +272,7 @@ class OPTIMADEUrl(str):
         # Build OPTIMADE URL parts
         optimade_parts = cls._build_optimade_parts(url)
 
-        return cls(
+        return cls(  # type: ignore[no-any-return]
             None,
             base_url=optimade_parts["base_url"],
             version=optimade_parts["version"],
@@ -293,7 +281,7 @@ class OPTIMADEUrl(str):
         )
 
     @classmethod
-    def _build_optimade_parts(cls, url: AnyHttpUrl) -> "OPTIMADEParts":
+    def _build_optimade_parts(cls, url: AnyHttpUrl) -> OPTIMADEParts:
         """Convert URL parts to equivalent OPTIMADE URL parts."""
         base_url = f"{url.scheme}://"
 
@@ -309,7 +297,8 @@ class OPTIMADEUrl(str):
         # This check is done to satisfy type checker.
         # Since the url has been parsed as a `AnyHttpUrl`, it must always have a host.
         if url.host is None:
-            raise ValueError("Could not parse given string as a URL.")
+            error_message = "Could not parse given string as a URL."
+            raise ValueError(error_message)
 
         base_url += url.host
 
@@ -320,21 +309,20 @@ class OPTIMADEUrl(str):
         if url.path:
             base_url += url.path
 
-        base_url_match = optimade_base_url_regex().fullmatch(base_url)
+        base_url_match = _OPTIMADE_BASE_URL_REGEX.fullmatch(base_url)
         LOGGER.debug(
             "OPTIMADE base URL regex match groups: %s",
             base_url_match.groupdict() if base_url_match else base_url_match,
         )
         if base_url_match is None:
-            raise ValueError(
-                "Could not match given string with OPTIMADE base URL regex."
-            )
+            error_message = "Could not match given string with OPTIMADE base URL regex."
+            raise ValueError(error_message)
 
-        endpoint_match = optimade_endpoint_regex().findall(
+        endpoint_match = _OPTIMADE_ENDPOINT_REGEX.findall(
             base_url_match.group("path") if base_url_match.group("path") else ""
         )
         LOGGER.debug("OPTIMADE endpoint regex matches: %s", endpoint_match)
-        for path_version, path_endpoint in endpoint_match:
+        for path_version, path_endpoint in endpoint_match:  # noqa: B007
             if path_endpoint:
                 break
         else:

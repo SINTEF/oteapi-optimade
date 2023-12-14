@@ -1,4 +1,6 @@
 """OTEAPI strategy for parsing OPTIMADE structure resources to DLite instances."""
+from __future__ import annotations
+
 import importlib
 import logging
 from pathlib import Path
@@ -7,10 +9,12 @@ from typing import TYPE_CHECKING
 import dlite
 from optimade.adapters import Structure
 from optimade.models import (
+    Response as OPTIMADEResponse,
+)
+from optimade.models import (
     StructureResponseMany,
     StructureResponseOne,
     Success,
-    Response as OPTIMADEResponse,
 )
 from oteapi.models import SessionUpdate
 from oteapi_dlite.models import DLiteSessionUpdate
@@ -23,7 +27,7 @@ from oteapi_optimade.models import OPTIMADEDLiteParseConfig, OPTIMADEParseSessio
 from oteapi_optimade.strategies.parse import OPTIMADEParseStrategy
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Union
+    from typing import Any
 
 
 LOGGER = logging.getLogger("oteapi_optimade.dlite")
@@ -46,9 +50,7 @@ class OPTIMADEDLiteParseStrategy:
 
     parse_config: OPTIMADEDLiteParseConfig
 
-    def initialize(
-        self, session: "Optional[Dict[str, Any]]" = None
-    ) -> DLiteSessionUpdate:
+    def initialize(self, session: dict[str, Any] | None = None) -> DLiteSessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -65,7 +67,7 @@ class OPTIMADEDLiteParseStrategy:
         return DLiteSessionUpdate(collection_id=get_collection(session).uuid)
 
     def get(
-        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
+        self, session: SessionUpdate | dict[str, Any] | None = None
     ) -> OPTIMADEParseSession:
         """Request and parse an OPTIMADE response using OPT.
 
@@ -126,53 +128,63 @@ class OPTIMADEDLiteParseStrategy:
         if not all(
             _ in session for _ in ("optimade_response", "optimade_response_model")
         ):
+            base_error_message = (
+                "Could not retrieve response from OPTIMADE parse strategy."
+            )
             LOGGER.error(
-                "Could not retrieve response from OPTIMADE parse strategy.\n"
+                "%s\n"
                 "optimade_response=%r\n"
                 "optimade_response_model=%r\n"
                 "session fields=%r",
+                base_error_message,
                 session.get("optimade_response"),
                 session.get("optimade_response_model"),
                 list(session.keys()),
             )
-            raise OPTIMADEParseError(
-                "Could not retrieve response from OPTIMADE parse strategy."
-            )
+            raise OPTIMADEParseError(base_error_message)
 
         optimade_response_model_module, optimade_response_model_name = session.get(
             "optimade_response_model"
         )
         optimade_response_dict = session.get("optimade_response")
 
+        error_message_supporting_only_structures = (
+            "The DLite OPTIMADE Parser currently only supports structures entities."
+        )
+
         # Parse response using the provided model
         try:
-            optimade_response_model: "type[OPTIMADEResponse]" = getattr(
+            optimade_response_model: type[OPTIMADEResponse] = getattr(
                 importlib.import_module(optimade_response_model_module),
                 optimade_response_model_name,
             )
             optimade_response = optimade_response_model(**optimade_response_dict)
         except (ImportError, AttributeError) as exc:
+            base_error_message = "Could not import the response model."
             LOGGER.error(
-                "Could not import the response model.\n"
+                "%s\n"
                 "ImportError: %s\n"
                 "optimade_response_model_module=%r\n"
                 "optimade_response_model_name=%r",
+                base_error_message,
                 exc,
                 optimade_response_model_module,
                 optimade_response_model_name,
             )
-            raise OPTIMADEParseError("Could not import the response model.") from exc
+            raise OPTIMADEParseError(base_error_message) from exc
         except ValidationError as exc:
+            base_error_message = "Could not validate the response model."
             LOGGER.error(
-                "Could not validate the response model.\n"
+                "%s\n"
                 "ValidationError: %s\n"
                 "optimade_response_model_module=%r\n"
                 "optimade_response_model_name=%r",
+                base_error_message,
                 exc,
                 optimade_response_model_module,
                 optimade_response_model_name,
             )
-            raise OPTIMADEParseError("Could not validate the response model.") from exc
+            raise OPTIMADEParseError(base_error_message) from exc
 
         # Currently, only "structures" entries are supported and handled
         if isinstance(optimade_response, StructureResponseMany):
@@ -205,23 +217,21 @@ class OPTIMADEDLiteParseStrategy:
                     "Could not determine what to do with `data`. Type %s.",
                     type(optimade_response.data),
                 )
-                raise OPTIMADEParseError("Could not parse `data` entry in response.")
+                error_message = "Could not parse `data` entry in response."
+                raise OPTIMADEParseError(error_message)
         else:
             LOGGER.error(
                 "Got currently unsupported response type %s. Only structures are "
                 "supported.",
                 optimade_response_model_name,
             )
-            raise OPTIMADEParseError(
-                "The DLite OPTIMADE Parser currently only supports structures "
-                "entities."
-            )
+            raise OPTIMADEParseError(error_message_supporting_only_structures)
 
         # DLite-fy OPTIMADE structures
         dlite_collection = get_collection(session)
 
         for structure in structures:
-            new_structure_attributes: dict[str, "Any"] = {}
+            new_structure_attributes: dict[str, Any] = {}
 
             # Most inner layer: assemblies & species
             if structure.attributes.assemblies:
@@ -232,19 +242,21 @@ class OPTIMADEDLiteParseStrategy:
 
                 for assembly in structure.attributes.assemblies:
                     # Ensure we're dealing with a normal Python dict
-                    assembly = (
+                    assembly_dict = (
                         assembly.model_dump(exclude_none=True)
                         if isinstance(assembly, BaseModel)
                         else assembly
                     )
 
                     dimensions = {
-                        "ngroups": len(assembly.get("group_probabilities", []) or []),
-                        "nsites": len(assembly.get("sites_in_groups", []) or []),
+                        "ngroups": len(
+                            assembly_dict.get("group_probabilities", []) or []
+                        ),
+                        "nsites": len(assembly_dict.get("sites_in_groups", []) or []),
                     }
                     new_structure_attributes["assemblies"].append(
                         OPTIMADEStructureAssembly(
-                            dimensions=dimensions, properties=assembly
+                            dimensions=dimensions, properties=assembly_dict
                         )
                     )
 
@@ -256,7 +268,7 @@ class OPTIMADEDLiteParseStrategy:
 
                 for species_individual in structure.attributes.species:
                     # Ensure we're dealing with a normal Python dict
-                    species_individual = (
+                    species_individual_dict = (
                         species_individual.model_dump(exclude_none=True)
                         if isinstance(species_individual, BaseModel)
                         else species_individual
@@ -264,16 +276,16 @@ class OPTIMADEDLiteParseStrategy:
 
                     dimensions = {
                         "nelements": len(
-                            species_individual.get("chemical_symbols", []) or []
+                            species_individual_dict.get("chemical_symbols", []) or []
                         ),
                         "nattached_elements": len(
-                            species_individual.get("attached", []) or []
+                            species_individual_dict.get("attached", []) or []
                         ),
                     }
                     new_structure_attributes["species"].append(
                         OPTIMADEStructureSpecies(
                             dimensions=dimensions,
-                            properties=species_individual,
+                            properties=species_individual_dict,
                         )
                     )
 

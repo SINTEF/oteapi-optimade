@@ -1,8 +1,10 @@
 """General OPTIMADE configuration models."""
-from typing import Literal, Optional, Annotated
+from __future__ import annotations
+
+from typing import Annotated, Literal, Optional
 
 from oteapi.models import AttrDict, DataCacheConfig
-from pydantic import field_validator, Field
+from pydantic import Field, field_validator
 
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
@@ -13,7 +15,7 @@ DEFAULT_CACHE_CONFIG_VALUES = {
 """Set the `expireTime` and `tag` to default values for the data cache."""
 
 
-class OPTIMADEConfig(AttrDict):
+class OPTIMADEConfig(AttrDict):  # type: ignore[misc]
     """OPTIMADE configuration."""
 
     version: Annotated[

@@ -1,5 +1,7 @@
 """Models specific to the parse strategy."""
-from typing import Any, Dict, Literal, Optional, Annotated
+from __future__ import annotations
+
+from typing import Annotated, Any, Literal, Optional
 
 from oteapi.models import ResourceConfig, SessionUpdate
 from pydantic import ConfigDict, Field
@@ -8,7 +10,7 @@ from oteapi_optimade.models.config import OPTIMADEConfig
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 
 
-class OPTIMADEParseConfig(ResourceConfig):
+class OPTIMADEParseConfig(ResourceConfig):  # type: ignore[misc]
     """OPTIMADE-specific parse strategy config."""
 
     downloadUrl: Annotated[
@@ -44,7 +46,7 @@ class OPTIMADEParseConfig(ResourceConfig):
     ] = OPTIMADEConfig()
 
 
-class OPTIMADEParseSession(SessionUpdate):
+class OPTIMADEParseSession(SessionUpdate):  # type: ignore[misc]
     """OPTIMADE session for the parse strategy."""
 
     model_config = ConfigDict(validate_assignment=True, arbitrary_types_allowed=True)
@@ -69,7 +71,7 @@ class OPTIMADEParseSession(SessionUpdate):
         ),
     ] = None
     optimade_response: Annotated[
-        Optional[Dict[str, Any]],
+        Optional[dict[str, Any]],
         Field(
             description="An OPTIMADE response as a Python dictionary.",
         ),

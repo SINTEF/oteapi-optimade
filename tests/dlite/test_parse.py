@@ -1,6 +1,7 @@
 """Test `oteapi_optimade.dlite.parse` module."""
-from typing import TYPE_CHECKING
+from __future__ import annotations
 
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -9,11 +10,11 @@ if TYPE_CHECKING:
     from dlite import Instance
 
 
-def test_parse(static_files: "Path") -> None:
+def test_parse(static_files: Path) -> None:
     """Test parsing."""
+    import json
     from datetime import datetime
     from enum import Enum
-    import json
 
     from numpy import ndarray
     from optimade.adapters import Structure
@@ -41,7 +42,7 @@ def test_parse(static_files: "Path") -> None:
 
     cache = DataCache(config["configuration"]["datacache_config"])
     sample_file = static_files / "optimade_response.json"
-    response_json: dict[str, "Any"] = json.loads(sample_file.read_bytes())
+    response_json: dict[str, Any] = json.loads(sample_file.read_bytes())
     cache.add(
         {
             "status_code": 200,
@@ -66,7 +67,7 @@ def test_parse(static_files: "Path") -> None:
         # collection
         assert optimade_structure.id in dlite_collection_labels
 
-        dlite_structure: "Instance" = dlite_collection[optimade_structure.id]
+        dlite_structure: Instance = dlite_collection[optimade_structure.id]
 
         ## Go over other top-level non-container keys in the OPTIMADE structure
         assert dlite_structure.type == optimade_structure.type
@@ -157,21 +158,30 @@ def test_parse(static_files: "Path") -> None:
                     # to specific known optional sub-fields.
 
                     # species.mass
-                    if field == "species" and sub_field == "mass":
-                        if expected_sub_value is None:
-                            expected_sub_value = [0.0] * len(
-                                expected_value[i].chemical_symbols
-                            )
+                    if (
+                        field == "species"
+                        and sub_field == "mass"
+                        and expected_sub_value is None
+                    ):
+                        expected_sub_value = [0.0] * len(
+                            expected_value[i].chemical_symbols
+                        )
 
                     # species.attached
-                    if field == "species" and sub_field == "attached":
-                        if expected_sub_value is None:
-                            expected_sub_value = []
+                    if (
+                        field == "species"
+                        and sub_field == "attached"
+                        and expected_sub_value is None
+                    ):
+                        expected_sub_value = []
 
                     # species.nattached
-                    if field == "species" and sub_field == "nattached":
-                        if expected_sub_value is None:
-                            expected_sub_value = []
+                    if (
+                        field == "species"
+                        and sub_field == "nattached"
+                        and expected_sub_value is None
+                    ):
+                        expected_sub_value = []
 
                     assert dlite_sub_value == (
                         expected_sub_value or []

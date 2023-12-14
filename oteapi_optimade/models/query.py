@@ -1,6 +1,8 @@
 """Data models related to OPTIMADE queries."""
+from __future__ import annotations
+
 import inspect
-from typing import Optional, Annotated
+from typing import Annotated, Optional
 from urllib.parse import quote, unquote, urlencode
 
 from optimade.server.query_params import EntryListingQueryParams

@@ -1,4 +1,6 @@
 """Demo filter strategy."""
+from __future__ import annotations
+
 import logging
 from typing import TYPE_CHECKING
 
@@ -9,7 +11,7 @@ from oteapi_optimade.models import OPTIMADEFilterConfig, OPTIMADEFilterSession
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Union
+    from typing import Any
 
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
@@ -30,7 +32,7 @@ class OPTIMADEFilterStrategy:
     filter_config: OPTIMADEFilterConfig
 
     def initialize(
-        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
+        self, session: SessionUpdate | dict[str, Any] | None = None
     ) -> OPTIMADEFilterSession:
         """Initialize strategy.
 
@@ -82,7 +84,7 @@ class OPTIMADEFilterStrategy:
             LOGGER.debug("Setting page_limit from limit.")
             optimade_config.query_parameters.page_limit = self.filter_config.limit
 
-        return session.model_copy(
+        return session.model_copy(  # type: ignore[no-any-return]
             update={
                 "optimade_config": optimade_config.model_copy(
                     update={
@@ -97,7 +99,7 @@ class OPTIMADEFilterStrategy:
 
     def get(
         self,
-        session: "Optional[Dict[str, Any]]" = None,
+        session: dict[str, Any] | None = None,  # noqa: ARG002
     ) -> SessionUpdate:
         """Execute the strategy.
 
