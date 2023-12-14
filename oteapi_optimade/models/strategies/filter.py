@@ -1,7 +1,7 @@
 """Models specific to the filter strategy."""
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Any, Literal, Optional
 
 from optimade.models import Response
 from oteapi.models import FilterConfig, SessionUpdate
@@ -22,7 +22,7 @@ class OPTIMADEFilterConfig(FilterConfig):  # type: ignore[misc]
         ...,
         description="The registered strategy name for OPTIMADEFilterStrategy.",
     )
-    query: str | None = Field(
+    query: Optional[str] = Field(
         None,
         description=(
             "The `filter` OPTIMADE query parameter value. This parameter value can "
@@ -32,7 +32,7 @@ class OPTIMADEFilterConfig(FilterConfig):  # type: ignore[misc]
             "models.strategies.filter.OPTIMADEFilterConfig.configuration] values."
         ),
     )
-    limit: int | None = Field(
+    limit: Optional[int] = Field(
         None,
         description=(
             "The `page_limit` OPTIMADE query parameter value. This parameter value can"
@@ -55,18 +55,18 @@ class OPTIMADEFilterConfig(FilterConfig):  # type: ignore[misc]
 class OPTIMADEFilterSession(SessionUpdate):  # type: ignore[misc]
     """OPTIMADE session for the filter strategy."""
 
-    optimade_config: OPTIMADEConfig | None = Field(
+    optimade_config: Optional[OPTIMADEConfig] = Field(
         None,
         description=(
             "OPTIMADE configuration. Contains relevant information necessary to "
             "perform OPTIMADE queries."
         ),
     )
-    optimade_response_object: Response | None = Field(
+    optimade_response_object: Optional[Response] = Field(
         None,
         description="An OPTIMADE Python tools (OPT) pydantic response object.",
     )
-    optimade_response: dict[str, Any] | None = Field(
+    optimade_response: Optional[dict[str, Any]] = Field(
         None,
         description="An OPTIMADE response as a Python dictionary.",
     )
