@@ -1,4 +1,6 @@
 """Pytest fixtures and configuration."""
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 import pytest
@@ -7,7 +9,7 @@ if TYPE_CHECKING:
     from pathlib import Path
 
 
-def pytest_configure(config) -> None:
+def pytest_configure(config) -> None:  # noqa: ARG001
     """Method that runs before pytest collects tests, so no modules are imported."""
     import os
     from pathlib import Path
@@ -19,7 +21,7 @@ def pytest_configure(config) -> None:
 
 
 @pytest.fixture(scope="session")
-def top_dir() -> "Path":
+def top_dir() -> Path:
     """Return resolved Path object to the repository's top directory."""
     from pathlib import Path
 
@@ -27,13 +29,13 @@ def top_dir() -> "Path":
 
 
 @pytest.fixture(scope="session")
-def static_files(top_dir: "Path") -> "Path":
+def static_files(top_dir: Path) -> Path:
     """Return Path object to the `static` folder."""
     return (top_dir / "tests" / "static").resolve()
 
 
 @pytest.fixture(scope="session", autouse=True)
-def load_strategies() -> None:
+def _load_strategies() -> None:
     """Load entry points strategies."""
     from oteapi.plugins import load_strategies
 

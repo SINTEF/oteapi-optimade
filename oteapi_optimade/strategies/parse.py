@@ -1,4 +1,6 @@
 """Demo strategy class for text/json."""
+from __future__ import annotations
+
 import json
 import logging
 from typing import TYPE_CHECKING
@@ -16,7 +18,7 @@ from oteapi_optimade.models import OPTIMADEParseConfig, OPTIMADEParseSession
 from oteapi_optimade.utils import model2dict
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Union
+    from typing import Any
 
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
@@ -42,7 +44,10 @@ class OPTIMADEParseStrategy:
 
     parse_config: OPTIMADEParseConfig
 
-    def initialize(self, session: "Optional[Dict[str, Any]]" = None) -> SessionUpdate:
+    def initialize(
+        self,
+        session: dict[str, Any] | None = None,  # noqa: ARG002
+    ) -> SessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -59,7 +64,7 @@ class OPTIMADEParseStrategy:
         return SessionUpdate()
 
     def get(
-        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
+        self, session: SessionUpdate | dict[str, Any] | None = None
     ) -> OPTIMADEParseSession:
         """Request and parse an OPTIMADE response using OPT.
 
@@ -100,7 +105,7 @@ class OPTIMADEParseStrategy:
 
         cache = DataCache(self.parse_config.configuration.datacache_config)
         if self.parse_config.downloadUrl in cache:
-            response: "Dict[str, Any]" = cache.get(self.parse_config.downloadUrl)
+            response: dict[str, Any] = cache.get(self.parse_config.downloadUrl)
         elif (
             self.parse_config.configuration.datacache_config.accessKey
             and self.parse_config.configuration.datacache_config.accessKey in cache
@@ -126,7 +131,7 @@ class OPTIMADEParseStrategy:
         if (
             not response.get("ok", True)
             or (
-                200 > response.get("status_code", 200)
+                response.get("status_code", 200) < 200
                 or response.get("status_code", 200) >= 300
             )
             or "errors" in response.get("json", {})
@@ -135,15 +140,14 @@ class OPTIMADEParseStrategy:
             try:
                 response_object = ErrorResponse(**response.get("json", {}))
             except ValidationError as exc:
+                error_message = "Could not validate an error response."
                 LOGGER.error(
-                    "Could not validate an error response.\nValidationError: "
-                    "%s\nresponse=%r",
+                    "%s\nValidationError: " "%s\nresponse=%r",
+                    error_message,
                     exc,
                     response,
                 )
-                raise OPTIMADEParseError(
-                    "Could not validate an error response."
-                ) from exc
+                raise OPTIMADEParseError(error_message) from exc
         else:
             # Successful response
             response_model = self.parse_config.downloadUrl.response_model()
@@ -158,33 +162,32 @@ class OPTIMADEParseStrategy:
                     else:
                         break
                 else:
+                    error_message = "Could not validate for an expected response model."
                     LOGGER.error(
-                        "Could not validate for an expected response model.\nURL=%r\n"
-                        "response_models=%r\nresponse=%s",
+                        "%s\nURL=%r\n" "response_models=%r\nresponse=%s",
+                        error_message,
                         self.parse_config.downloadUrl,
                         response_model,
                         response,
                     )
-                    raise OPTIMADEParseError(
-                        "Could not validate for an expected response model."
-                    )
+                    raise OPTIMADEParseError(error_message)
             else:
                 # No "endpoint" or unknown
                 try:
                     response_object = Success(**response.get("json", {}))
                 except ValidationError as exc:
+                    error_message = "Unknown or unparseable endpoint."
                     LOGGER.error(
-                        "Unknown or unparseable endpoint.\nValidatonError: %s\n"
+                        "%s\nValidatonError: %s\n"
                         "URL=%r\nendpoint=%r\nresponse_model=%r\nresponse=%s",
+                        error_message,
                         exc,
                         self.parse_config.downloadUrl,
                         self.parse_config.downloadUrl.endpoint,
                         response_model,
                         response,
                     )
-                    raise OPTIMADEParseError(
-                        "Unknown or unparseable endpoint."
-                    ) from exc
+                    raise OPTIMADEParseError(error_message) from exc
 
         if self.parse_config.configuration.return_object:
             session.optimade_response_object = response_object
@@ -205,5 +208,8 @@ class OPTIMADEParseStrategy:
                     )
                 }
             )
+
+        if TYPE_CHECKING:  # pragma: no cover
+            assert isinstance(session, OPTIMADEParseSession)  # nosec
 
         return session
