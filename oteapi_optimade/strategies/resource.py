@@ -1,4 +1,6 @@
 """OPTIMADE resource strategy."""
+from __future__ import annotations
+
 import logging
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qs
@@ -33,7 +35,7 @@ from oteapi_optimade.models.query import OPTIMADEQueryParameters
 from oteapi_optimade.utils import model2dict
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Union
+    from typing import Any
 
     from optimade.models import Response as OPTIMADEResponse
 
@@ -57,10 +59,11 @@ def use_dlite(access_service: str, use_dlite_flag: bool) -> bool:
         or use_dlite_flag
     ):
         if oteapi_dlite_version is None:
-            raise MissingDependency(
+            error_message = (
                 "OTEAPI-DLite is not found on the system. This is required to use "
                 "DLite with the OTEAPI-OPTIMADE strategies."
             )
+            raise MissingDependency(error_message)
         return True
     return False
 
@@ -86,8 +89,8 @@ class OPTIMADEResourceStrategy:
     resource_config: OPTIMADEResourceConfig
 
     def initialize(
-        self, session: "Optional[Dict[str, Any]]" = None
-    ) -> "Union[SessionUpdate, DLiteSessionUpdate]":
+        self, session: dict[str, Any] | None = None
+    ) -> SessionUpdate | DLiteSessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -109,7 +112,7 @@ class OPTIMADEResourceStrategy:
         return SessionUpdate()
 
     def get(
-        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
+        self, session: SessionUpdate | dict[str, Any] | None = None
     ) -> OPTIMADEResourceSession:
         """Execute an OPTIMADE query to `accessUrl`.
 
@@ -188,10 +191,11 @@ class OPTIMADEResourceStrategy:
         )
 
         if optimade_query.response_format and optimade_query.response_format != "json":
-            raise NotImplementedError(
+            error_message = (
                 "Can only handle JSON responses for now. Requested response format: "
                 f"{optimade_query.response_format!r}"
             )
+            raise NotImplementedError(error_message)
 
         cache = DataCache(config=self.resource_config.configuration.datacache_config)
         cache.add(
@@ -237,10 +241,12 @@ class OPTIMADEResourceStrategy:
         )
 
         if "optimade_response_object" not in session:
-            raise ValueError(
+            error_message = (
                 "'optimade_response_object' was expected to be present in the session."
             )
-        optimade_response: "OPTIMADEResponse" = session.pop("optimade_response_object")
+            raise ValueError(error_message)
+
+        optimade_response: OPTIMADEResponse = session.pop("optimade_response_object")
         if "optimade_response" in session and not session.get("optimade_response"):
             del session["optimade_response"]
 
@@ -285,12 +291,13 @@ class OPTIMADEResourceStrategy:
                 "Response:\n%r",
                 optimade_response,
             )
-            raise OPTIMADEParseError(
+            error_message = (
                 "Could not retrieve errors, references or structures from response "
                 f"from {optimade_url}. It could be a valid OPTIMADE API response, "
                 "however it may not be supported by OTEAPI-OPTIMADE. It may also be an "
                 "invalid response completely."
             )
+            raise OPTIMADEParseError(error_message)
 
         session.optimade_resources = [
             model2dict(resource) for resource in optimade_resources
@@ -310,5 +317,8 @@ class OPTIMADEResourceStrategy:
                     )
                 }
             )
+
+        if TYPE_CHECKING:  # pragma: no cover
+            assert isinstance(session, OPTIMADEResourceSession)  # nosec
 
         return session

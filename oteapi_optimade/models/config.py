@@ -1,4 +1,6 @@
 """General OPTIMADE configuration models."""
+from __future__ import annotations
+
 from typing import Literal, Optional
 
 from oteapi.models import AttrDict, DataCacheConfig
@@ -13,7 +15,7 @@ DEFAULT_CACHE_CONFIG_VALUES = {
 """Set the `expireTime` and `tag` to default values for the data cache."""
 
 
-class OPTIMADEConfig(AttrDict):
+class OPTIMADEConfig(AttrDict):  # type: ignore[misc]
     """OPTIMADE configuration."""
 
     version: str = Field(
