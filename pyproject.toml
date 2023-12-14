@@ -155,9 +155,9 @@ isort.required-imports = ["from __future__ import annotations"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-rs --cov=oteapi_optimade --cov-report=term-missing"
+addopts = "-rs --cov=oteapi_optimade --cov-report=term-missing:skip-covered --no-cov-on-fail"
 filterwarnings = [
-    # Make all warnings errors (failing pytest)
+    # Fail on any warning
     "error",
 
     # Except the following:
