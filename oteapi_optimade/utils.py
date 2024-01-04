@@ -1,16 +1,19 @@
 """Utility functions to be used in OTEAPI OPTIMADE."""
+from __future__ import annotations
+
+from collections.abc import Iterable
 from copy import deepcopy
-from typing import TYPE_CHECKING, Iterable
+from typing import TYPE_CHECKING
 
 from pydantic import BaseModel
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Union
+    from typing import Any
 
 
 def model2dict(
-    model: "Union[BaseModel, dict[str, Any]]", **dict_kwargs: "Any"
-) -> "dict[str, Any]":
+    model: BaseModel | dict[str, Any] | Any, **dict_kwargs: Any
+) -> dict[str, Any]:
     """Convert a pydantic model to a Python dictionary.
 
     This works similarly to the `dict()` method for pydantic models, but ensures any
@@ -29,7 +32,7 @@ def model2dict(
 
     """
 
-    def _internal(model_: "Any") -> "Any":
+    def _internal(model_: Any) -> Any:
         """Internal function to be used recursively."""
         if isinstance(model_, dict):
             return {key: _internal(value) for key, value in model_.items()}
@@ -44,6 +47,15 @@ def model2dict(
     elif isinstance(model, dict):
         res = deepcopy(model)
     else:
-        raise TypeError("model must be either a pydantic model or a dict.")
+        error_message = "model must be either a pydantic model or a dict."
+        raise TypeError(error_message)
 
-    return _internal(res)
+    final = _internal(res)
+    if not isinstance(final, dict):
+        error_message = (
+            "Something went wrong in the conversion of the model to a dictionary. "
+            f"The final result ended up being a {type(final)} instead of a dict."
+        )
+        raise TypeError(error_message)
+
+    return final

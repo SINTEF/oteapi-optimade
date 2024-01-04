@@ -64,13 +64,11 @@ Source = "https://github.com/SINTEF/oteapi-optimade"
 Changelog = "https://github.com/SINTEF/oteapi-optimade/blob/main/CHANGELOG.md"
 Package = "https://pypi.org/project/oteapi-optimade"
 
-[project.entry-points."oteapi.download"]
 [project.entry-points."oteapi.filter"]
 "oteapi_optimade.optimade" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
 "oteapi_optimade.OPTIMADE" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
 "oteapi_optimade.OPTiMaDe" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
-[project.entry-points."oteapi.function"]
-[project.entry-points."oteapi.mapping"]
+
 [project.entry-points."oteapi.parse"]
 "oteapi_optimade.application/vnd.optimade+json" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
 "oteapi_optimade.application/vnd.OPTIMADE+json" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
@@ -87,6 +85,7 @@ Package = "https://pypi.org/project/oteapi-optimade"
 "oteapi_optimade.application/vnd.optimade+DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
 "oteapi_optimade.application/vnd.OPTIMADE+DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
 "oteapi_optimade.application/vnd.OPTiMaDe+DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+
 [project.entry-points."oteapi.resource"]
 "oteapi_optimade.optimade" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 "oteapi_optimade.OPTIMADE" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
@@ -97,8 +96,6 @@ Package = "https://pypi.org/project/oteapi-optimade"
 "oteapi_optimade.optimade+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 "oteapi_optimade.OPTIMADE+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 "oteapi_optimade.OPTiMaDe+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
-
-[project.entry-points."oteapi.transformation"]
 
 [tool.flit.module]
 name = "oteapi_optimade"
@@ -118,12 +115,49 @@ scripts_are_modules = true
 warn_unused_configs = true
 show_error_codes = true
 allow_redefinition = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+strict = true
+warn_unreachable = true
 plugins = ["pydantic.mypy"]
 
+[tool.ruff.lint]
+extend-select = [
+  "B",  # flake8-bugbear
+  "I",  # isort
+  "ARG",  # flake8-unused-arguments
+  "C4",  # flake8-comprehensions
+  "EM",  # flake8-errmsg
+  "ICN",  # flake8-import-conventions
+  "G",  # flake8-logging-format
+  "PGH",  # pygrep-hooks
+  "PIE",  # flake8-pie
+  "PL",  # pylint
+  "PT",  # flake8-pytest-style
+  "PTH",  # flake8-use-pathlib
+  "RET",  # flake8-return
+  "RUF",  # Ruff-specific
+  "SIM",  # flake8-simplify
+  "T20",  # flake8-print
+  "YTT",  # flake8-2020
+  "EXE",  # flake8-executable
+  "PYI",  # flake8-pyi
+]
+ignore = [
+  "PLR",  # Design related pylint codes
+]
+isort.required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["T20"]
+
 [tool.pytest.ini_options]
-minversion = "6.0"
-addopts = "-rs --cov=oteapi_optimade --cov-report=term --durations=10"
+minversion = "7.0"
+addopts = "-rs --cov=oteapi_optimade --cov-report=term-missing:skip-covered --no-cov-on-fail"
 filterwarnings = [
-    "ignore:.*imp module.*:DeprecationWarning",
-    "ignore:.*_yaml extension module.*:DeprecationWarning"
+    # Fail on any warning
+    "error",
+
+    # Temporarily ignore warning related to importlib.metadata
+    # To follow the solution, see this issue: https://github.com/EMMC-ASBL/oteapi-core/issues/395
+    "ignore:.*SelectableGroups dict interface is deprecated.*:DeprecationWarning",
 ]

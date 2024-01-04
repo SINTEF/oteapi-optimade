@@ -1,4 +1,6 @@
 """OTEAPI strategy for parsing OPTIMADE structure resources to DLite instances."""
+from __future__ import annotations
+
 import logging
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -17,7 +19,7 @@ from oteapi_optimade.models import OPTIMADEDLiteParseConfig, OPTIMADEParseSessio
 from oteapi_optimade.strategies.parse import OPTIMADEParseStrategy
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Union
+    from typing import Any
 
 
 LOGGER = logging.getLogger("oteapi_optimade.dlite")
@@ -40,9 +42,7 @@ class OPTIMADEDLiteParseStrategy:
 
     parse_config: OPTIMADEDLiteParseConfig
 
-    def initialize(
-        self, session: "Optional[Dict[str, Any]]" = None
-    ) -> DLiteSessionUpdate:
+    def initialize(self, session: dict[str, Any] | None = None) -> DLiteSessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -59,7 +59,7 @@ class OPTIMADEDLiteParseStrategy:
         return DLiteSessionUpdate(collection_id=get_collection(session).uuid)
 
     def get(
-        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
+        self, session: SessionUpdate | dict[str, Any] | None = None
     ) -> OPTIMADEParseSession:
         """Request and parse an OPTIMADE response using OPT.
 
@@ -110,14 +110,19 @@ class OPTIMADEDLiteParseStrategy:
             f"yaml://{entities_path}/OPTIMADEStructureSpecies.yaml"
         )
 
+        error_message_supporting_only_structures = (
+            "The DLite OPTIMADE Parser currently only supports structures entities."
+        )
+
         if self.parse_config.configuration.return_object:
             # The response is given as a "proper" pydantic data model instance
 
             if "optimade_response_object" not in session:
-                raise ValueError(
+                error_message = (
                     "'optimade_response_object' was expected to be present in the "
                     "session."
                 )
+                raise ValueError(error_message)
 
             # Currently, only "structures" entries are supported and handled
             if isinstance(session.optimade_response_object, StructureResponseMany):
@@ -152,26 +157,23 @@ class OPTIMADEDLiteParseStrategy:
                         "Could not determine what to do with `data`. Type %s.",
                         type(session.optimade_response_object.data),
                     )
-                    raise OPTIMADEParseError(
-                        "Could not parse `data` entry in response."
-                    )
+                    error_message = "Could not parse `data` entry in response."
+                    raise OPTIMADEParseError(error_message)
             else:
                 LOGGER.debug(
                     "Got currently unsupported response type %s. Only structures are "
                     "supported.",
                     session.optimade_response_object.__class__.__name__,
                 )
-                raise OPTIMADEParseError(
-                    "The DLite OPTIMADE Parser currently only supports structures "
-                    "entities."
-                )
+                raise OPTIMADEParseError(error_message_supporting_only_structures)
         else:
             # The response is given as pure Python dictionary
 
             if "optimade_response" not in session:
-                raise ValueError(
+                error_message = (
                     "'optimade_response' was expected to be present in the session."
                 )
+                raise ValueError(error_message)
 
             if not session.optimade_response or "data" not in session.optimade_response:
                 LOGGER.debug("Not a successful response - no 'data' entry found.")
@@ -187,8 +189,7 @@ class OPTIMADEDLiteParseStrategy:
                         "Could not parse list of 'data' entries as structures."
                     )
                     raise OPTIMADEParseError(
-                        "The DLite OPTIMADE Parser currently only supports structures "
-                        "entities."
+                        error_message_supporting_only_structures
                     ) from exc
             elif session.optimade_response is not None:
                 try:
@@ -196,21 +197,17 @@ class OPTIMADEDLiteParseStrategy:
                 except ValidationError as exc:
                     LOGGER.debug("Could not parse single 'data' entry as a structure.")
                     raise OPTIMADEParseError(
-                        "The DLite OPTIMADE Parser currently only supports structures "
-                        "entities."
+                        error_message_supporting_only_structures
                     ) from exc
             else:
-                LOGGER.debug("Could not parse 'data' entries as structures.")
-                raise OPTIMADEParseError(
-                    "The DLite OPTIMADE Parser currently only supports structures "
-                    "entities."
-                )
+                LOGGER.debug("Could not parse 'data' entries as structures.")  # type: ignore[unreachable]
+                raise OPTIMADEParseError(error_message_supporting_only_structures)
 
         dlite_collection = get_collection(session)
 
         # DLite-fy OPTIMADE structures
         for structure in structures:
-            new_structure_attributes: dict[str, "Any"] = {}
+            new_structure_attributes: dict[str, Any] = {}
 
             # Most inner layer: assemblies & species
             if structure.attributes.assemblies:
@@ -221,19 +218,21 @@ class OPTIMADEDLiteParseStrategy:
 
                 for assembly in structure.attributes.assemblies:
                     # Ensure we're dealing with a normal Python dict
-                    assembly = (
+                    assembly_dict = (
                         assembly.dict(exclude_none=True)
                         if isinstance(assembly, BaseModel)
                         else assembly
                     )
 
                     dimensions = {
-                        "ngroups": len(assembly.get("group_probabilities", []) or []),
-                        "nsites": len(assembly.get("sites_in_groups", []) or []),
+                        "ngroups": len(
+                            assembly_dict.get("group_probabilities", []) or []
+                        ),
+                        "nsites": len(assembly_dict.get("sites_in_groups", []) or []),
                     }
                     new_structure_attributes["assemblies"].append(
                         OPTIMADEStructureAssembly(
-                            dimensions=dimensions, properties=assembly
+                            dimensions=dimensions, properties=assembly_dict
                         )
                     )
 
@@ -245,7 +244,7 @@ class OPTIMADEDLiteParseStrategy:
 
                 for species_individual in structure.attributes.species:
                     # Ensure we're dealing with a normal Python dict
-                    species_individual = (
+                    species_individual_dict = (
                         species_individual.dict(exclude_none=True)
                         if isinstance(species_individual, BaseModel)
                         else species_individual
@@ -253,16 +252,16 @@ class OPTIMADEDLiteParseStrategy:
 
                     dimensions = {
                         "nelements": len(
-                            species_individual.get("chemical_symbols", []) or []
+                            species_individual_dict.get("chemical_symbols", []) or []
                         ),
                         "nattached_elements": len(
-                            species_individual.get("attached", []) or []
+                            species_individual_dict.get("attached", []) or []
                         ),
                     }
                     new_structure_attributes["species"].append(
                         OPTIMADEStructureSpecies(
                             dimensions=dimensions,
-                            properties=species_individual,
+                            properties=species_individual_dict,
                         )
                     )
 

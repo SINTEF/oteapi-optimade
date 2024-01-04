@@ -1,5 +1,7 @@
 """Models specific to the resource strategy."""
-from typing import Any, Dict, List, Literal, Optional
+from __future__ import annotations
+
+from typing import Any, Literal, Optional
 
 from oteapi.models import ResourceConfig, SessionUpdate
 from pydantic import Field
@@ -8,7 +10,7 @@ from oteapi_optimade.models.config import OPTIMADEConfig
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 
 
-class OPTIMADEResourceConfig(ResourceConfig):
+class OPTIMADEResourceConfig(ResourceConfig):  # type: ignore[misc]
     """OPTIMADE-specific resource strategy config."""
 
     accessUrl: OPTIMADEUrl = Field(
@@ -38,7 +40,7 @@ class OPTIMADEResourceConfig(ResourceConfig):
     )
 
 
-class OPTIMADEResourceSession(SessionUpdate):
+class OPTIMADEResourceSession(SessionUpdate):  # type: ignore[misc]
     """OPTIMADE session for the resource strategy."""
 
     optimade_config: Optional[OPTIMADEConfig] = Field(
@@ -48,7 +50,7 @@ class OPTIMADEResourceSession(SessionUpdate):
             "perform OPTIMADE queries."
         ),
     )
-    optimade_resources: List[Dict[str, Any]] = Field(
+    optimade_resources: list[dict[str, Any]] = Field(
         [],
         description=(
             "List of OPTIMADE resources (structures, references, errors, ...) returned"
