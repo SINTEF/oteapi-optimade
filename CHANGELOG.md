@@ -1,5 +1,56 @@
 # Changelog
 
+## [v0.4.2](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.2) (2023-10-26)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.1...v0.4.2)
+
+## [v0.4.1](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.1) (2023-10-26)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.0...v0.4.1)
+
+**Fixed bugs:**
+
+- Invalid use of logging [\#174](https://github.com/SINTEF/oteapi-optimade/issues/174)
+- OPTIMADE plugin produces empty instances of http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies  [\#162](https://github.com/SINTEF/oteapi-optimade/issues/162)
+
+**Merged pull requests:**
+
+- Properly create assemblies and species [\#172](https://github.com/SINTEF/oteapi-optimade/pull/172) ([CasperWA](https://github.com/CasperWA))
+- Proper use of logging [\#171](https://github.com/SINTEF/oteapi-optimade/pull/171) ([jesper-friis](https://github.com/jesper-friis))
+
+## [v0.4.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.0) (2023-10-23)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.3.0...v0.4.0)
+
+**Implemented enhancements:**
+
+- Add example\(s\) [\#124](https://github.com/SINTEF/oteapi-optimade/issues/124)
+
+**Fixed bugs:**
+
+- Wrong OPTIMADEStructureAttributes datamodel [\#164](https://github.com/SINTEF/oteapi-optimade/issues/164)
+- Pipeline figure not being shown in docs [\#144](https://github.com/SINTEF/oteapi-optimade/issues/144)
+- Updated DLite installation pathway [\#136](https://github.com/SINTEF/oteapi-optimade/issues/136)
+- `Segmentation fault` from dlite in CI [\#115](https://github.com/SINTEF/oteapi-optimade/issues/115)
+- init file missing in the new `dlite` module [\#113](https://github.com/SINTEF/oteapi-optimade/issues/113)
+
+**Closed issues:**
+
+- Make the JSON-serialisation of entities human readable [\#160](https://github.com/SINTEF/oteapi-optimade/issues/160)
+- Use ruff instead of pylint \(and isort\) [\#156](https://github.com/SINTEF/oteapi-optimade/issues/156)
+
+**Merged pull requests:**
+
+- Write Ångström such that it is understandable by Pint in datamodel [\#170](https://github.com/SINTEF/oteapi-optimade/pull/170) ([jesper-friis](https://github.com/jesper-friis))
+- Update data models [\#169](https://github.com/SINTEF/oteapi-optimade/pull/169) ([CasperWA](https://github.com/CasperWA))
+- Move from pylint \(& isort\) to ruff [\#157](https://github.com/SINTEF/oteapi-optimade/pull/157) ([CasperWA](https://github.com/CasperWA))
+- Use relative link, which works only in production [\#145](https://github.com/SINTEF/oteapi-optimade/pull/145) ([CasperWA](https://github.com/CasperWA))
+- Avoid DLite v0.4.0 [\#139](https://github.com/SINTEF/oteapi-optimade/pull/139) ([CasperWA](https://github.com/CasperWA))
+- DLite notebook example [\#127](https://github.com/SINTEF/oteapi-optimade/pull/127) ([CasperWA](https://github.com/CasperWA))
+- Add example to documentation [\#125](https://github.com/SINTEF/oteapi-optimade/pull/125) ([CasperWA](https://github.com/CasperWA))
+- Add \_\_init\_\_ file to dlite submodule [\#122](https://github.com/SINTEF/oteapi-optimade/pull/122) ([CasperWA](https://github.com/CasperWA))
+- Avoid psycopg2-binary v2.9.6 [\#117](https://github.com/SINTEF/oteapi-optimade/pull/117) ([CasperWA](https://github.com/CasperWA))
+
 ## [v0.3.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.3.0) (2023-03-30)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.2.2...v0.3.0)

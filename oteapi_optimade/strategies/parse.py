@@ -1,7 +1,8 @@
 """Demo strategy class for text/json."""
+from __future__ import annotations
+
 import json
 import logging
-import sys
 from typing import TYPE_CHECKING
 
 from optimade.models import ErrorResponse, Success
@@ -14,15 +15,12 @@ from pydantic.dataclasses import dataclass
 
 from oteapi_optimade.exceptions import OPTIMADEParseError
 from oteapi_optimade.models import OPTIMADEParseConfig, OPTIMADEParseSession
-from oteapi_optimade.utils import model2dict
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Union
+    from typing import Any
 
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
-LOGGER.setLevel(logging.DEBUG)
-LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 @dataclass
@@ -45,7 +43,10 @@ class OPTIMADEParseStrategy:
 
     parse_config: OPTIMADEParseConfig
 
-    def initialize(self, session: "Optional[Dict[str, Any]]" = None) -> SessionUpdate:
+    def initialize(
+        self,
+        session: dict[str, Any] | None = None,  # noqa: ARG002
+    ) -> SessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -62,7 +63,7 @@ class OPTIMADEParseStrategy:
         return SessionUpdate()
 
     def get(
-        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
+        self, session: SessionUpdate | dict[str, Any] | None = None
     ) -> OPTIMADEParseSession:
         """Request and parse an OPTIMADE response using OPT.
 
@@ -89,21 +90,21 @@ class OPTIMADEParseStrategy:
             session = OPTIMADEParseSession(**session)
         elif session and isinstance(session, SessionUpdate):
             session = OPTIMADEParseSession(
-                **model2dict(session, exclude_defaults=True, exclude_unset=True)
+                **session.model_dump(exclude_defaults=True, exclude_unset=True)
             )
         else:
             session = OPTIMADEParseSession()
 
         if session.optimade_config:
             self.parse_config.configuration.update(
-                model2dict(
-                    session.optimade_config, exclude_defaults=True, exclude_unset=True
+                session.optimade_config.model_dump(
+                    exclude_defaults=True, exclude_unset=True
                 )
             )
 
         cache = DataCache(self.parse_config.configuration.datacache_config)
         if self.parse_config.downloadUrl in cache:
-            response: "Dict[str, Any]" = cache.get(self.parse_config.downloadUrl)
+            response: dict[str, Any] = cache.get(self.parse_config.downloadUrl)
         elif (
             self.parse_config.configuration.datacache_config.accessKey
             and self.parse_config.configuration.datacache_config.accessKey in cache
@@ -112,15 +113,15 @@ class OPTIMADEParseStrategy:
                 self.parse_config.configuration.datacache_config.accessKey
             )
         else:
-            download_config = self.parse_config.copy()
+            download_config = self.parse_config.model_copy()
             session.update(
                 create_strategy(StrategyType.DOWNLOAD, download_config).initialize(
-                    model2dict(session, exclude_defaults=True, exclude_unset=True)
+                    session.model_dump(exclude_defaults=True, exclude_unset=True)
                 )
             )
             session.update(
                 create_strategy(StrategyType.DOWNLOAD, download_config).get(
-                    model2dict(session, exclude_defaults=True, exclude_unset=True)
+                    session.model_dump(exclude_defaults=True, exclude_unset=True)
                 )
             )
 
@@ -129,7 +130,7 @@ class OPTIMADEParseStrategy:
         if (
             not response.get("ok", True)
             or (
-                200 > response.get("status_code", 200)
+                response.get("status_code", 200) < 200
                 or response.get("status_code", 200) >= 300
             )
             or "errors" in response.get("json", {})
@@ -138,21 +139,22 @@ class OPTIMADEParseStrategy:
             try:
                 response_object = ErrorResponse(**response.get("json", {}))
             except ValidationError as exc:
+                error_message = "Could not validate an error response."
                 LOGGER.error(
-                    "Could not validate an error response.\nValidationError: "
-                    "%s\nresponse=%r",
+                    "%s\nValidationError: " "%s\nresponse=%r",
+                    error_message,
                     exc,
                     response,
                 )
-                raise OPTIMADEParseError(
-                    "Could not validate an error response."
-                ) from exc
+                raise OPTIMADEParseError(error_message) from exc
         else:
             # Successful response
             response_model = self.parse_config.downloadUrl.response_model()
+            LOGGER.debug("response_model=%r", response_model)
             if response_model:
                 if not isinstance(response_model, tuple):
                     response_model = (response_model,)
+
                 for model_cls in response_model:
                     try:
                         response_object = model_cls(**response.get("json", {}))
@@ -161,46 +163,46 @@ class OPTIMADEParseStrategy:
                     else:
                         break
                 else:
+                    error_message = "Could not validate for an expected response model."
                     LOGGER.error(
-                        "Could not validate for an expected response model.\nURL=%r\n"
-                        "response_models=%r\nresponse=%s",
+                        "%s\nURL=%r\n" "response_models=%r\nresponse=%s",
+                        error_message,
                         self.parse_config.downloadUrl,
                         response_model,
                         response,
                     )
-                    raise OPTIMADEParseError(
-                        "Could not validate for an expected response model."
-                    )
+                    raise OPTIMADEParseError(error_message)
             else:
                 # No "endpoint" or unknown
+                LOGGER.debug("No response_model, using Success response model.")
                 try:
                     response_object = Success(**response.get("json", {}))
                 except ValidationError as exc:
+                    error_message = "Unknown or unparseable endpoint."
                     LOGGER.error(
-                        "Unknown or unparseable endpoint.\nValidatonError: %s\n"
+                        "%s\nValidatonError: %s\n"
                         "URL=%r\nendpoint=%r\nresponse_model=%r\nresponse=%s",
+                        error_message,
                         exc,
                         self.parse_config.downloadUrl,
                         self.parse_config.downloadUrl.endpoint,
                         response_model,
                         response,
                     )
-                    raise OPTIMADEParseError(
-                        "Unknown or unparseable endpoint."
-                    ) from exc
+                    raise OPTIMADEParseError(error_message) from exc
 
-        if self.parse_config.configuration.return_object:
-            session.optimade_response_object = response_object
-        else:
-            session.optimade_response = model2dict(response_object)
+        session.optimade_response_model = (
+            response_object.__class__.__module__,
+            response_object.__class__.__name__,
+        )
+        session.optimade_response = response_object.model_dump(exclude_unset=True)
 
         if session.optimade_config and session.optimade_config.query_parameters:
-            session = session.copy(
+            session = session.model_copy(
                 update={
-                    "optimade_config": session.optimade_config.copy(
+                    "optimade_config": session.optimade_config.model_copy(
                         update={
-                            "query_parameters": model2dict(
-                                session.optimade_config.query_parameters,
+                            "query_parameters": session.optimade_config.query_parameters.model_dump(
                                 exclude_defaults=True,
                                 exclude_unset=True,
                             )
@@ -208,5 +210,8 @@ class OPTIMADEParseStrategy:
                     )
                 }
             )
+
+        if TYPE_CHECKING:  # pragma: no cover
+            assert isinstance(session, OPTIMADEParseSession)  # nosec
 
         return session

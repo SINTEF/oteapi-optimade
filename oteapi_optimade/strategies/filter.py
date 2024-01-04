@@ -1,6 +1,7 @@
 """Demo filter strategy."""
+from __future__ import annotations
+
 import logging
-import sys
 from typing import TYPE_CHECKING
 
 from oteapi.models import SessionUpdate
@@ -8,15 +9,12 @@ from pydantic.dataclasses import dataclass
 
 from oteapi_optimade.models import OPTIMADEFilterConfig, OPTIMADEFilterSession
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
-from oteapi_optimade.utils import model2dict
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Union
+    from typing import Any
 
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
-LOGGER.setLevel(logging.DEBUG)
-LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 @dataclass
@@ -34,7 +32,7 @@ class OPTIMADEFilterStrategy:
     filter_config: OPTIMADEFilterConfig
 
     def initialize(
-        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
+        self, session: SessionUpdate | dict[str, Any] | None = None
     ) -> OPTIMADEFilterSession:
         """Initialize strategy.
 
@@ -61,19 +59,19 @@ class OPTIMADEFilterStrategy:
             session = OPTIMADEFilterSession(**session)
         elif session and isinstance(session, SessionUpdate):
             session = OPTIMADEFilterSession(
-                **model2dict(session, exclude_defaults=True, exclude_unset=True)
+                **session.model_dump(exclude_defaults=True, exclude_unset=True)
             )
         else:
             session = OPTIMADEFilterSession()
 
         if session.optimade_config:
             self.filter_config.configuration.update(
-                model2dict(
-                    session.optimade_config, exclude_defaults=True, exclude_unset=True
+                session.optimade_config.model_dump(
+                    exclude_defaults=True, exclude_unset=True
                 )
             )
 
-        optimade_config = self.filter_config.configuration.copy()
+        optimade_config = self.filter_config.configuration.model_copy()
 
         if not optimade_config.query_parameters:
             optimade_config.query_parameters = OPTIMADEQueryParameters()
@@ -86,12 +84,11 @@ class OPTIMADEFilterStrategy:
             LOGGER.debug("Setting page_limit from limit.")
             optimade_config.query_parameters.page_limit = self.filter_config.limit
 
-        return session.copy(
+        return session.model_copy(  # type: ignore[no-any-return]
             update={
-                "optimade_config": optimade_config.copy(
+                "optimade_config": optimade_config.model_copy(
                     update={
-                        "query_parameters": model2dict(
-                            optimade_config.query_parameters,
+                        "query_parameters": optimade_config.query_parameters.model_dump(
                             exclude_defaults=True,
                             exclude_unset=True,
                         )
@@ -102,7 +99,7 @@ class OPTIMADEFilterStrategy:
 
     def get(
         self,
-        session: "Optional[Dict[str, Any]]" = None,
+        session: dict[str, Any] | None = None,  # noqa: ARG002
     ) -> SessionUpdate:
         """Execute the strategy.
 

@@ -1,12 +1,21 @@
 """OTEAPI strategy for parsing OPTIMADE structure resources to DLite instances."""
+from __future__ import annotations
+
+import importlib
 import logging
-import sys
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 import dlite
 from optimade.adapters import Structure
-from optimade.models import StructureResponseMany, StructureResponseOne, Success
+from optimade.models import (
+    Response as OPTIMADEResponse,
+)
+from optimade.models import (
+    StructureResponseMany,
+    StructureResponseOne,
+    Success,
+)
 from oteapi.models import SessionUpdate
 from oteapi_dlite.models import DLiteSessionUpdate
 from oteapi_dlite.utils import get_collection, update_collection
@@ -18,12 +27,10 @@ from oteapi_optimade.models import OPTIMADEDLiteParseConfig, OPTIMADEParseSessio
 from oteapi_optimade.strategies.parse import OPTIMADEParseStrategy
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Dict, Optional, Union
+    from typing import Any
 
 
 LOGGER = logging.getLogger("oteapi_optimade.dlite")
-LOGGER.setLevel(logging.DEBUG)
-LOGGER.addHandler(logging.StreamHandler(sys.stdout))
 
 
 @dataclass
@@ -43,9 +50,7 @@ class OPTIMADEDLiteParseStrategy:
 
     parse_config: OPTIMADEDLiteParseConfig
 
-    def initialize(
-        self, session: "Optional[Dict[str, Any]]" = None
-    ) -> DLiteSessionUpdate:
+    def initialize(self, session: dict[str, Any] | None = None) -> DLiteSessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -62,7 +67,7 @@ class OPTIMADEDLiteParseStrategy:
         return DLiteSessionUpdate(collection_id=get_collection(session).uuid)
 
     def get(
-        self, session: "Optional[Union[SessionUpdate, Dict[str, Any]]]" = None
+        self, session: SessionUpdate | dict[str, Any] | None = None
     ) -> OPTIMADEParseSession:
         """Request and parse an OPTIMADE response using OPT.
 
@@ -91,162 +96,211 @@ class OPTIMADEDLiteParseStrategy:
             context from services.
 
         """
-        session = OPTIMADEParseStrategy(self.parse_config).get(session)
+        generic_parse_config = self.parse_config.model_copy(
+            update={
+                "mediaType": self.parse_config.mediaType.lower().replace(
+                    "+dlite", "+json"
+                )
+            }
+        ).model_dump()
+        session = OPTIMADEParseStrategy(generic_parse_config).get(session)
 
         entities_path = Path(__file__).resolve().parent.resolve() / "entities"
 
-        dlite.storage_path.append(str(entities_path / "*.json"))
+        dlite.storage_path.append(str(entities_path / "*.yaml"))
 
         # JSONAPIResourceLinks = dlite.Instance.from_url(
-        #     f"json://{entities_path}/JSONAPIResourceLinks.json"
+        #     f"yaml://{entities_path}/JSONAPIResourceLinks.yaml"
         # )
         OPTIMADEStructure = dlite.Instance.from_url(
-            f"json://{entities_path}/OPTIMADEStructure.json"
+            f"yaml://{entities_path}/OPTIMADEStructure.yaml"
         )
         OPTIMADEStructureAssembly = dlite.Instance.from_url(
-            f"json://{entities_path}/OPTIMADEStructureAssembly.json"
+            f"yaml://{entities_path}/OPTIMADEStructureAssembly.yaml"
         )
         OPTIMADEStructureAttributes = dlite.Instance.from_url(
-            f"json://{entities_path}/OPTIMADEStructureAttributes.json"
+            f"yaml://{entities_path}/OPTIMADEStructureAttributes.yaml"
         )
         OPTIMADEStructureSpecies = dlite.Instance.from_url(
-            f"json://{entities_path}/OPTIMADEStructureSpecies.json"
+            f"yaml://{entities_path}/OPTIMADEStructureSpecies.yaml"
         )
 
-        if self.parse_config.configuration.return_object:
-            # The response is given as a "proper" pydantic data model instance
+        if not all(
+            _ in session for _ in ("optimade_response", "optimade_response_model")
+        ):
+            base_error_message = (
+                "Could not retrieve response from OPTIMADE parse strategy."
+            )
+            LOGGER.error(
+                "%s\n"
+                "optimade_response=%r\n"
+                "optimade_response_model=%r\n"
+                "session fields=%r",
+                base_error_message,
+                session.get("optimade_response"),
+                session.get("optimade_response_model"),
+                list(session.keys()),
+            )
+            raise OPTIMADEParseError(base_error_message)
 
-            if "optimade_response_object" not in session:
-                raise ValueError(
-                    "'optimade_response_object' was expected to be present in the "
-                    "session."
-                )
+        optimade_response_model_module, optimade_response_model_name = session.get(
+            "optimade_response_model"
+        )
+        optimade_response_dict = session.get("optimade_response")
 
-            # Currently, only "structures" entries are supported and handled
-            if isinstance(session.optimade_response_object, StructureResponseMany):
+        error_message_supporting_only_structures = (
+            "The DLite OPTIMADE Parser currently only supports structures entities."
+        )
+
+        # Parse response using the provided model
+        try:
+            optimade_response_model: type[OPTIMADEResponse] = getattr(
+                importlib.import_module(optimade_response_model_module),
+                optimade_response_model_name,
+            )
+            optimade_response = optimade_response_model(**optimade_response_dict)
+        except (ImportError, AttributeError) as exc:
+            base_error_message = "Could not import the response model."
+            LOGGER.error(
+                "%s\n"
+                "ImportError: %s\n"
+                "optimade_response_model_module=%r\n"
+                "optimade_response_model_name=%r",
+                base_error_message,
+                exc,
+                optimade_response_model_module,
+                optimade_response_model_name,
+            )
+            raise OPTIMADEParseError(base_error_message) from exc
+        except ValidationError as exc:
+            base_error_message = "Could not validate the response model."
+            LOGGER.error(
+                "%s\n"
+                "ValidationError: %s\n"
+                "optimade_response_model_module=%r\n"
+                "optimade_response_model_name=%r",
+                base_error_message,
+                exc,
+                optimade_response_model_module,
+                optimade_response_model_name,
+            )
+            raise OPTIMADEParseError(base_error_message) from exc
+
+        # Currently, only "structures" entries are supported and handled
+        if isinstance(optimade_response, StructureResponseMany):
+            structures = [
+                Structure(entry)
+                if isinstance(entry, dict)
+                else Structure(entry.model_dump())
+                for entry in optimade_response.data
+            ]
+        elif isinstance(optimade_response, StructureResponseOne):
+            structures = [
+                Structure(optimade_response.data)
+                if isinstance(optimade_response.data, dict)
+                else Structure(optimade_response.data.model_dump())
+            ]
+        elif isinstance(optimade_response, Success):
+            if isinstance(optimade_response.data, dict):
+                structures = [Structure(optimade_response.data)]
+            elif isinstance(optimade_response.data, BaseModel):
+                structures = [Structure(optimade_response.data.model_dump())]
+            elif isinstance(optimade_response.data, list):
                 structures = [
                     Structure(entry)
                     if isinstance(entry, dict)
-                    else Structure(entry.dict())
-                    for entry in session.optimade_response_object.data
+                    else Structure(entry.model_dump())
+                    for entry in optimade_response.data
                 ]
-            elif isinstance(session.optimade_response_object, StructureResponseOne):
-                structures = [
-                    Structure(session.optimade_response_object.data)
-                    if isinstance(session.optimade_response_object.data, dict)
-                    else Structure(session.optimade_response_object.data.dict())
-                ]
-            elif isinstance(session.optimade_response_object, Success):
-                if isinstance(session.optimade_response_object.data, dict):
-                    structures = [Structure(session.optimade_response_object.data)]
-                elif isinstance(session.optimade_response_object.data, BaseModel):
-                    structures = [
-                        Structure(session.optimade_response_object.data.dict())
-                    ]
-                elif isinstance(session.optimade_response_object.data, list):
-                    structures = [
-                        Structure(entry)
-                        if isinstance(entry, dict)
-                        else Structure(entry.dict())
-                        for entry in session.optimade_response_object.data
-                    ]
-                else:
-                    LOGGER.debug(
-                        "Could not determine what to do with `data`. Type %s.",
-                        type(session.optimade_response_object.data),
-                    )
-                    raise OPTIMADEParseError(
-                        "Could not parse `data` entry in response."
-                    )
             else:
-                LOGGER.debug(
-                    "Got currently unsupported response type %s. Only structures are "
-                    "supported.",
-                    session.optimade_response_object.__class__.__name__,
+                LOGGER.error(
+                    "Could not determine what to do with `data`. Type %s.",
+                    type(optimade_response.data),
                 )
-                raise OPTIMADEParseError(
-                    "The DLite OPTIMADE Parser currently only supports structures "
-                    "entities."
-                )
+                error_message = "Could not parse `data` entry in response."
+                raise OPTIMADEParseError(error_message)
         else:
-            # The response is given as pure Python dictionary
-
-            if "optimade_response" not in session:
-                raise ValueError(
-                    "'optimade_response' was expected to be present in the session."
-                )
-
-            if not session.optimade_response or "data" not in session.optimade_response:
-                LOGGER.debug("Not a successful response - no 'data' entry found.")
-                return session
-
-            if isinstance(session.optimade_response["data"], list):
-                try:
-                    structures = [
-                        Structure(entry) for entry in session.optimade_response["data"]
-                    ]
-                except ValidationError as exc:
-                    LOGGER.debug(
-                        "Could not parse list of 'data' entries as structures."
-                    )
-                    raise OPTIMADEParseError(
-                        "The DLite OPTIMADE Parser currently only supports structures "
-                        "entities."
-                    ) from exc
-            elif session.optimade_response is not None:
-                try:
-                    structures = [Structure(session.optimade_response["data"])]
-                except ValidationError as exc:
-                    LOGGER.debug("Could not parse single 'data' entry as a structure.")
-                    raise OPTIMADEParseError(
-                        "The DLite OPTIMADE Parser currently only supports structures "
-                        "entities."
-                    ) from exc
-            else:
-                LOGGER.debug("Could not parse 'data' entries as structures.")
-                raise OPTIMADEParseError(
-                    "The DLite OPTIMADE Parser currently only supports structures "
-                    "entities."
-                )
-
-        dlite_collection = get_collection(session)
+            LOGGER.error(
+                "Got currently unsupported response type %s. Only structures are "
+                "supported.",
+                optimade_response_model_name,
+            )
+            raise OPTIMADEParseError(error_message_supporting_only_structures)
 
         # DLite-fy OPTIMADE structures
+        dlite_collection = get_collection(session)
+
         for structure in structures:
-            new_structure_attributes = {}
+            new_structure_attributes: dict[str, Any] = {}
 
             # Most inner layer: assemblies & species
             if structure.attributes.assemblies:
-                dimensions = {
-                    "ngroups": len(structure.attributes.assemblies),
-                    "nsites": max(len(_) for _ in structure.attributes.assemblies),
-                }
-                new_structure_attributes["assemblies"] = OPTIMADEStructureAssembly(
-                    dimensions=dimensions, properties=structure.attributes.assemblies
-                )
-            if structure.attributes.species:
-                dimensions = {
-                    "nelements": structure.attributes.nelements,
-                    "nattached_elements": max(
-                        _.nattached or 0 for _ in structure.attributes.species
-                    ),
-                }
-                new_structure_attributes["species"] = [
-                    OPTIMADEStructureSpecies(
-                        dimensions=dimensions,
-                        properties=species,
+                # Non-zero length list of assemblies (which could be a list of dicts or
+                # a list of pydantic models)
+
+                new_structure_attributes["assemblies"] = []
+
+                for assembly in structure.attributes.assemblies:
+                    # Ensure we're dealing with a normal Python dict
+                    assembly_dict = (
+                        assembly.model_dump(exclude_none=True)
+                        if isinstance(assembly, BaseModel)
+                        else assembly
                     )
-                    for species in structure.attributes.species
-                ]
+
+                    dimensions = {
+                        "ngroups": len(
+                            assembly_dict.get("group_probabilities", []) or []
+                        ),
+                        "nsites": len(assembly_dict.get("sites_in_groups", []) or []),
+                    }
+                    new_structure_attributes["assemblies"].append(
+                        OPTIMADEStructureAssembly(
+                            dimensions=dimensions, properties=assembly_dict
+                        )
+                    )
+
+            if structure.attributes.species:
+                # Non-zero length list of species (which could be a list of dicts or a
+                # list of pydantic models)
+
+                new_structure_attributes["species"] = []
+
+                for species_individual in structure.attributes.species:
+                    # Ensure we're dealing with a normal Python dict
+                    species_individual_dict = (
+                        species_individual.model_dump(exclude_none=True)
+                        if isinstance(species_individual, BaseModel)
+                        else species_individual
+                    )
+
+                    dimensions = {
+                        "nelements": len(
+                            species_individual_dict.get("chemical_symbols", []) or []
+                        ),
+                        "nattached_elements": len(
+                            species_individual_dict.get("attached", []) or []
+                        ),
+                    }
+                    new_structure_attributes["species"].append(
+                        OPTIMADEStructureSpecies(
+                            dimensions=dimensions,
+                            properties=species_individual_dict,
+                        )
+                    )
 
             # Attributes
             new_structure_attributes.update(
-                structure.attributes.dict(exclude={"species", "assemblies"})
+                structure.attributes.model_dump(
+                    exclude={"species", "assemblies", "nelements", "nsites"}
+                )
             )
             for key in list(new_structure_attributes):
                 if key.startswith("_"):
                     new_structure_attributes.pop(key)
 
+            # Structure features values are Enum values, so we need to convert them to
+            # their string (true) values
             new_structure_attributes["structure_features"] = [
                 _.value for _ in new_structure_attributes["structure_features"]
             ]

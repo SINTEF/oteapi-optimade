@@ -1,18 +1,19 @@
 """Test `oteapi_optimade.strategies.resource` module.
 Specifically the `OPTIMADEResourceStrategy` class.
 """
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 import pytest
 
 if TYPE_CHECKING:
     from pathlib import Path
-    from typing import Optional
 
     from requests_mock import Mocker
 
 
-@pytest.fixture
+@pytest.fixture()
 def resource_config() -> dict[str, str]:
     """A resource config dictionary for test purposes."""
     return {
@@ -27,7 +28,7 @@ def resource_config() -> dict[str, str]:
 @pytest.mark.parametrize(
     "session", [None, {"optimade_config": "content"}], ids=["None", "dict"]
 )
-def test_initialize(session: "Optional[dict]", resource_config: dict[str, str]) -> None:
+def test_initialize(session: dict | None, resource_config: dict[str, str]) -> None:
     """Test the `initialize()` method."""
     from oteapi.models import SessionUpdate
 
@@ -40,7 +41,7 @@ def test_initialize(session: "Optional[dict]", resource_config: dict[str, str]) 
 
 
 def test_get_no_session(
-    resource_config: dict[str, str], static_files: "Path", requests_mock: "Mocker"
+    resource_config: dict[str, str], static_files: Path, requests_mock: Mocker
 ) -> None:
     """Test the `get()` method - session is `None`."""
     from optimade.adapters import Structure
@@ -62,7 +63,7 @@ def test_get_no_session(
 
 
 @pytest.mark.parametrize(
-    "accessService,use_dlite",
+    ("accessService", "use_dlite"),
     [
         ("optimade+dlite", False),
         ("OPTIMADE+dlite", False),
@@ -83,8 +84,8 @@ def test_get_no_session(
 )
 def test_use_dlite(
     resource_config: dict[str, str],
-    static_files: "Path",
-    requests_mock: "Mocker",
+    static_files: Path,
+    requests_mock: Mocker,
     accessService: str,
     use_dlite: bool,
 ) -> None:
@@ -101,7 +102,8 @@ def test_use_dlite(
     resource_config["accessService"] = accessService
     resource_config["configuration"] = {"use_dlite": use_dlite}
 
-    session = OPTIMADEResourceStrategy(resource_config).get()
+    session = OPTIMADEResourceStrategy(resource_config).initialize()
+    session = OPTIMADEResourceStrategy(resource_config).get(session)
 
     assert isinstance(session, OPTIMADEResourceSession)
     assert session.optimade_config is None

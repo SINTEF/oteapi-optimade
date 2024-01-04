@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """End-to-end testing in CI for OTEAPI OPTIMADE (using OTELib)."""
+from __future__ import annotations
+
 import importlib
 import json
 import os
@@ -28,13 +30,15 @@ def _check_service_availability(service_url: str) -> None:
     """
     import requests
 
+    error_message = f"Cannot connect to {service_url} !"
+
     try:
         response = requests.get(f"{service_url}/docs", allow_redirects=True, timeout=30)
     except (requests.ConnectionError, requests.ConnectTimeout) as exc_:
-        raise RuntimeError(f"Cannot connect to {service_url} !") from exc_
+        raise RuntimeError(error_message) from exc_
 
     if not response.ok:
-        raise RuntimeError(f"Cannot connect to {service_url} !")
+        raise RuntimeError(error_message)
 
 
 def main(oteapi_url: str) -> None:
@@ -63,18 +67,18 @@ def main(oteapi_url: str) -> None:
 
     source = client.create_dataresource(
         accessService="OPTIMADE",
-        accessUrl=f"http://localhost:{os.getenv('OPTIMADE_PORT', '5000')}/",
+        accessUrl=OPTIMADE_URL,
         configuration=config,
     )
 
     session = source.get()
 
+    error_message = "Could not parse returned session as an OPTIMADEResourceStrategy."
+
     try:
         session = OPTIMADEResourceSession(**json.loads(session))
     except ValidationError as exc_:
-        raise RuntimeError(
-            "Could not parse returned session as an OPTIMADEResourceStrategy."
-        ) from exc_
+        raise RuntimeError(error_message) from exc_
 
     assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
     assert len(session.optimade_resources) == 2
@@ -98,9 +102,7 @@ def main(oteapi_url: str) -> None:
         # Should be an OPTIMADEResourceSession because `source` is last in the pipeline
         session = OPTIMADEResourceSession(**json.loads(session))
     except ValidationError as exc_:
-        raise RuntimeError(
-            "Could not parse returned session as an OPTIMADEResourceStrategy."
-        ) from exc_
+        raise RuntimeError(error_message) from exc_
 
     assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
     assert len(session.optimade_resources) == 4
@@ -130,10 +132,11 @@ if __name__ == "__main__":
     # Configuration
     PORT = os.getenv("OTEAPI_PORT", "8080")
     OTEAPI_SERVICE_URL = f"http://localhost:{PORT}"
-    OTEAPI_PREFIX = os.getenv("OTEAPI_prefix", "/api/v1")
+    OTEAPI_PREFIX = os.getenv("OTEAPI_prefix", "/api/v1")  # noqa: SIM112
+    OPTIMADE_URL = f"http://{os.getenv('OPTIMADE_HOST', 'localhost')}:{os.getenv('OPTIMADE_PORT', '5000')}/"
     if "OTEAPI_prefix" not in os.environ:
         # Set environment variables
-        os.environ["OTEAPI_prefix"] = OTEAPI_PREFIX
+        os.environ["OTEAPI_prefix"] = OTEAPI_PREFIX  # noqa: SIM112
 
     try:
         _check_service_availability(service_url=OTEAPI_SERVICE_URL)
