@@ -47,7 +47,7 @@ doc = [
     "mkdocs ~=1.5",
     "mkdocs-awesome-pages-plugin ~=2.9",
     "mkdocs-jupyter ~=0.24.6",
-    "mkdocs-material ~=9.4",
+    "mkdocs-material ~=9.5",
     "mkdocstrings[python-legacy] ~=0.24.0",
     "oteapi-optimade[examples]",
 ]
@@ -57,8 +57,8 @@ test = [
     "pyyaml ~=6.0",
     "requests-mock ~=1.11",
 ]
-pre-commit = ["pre-commit ~=3.5"]
-dev = ["oteapi-optimade[examples,doc,test,pre-commit]"]
+pre-commit = ["pre-commit ~=3.6"]
+dev = ["oteapi-optimade[doc,examples,pre-commit,test]"]
 
 [project.urls]
 Home = "https://github.com/SINTEF/oteapi-optimade"
