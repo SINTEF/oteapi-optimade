@@ -27,8 +27,8 @@ dynamic = ["version"]
 
 dependencies = [
     "DLite-Python >=0.4.5,<1",
-    "optimade[server] >=0.25.0,<2",
-    "oteapi-core >=0.5.2,<0.7",
+    "optimade[server] >=0.25.0,<1",
+    "oteapi-core >=0.5.2,<0.6",
     "oteapi-dlite >=0.1.6,<1",
     "requests ~=2.31",
 ]
@@ -36,7 +36,7 @@ dependencies = [
 [project.optional-dependencies]
 examples = [
     "jupyter ~=1.0",
-    "otelib >=0.3.2,<0.5",
+    "otelib >=0.3.2,<0.4",
 ]
 doc = [
     "mike ~=2.0",
@@ -48,7 +48,7 @@ doc = [
     "oteapi-optimade[examples]",
 ]
 test = [
-    "pytest >=7.4.0,<9",
+    "pytest ~=8.0",
     "pytest-cov ~=4.1",
     "pyyaml ~=6.0",
     "requests-mock ~=1.11",
