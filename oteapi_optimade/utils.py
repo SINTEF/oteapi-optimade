@@ -1,4 +1,5 @@
 """Utility functions to be used in OTEAPI OPTIMADE."""
+
 from __future__ import annotations
 
 from collections.abc import Iterable
