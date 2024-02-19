@@ -1,4 +1,5 @@
 """OPTIMADE resource strategy."""
+
 from __future__ import annotations
 
 import importlib
@@ -306,32 +307,40 @@ class OPTIMADEResourceStrategy:
             )
         elif isinstance(optimade_response, ReferenceResponseMany):
             optimade_resources = [
-                Reference(entry).as_dict
-                if isinstance(entry, dict)
-                else Reference(entry.model_dump()).as_dict
+                (
+                    Reference(entry).as_dict
+                    if isinstance(entry, dict)
+                    else Reference(entry.model_dump()).as_dict
+                )
                 for entry in optimade_response.data
             ]
             session.optimade_resource_model = f"{Reference.__module__}:Reference"
         elif isinstance(optimade_response, ReferenceResponseOne):
             optimade_resources = [
-                Reference(optimade_response.data).as_dict
-                if isinstance(optimade_response.data, dict)
-                else Reference(optimade_response.data.model_dump()).as_dict
+                (
+                    Reference(optimade_response.data).as_dict
+                    if isinstance(optimade_response.data, dict)
+                    else Reference(optimade_response.data.model_dump()).as_dict
+                )
             ]
             session.optimade_resource_model = f"{Reference.__module__}:Reference"
         elif isinstance(optimade_response, StructureResponseMany):
             optimade_resources = [
-                Structure(entry).as_dict
-                if isinstance(entry, dict)
-                else Structure(entry.model_dump()).as_dict
+                (
+                    Structure(entry).as_dict
+                    if isinstance(entry, dict)
+                    else Structure(entry.model_dump()).as_dict
+                )
                 for entry in optimade_response.data
             ]
             session.optimade_resource_model = f"{Structure.__module__}:Structure"
         elif isinstance(optimade_response, StructureResponseOne):
             optimade_resources = [
-                Structure(optimade_response.data).as_dict
-                if isinstance(optimade_response.data, dict)
-                else Structure(optimade_response.data.model_dump()).as_dict
+                (
+                    Structure(optimade_response.data).as_dict
+                    if isinstance(optimade_response.data, dict)
+                    else Structure(optimade_response.data.model_dump()).as_dict
+                )
             ]
             session.optimade_resource_model = f"{Structure.__module__}:Structure"
         else:

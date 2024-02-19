@@ -1,4 +1,5 @@
 """OTEAPI strategy for parsing OPTIMADE structure resources to DLite instances."""
+
 from __future__ import annotations
 
 import importlib
@@ -189,16 +190,20 @@ class OPTIMADEDLiteParseStrategy:
         # Currently, only "structures" entries are supported and handled
         if isinstance(optimade_response, StructureResponseMany):
             structures = [
-                Structure(entry)
-                if isinstance(entry, dict)
-                else Structure(entry.model_dump())
+                (
+                    Structure(entry)
+                    if isinstance(entry, dict)
+                    else Structure(entry.model_dump())
+                )
                 for entry in optimade_response.data
             ]
         elif isinstance(optimade_response, StructureResponseOne):
             structures = [
-                Structure(optimade_response.data)
-                if isinstance(optimade_response.data, dict)
-                else Structure(optimade_response.data.model_dump())
+                (
+                    Structure(optimade_response.data)
+                    if isinstance(optimade_response.data, dict)
+                    else Structure(optimade_response.data.model_dump())
+                )
             ]
         elif isinstance(optimade_response, Success):
             if isinstance(optimade_response.data, dict):
@@ -207,9 +212,11 @@ class OPTIMADEDLiteParseStrategy:
                 structures = [Structure(optimade_response.data.model_dump())]
             elif isinstance(optimade_response.data, list):
                 structures = [
-                    Structure(entry)
-                    if isinstance(entry, dict)
-                    else Structure(entry.model_dump())
+                    (
+                        Structure(entry)
+                        if isinstance(entry, dict)
+                        else Structure(entry.model_dump())
+                    )
                     for entry in optimade_response.data
                 ]
             else:
@@ -313,9 +320,11 @@ class OPTIMADEDLiteParseStrategy:
                             "nelements": structure.attributes.nelements or 0,
                             "dimensionality": 3,
                             "nsites": structure.attributes.nsites or 0,
-                            "nspecies": len(structure.attributes.species)
-                            if structure.attributes.species
-                            else 0,
+                            "nspecies": (
+                                len(structure.attributes.species)
+                                if structure.attributes.species
+                                else 0
+                            ),
                             "nstructure_features": len(
                                 structure.attributes.structure_features
                             ),

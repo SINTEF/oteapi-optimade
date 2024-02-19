@@ -1,4 +1,5 @@
 """General OPTIMADE configuration models."""
+
 from __future__ import annotations
 
 from typing import Annotated, Literal, Optional
