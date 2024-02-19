@@ -1,4 +1,5 @@
 """Custom "pydantic" types used in OTEAPI-OPTIMADE."""
+
 from __future__ import annotations
 
 import logging
