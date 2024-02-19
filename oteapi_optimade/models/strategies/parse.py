@@ -1,4 +1,5 @@
 """Models specific to the parse strategy."""
+
 from __future__ import annotations
 
 from typing import Any, Literal, Optional

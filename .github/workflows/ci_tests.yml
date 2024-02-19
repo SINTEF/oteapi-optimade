@@ -10,7 +10,7 @@ on:
 jobs:
   basic-tests:
     name: External
-    uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v2.7.1
+    uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v2.7.2
     with:
       # General setup
       install_extras: "[dev]"
@@ -67,8 +67,9 @@ jobs:
 
     - name: Upload coverage to Codecov
       if: github.repository == 'SINTEF/oteapi-optimade'
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         env_vars: OS,PYTHON
         flags: local
       env:

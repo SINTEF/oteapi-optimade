@@ -1,4 +1,5 @@
 """Demo strategy class for text/json."""
+
 from __future__ import annotations
 
 import json
