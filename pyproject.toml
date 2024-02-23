@@ -30,10 +30,10 @@ dependencies = [
     "DLite-Python >=0.4.5,<1",
     "optimade[server] ~=1.0",
     "oteapi-core ~=0.6.0",
-    # A newer version of oteapi-dlite can be used once #192 is closed and included in
+    # A newer version of oteapi-dlite can be used once #192 is included in
     # a release: https://github.com/EMMC-ASBL/oteapi-dlite/pull/192
     # "oteapi-dlite >=0.1.6,<1",
-    "oteapi-dlite @ git+https://github.com/EMMC-ASBL/oteapi-dlite.git@cwa/close-187-migrate-to-pydantic-v2",
+    "oteapi-dlite @ git+https://github.com/EMMC-ASBL/oteapi-dlite.git@master",
     "requests ~=2.31",
 ]
 
