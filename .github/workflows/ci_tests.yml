@@ -10,7 +10,7 @@ on:
 jobs:
   basic-tests:
     name: External
-    uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v2.7.2
+    uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v2.7.4
     with:
       # General setup
       install_extras: "[dev]"
@@ -40,7 +40,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10"]
+        python-version: ["3.9", "3.10", "3.11"]
         os:
         - ["ubuntu-latest", "linux"]
         - ["windows-latest", "windows"]
@@ -132,9 +132,11 @@ jobs:
         .github/utils/wait_for_it.sh localhost:${OTEAPI_PORT} -t 240
         sleep 5
       env:
-        # Pin to 1.20231108.329 until #163 has been closed.
-        # Related issue: https://github.com/SINTEF/oteapi-optimade/issues/187
-        DOCKER_OTEAPI_VERSION: '1.20231108.329'
+        # Use version 1.20240228.345 until
+        # https://github.com/SINTEF/oteapi-optimade/issues/213 has been resolved.
+        # See also
+        # https://github.com/EMMC-ASBL/oteapi-services/tree/8306d7212419764fb87e5cefdb5a869db9c68ef7?tab=readme-ov-file#open-translation-environment-ote-api
+        DOCKER_OTEAPI_VERSION: '1.20240228.345'
 
     - name: Run end-2-end tests
       run: python .github/utils/end2end_test.py

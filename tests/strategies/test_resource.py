@@ -103,7 +103,8 @@ def test_use_dlite(
     resource_config["accessService"] = accessService
     resource_config["configuration"] = {"use_dlite": use_dlite}
 
-    session = OPTIMADEResourceStrategy(resource_config).get()
+    session = OPTIMADEResourceStrategy(resource_config).initialize()
+    session = OPTIMADEResourceStrategy(resource_config).get(session)
 
     assert isinstance(session, OPTIMADEResourceSession)
     assert session.optimade_config is None

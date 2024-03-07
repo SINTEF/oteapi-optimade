@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Literal, Optional
+from typing import Annotated, Literal, Optional
 
 from oteapi.models import AttrDict, DataCacheConfig
-from pydantic import Field, validator
+from pydantic import Field, field_validator
 
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
@@ -19,54 +19,59 @@ DEFAULT_CACHE_CONFIG_VALUES = {
 class OPTIMADEConfig(AttrDict):  # type: ignore[misc]
     """OPTIMADE configuration."""
 
-    version: str = Field(
-        "v1",
-        description="The version part of the OPTIMADE versioned base URL.",
-        regex=r"^v[0-9]+(\.[0-9]+){,2}$",
-    )
-    endpoint: Literal["references", "structures"] = Field(
-        "structures",
-        description="Supported OPTIMADE entry resource endpoint.",
-    )
-    query_parameters: Optional[OPTIMADEQueryParameters] = Field(
-        None,
-        description="URL query parameters to be used in the OPTIMADE query.",
-    )
-    datacache_config: DataCacheConfig = Field(
-        DataCacheConfig(**DEFAULT_CACHE_CONFIG_VALUES),
-        description="Configuration options for the local data cache.",
-    )
-    return_object: bool = Field(
-        False,
-        description=(
-            "Whether or not to return a response object (using the pydantic model).\n"
-            "\nImportant:\n    This should _only_ be used if the strategy is called "
-            "directly and not via an OTEAPI REST API service."
+    version: Annotated[
+        str,
+        Field(
+            description="The version part of the OPTIMADE versioned base URL.",
+            pattern=r"^v[0-9]+(\.[0-9]+){0,2}$",
         ),
-    )
-    use_dlite: bool = Field(
-        False,
-        description="Whether or not to store the results in a DLite Collection.",
-    )
+    ] = "v1"
+    endpoint: Annotated[
+        Literal["references", "structures"],
+        Field(
+            description="Supported OPTIMADE entry resource endpoint.",
+        ),
+    ] = "structures"
+    query_parameters: Annotated[
+        Optional[OPTIMADEQueryParameters],
+        Field(
+            description="URL query parameters to be used in the OPTIMADE query.",
+        ),
+    ] = None
+    datacache_config: Annotated[
+        DataCacheConfig,
+        Field(
+            description="Configuration options for the local data cache.",
+        ),
+    ] = DataCacheConfig(**DEFAULT_CACHE_CONFIG_VALUES)
+    use_dlite: Annotated[
+        bool,
+        Field(
+            description="Whether or not to store the results in a DLite Collection.",
+        ),
+    ] = False
 
-    @validator("datacache_config")
-    def default_datacache_config(cls, value: DataCacheConfig) -> DataCacheConfig:
+    @field_validator("datacache_config", mode="after")
+    @classmethod
+    def default_datacache_config(
+        cls, datacache_config: DataCacheConfig
+    ) -> DataCacheConfig:
         """Use default values for `DataCacheConfig` if not supplied."""
-        original_set_values = len(value.__fields_set__)
+        original_set_values = len(datacache_config.model_fields_set)
 
         for field, default_value in DEFAULT_CACHE_CONFIG_VALUES.items():
-            if field in value.__fields_set__:
+            if field in datacache_config.model_fields_set:
                 # Use the set value instead of the default
                 continue
-            setattr(value, field, default_value)
+            setattr(datacache_config, field, default_value)
 
-        if len(value.__fields_set__) > original_set_values:
+        if len(datacache_config.model_fields_set) > original_set_values:
             # Re-validate model and return it
-            return value.validate(
+            return datacache_config.model_validate(
                 {
                     field: field_value
-                    for field, field_value in value.dict().items()
-                    if field in value.__fields_set__
+                    for field, field_value in datacache_config.model_dump().items()
+                    if field in datacache_config.model_fields_set
                 }
             )
-        return value
+        return datacache_config
