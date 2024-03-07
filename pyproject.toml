@@ -29,7 +29,7 @@ dynamic = ["version"]
 dependencies = [
     "DLite-Python >=0.4.5,<1",
     "optimade[server] ~=1.0",
-    "oteapi-core ~=0.6.0",
+    "oteapi-core ~=0.6.1",
     "oteapi-dlite >=0.2.0,<1",
     "requests ~=2.31",
 ]
@@ -45,7 +45,7 @@ doc = [
     "mkdocs-awesome-pages-plugin ~=2.9",
     "mkdocs-jupyter ~=0.24.6",
     "mkdocs-material ~=9.5",
-    "mkdocstrings[python-legacy] ~=0.24.0",
+    "mkdocstrings[python-legacy] ~=0.24.1",
     "oteapi-optimade[examples]",
 ]
 test = [
