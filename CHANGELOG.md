@@ -1,5 +1,23 @@
 # Changelog
 
+## [v0.5.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.5.0) (2024-03-07)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.2...v0.5.0)
+
+**Implemented enhancements:**
+
+- Migrate to pydantic v2 [\#163](https://github.com/SINTEF/oteapi-optimade/issues/163)
+
+**Fixed bugs:**
+
+- Pin to specific `oteapi` docker image version for testing [\#187](https://github.com/SINTEF/oteapi-optimade/issues/187)
+
+**Merged pull requests:**
+
+- Pin oteapi docker image to pre-pydantic v2 [\#188](https://github.com/SINTEF/oteapi-optimade/pull/188) ([CasperWA](https://github.com/CasperWA))
+- Upgrade ruff rules and more [\#183](https://github.com/SINTEF/oteapi-optimade/pull/183) ([CasperWA](https://github.com/CasperWA))
+- Migrate to pydantic v2 [\#182](https://github.com/SINTEF/oteapi-optimade/pull/182) ([CasperWA](https://github.com/CasperWA))
+
 ## [v0.4.2](https://github.com/SINTEF/oteapi-optimade/tree/v0.4.2) (2023-10-26)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.1...v0.4.2)
