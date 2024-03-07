@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import pytest
-
 if TYPE_CHECKING:
     from pathlib import Path
     from typing import Any
@@ -13,8 +11,7 @@ if TYPE_CHECKING:
     from dlite import Instance
 
 
-@pytest.mark.parametrize("return_object", [True, False])
-def test_parse(static_files: Path, return_object: bool) -> None:
+def test_parse(static_files: Path) -> None:
     """Test parsing."""
     import json
     from datetime import datetime
@@ -41,7 +38,6 @@ def test_parse(static_files: Path, return_object: bool) -> None:
                 "tag": "optimade",
                 "accessKey": url,
             },
-            "return_object": return_object,
         },
     }
 
@@ -82,7 +78,7 @@ def test_parse(static_files: Path, return_object: bool) -> None:
         # Avoid attributes with special model values for now
         model_values = ("assemblies", "species")
 
-        for field in optimade_structure.attributes.__fields__:
+        for field in optimade_structure.attributes.model_fields:
             if field in model_values:
                 continue
 
@@ -128,7 +124,7 @@ def test_parse(static_files: Path, return_object: bool) -> None:
             for i, entry in enumerate(getattr(dlite_structure.attributes, field)):
                 for sub_field in getattr(optimade_structure.attributes, field)[
                     0
-                ].__fields__:
+                ].model_fields:
                     expected_sub_value = getattr(expected_value[i], sub_field)
                     dlite_sub_value = getattr(entry, sub_field)
 

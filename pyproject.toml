@@ -16,27 +16,28 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
-    # "Framework :: OTE-API",
+    "Programming Language :: Python :: 3.11",
+    # "Framework :: OTEAPI",
     "Environment :: Plugins",
     "Natural Language :: English",
     "Operating System :: OS Independent",
 ]
 keywords = ["OTE", "OPTIMADE", "OTE-API"]
-requires-python = "~=3.9"
+requires-python = ">=3.9,<3.12"  # DLite does not support Python 3.12 and above
 dynamic = ["version"]
 
 dependencies = [
     "DLite-Python >=0.4.5,<1",
-    "optimade[server] >=0.25.0,<1",
-    "oteapi-core >=0.5.2,<0.6",
-    "oteapi-dlite >=0.1.6,<1",
+    "optimade[server] ~=1.0",
+    "oteapi-core ~=0.6.1",
+    "oteapi-dlite >=0.2.0,<1",
     "requests ~=2.31",
 ]
 
 [project.optional-dependencies]
 examples = [
     "jupyter ~=1.0",
-    "otelib >=0.3.2,<0.4",
+    "otelib ~=0.4.1",
 ]
 doc = [
     "mike ~=2.0",
@@ -44,7 +45,7 @@ doc = [
     "mkdocs-awesome-pages-plugin ~=2.9",
     "mkdocs-jupyter ~=0.24.6",
     "mkdocs-material ~=9.5",
-    "mkdocstrings[python-legacy] ~=0.24.0",
+    "mkdocstrings[python-legacy] ~=0.24.1",
     "oteapi-optimade[examples]",
 ]
 test = [
@@ -157,7 +158,13 @@ filterwarnings = [
     # Fail on any warning
     "error",
 
-    # Temporarily ignore warning related to importlib.metadata
+    # Except the following:
+
+    # reset_field() from oteapi.models.AttrDict implements the previous behaviour of
+    # __delattr__().
+    "ignore:.*reset_field().*:DeprecationWarning",
+
+    # Python 3.10 deprecation warning coming from oteapi-core
     # To follow the solution, see this issue: https://github.com/EMMC-ASBL/oteapi-core/issues/395
     "ignore:.*SelectableGroups dict interface is deprecated.*:DeprecationWarning",
 ]
