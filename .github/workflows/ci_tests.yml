@@ -132,7 +132,11 @@ jobs:
         .github/utils/wait_for_it.sh localhost:${OTEAPI_PORT} -t 240
         sleep 5
       env:
-        DOCKER_OTEAPI_VERSION: latest
+        # Use version 1.20240228.345 until
+        # https://github.com/SINTEF/oteapi-optimade/issues/213 has been resolved.
+        # See also
+        # https://github.com/EMMC-ASBL/oteapi-services/tree/8306d7212419764fb87e5cefdb5a869db9c68ef7?tab=readme-ov-file#open-translation-environment-ote-api
+        DOCKER_OTEAPI_VERSION: '1.20240228.345'
 
     - name: Run end-2-end tests
       run: python .github/utils/end2end_test.py
