@@ -50,11 +50,11 @@ doc = [
 ]
 test = [
     "pytest ~=8.1",
-    "pytest-cov ~=4.1",
+    "pytest-cov >=4.1.0,<6",
     "pyyaml ~=6.0",
     "requests-mock ~=1.11",
 ]
-pre-commit = ["pre-commit ~=3.6"]
+pre-commit = ["pre-commit ~=3.7"]
 dev = ["oteapi-optimade[doc,examples,pre-commit,test]"]
 
 [project.urls]
