@@ -45,7 +45,7 @@ doc = [
     "mkdocs-awesome-pages-plugin ~=2.9",
     "mkdocs-jupyter ~=0.24.6",
     "mkdocs-material ~=9.5",
-    "mkdocstrings[python-legacy] ~=0.24.1",
+    "mkdocstrings[python-legacy] ~=0.24.3",
     "oteapi-optimade[examples]",
 ]
 test = [
