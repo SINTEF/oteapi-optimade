@@ -1,9 +1,23 @@
+# pre-commit.ci
+ci:
+  autofix_commit_msg: |
+      [pre-commit.ci] auto fixes from pre-commit hooks
+
+      For more information, see https://pre-commit.ci
+  autofix_prs: false
+  autoupdate_branch: 'main'
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: 'weekly'
+  skip: []
+  submodules: false
+
+# hooks
 default_language_version:
   python: python3.9
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
     - id: check-toml
       name: Check TOML
@@ -23,8 +37,8 @@ repos:
     - id: pyupgrade
       args: [--py39-plus, --keep-runtime-typing]
 
-  - repo: https://github.com/ambv/black
-    rev: 24.3.0
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
     hooks:
     - id: black
 
@@ -35,7 +49,7 @@ repos:
         additional_dependencies: [black]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.4
+    rev: v0.4.2
     hooks:
     - id: ruff
       args: ["--fix", "--exit-non-zero-on-fix", "--show-fixes"]
@@ -48,7 +62,7 @@ repos:
       files: ^oteapi_optimade/.*$
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.9.0
+    rev: v1.10.0
     hooks:
     - id: mypy
       exclude: ^tests/.*$
