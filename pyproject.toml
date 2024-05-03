@@ -41,15 +41,15 @@ examples = [
 ]
 doc = [
     "mike ~=2.0",
-    "mkdocs ~=1.5",
+    "mkdocs >=1.5.3,<1.7",
     "mkdocs-awesome-pages-plugin ~=2.9",
-    "mkdocs-jupyter ~=0.24.6",
-    "mkdocs-material ~=9.5",
-    "mkdocstrings[python-legacy] ~=0.24.1",
+    "mkdocs-jupyter ~=0.24.7",
+    "mkdocs-material >=9.5.5,<10",
+    "mkdocstrings[python-legacy] ~=0.25.0",
     "oteapi-optimade[examples]",
 ]
 test = [
-    "pytest ~=8.1",
+    "pytest ~=8.2",
     "pytest-cov ~=5.0",
     "pyyaml ~=6.0",
     "requests-mock ~=1.12",
