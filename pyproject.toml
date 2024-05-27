@@ -31,7 +31,7 @@ dependencies = [
     "optimade[server] ~=1.0",
     "oteapi-core ~=0.6.1",
     "oteapi-dlite >=0.2.0,<1",
-    "requests ~=2.31",
+    "requests ~=2.32",
 ]
 
 [project.optional-dependencies]
