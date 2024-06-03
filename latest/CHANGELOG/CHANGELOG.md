@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2024-05-28)
+## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2024-06-03)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.0...Unreleased changes)
 
