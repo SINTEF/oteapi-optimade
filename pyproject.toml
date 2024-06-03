@@ -31,7 +31,7 @@ dependencies = [
     "optimade[server] ~=1.0",
     "oteapi-core ~=0.6.1",
     "oteapi-dlite >=0.2.0,<1",
-    "requests ~=2.31",
+    "requests ~=2.32",
 ]
 
 [project.optional-dependencies]
@@ -40,12 +40,12 @@ examples = [
     "otelib ~=0.4.1",
 ]
 doc = [
-    "mike ~=2.0",
+    "mike ~=2.1",
     "mkdocs >=1.5.3,<1.7",
     "mkdocs-awesome-pages-plugin ~=2.9",
     "mkdocs-jupyter ~=0.24.7",
     "mkdocs-material >=9.5.5,<10",
-    "mkdocstrings[python-legacy] ~=0.25.0",
+    "mkdocstrings[python-legacy] ~=0.25.1",
     "oteapi-optimade[examples]",
 ]
 test = [
