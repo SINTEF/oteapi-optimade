@@ -24,6 +24,7 @@ if TYPE_CHECKING:
 def resource_config() -> dict[str, str]:
     """A resource config dictionary for test purposes."""
     return {
+        "resourceType": "optimade/structures",
         "accessService": "optimade",
         "accessUrl": (
             "https://example.org/some/base/v0.1/optimade/v1/structures"

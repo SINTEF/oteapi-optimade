@@ -41,9 +41,6 @@ class OPTIMADEFilterStrategy:
         1. Compile received information.
         2. Update session with compiled information.
 
-        Parameters:
-            session: A session-specific dictionary context.
-
         Returns:
             An update model of key/value-pairs to be stored in the
             session-specific context from services.
@@ -84,9 +81,6 @@ class OPTIMADEFilterStrategy:
 
         This method will be called through the strategy-specific endpoint of the
         OTE-API Services.
-
-        Parameters:
-            session: A session-specific dictionary context.
 
         Returns:
             An update model of key/value-pairs to be stored in the

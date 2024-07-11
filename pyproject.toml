@@ -49,7 +49,7 @@ doc = [
     "mkdocs-awesome-pages-plugin ~=2.9",
     "mkdocs-jupyter ~=0.24.7",
     "mkdocs-material >=9.5.5,<10",
-    "mkdocstrings[python-legacy] ~=0.25.1",
+    "mkdocstrings[python] ~=0.25.1",
     "oteapi-optimade[examples]",
 ]
 test = [
@@ -86,15 +86,9 @@ Package = "https://pypi.org/project/oteapi-optimade"
 "oteapi_optimade.parser/OPTiMaDe/DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
 
 [project.entry-points."oteapi.resource"]
-"oteapi_optimade.optimade" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
-"oteapi_optimade.OPTIMADE" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
-"oteapi_optimade.OPTiMaDe" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
-"oteapi_optimade.optimade+dlite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
-"oteapi_optimade.OPTIMADE+dlite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
-"oteapi_optimade.OPTiMaDe+dlite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
-"oteapi_optimade.optimade+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
-"oteapi_optimade.OPTIMADE+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
-"oteapi_optimade.OPTiMaDe+DLite" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.optimade/structures" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTIMADE/structures" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
+"oteapi_optimade.OPTiMaDe/structures" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
 
 [tool.flit.module]
 name = "oteapi_optimade"
@@ -148,7 +142,11 @@ ignore = [
 isort.required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["T20"]
+"tests/**" = ["T20"]  # print statements
+"docs/examples/**" = [
+    "I002",  # from __future__ import annotations
+    "T20",  # print statements
+]
 
 [tool.pytest.ini_options]
 minversion = "7.0"

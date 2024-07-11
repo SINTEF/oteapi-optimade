@@ -102,9 +102,6 @@ class OPTIMADEResourceStrategy:
         This method will be called through the `/initialize` endpoint of the OTE-API
         Services.
 
-        Parameters:
-            session: A session-specific dictionary context.
-
         Returns:
             An update model of key/value-pairs to be stored in the session-specific
             context from services.
@@ -117,7 +114,9 @@ class OPTIMADEResourceStrategy:
             collection_id = self.resource_config.configuration.get(
                 "collection_id", None
             )
-            return DLiteSessionUpdate(collection_id=get_collection(collection_id).uuid)
+            return DLiteSessionUpdate(
+                collection_id=get_collection(collection_id=collection_id).uuid
+            )
 
         return AttrDict()
 
@@ -137,9 +136,6 @@ class OPTIMADEResourceStrategy:
         3. Reconstruct the complete query URL.
         4. Send query.
         5. Store result in data cache.
-
-        Parameters:
-            session: A session-specific dictionary-like context.
 
         Returns:
             An update model of key/value-pairs to be stored in the session-specific

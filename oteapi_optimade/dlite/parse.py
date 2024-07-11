@@ -56,9 +56,6 @@ class OPTIMADEDLiteParseStrategy:
         This method will be called through the `/initialize` endpoint of the OTE-API
         Services.
 
-        Parameters:
-            session: A session-specific dictionary context.
-
         Returns:
             An update model of key/value-pairs to be stored in the session-specific
             context from services.

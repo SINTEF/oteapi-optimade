@@ -14,6 +14,11 @@ from oteapi_optimade.models.custom_types import OPTIMADEUrl
 class OPTIMADEResourceConfig(ResourceConfig):
     """OPTIMADE-specific resource strategy config."""
 
+    resourceType: Annotated[
+        # later OPTIMADE/references and more should be added
+        Literal["optimade/structures", "OPTIMADE/structures", "OPTiMaDe/structures"],
+        Field(description=ResourceConfig.model_fields["resourceType"].description),
+    ]
     accessUrl: Annotated[
         OPTIMADEUrl,
         Field(description="Either a base OPTIMADE URL or a full OPTIMADE URL."),
