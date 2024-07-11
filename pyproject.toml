@@ -30,6 +30,7 @@ dynamic = ["version"]
 dependencies = [
     "DLite-Python >=0.5.16,<1",
     "eval-type-backport ~=0.2.0",
+    "numpy <2",  # Required by DLite-Python
     "optimade[server] ~=1.0",
     "oteapi-core ~=0.7.0.dev2",
     # "oteapi-dlite >=0.2.0,<1",
