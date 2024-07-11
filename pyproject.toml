@@ -17,27 +17,29 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     # "Framework :: OTEAPI",
     "Environment :: Plugins",
     "Natural Language :: English",
     "Operating System :: OS Independent",
 ]
 keywords = ["OTE", "OPTIMADE", "OTE-API"]
-requires-python = ">=3.9,<3.12"  # DLite does not support Python 3.12 and above
+requires-python = ">=3.9,<3.13"
 dynamic = ["version"]
 
 dependencies = [
-    "DLite-Python >=0.4.5,<1",
+    "DLite-Python >=0.5.16,<1",
     "optimade[server] ~=1.0",
-    "oteapi-core ~=0.6.1",
-    "oteapi-dlite >=0.2.0,<1",
+    "oteapi-core ~=0.7.0.dev2",
+    # "oteapi-dlite >=0.2.0,<1",
+    "oteapi-dlite-mod @ git+https://github.com/SINTEF/oteapi-dlite-Mod.git@master#egg=oteapi-dlite-mod",
     "requests ~=2.32",
 ]
 
 [project.optional-dependencies]
 examples = [
     "jupyter ~=1.0",
-    "otelib ~=0.4.1",
+    "otelib ~=0.5.0.dev0",
 ]
 doc = [
     "mike ~=2.1",
@@ -71,21 +73,15 @@ Package = "https://pypi.org/project/oteapi-optimade"
 "oteapi_optimade.OPTiMaDe" = "oteapi_optimade.strategies.filter:OPTIMADEFilterStrategy"
 
 [project.entry-points."oteapi.parse"]
-"oteapi_optimade.application/vnd.optimade+json" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.application/vnd.OPTIMADE+json" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.application/vnd.OPTiMaDe+json" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.application/vnd.optimade+JSON" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.application/vnd.OPTIMADE+JSON" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.application/vnd.OPTiMaDe+JSON" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.application/vnd.optimade" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.application/vnd.OPTIMADE" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.application/vnd.OPTiMaDe" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.application/vnd.optimade+dlite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
-"oteapi_optimade.application/vnd.OPTIMADE+dlite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
-"oteapi_optimade.application/vnd.OPTiMaDe+dlite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
-"oteapi_optimade.application/vnd.optimade+DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
-"oteapi_optimade.application/vnd.OPTIMADE+DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
-"oteapi_optimade.application/vnd.OPTiMaDe+DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.parser/optimade" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.parser/OPTIMADE" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.parser/OPTiMaDe" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.parser/optimade/dlite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.parser/OPTIMADE/dlite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.parser/OPTiMaDe/dlite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.parser/optimade/DLite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.parser/OPTIMADE/DLite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.parser/OPTiMaDe/DLite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
 
 [project.entry-points."oteapi.resource"]
 "oteapi_optimade.optimade" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
@@ -117,7 +113,6 @@ warn_unused_configs = true
 show_error_codes = true
 allow_redefinition = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
-strict = true
 warn_unreachable = true
 plugins = ["pydantic.mypy"]
 
@@ -163,8 +158,4 @@ filterwarnings = [
     # reset_field() from oteapi.models.AttrDict implements the previous behaviour of
     # __delattr__().
     "ignore:.*reset_field().*:DeprecationWarning",
-
-    # Python 3.10 deprecation warning coming from oteapi-core
-    # To follow the solution, see this issue: https://github.com/EMMC-ASBL/oteapi-core/issues/395
-    "ignore:.*SelectableGroups dict interface is deprecated.*:DeprecationWarning",
 ]

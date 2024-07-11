@@ -54,7 +54,7 @@ def main(oteapi_url: str) -> None:
     from otelib import OTEClient
     from pydantic import ValidationError
 
-    from oteapi_optimade.models import OPTIMADEResourceSession
+    from oteapi_optimade.models import OPTIMADEResourceResult
 
     client = OTEClient(oteapi_url)
 
@@ -76,7 +76,7 @@ def main(oteapi_url: str) -> None:
     error_message = "Could not parse returned session as an OPTIMADEResourceStrategy."
 
     try:
-        session = OPTIMADEResourceSession(**json.loads(session))
+        session = OPTIMADEResourceResult(**json.loads(session))
     except ValidationError as exc_:
         raise RuntimeError(error_message) from exc_
 
@@ -99,8 +99,8 @@ def main(oteapi_url: str) -> None:
     session = pipeline.get()
 
     try:
-        # Should be an OPTIMADEResourceSession because `source` is last in the pipeline
-        session = OPTIMADEResourceSession(**json.loads(session))
+        # Should be an OPTIMADEResourceResult because `source` is last in the pipeline
+        session = OPTIMADEResourceResult(**json.loads(session))
     except ValidationError as exc_:
         raise RuntimeError(error_message) from exc_
 

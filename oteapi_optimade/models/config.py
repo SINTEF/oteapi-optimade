@@ -7,6 +7,7 @@ from typing import Annotated, Literal, Optional
 from oteapi.models import AttrDict, DataCacheConfig
 from pydantic import Field, field_validator
 
+from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
 DEFAULT_CACHE_CONFIG_VALUES = {
@@ -16,9 +17,38 @@ DEFAULT_CACHE_CONFIG_VALUES = {
 """Set the `expireTime` and `tag` to default values for the data cache."""
 
 
-class OPTIMADEConfig(AttrDict):  # type: ignore[misc]
+class OPTIMADEConfig(AttrDict):
     """OPTIMADE configuration."""
 
+    # OTEAPI-specific attributes
+    downloadUrl: Annotated[
+        OPTIMADEUrl,
+        Field(description="Either a base OPTIMADE URL or a full OPTIMADE URL."),
+    ]
+    mediaType: Annotated[
+        Literal[
+            "application/vnd.optimade+json",
+            "application/vnd.OPTIMADE+json",
+            "application/vnd.OPTiMaDe+json",
+            "application/vnd.optimade+JSON",
+            "application/vnd.OPTIMADE+JSON",
+            "application/vnd.OPTiMaDe+JSON",
+            "application/vnd.optimade",
+            "application/vnd.OPTIMADE",
+            "application/vnd.OPTiMaDe",
+        ],
+        Field(
+            description="The registered strategy name for OPTIMADEParseStrategy.",
+        ),
+    ]
+
+    # OPTIMADE parse result attributes
+    optimade_config: Annotated[
+        Optional[OPTIMADEConfig],
+        Field(description="A pre-existing instance of this OPTIMADE configuration."),
+    ] = None
+
+    # OPTIMADE-specific attributes
     version: Annotated[
         str,
         Field(
@@ -75,3 +105,28 @@ class OPTIMADEConfig(AttrDict):  # type: ignore[misc]
                 }
             )
         return datacache_config
+
+
+class OPTIMADEDLiteConfig(OPTIMADEConfig):
+    """OPTIMADE configuration when using the DLite-specific strategies."""
+
+    # OTEAPI-specific attributes
+    mediaType: Annotated[  # type: ignore[assignment]
+        Literal[
+            "application/vnd.optimade+dlite",
+            "application/vnd.OPTIMADE+dlite",
+            "application/vnd.OPTiMaDe+dlite",
+            "application/vnd.optimade+DLite",
+            "application/vnd.OPTIMADE+DLite",
+            "application/vnd.OPTiMaDe+DLite",
+        ],
+        Field(
+            description="The registered strategy name for OPTIMADEDLiteParseStrategy.",
+        ),
+    ]
+
+    # Dlite specific attributes
+    collection_id: Annotated[
+        Optional[str],
+        Field(description="A reference to a DLite Collection."),
+    ] = None

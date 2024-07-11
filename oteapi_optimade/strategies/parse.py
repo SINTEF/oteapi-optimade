@@ -8,14 +8,13 @@ from typing import TYPE_CHECKING
 
 from optimade.models import ErrorResponse, Success
 from oteapi.datacache import DataCache
-from oteapi.models import SessionUpdate
+from oteapi.models import AttrDict
 from oteapi.plugins import create_strategy
-from oteapi.plugins.entry_points import StrategyType
 from pydantic import ValidationError
 from pydantic.dataclasses import dataclass
 
 from oteapi_optimade.exceptions import OPTIMADEParseError
-from oteapi_optimade.models import OPTIMADEParseConfig, OPTIMADEParseSession
+from oteapi_optimade.models import OPTIMADEParseConfig, OPTIMADEParseResult
 
 if TYPE_CHECKING:  # pragma: no cover
     from typing import Any
@@ -30,24 +29,15 @@ class OPTIMADEParseStrategy:
 
     **Implements strategies**:
 
-    - `("mediaType", "application/vnd.optimade+json")`
-    - `("mediaType", "application/vnd.OPTIMADE+json")`
-    - `("mediaType", "application/vnd.OPTiMaDe+json")`
-    - `("mediaType", "application/vnd.optimade+JSON")`
-    - `("mediaType", "application/vnd.OPTIMADE+JSON")`
-    - `("mediaType", "application/vnd.OPTiMaDe+JSON")`
-    - `("mediaType", "application/vnd.optimade")`
-    - `("mediaType", "application/vnd.OPTIMADE")`
-    - `("mediaType", "application/vnd.OPTiMaDe")`
+    - `("parserType", "parser/optimade")`
+    - `("parserType", "parser/OPTIMADE")`
+    - `("parserType", "parser/OPTiMaDe")`
 
     """
 
     parse_config: OPTIMADEParseConfig
 
-    def initialize(
-        self,
-        session: dict[str, Any] | None = None,  # noqa: ARG002
-    ) -> SessionUpdate:
+    def initialize(self) -> AttrDict:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -61,11 +51,9 @@ class OPTIMADEParseStrategy:
             context from services.
 
         """
-        return SessionUpdate()
+        return AttrDict()
 
-    def get(
-        self, session: SessionUpdate | dict[str, Any] | None = None
-    ) -> OPTIMADEParseSession:
+    def get(self) -> OPTIMADEParseResult:
         """Request and parse an OPTIMADE response using OPT.
 
         This method will be called through the strategy-specific endpoint of the
@@ -79,33 +67,16 @@ class OPTIMADEParseStrategy:
         1. Request OPTIMADE response.
         2. Parse as an OPTIMADE Python tools (OPT) pydantic response model.
 
-        Parameters:
-            session: A session-specific dictionary-like context.
-
         Returns:
             An update model of key/value-pairs to be stored in the session-specific
             context from services.
 
         """
-        if session and isinstance(session, dict):
-            session = OPTIMADEParseSession(**session)
-        elif session and isinstance(session, SessionUpdate):
-            session = OPTIMADEParseSession(
-                **session.model_dump(exclude_defaults=True, exclude_unset=True)
-            )
-        else:
-            session = OPTIMADEParseSession()
-
-        if session.optimade_config:
-            self.parse_config.configuration.update(
-                session.optimade_config.model_dump(
-                    exclude_defaults=True, exclude_unset=True
-                )
-            )
-
         cache = DataCache(self.parse_config.configuration.datacache_config)
-        if self.parse_config.downloadUrl in cache:
-            response: dict[str, Any] = cache.get(self.parse_config.downloadUrl)
+        if self.parse_config.configuration.downloadUrl in cache:
+            response: dict[str, Any] = cache.get(
+                self.parse_config.configuration.downloadUrl
+            )
         elif (
             self.parse_config.configuration.datacache_config.accessKey
             and self.parse_config.configuration.datacache_config.accessKey in cache
@@ -114,19 +85,9 @@ class OPTIMADEParseStrategy:
                 self.parse_config.configuration.datacache_config.accessKey
             )
         else:
-            download_config = self.parse_config.model_copy()
-            session.update(
-                create_strategy(StrategyType.DOWNLOAD, download_config).initialize(
-                    session.model_dump(exclude_defaults=True, exclude_unset=True)
-                )
-            )
-            session.update(
-                create_strategy(StrategyType.DOWNLOAD, download_config).get(
-                    session.model_dump(exclude_defaults=True, exclude_unset=True)
-                )
-            )
-
-            response = {"json": json.loads(cache.get(session.pop("key")))}
+            download_config = self.parse_config.configuration.model_copy()
+            download_output = create_strategy("download", download_config).get()
+            response = {"json": json.loads(cache.get(download_output.pop("key")))}
 
         if (
             not response.get("ok", True)
@@ -150,7 +111,9 @@ class OPTIMADEParseStrategy:
                 raise OPTIMADEParseError(error_message) from exc
         else:
             # Successful response
-            response_model = self.parse_config.downloadUrl.response_model()
+            response_model = (
+                self.parse_config.configuration.downloadUrl.response_model()
+            )
             LOGGER.debug("response_model=%r", response_model)
             if response_model:
                 if not isinstance(response_model, tuple):
@@ -168,7 +131,7 @@ class OPTIMADEParseStrategy:
                     LOGGER.error(
                         "%s\nURL=%r\n" "response_models=%r\nresponse=%s",
                         error_message,
-                        self.parse_config.downloadUrl,
+                        self.parse_config.configuration.downloadUrl,
                         response_model,
                         response,
                     )
@@ -185,25 +148,31 @@ class OPTIMADEParseStrategy:
                         "URL=%r\nendpoint=%r\nresponse_model=%r\nresponse=%s",
                         error_message,
                         exc,
-                        self.parse_config.downloadUrl,
-                        self.parse_config.downloadUrl.endpoint,
+                        self.parse_config.configuration.downloadUrl,
+                        self.parse_config.configuration.downloadUrl.endpoint,
                         response_model,
                         response,
                     )
                     raise OPTIMADEParseError(error_message) from exc
 
-        session.optimade_response_model = (
-            response_object.__class__.__module__,
-            response_object.__class__.__name__,
+        result = OPTIMADEParseResult(
+            model_config=self.parse_config.configuration.model_dump(),
+            optimade_response_model=(
+                response_object.__class__.__module__,
+                response_object.__class__.__name__,
+            ),
+            optimade_response=response_object.model_dump(exclude_unset=True),
         )
-        session.optimade_response = response_object.model_dump(exclude_unset=True)
 
-        if session.optimade_config and session.optimade_config.query_parameters:
-            session = session.model_copy(
+        if (
+            self.parse_config.configuration.optimade_config
+            and self.parse_config.configuration.optimade_config.query_parameters
+        ):
+            result = result.model_copy(
                 update={
-                    "optimade_config": session.optimade_config.model_copy(
+                    "optimade_config": self.parse_config.configuration.optimade_config.model_copy(
                         update={
-                            "query_parameters": session.optimade_config.query_parameters.model_dump(
+                            "query_parameters": self.parse_config.configuration.optimade_config.query_parameters.model_dump(
                                 exclude_defaults=True,
                                 exclude_unset=True,
                             )
@@ -212,7 +181,4 @@ class OPTIMADEParseStrategy:
                 }
             )
 
-        if TYPE_CHECKING:  # pragma: no cover
-            assert isinstance(session, OPTIMADEParseSession)  # nosec
-
-        return session
+        return result

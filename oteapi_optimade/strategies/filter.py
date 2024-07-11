@@ -3,17 +3,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
 
-from oteapi.models import SessionUpdate
+from oteapi.models import AttrDict
 from pydantic.dataclasses import dataclass
 
-from oteapi_optimade.models import OPTIMADEFilterConfig, OPTIMADEFilterSession
+from oteapi_optimade.models import OPTIMADEFilterConfig, OPTIMADEFilterResult
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
-
-if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any
-
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
 
@@ -32,9 +27,7 @@ class OPTIMADEFilterStrategy:
 
     filter_config: OPTIMADEFilterConfig
 
-    def initialize(
-        self, session: SessionUpdate | dict[str, Any] | None = None
-    ) -> OPTIMADEFilterSession:
+    def initialize(self) -> OPTIMADEFilterResult:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -56,23 +49,18 @@ class OPTIMADEFilterStrategy:
             session-specific context from services.
 
         """
-        if session and isinstance(session, dict):
-            session = OPTIMADEFilterSession(**session)
-        elif session and isinstance(session, SessionUpdate):
-            session = OPTIMADEFilterSession(
-                **session.model_dump(exclude_defaults=True, exclude_unset=True)
-            )
-        else:
-            session = OPTIMADEFilterSession()
-
-        if session.optimade_config:
+        if self.filter_config.configuration.optimade_config:
             self.filter_config.configuration.update(
-                session.optimade_config.model_dump(
-                    exclude_defaults=True, exclude_unset=True
+                self.filter_config.configuration.optimade_config.model_dump(
+                    exclude_defaults=True,
+                    exclude_unset=True,
+                    exclude={"optimade_config", "downloadUrl", "mediaType"},
                 )
             )
 
-        optimade_config = self.filter_config.configuration.model_copy()
+        optimade_config = self.filter_config.configuration.model_copy(
+            exclude={"optimade_config", "downloadUrl", "mediaType"}
+        )
 
         if not optimade_config.query_parameters:
             optimade_config.query_parameters = OPTIMADEQueryParameters()
@@ -85,23 +73,9 @@ class OPTIMADEFilterStrategy:
             LOGGER.debug("Setting page_limit from limit.")
             optimade_config.query_parameters.page_limit = self.filter_config.limit
 
-        return session.model_copy(  # type: ignore[no-any-return]
-            update={
-                "optimade_config": optimade_config.model_copy(
-                    update={
-                        "query_parameters": optimade_config.query_parameters.model_dump(
-                            exclude_defaults=True,
-                            exclude_unset=True,
-                        )
-                    }
-                )
-            },
-        )
+        return OPTIMADEFilterResult(optimade_config=optimade_config)
 
-    def get(
-        self,
-        session: dict[str, Any] | None = None,  # noqa: ARG002
-    ) -> SessionUpdate:
+    def get(self) -> AttrDict:
         """Execute the strategy.
 
         This method will be called through the strategy-specific endpoint of the
@@ -115,4 +89,4 @@ class OPTIMADEFilterStrategy:
             session-specific context from services.
 
         """
-        return SessionUpdate()
+        return AttrDict()

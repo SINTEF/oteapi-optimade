@@ -17,14 +17,13 @@ from optimade.models import (
     StructureResponseOne,
     Success,
 )
-from oteapi.models import SessionUpdate
 from oteapi_dlite.models import DLiteSessionUpdate
 from oteapi_dlite.utils import get_collection, update_collection
 from pydantic import BaseModel, ValidationError
 from pydantic.dataclasses import dataclass
 
 from oteapi_optimade.exceptions import OPTIMADEParseError
-from oteapi_optimade.models import OPTIMADEDLiteParseConfig, OPTIMADEParseSession
+from oteapi_optimade.models import OPTIMADEDLiteParseConfig, OPTIMADEParseResult
 from oteapi_optimade.strategies.parse import OPTIMADEParseStrategy
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -40,18 +39,18 @@ class OPTIMADEDLiteParseStrategy:
 
     **Implements strategies**:
 
-    - `("mediaType", "application/vnd.optimade+dlite")`
-    - `("mediaType", "application/vnd.OPTIMADE+dlite")`
-    - `("mediaType", "application/vnd.OPTiMaDe+dlite")`
-    - `("mediaType", "application/vnd.optimade+DLite")`
-    - `("mediaType", "application/vnd.OPTIMADE+DLite")`
-    - `("mediaType", "application/vnd.OPTiMaDe+DLite")`
+    - `("parserType", "parser/optimade/dlite")`
+    - `("parserType", "parser/OPTIMADE/dlite")`
+    - `("parserType", "parser/OPTiMaDe/dlite")`
+    - `("parserType", "parser/optimade/DLite")`
+    - `("parserType", "parser/OPTIMADE/DLite")`
+    - `("parserType", "parser/OPTiMaDe/DLite")`
 
     """
 
     parse_config: OPTIMADEDLiteParseConfig
 
-    def initialize(self, session: dict[str, Any] | None = None) -> DLiteSessionUpdate:
+    def initialize(self) -> DLiteSessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -65,11 +64,13 @@ class OPTIMADEDLiteParseStrategy:
             context from services.
 
         """
-        return DLiteSessionUpdate(collection_id=get_collection(session).uuid)
+        return DLiteSessionUpdate(
+            collection_id=get_collection(
+                collection_id=self.parse_config.configuration.collection_id
+            ).uuid
+        )
 
-    def get(
-        self, session: SessionUpdate | dict[str, Any] | None = None
-    ) -> OPTIMADEParseSession:
+    def get(self) -> OPTIMADEParseResult:
         """Request and parse an OPTIMADE response using OPT.
 
         This method will be called through the strategy-specific endpoint of the
@@ -89,22 +90,27 @@ class OPTIMADEDLiteParseStrategy:
         meaning the most nested data structures must first be parsed, and then the ones
         1 layer up and so on until the most upper layer can be parsed.
 
-        Parameters:
-            session: A session-specific dictionary-like context.
-
         Returns:
             An update model of key/value-pairs to be stored in the session-specific
             context from services.
 
         """
-        generic_parse_config = self.parse_config.model_copy(
+        generic_parse_specific_config = self.parse_config.configuration.model_copy(
             update={
-                "mediaType": self.parse_config.mediaType.lower().replace(
+                "mediaType": self.parse_config.configuration.mediaType.lower().replace(
                     "+dlite", "+json"
                 )
             }
-        ).model_dump()
-        session = OPTIMADEParseStrategy(generic_parse_config).get(session)
+        ).model_dump(exclude_unset=True)
+        generic_parse_config = self.parse_config.model_copy(
+            update={
+                "parserType": self.parse_config.parserType.lower().replace(
+                    "/dlite", ""
+                ),
+                "configuration": generic_parse_specific_config,
+            }
+        ).model_dump(exclude_unset=True)
+        generic_parse_result = OPTIMADEParseStrategy(generic_parse_config).get()
 
         entities_path = Path(__file__).resolve().parent.resolve() / "entities"
 
@@ -127,7 +133,8 @@ class OPTIMADEDLiteParseStrategy:
         )
 
         if not all(
-            _ in session for _ in ("optimade_response", "optimade_response_model")
+            _ in generic_parse_result
+            for _ in ("optimade_response", "optimade_response_model")
         ):
             base_error_message = (
                 "Could not retrieve response from OPTIMADE parse strategy."
@@ -138,16 +145,16 @@ class OPTIMADEDLiteParseStrategy:
                 "optimade_response_model=%r\n"
                 "session fields=%r",
                 base_error_message,
-                session.get("optimade_response"),
-                session.get("optimade_response_model"),
-                list(session.keys()),
+                generic_parse_result.get("optimade_response"),
+                generic_parse_result.get("optimade_response_model"),
+                list(generic_parse_result.keys()),
             )
             raise OPTIMADEParseError(base_error_message)
 
-        optimade_response_model_module, optimade_response_model_name = session.get(
-            "optimade_response_model"
+        optimade_response_model_module, optimade_response_model_name = (
+            generic_parse_result.get("optimade_response_model")
         )
-        optimade_response_dict = session.get("optimade_response")
+        optimade_response_dict = generic_parse_result.get("optimade_response")
 
         error_message_supporting_only_structures = (
             "The DLite OPTIMADE Parser currently only supports structures entities."
@@ -235,7 +242,9 @@ class OPTIMADEDLiteParseStrategy:
             raise OPTIMADEParseError(error_message_supporting_only_structures)
 
         # DLite-fy OPTIMADE structures
-        dlite_collection = get_collection(session)
+        dlite_collection = get_collection(
+            collection_id=self.parse_config.configuration.collection_id
+        )
 
         for structure in structures:
             new_structure_attributes: dict[str, Any] = {}
@@ -339,4 +348,4 @@ class OPTIMADEDLiteParseStrategy:
 
         update_collection(collection=dlite_collection)
 
-        return session
+        return generic_parse_result

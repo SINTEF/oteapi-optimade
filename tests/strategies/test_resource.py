@@ -31,14 +31,14 @@ def resource_config() -> dict[str, str]:
 )
 def test_initialize(session: dict | None, resource_config: dict[str, str]) -> None:
     """Test the `initialize()` method."""
-    from oteapi.models import SessionUpdate
+    from oteapi.models import AttrDict
 
     from oteapi_optimade.strategies.resource import OPTIMADEResourceStrategy
 
-    session_update = OPTIMADEResourceStrategy(resource_config).initialize(session)
+    output = OPTIMADEResourceStrategy(resource_config).initialize(session)
 
-    assert isinstance(session_update, SessionUpdate)
-    assert {**session_update} == {}
+    assert isinstance(output, AttrDict)
+    assert {**output} == {}
 
 
 def test_get_no_session(
@@ -47,7 +47,7 @@ def test_get_no_session(
     """Test the `get()` method - session is `None`."""
     from optimade.adapters import Structure
 
-    from oteapi_optimade.models.strategies.resource import OPTIMADEResourceSession
+    from oteapi_optimade.models.strategies.resource import OPTIMADEResourceResult
     from oteapi_optimade.strategies.resource import OPTIMADEResourceStrategy
 
     sample_file = static_files / "optimade_response.json"
@@ -55,7 +55,7 @@ def test_get_no_session(
 
     session = OPTIMADEResourceStrategy(resource_config).get()
 
-    assert isinstance(session, OPTIMADEResourceSession)
+    assert isinstance(session, OPTIMADEResourceResult)
     assert session.optimade_config is None
     assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
     assert session.optimade_resources
@@ -94,7 +94,7 @@ def test_use_dlite(
     from optimade.adapters import Structure
     from oteapi_dlite.utils import get_collection
 
-    from oteapi_optimade.models.strategies.resource import OPTIMADEResourceSession
+    from oteapi_optimade.models.strategies.resource import OPTIMADEResourceResult
     from oteapi_optimade.strategies.resource import OPTIMADEResourceStrategy
 
     sample_file = static_files / "optimade_response.json"
@@ -104,9 +104,9 @@ def test_use_dlite(
     resource_config["configuration"] = {"use_dlite": use_dlite}
 
     session = OPTIMADEResourceStrategy(resource_config).initialize()
-    session = OPTIMADEResourceStrategy(resource_config).get(session)
+    session.update(OPTIMADEResourceStrategy(resource_config).get())
 
-    assert isinstance(session, OPTIMADEResourceSession)
+    assert isinstance(session, OPTIMADEResourceResult)
     assert session.optimade_config is None
     assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
     assert session.optimade_resources

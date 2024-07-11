@@ -4,38 +4,22 @@ from __future__ import annotations
 
 from typing import Annotated, Any, Literal, Optional
 
-from oteapi.models import ResourceConfig, SessionUpdate
+from oteapi.models import AttrDict, ParserConfig
 from pydantic import ConfigDict, Field
 
-from oteapi_optimade.models.config import OPTIMADEConfig
-from oteapi_optimade.models.custom_types import OPTIMADEUrl
+from oteapi_optimade.models.config import OPTIMADEConfig, OPTIMADEDLiteConfig
 
 
-class OPTIMADEParseConfig(ResourceConfig):  # type: ignore[misc]
+class OPTIMADEParseConfig(ParserConfig):
     """OPTIMADE-specific parse strategy config."""
 
-    downloadUrl: Annotated[
-        OPTIMADEUrl,
+    parserType: Annotated[
+        Literal["parser/optimade", "parser/OPTIMADE", "parser/OPTiMaDe"],
         Field(
-            description="Either a base OPTIMADE URL or a full OPTIMADE URL.",
+            description=ParserConfig.model_fields["parserType"].description,
         ),
     ]
-    mediaType: Annotated[
-        Literal[
-            "application/vnd.optimade+json",
-            "application/vnd.OPTIMADE+json",
-            "application/vnd.OPTiMaDe+json",
-            "application/vnd.optimade+JSON",
-            "application/vnd.OPTIMADE+JSON",
-            "application/vnd.OPTiMaDe+JSON",
-            "application/vnd.optimade",
-            "application/vnd.OPTIMADE",
-            "application/vnd.OPTiMaDe",
-        ],
-        Field(
-            description="The registered strategy name for OPTIMADEParseStrategy.",
-        ),
-    ]
+
     configuration: Annotated[
         OPTIMADEConfig,
         Field(
@@ -47,8 +31,8 @@ class OPTIMADEParseConfig(ResourceConfig):  # type: ignore[misc]
     ] = OPTIMADEConfig()
 
 
-class OPTIMADEParseSession(SessionUpdate):  # type: ignore[misc]
-    """OPTIMADE session for the parse strategy."""
+class OPTIMADEParseResult(AttrDict):
+    """OPTIMADE parse strategy result."""
 
     model_config = ConfigDict(validate_assignment=True, arbitrary_types_allowed=True)
 
@@ -79,19 +63,29 @@ class OPTIMADEParseSession(SessionUpdate):  # type: ignore[misc]
     ] = None
 
 
-class OPTIMADEDLiteParseConfig(OPTIMADEParseConfig):
-    """OPTIMADE-specific parse strategy config."""
+class OPTIMADEDLiteParseConfig(ParserConfig):
+    """OPTIMADE-specific parse strategy config when using DLite."""
 
-    mediaType: Annotated[  # type: ignore[assignment]
+    parserType: Annotated[
         Literal[
-            "application/vnd.optimade+dlite",
-            "application/vnd.OPTIMADE+dlite",
-            "application/vnd.OPTiMaDe+dlite",
-            "application/vnd.optimade+DLite",
-            "application/vnd.OPTIMADE+DLite",
-            "application/vnd.OPTiMaDe+DLite",
+            "parser/optimade/dlite",
+            "parser/OPTIMADE/dlite",
+            "parser/OPTiMaDe/dlite",
+            "parser/optimade/DLite",
+            "parser/OPTIMADE/DLite",
+            "parser/OPTiMaDe/DLite",
         ],
         Field(
-            description="The registered strategy name for OPTIMADEDLiteParseStrategy.",
+            description=ParserConfig.model_fields["parserType"].description,
         ),
     ]
+
+    configuration: Annotated[
+        OPTIMADEDLiteConfig,
+        Field(
+            description=(
+                "OPTIMADE configuration when using the DLite-specific strategies. "
+                "Contains relevant information necessary to perform OPTIMADE queries."
+            ),
+        ),
+    ] = OPTIMADEDLiteConfig()
