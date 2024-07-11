@@ -58,9 +58,7 @@ class OPTIMADEFilterStrategy:
                 )
             )
 
-        optimade_config = self.filter_config.configuration.model_copy(
-            exclude={"optimade_config", "downloadUrl", "mediaType"}
-        )
+        optimade_config = self.filter_config.configuration.model_copy()
 
         if not optimade_config.query_parameters:
             optimade_config.query_parameters = OPTIMADEQueryParameters()
@@ -73,7 +71,13 @@ class OPTIMADEFilterStrategy:
             LOGGER.debug("Setting page_limit from limit.")
             optimade_config.query_parameters.page_limit = self.filter_config.limit
 
-        return OPTIMADEFilterResult(optimade_config=optimade_config)
+        return OPTIMADEFilterResult(
+            optimade_config=optimade_config.model_dump(
+                exclude={"optimade_config", "downloadUrl", "mediaType"},
+                exclude_unset=True,
+                exclude_defaults=True,
+            )
+        )
 
     def get(self) -> AttrDict:
         """Execute the strategy.

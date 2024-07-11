@@ -5,13 +5,18 @@ from __future__ import annotations
 from typing import Annotated, Any, Literal, Optional
 
 from oteapi.models import AttrDict, ParserConfig
-from pydantic import ConfigDict, Field
+from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 
 from oteapi_optimade.models.config import OPTIMADEConfig, OPTIMADEDLiteConfig
 
 
 class OPTIMADEParseConfig(ParserConfig):
     """OPTIMADE-specific parse strategy config."""
+
+    entity: Annotated[
+        AnyHttpUrl,
+        Field(description=ParserConfig.model_fields["entity"].description),
+    ] = AnyHttpUrl("http://onto-ns.com/meta/1.0/OPTIMADEStructure")
 
     parserType: Annotated[
         Literal["parser/optimade", "parser/OPTIMADE", "parser/OPTiMaDe"],
@@ -29,6 +34,17 @@ class OPTIMADEParseConfig(ParserConfig):
             ),
         ),
     ] = OPTIMADEConfig()
+
+    @field_validator("entity", mode="after")
+    def _validate_entity(cls, value: AnyHttpUrl) -> AnyHttpUrl:
+        """Validate entity."""
+        supported_entities = {"http://onto-ns.com/meta/1.0/OPTIMADEStructure"}
+        if value not in (AnyHttpUrl(_) for _ in supported_entities):
+            raise ValueError(
+                f"Unsupported entity: {value}. Supported entities: {supported_entities}"
+            )
+
+        return value
 
 
 class OPTIMADEParseResult(AttrDict):
@@ -63,10 +79,10 @@ class OPTIMADEParseResult(AttrDict):
     ] = None
 
 
-class OPTIMADEDLiteParseConfig(ParserConfig):
+class OPTIMADEDLiteParseConfig(OPTIMADEParseConfig):
     """OPTIMADE-specific parse strategy config when using DLite."""
 
-    parserType: Annotated[
+    parserType: Annotated[  # type: ignore[assignment]
         Literal[
             "parser/optimade/dlite",
             "parser/OPTIMADE/dlite",
@@ -80,7 +96,7 @@ class OPTIMADEDLiteParseConfig(ParserConfig):
         ),
     ]
 
-    configuration: Annotated[
+    configuration: Annotated[  # type: ignore[assignment]
         OPTIMADEDLiteConfig,
         Field(
             description=(

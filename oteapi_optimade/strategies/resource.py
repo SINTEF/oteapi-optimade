@@ -20,7 +20,6 @@ from optimade.models import (
 from oteapi.datacache import DataCache
 from oteapi.models import AttrDict
 from oteapi.plugins import create_strategy
-from oteapi.plugins.entry_points import StrategyType
 from pydantic import ValidationError
 from pydantic.dataclasses import dataclass
 
@@ -37,7 +36,16 @@ from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
 if TYPE_CHECKING:  # pragma: no cover
+    from typing import Any, TypedDict
+
     from optimade.models import Response as OPTIMADEResponse
+
+    class ParseConfigDict(TypedDict):
+        """Type definition for the `parse_config` dictionary."""
+
+        entity: str
+        parserType: str
+        configuration: dict[str, Any]
 
 
 LOGGER = logging.getLogger("oteapi_optimade.strategies")
@@ -215,22 +223,27 @@ class OPTIMADEResourceStrategy:
         elif optimade_query.response_format:
             parse_mediaType += f"+{optimade_query.response_format}"
 
-        parse_config = {
+        parse_config: ParseConfigDict = {
+            "entity": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
             "parserType": parse_parserType,
             "configuration": {
                 "datacache_config": self.resource_config.configuration.datacache_config.model_copy(),
                 "downloadUrl": str(optimade_url),
                 "mediaType": parse_mediaType,
-                "optimade_config": self.resource_config.configuration.model_copy(
-                    exclude={"optimade_config", "downloadUrl", "mediaType"}
+                "optimade_config": self.resource_config.configuration.model_dump(
+                    exclude={"optimade_config", "downloadUrl", "mediaType"},
+                    exclude_unset=True,
+                    exclude_defaults=True,
                 ),
             },
         }
 
         LOGGER.debug("parse_config: %r", parse_config)
 
-        parse_result = create_strategy(StrategyType.PARSE, parse_config).initialize()
-        parse_result.update(create_strategy(StrategyType.PARSE, parse_config).get())
+        parse_config["configuration"].update(
+            create_strategy("parse", parse_config).initialize()
+        )
+        parse_result = create_strategy("parse", parse_config).get()
 
         if not all(
             _ in parse_result for _ in ("optimade_response", "optimade_response_model")

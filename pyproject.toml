@@ -29,11 +29,13 @@ dynamic = ["version"]
 
 dependencies = [
     "DLite-Python >=0.5.16,<1",
+    "eval-type-backport ~=0.2.0",
     "optimade[server] ~=1.0",
     "oteapi-core ~=0.7.0.dev2",
     # "oteapi-dlite >=0.2.0,<1",
     "oteapi-dlite-mod @ git+https://github.com/SINTEF/oteapi-dlite-Mod.git@master#egg=oteapi-dlite-mod",
     "requests ~=2.32",
+    "typing-extensions ~=4.12; python_version < '3.10'",
 ]
 
 [project.optional-dependencies]
@@ -76,12 +78,12 @@ Package = "https://pypi.org/project/oteapi-optimade"
 "oteapi_optimade.parser/optimade" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
 "oteapi_optimade.parser/OPTIMADE" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
 "oteapi_optimade.parser/OPTiMaDe" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.parser/optimade/dlite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.parser/OPTIMADE/dlite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.parser/OPTiMaDe/dlite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.parser/optimade/DLite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.parser/OPTIMADE/DLite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
-"oteapi_optimade.parser/OPTiMaDe/DLite" = "oteapi_optimade.strategies.parse:OPTIMADEParseStrategy"
+"oteapi_optimade.parser/optimade/dlite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.parser/OPTIMADE/dlite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.parser/OPTiMaDe/dlite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.parser/optimade/DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.parser/OPTIMADE/DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
+"oteapi_optimade.parser/OPTiMaDe/DLite" = "oteapi_optimade.dlite.parse:OPTIMADEDLiteParseStrategy"
 
 [project.entry-points."oteapi.resource"]
 "oteapi_optimade.optimade" = "oteapi_optimade.strategies.resource:OPTIMADEResourceStrategy"
@@ -140,6 +142,8 @@ extend-select = [
 ]
 ignore = [
   "PLR",  # Design related pylint codes
+  "EM101",  # Using a literal string in error messages
+  "EM102",  # Using f-strings in error messages
 ]
 isort.required-imports = ["from __future__ import annotations"]
 
@@ -152,10 +156,4 @@ addopts = "-rs --cov=oteapi_optimade --cov-report=term-missing:skip-covered --no
 filterwarnings = [
     # Fail on any warning
     "error",
-
-    # Except the following:
-
-    # reset_field() from oteapi.models.AttrDict implements the previous behaviour of
-    # __delattr__().
-    "ignore:.*reset_field().*:DeprecationWarning",
 ]

@@ -95,21 +95,22 @@ class OPTIMADEDLiteParseStrategy:
             context from services.
 
         """
-        generic_parse_specific_config = self.parse_config.configuration.model_copy(
-            update={
-                "mediaType": self.parse_config.configuration.mediaType.lower().replace(
-                    "+dlite", "+json"
-                )
-            }
-        ).model_dump(exclude_unset=True)
         generic_parse_config = self.parse_config.model_copy(
             update={
                 "parserType": self.parse_config.parserType.lower().replace(
                     "/dlite", ""
                 ),
-                "configuration": generic_parse_specific_config,
+                "configuration": self.parse_config.configuration.model_copy(
+                    update={
+                        "mediaType": self.parse_config.configuration.get(
+                            "mediaType", ""
+                        )
+                        .lower()
+                        .replace("+dlite", "+json")
+                    }
+                ),
             }
-        ).model_dump(exclude_unset=True)
+        ).model_dump(exclude_unset=True, exclude_defaults=True)
         generic_parse_result = OPTIMADEParseStrategy(generic_parse_config).get()
 
         entities_path = Path(__file__).resolve().parent.resolve() / "entities"
@@ -308,7 +309,9 @@ class OPTIMADEDLiteParseStrategy:
             # Attributes
             new_structure_attributes.update(
                 structure.attributes.model_dump(
-                    exclude={"species", "assemblies", "nelements", "nsites"}
+                    exclude={"species", "assemblies", "nelements", "nsites"},
+                    exclude_unset=True,
+                    exclude_defaults=True,
                 )
             )
             for key in list(new_structure_attributes):

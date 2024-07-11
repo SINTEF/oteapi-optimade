@@ -72,6 +72,14 @@ class OPTIMADEParseStrategy:
             context from services.
 
         """
+        if (
+            self.parse_config.configuration.downloadUrl is None
+            or self.parse_config.configuration.mediaType is None
+        ):
+            raise OPTIMADEParseError(
+                "Missing downloadUrl or mediaType in configuration."
+            )
+
         cache = DataCache(self.parse_config.configuration.datacache_config)
         if self.parse_config.configuration.downloadUrl in cache:
             response: dict[str, Any] = cache.get(
