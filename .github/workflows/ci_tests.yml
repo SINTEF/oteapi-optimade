@@ -21,7 +21,14 @@ jobs:
       # pylint & safety
       python_version_pylint_safety: "3.9"
       run_pylint: false
+
       run_safety: true
+      # ID: 70612
+      #   Package: Jinja2
+      #   Has been disputed by the maintainer and multiple third parties.
+      #   For more information see: https://github.com/advisories/GHSA-f6pv-j8mr-w6rr
+      safety_options: |
+        --ignore=70612
 
       # Build dist
       python_version_package: "3.9"
