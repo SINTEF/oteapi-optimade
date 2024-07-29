@@ -45,7 +45,7 @@ doc = [
     "mkdocs-awesome-pages-plugin ~=2.9",
     "mkdocs-jupyter ~=0.24.8",
     "mkdocs-material >=9.5.5,<10",
-    "mkdocstrings[python-legacy] ~=0.25.1",
+    "mkdocstrings[python-legacy] ~=0.25.2",
     "oteapi-optimade[examples]",
 ]
 test = [
@@ -54,7 +54,7 @@ test = [
     "pyyaml ~=6.0",
     "requests-mock ~=1.12",
 ]
-pre-commit = ["pre-commit ~=3.7"]
+pre-commit = ["pre-commit ~=3.8"]
 dev = ["oteapi-optimade[doc,examples,pre-commit,test]"]
 
 [project.urls]
