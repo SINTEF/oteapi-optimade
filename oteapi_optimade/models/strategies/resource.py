@@ -2,23 +2,26 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Any, Literal, Optional
+from typing import Annotated, Any, Literal, Optional, Union
 
-from oteapi.models import ResourceConfig, SessionUpdate
+from oteapi.models import AttrDict, ResourceConfig
 from pydantic import ConfigDict, Field
 
-from oteapi_optimade.models.config import OPTIMADEConfig
+from oteapi_optimade.models.config import OPTIMADEConfig, OPTIMADEDLiteConfig
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 
 
-class OPTIMADEResourceConfig(ResourceConfig):  # type: ignore[misc]
+class OPTIMADEResourceConfig(ResourceConfig):
     """OPTIMADE-specific resource strategy config."""
 
+    resourceType: Annotated[
+        # later OPTIMADE/references and more should be added
+        Literal["optimade/structures", "OPTIMADE/structures", "OPTiMaDe/structures"],
+        Field(description=ResourceConfig.model_fields["resourceType"].description),
+    ]
     accessUrl: Annotated[
         OPTIMADEUrl,
-        Field(
-            description="Either a base OPTIMADE URL or a full OPTIMADE URL.",
-        ),
+        Field(description="Either a base OPTIMADE URL or a full OPTIMADE URL."),
     ]
     accessService: Annotated[
         Literal[
@@ -37,7 +40,7 @@ class OPTIMADEResourceConfig(ResourceConfig):  # type: ignore[misc]
         ),
     ]
     configuration: Annotated[
-        OPTIMADEConfig,
+        Union[OPTIMADEConfig | OPTIMADEDLiteConfig],
         Field(
             description=(
                 "OPTIMADE configuration. Contains relevant information necessary to "
@@ -47,7 +50,7 @@ class OPTIMADEResourceConfig(ResourceConfig):  # type: ignore[misc]
     ] = OPTIMADEConfig()
 
 
-class OPTIMADEResourceSession(SessionUpdate):  # type: ignore[misc]
+class OPTIMADEResourceResult(AttrDict):
     """OPTIMADE session for the resource strategy."""
 
     model_config = ConfigDict(validate_assignment=True, arbitrary_types_allowed=True)

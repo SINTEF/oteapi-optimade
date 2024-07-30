@@ -54,7 +54,7 @@ def main(oteapi_url: str) -> None:
     from otelib import OTEClient
     from pydantic import ValidationError
 
-    from oteapi_optimade.models import OPTIMADEResourceSession
+    from oteapi_optimade.models import OPTIMADEResourceResult
 
     client = OTEClient(oteapi_url)
 
@@ -66,24 +66,25 @@ def main(oteapi_url: str) -> None:
     }
 
     source = client.create_dataresource(
+        resourceType="OPTIMADE/structures",
         accessService="OPTIMADE",
         accessUrl=OPTIMADE_URL,
         configuration=config,
     )
 
-    session = source.get()
+    output = source.get()
 
     error_message = "Could not parse returned session as an OPTIMADEResourceStrategy."
 
     try:
-        session = OPTIMADEResourceSession(**json.loads(session))
+        output = OPTIMADEResourceResult(**json.loads(output))
     except ValidationError as exc_:
         raise RuntimeError(error_message) from exc_
 
-    assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
-    assert len(session.optimade_resources) == 2
+    assert output.optimade_resource_model == f"{Structure.__module__}:Structure"
+    assert len(output.optimade_resources) == 2
 
-    for resource in tuple(session.optimade_resources):
+    for resource in tuple(output.optimade_resources):
         parsed_resource = Structure(resource)
         assert parsed_resource.id in ["mpf_1", "mpf_110"]
 
@@ -96,18 +97,18 @@ def main(oteapi_url: str) -> None:
     )
 
     pipeline = query >> source
-    session = pipeline.get()
+    output = pipeline.get()
 
     try:
-        # Should be an OPTIMADEResourceSession because `source` is last in the pipeline
-        session = OPTIMADEResourceSession(**json.loads(session))
+        # Should be an OPTIMADEResourceResult because `source` is last in the pipeline
+        output = OPTIMADEResourceResult(**json.loads(output))
     except ValidationError as exc_:
         raise RuntimeError(error_message) from exc_
 
-    assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
-    assert len(session.optimade_resources) == 4
+    assert output.optimade_resource_model == f"{Structure.__module__}:Structure"
+    assert len(output.optimade_resources) == 4
 
-    for resource in tuple(session.optimade_resources):
+    for resource in tuple(output.optimade_resources):
         parsed_resource = Structure(resource)
         assert parsed_resource.id in [
             "mpf_1",

@@ -30,9 +30,10 @@ def test_parse(static_files: Path) -> None:
         '?filter=elements HAS ALL "Si","O"&sort=nelements&page_limit=2'
     )
     config = {
-        "mediaType": "application/vnd.OPTIMADE+DLite",
-        "downloadUrl": url,
+        "parserType": "parser/OPTIMADE/DLite",
         "configuration": {
+            "mediaType": "application/vnd.OPTIMADE+DLite",
+            "downloadUrl": url,
             "datacache_config": {
                 "expireTime": 60 * 60 * 24,
                 "tag": "optimade",
@@ -52,11 +53,12 @@ def test_parse(static_files: Path) -> None:
         }
     )
 
-    session = OPTIMADEDLiteParseStrategy(config).initialize({})
-    session = OPTIMADEDLiteParseStrategy(config).get(session)
+    config["configuration"].update(OPTIMADEDLiteParseStrategy(config).initialize())
+    config["configuration"].update(OPTIMADEDLiteParseStrategy(config).get())
 
-    dlite_collection = get_collection(session)
-    assert dlite_collection
+    dlite_collection = get_collection(
+        collection_id=config["configuration"]["collection_id"]
+    )
 
     assert len(list(dlite_collection.get_labels())) == len(response_json["data"])
 

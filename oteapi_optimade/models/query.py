@@ -31,19 +31,25 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         Field(
             description=QUERY_PARAMETERS["annotations"]["filter"].description,
         ),
-    ] = QUERY_PARAMETERS["defaults"].filter
+    ] = (
+        QUERY_PARAMETERS["defaults"].filter or None
+    )
     response_format: Annotated[
         Optional[str],
         Field(
             description=QUERY_PARAMETERS["annotations"]["response_format"].description,
         ),
-    ] = QUERY_PARAMETERS["defaults"].response_format
+    ] = (
+        QUERY_PARAMETERS["defaults"].response_format or None
+    )
     email_address: Annotated[
         Optional[EmailStr],
         Field(
             description=QUERY_PARAMETERS["annotations"]["email_address"].description,
         ),
-    ] = QUERY_PARAMETERS["defaults"].email_address
+    ] = (
+        QUERY_PARAMETERS["defaults"].email_address or None
+    )
     response_fields: Annotated[
         Optional[str],
         Field(
@@ -52,28 +58,36 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
             .metadata[0]
             .pattern,
         ),
-    ] = QUERY_PARAMETERS["defaults"].response_fields
+    ] = (
+        QUERY_PARAMETERS["defaults"].response_fields or None
+    )
     sort: Annotated[
         Optional[str],
         Field(
             description=QUERY_PARAMETERS["annotations"]["sort"].description,
             pattern=QUERY_PARAMETERS["annotations"]["sort"].metadata[0].pattern,
         ),
-    ] = QUERY_PARAMETERS["defaults"].sort
+    ] = (
+        QUERY_PARAMETERS["defaults"].sort or None
+    )
     page_limit: Annotated[
         Optional[int],
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_limit"].description,
             ge=QUERY_PARAMETERS["annotations"]["page_limit"].metadata[0].ge,
         ),
-    ] = QUERY_PARAMETERS["defaults"].page_limit
+    ] = (
+        QUERY_PARAMETERS["defaults"].page_limit or None
+    )
     page_offset: Annotated[
         Optional[int],
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_offset"].description,
             ge=QUERY_PARAMETERS["annotations"]["page_offset"].metadata[0].ge,
         ),
-    ] = QUERY_PARAMETERS["defaults"].page_offset
+    ] = (
+        QUERY_PARAMETERS["defaults"].page_offset or None
+    )
     page_number: Annotated[
         Optional[int],
         Field(
@@ -82,32 +96,42 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
             # This constraint is only 'RECOMMENDED' in the specification, so should not
             # be included here or in the OpenAPI schema.
         ),
-    ] = QUERY_PARAMETERS["defaults"].page_number
+    ] = (
+        QUERY_PARAMETERS["defaults"].page_number or None
+    )
     page_cursor: Annotated[
         Optional[int],
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_cursor"].description,
             ge=QUERY_PARAMETERS["annotations"]["page_cursor"].metadata[0].ge,
         ),
-    ] = QUERY_PARAMETERS["defaults"].page_cursor
+    ] = (
+        QUERY_PARAMETERS["defaults"].page_cursor or None
+    )
     page_above: Annotated[
         Optional[int],
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_above"].description,
         ),
-    ] = QUERY_PARAMETERS["defaults"].page_above
+    ] = (
+        QUERY_PARAMETERS["defaults"].page_above or None
+    )
     page_below: Annotated[
         Optional[int],
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_below"].description,
         ),
-    ] = QUERY_PARAMETERS["defaults"].page_below
+    ] = (
+        QUERY_PARAMETERS["defaults"].page_below or None
+    )
     include: Annotated[
         Optional[str],
         Field(
             description=QUERY_PARAMETERS["annotations"]["include"].description,
         ),
-    ] = QUERY_PARAMETERS["defaults"].include
+    ] = (
+        QUERY_PARAMETERS["defaults"].include or None
+    )
     # api_hint is not yet initialized in `EntryListingQueryParams`.
     # These values are copied verbatim from `optimade==0.16.10`.
     api_hint: Annotated[
