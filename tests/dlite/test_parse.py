@@ -22,8 +22,8 @@ def test_parse(static_files: Path) -> None:
     from oteapi.datacache import DataCache
     from oteapi_dlite.utils import get_collection
 
-    from oteapi_optimade.dlite.parse import OPTIMADEDLiteParseStrategy
     from oteapi_optimade.models.custom_types import OPTIMADEUrl
+    from oteapi_optimade.soft.dlite_parse import OPTIMADEDLiteParseStrategy
 
     url = OPTIMADEUrl(
         "https://example.org/some/base/v0.1/optimade/v1/structures"
