@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from requests_mock import Mocker
 
 
-@pytest.fixture()
+@pytest.fixture
 def resource_config() -> dict[str, str]:
     """A resource config dictionary for test purposes."""
     return {
