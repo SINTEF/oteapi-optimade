@@ -149,7 +149,13 @@ ignore = [
 isort.required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["T20"]
+"docs/examples/**" = [
+    "I002",  # required imports
+    "T20",  # print statements
+]
+"tests/**" = [
+    "T20",  # print statements
+]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
