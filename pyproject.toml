@@ -36,7 +36,7 @@ dependencies = [
 
 [project.optional-dependencies]
 examples = [
-    "jupyter ~=1.0",
+    "jupyter ~=1.1",
     "otelib ~=0.4.1",
 ]
 doc = [
@@ -45,7 +45,7 @@ doc = [
     "mkdocs-awesome-pages-plugin ~=2.9",
     "mkdocs-jupyter ~=0.24.8",
     "mkdocs-material >=9.5.5,<10",
-    "mkdocstrings[python-legacy] ~=0.25.2",
+    "mkdocstrings[python-legacy] ~=0.26.0",
     "oteapi-optimade[examples]",
 ]
 test = [
