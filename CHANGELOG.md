@@ -1,5 +1,27 @@
 # Changelog
 
+## [Unreleased](https://github.com/SINTEF/oteapi-optimade/tree/HEAD)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.1...HEAD)
+
+**Fixed bugs:**
+
+- Use Trusted Publishers with PyPI [\#252](https://github.com/SINTEF/oteapi-optimade/issues/252)
+
+## [v0.5.1](https://github.com/SINTEF/oteapi-optimade/tree/v0.5.1) (2024-09-03)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.0...v0.5.1)
+
+## Update to latest dependencies
+
+Update dependencies to support the latest core libraries.
+
+This release is done almost immediately prior to the v0.6.0.dev0 release, which will support the upcoming re-design of OTEAPI Core and the use of sessions.
+
+**Merged pull requests:**
+
+- Use Trusted Publishers for publishing on PyPI [\#253](https://github.com/SINTEF/oteapi-optimade/pull/253) ([CasperWA](https://github.com/CasperWA))
+
 ## [v0.5.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.5.0) (2024-03-07)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.2...v0.5.0)
