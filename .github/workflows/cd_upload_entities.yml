@@ -1,0 +1,65 @@
+name: CD - Upload Entities
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  update-public-entities:
+    name: Update public entities
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'SINTEF'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U setuptools wheel
+          pip install -r .github/utils/requirements_upload.txt
+
+      - name: Check 'entities-service' CLI version
+        run: entities-service --version
+
+      - name: Gather Entities
+        id: gather_entities
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            SHA_BEFORE="${{ github.event.before }}"
+          else
+            SHA_BEFORE="${{ github.event.pull_request.base.sha }}"
+          fi
+
+          git diff --name-only ${SHA_BEFORE} | grep -E '^oteapi_optimade/dlite/entities/.*\.ya?ml$' > entities.txt ||:
+
+          if [ -s entities.txt ]; then
+            echo "relevant_entities=true" >> $GITHUB_OUTPUT
+
+            echo "Relevant Entities:"
+            cat entities.txt
+          else
+            echo "relevant_entities=false" >> $GITHUB_OUTPUT
+
+            echo "No entities to validate (and upload)."
+            exit 0
+          fi
+
+      - name: Validate Entities
+        if: steps.gather_entities.outputs.relevant_entities == 'true'
+        run: cat entities.txt | entities-service validate --strict --format=yaml -
+
+      - name: Upload Entities
+        if: steps.gather_entities.outputs.relevant_entities == 'true' && github.event_name == 'push' && github.ref_name == 'main'
+        run: cat entities.txt | entities-service upload --auto-confirm --strict --format=yaml -
+        env:
+          ENTITIES_SERVICE_ACCESS_TOKEN: ${{ secrets.ENTITIES_SERVICE_ACCESS_TOKEN }}
