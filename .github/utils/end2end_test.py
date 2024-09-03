@@ -133,11 +133,11 @@ if __name__ == "__main__":
     # Configuration
     PORT = os.getenv("OTEAPI_PORT", "8080")
     OTEAPI_SERVICE_URL = f"http://localhost:{PORT}"
-    OTEAPI_PREFIX = os.getenv("OTEAPI_prefix", "/api/v1")  # noqa: SIM112
+    OTEAPI_PREFIX = os.getenv("OTEAPI_PREFIX", "/api/v1")
     OPTIMADE_URL = f"http://{os.getenv('OPTIMADE_HOST', 'localhost')}:{os.getenv('OPTIMADE_PORT', '5000')}/"
-    if "OTEAPI_prefix" not in os.environ:
+    if "OTEAPI_PREFIX" not in os.environ:
         # Set environment variables
-        os.environ["OTEAPI_prefix"] = OTEAPI_PREFIX  # noqa: SIM112
+        os.environ["OTEAPI_PREFIX"] = OTEAPI_PREFIX
 
     try:
         _check_service_availability(service_url=OTEAPI_SERVICE_URL)
