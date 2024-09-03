@@ -860,7 +860,7 @@
         <li class="md-nav__item">
   <a href="#oteapi_optimade.strategies.parse" class="md-nav__link">
     <span class="md-ellipsis">
-      oteapi_optimade.strategies.parse
+      parse
     </span>
   </a>
   
@@ -879,7 +879,7 @@
           <li class="md-nav__item">
   <a href="#oteapi_optimade.strategies.parse.OPTIMADEParseStrategy.get" class="md-nav__link">
     <span class="md-ellipsis">
-      get()
+      get
     </span>
   </a>
   
@@ -888,7 +888,7 @@
           <li class="md-nav__item">
   <a href="#oteapi_optimade.strategies.parse.OPTIMADEParseStrategy.initialize" class="md-nav__link">
     <span class="md-ellipsis">
-      initialize()
+      initialize
     </span>
   </a>
   
@@ -973,7 +973,7 @@
         <li class="md-nav__item">
   <a href="#oteapi_optimade.strategies.parse" class="md-nav__link">
     <span class="md-ellipsis">
-      oteapi_optimade.strategies.parse
+      parse
     </span>
   </a>
   
@@ -992,7 +992,7 @@
           <li class="md-nav__item">
   <a href="#oteapi_optimade.strategies.parse.OPTIMADEParseStrategy.get" class="md-nav__link">
     <span class="md-ellipsis">
-      get()
+      get
     </span>
   </a>
   
@@ -1001,7 +1001,7 @@
           <li class="md-nav__item">
   <a href="#oteapi_optimade.strategies.parse.OPTIMADEParseStrategy.initialize" class="md-nav__link">
     <span class="md-ellipsis">
-      initialize()
+      initialize
     </span>
   </a>
   
@@ -1033,12 +1033,14 @@
 <h1 id="parse">parse<a class="headerlink" href="#parse" title="Permanent link">&para;</a></h1>
 
 
-  <div class="doc doc-object doc-module">
+<div class="doc doc-object doc-module">
+
+
 
 <a id="oteapi_optimade.strategies.parse"></a>
     <div class="doc doc-contents first">
 
-      <p>Demo strategy class for text/json.</p>
+        <p>Demo strategy class for text/json.</p>
 
 
 
@@ -1051,81 +1053,215 @@
 
 
 
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.strategies.parse.OPTIMADEParseStrategy" class="doc doc-heading">
-        <code>
-OPTIMADEParseStrategy        </code>
+            <code>OPTIMADEParseStrategy</code>
 
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-dataclass"><code>dataclass</code></small>
-  </span>
 
 <a href="#oteapi_optimade.strategies.parse.OPTIMADEParseStrategy" class="headerlink" title="Permanent link">&para;</a></h2>
 
+
     <div class="doc doc-contents ">
 
-      <p>Parse strategy for JSON.</p>
+
+        <p>Parse strategy for JSON.</p>
 <p><strong>Implements strategies</strong>:</p>
 <ul>
-<li><code>("mediaType", "application/vnd.optimade+json")</code></li>
-<li><code>("mediaType", "application/vnd.OPTIMADE+json")</code></li>
-<li><code>("mediaType", "application/vnd.OPTiMaDe+json")</code></li>
-<li><code>("mediaType", "application/vnd.optimade+JSON")</code></li>
-<li><code>("mediaType", "application/vnd.OPTIMADE+JSON")</code></li>
-<li><code>("mediaType", "application/vnd.OPTiMaDe+JSON")</code></li>
-<li><code>("mediaType", "application/vnd.optimade")</code></li>
-<li><code>("mediaType", "application/vnd.OPTIMADE")</code></li>
-<li><code>("mediaType", "application/vnd.OPTiMaDe")</code></li>
+<li><code>("parserType", "parser/OPTIMADE")</code></li>
 </ul>
 
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/strategies/parse.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
+              <details class="quote">
+                <summary>Source code in <code>oteapi_optimade/strategies/parse.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OPTIMADEParseStrategy</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse strategy for JSON.</span>
 
 <span class="sd">    **Implements strategies**:</span>
 
-<span class="sd">    - `(&quot;mediaType&quot;, &quot;application/vnd.optimade+json&quot;)`</span>
-<span class="sd">    - `(&quot;mediaType&quot;, &quot;application/vnd.OPTIMADE+json&quot;)`</span>
-<span class="sd">    - `(&quot;mediaType&quot;, &quot;application/vnd.OPTiMaDe+json&quot;)`</span>
-<span class="sd">    - `(&quot;mediaType&quot;, &quot;application/vnd.optimade+JSON&quot;)`</span>
-<span class="sd">    - `(&quot;mediaType&quot;, &quot;application/vnd.OPTIMADE+JSON&quot;)`</span>
-<span class="sd">    - `(&quot;mediaType&quot;, &quot;application/vnd.OPTiMaDe+JSON&quot;)`</span>
-<span class="sd">    - `(&quot;mediaType&quot;, &quot;application/vnd.optimade&quot;)`</span>
-<span class="sd">    - `(&quot;mediaType&quot;, &quot;application/vnd.OPTIMADE&quot;)`</span>
-<span class="sd">    - `(&quot;mediaType&quot;, &quot;application/vnd.OPTiMaDe&quot;)`</span>
+<span class="sd">    - `(&quot;parserType&quot;, &quot;parser/OPTIMADE&quot;)`</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">parse_config</span><span class="p">:</span> <span class="n">OPTIMADEParseConfig</span>
 
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">session</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: ARG002</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SessionUpdate</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AttrDict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
 
 <span class="sd">        This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">        Services.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            session: A session-specific dictionary context.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">            context from services.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">SessionUpdate</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">AttrDict</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">SessionUpdate</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEParseSession</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEParseResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Request and parse an OPTIMADE response using OPT.</span>
 
 <span class="sd">        This method will be called through the strategy-specific endpoint of the</span>
@@ -1139,33 +1275,24 @@ OPTIMADEParseStrategy        </code>
 <span class="sd">        1. Request OPTIMADE response.</span>
 <span class="sd">        2. Parse as an OPTIMADE Python tools (OPT) pydantic response model.</span>
 
-<span class="sd">        Parameters:</span>
-<span class="sd">            session: A session-specific dictionary-like context.</span>
-
 <span class="sd">        Returns:</span>
 <span class="sd">            An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">            context from services.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">session</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">session</span> <span class="o">=</span> <span class="n">OPTIMADEParseSession</span><span class="p">(</span><span class="o">**</span><span class="n">session</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">session</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">SessionUpdate</span><span class="p">):</span>
-            <span class="n">session</span> <span class="o">=</span> <span class="n">OPTIMADEParseSession</span><span class="p">(</span>
-                <span class="o">**</span><span class="n">session</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">session</span> <span class="o">=</span> <span class="n">OPTIMADEParseSession</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
-                    <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span>
-                <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">mediaType</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
+                <span class="s2">&quot;Missing downloadUrl or mediaType in configuration.&quot;</span>
             <span class="p">)</span>
 
         <span class="n">cache</span> <span class="o">=</span> <span class="n">DataCache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
-            <span class="n">response</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+            <span class="n">response</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span>
+            <span class="p">)</span>
         <span class="k">elif</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="o">.</span><span class="n">accessKey</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="o">.</span><span class="n">accessKey</span> <span class="ow">in</span> <span class="n">cache</span>
@@ -1174,19 +1301,9 @@ OPTIMADEParseStrategy        </code>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="o">.</span><span class="n">accessKey</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">download_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">()</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                <span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategyType</span><span class="o">.</span><span class="n">DOWNLOAD</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span>
-                    <span class="n">session</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                <span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategyType</span><span class="o">.</span><span class="n">DOWNLOAD</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                    <span class="n">session</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-
-            <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;json&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)))}</span>
+            <span class="n">download_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_copy</span><span class="p">()</span>
+            <span class="n">download_output</span> <span class="o">=</span> <span class="n">create_strategy</span><span class="p">(</span><span class="s2">&quot;download&quot;</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;json&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">download_output</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)))}</span>
 
         <span class="k">if</span> <span class="p">(</span>
             <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -1210,7 +1327,9 @@ OPTIMADEParseStrategy        </code>
                 <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Successful response</span>
-            <span class="n">response_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">response_model</span><span class="p">()</span>
+            <span class="n">response_model</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">response_model</span><span class="p">()</span>
+            <span class="p">)</span>
             <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;response_model=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">response_model</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response_model</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
@@ -1228,7 +1347,7 @@ OPTIMADEParseStrategy        </code>
                     <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                         <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="s2">&quot;response_models=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
                         <span class="n">error_message</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
                         <span class="n">response_model</span><span class="p">,</span>
                         <span class="n">response</span><span class="p">,</span>
                     <span class="p">)</span>
@@ -1245,25 +1364,31 @@ OPTIMADEParseStrategy        </code>
                         <span class="s2">&quot;URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">endpoint=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
                         <span class="n">error_message</span><span class="p">,</span>
                         <span class="n">exc</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span>
                         <span class="n">response_model</span><span class="p">,</span>
                         <span class="n">response</span><span class="p">,</span>
                     <span class="p">)</span>
                     <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
 
-        <span class="n">session</span><span class="o">.</span><span class="n">optimade_response_model</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">response_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
-            <span class="n">response_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">OPTIMADEParseResult</span><span class="p">(</span>
+            <span class="n">model_config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
+            <span class="n">optimade_response_model</span><span class="o">=</span><span class="p">(</span>
+                <span class="n">response_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
+                <span class="n">response_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">optimade_response</span><span class="o">=</span><span class="n">response_object</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="p">)</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">optimade_response</span> <span class="o">=</span> <span class="n">response_object</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span> <span class="ow">and</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="p">:</span>
-            <span class="n">session</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span>
+        <span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
                 <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                    <span class="s2">&quot;optimade_config&quot;</span><span class="p">:</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
+                    <span class="s2">&quot;optimade_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
                         <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                            <span class="s2">&quot;query_parameters&quot;</span><span class="p">:</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
+                            <span class="s2">&quot;query_parameters&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
                                 <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                 <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="p">)</span>
@@ -1272,12 +1397,9 @@ OPTIMADEParseStrategy        </code>
                 <span class="p">}</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">OPTIMADEParseSession</span><span class="p">)</span>  <span class="c1"># nosec</span>
-
-        <span class="k">return</span> <span class="n">session</span>
-</code></pre></div>
-        </details>
+        <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -1291,21 +1413,18 @@ OPTIMADEParseStrategy        </code>
 
 
 
-
-
-  <div class="doc doc-object doc-method">
-
+<div class="doc doc-object doc-function">
 
 
 <h3 id="oteapi_optimade.strategies.parse.OPTIMADEParseStrategy.get" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
+            <code class="highlight language-python"><span class="n">get</span><span class="p">()</span></code>
 
 <a href="#oteapi_optimade.strategies.parse.OPTIMADEParseStrategy.get" class="headerlink" title="Permanent link">&para;</a></h3>
 
+
     <div class="doc doc-contents ">
 
-      <p>Request and parse an OPTIMADE response using OPT.</p>
+        <p>Request and parse an OPTIMADE response using OPT.</p>
 <p>This method will be called through the strategy-specific endpoint of the
 OTE-API Services.</p>
 <p>Configuration values provided in <code>resource_config.configuration</code> take
@@ -1316,46 +1435,178 @@ precedence over the derived values from <code>downloadUrl</code>.</p>
 <li>Parse as an OPTIMADE Python tools (OPT) pydantic response model.</li>
 </ol>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>session</code></td>
-        <td><code>SessionUpdate | dict[str, Any] | None</code></td>
-        <td><p>A session-specific dictionary-like context.</p></td>
-        <td><code>None</code></td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>OPTIMADEParseSession</code></td>
-      <td><p>An update model of key/value-pairs to be stored in the session-specific
-context from services.</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/strategies/parse.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">SessionUpdate</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEParseSession</span><span class="p">:</span>
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="oteapi_optimade.models.OPTIMADEParseResult" href="../../models/strategies/parse/#oteapi_optimade.models.strategies.parse.OPTIMADEParseResult">OPTIMADEParseResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>An update model of key/value-pairs to be stored in the session-specific</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="oteapi_optimade.models.OPTIMADEParseResult" href="../../models/strategies/parse/#oteapi_optimade.models.strategies.parse.OPTIMADEParseResult">OPTIMADEParseResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>context from services.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+            <details class="quote">
+              <summary>Source code in <code>oteapi_optimade/strategies/parse.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEParseResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Request and parse an OPTIMADE response using OPT.</span>
 
 <span class="sd">    This method will be called through the strategy-specific endpoint of the</span>
@@ -1369,33 +1620,24 @@ context from services.</p></td>
 <span class="sd">    1. Request OPTIMADE response.</span>
 <span class="sd">    2. Parse as an OPTIMADE Python tools (OPT) pydantic response model.</span>
 
-<span class="sd">    Parameters:</span>
-<span class="sd">        session: A session-specific dictionary-like context.</span>
-
 <span class="sd">    Returns:</span>
 <span class="sd">        An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">        context from services.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">session</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="n">OPTIMADEParseSession</span><span class="p">(</span><span class="o">**</span><span class="n">session</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">session</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">SessionUpdate</span><span class="p">):</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="n">OPTIMADEParseSession</span><span class="p">(</span>
-            <span class="o">**</span><span class="n">session</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="n">OPTIMADEParseSession</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
-                <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span>
-            <span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">mediaType</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
+            <span class="s2">&quot;Missing downloadUrl or mediaType in configuration.&quot;</span>
         <span class="p">)</span>
 
     <span class="n">cache</span> <span class="o">=</span> <span class="n">DataCache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">)</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
-        <span class="n">response</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+        <span class="n">response</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span>
+        <span class="p">)</span>
     <span class="k">elif</span> <span class="p">(</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="o">.</span><span class="n">accessKey</span>
         <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="o">.</span><span class="n">accessKey</span> <span class="ow">in</span> <span class="n">cache</span>
@@ -1404,19 +1646,9 @@ context from services.</p></td>
             <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="o">.</span><span class="n">accessKey</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">download_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">()</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-            <span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategyType</span><span class="o">.</span><span class="n">DOWNLOAD</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span>
-                <span class="n">session</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-            <span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategyType</span><span class="o">.</span><span class="n">DOWNLOAD</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="n">session</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-
-        <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;json&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)))}</span>
+        <span class="n">download_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_copy</span><span class="p">()</span>
+        <span class="n">download_output</span> <span class="o">=</span> <span class="n">create_strategy</span><span class="p">(</span><span class="s2">&quot;download&quot;</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;json&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">download_output</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)))}</span>
 
     <span class="k">if</span> <span class="p">(</span>
         <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -1440,7 +1672,9 @@ context from services.</p></td>
             <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Successful response</span>
-        <span class="n">response_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">response_model</span><span class="p">()</span>
+        <span class="n">response_model</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">response_model</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;response_model=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">response_model</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response_model</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
@@ -1458,7 +1692,7 @@ context from services.</p></td>
                 <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                     <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="s2">&quot;response_models=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="n">error_message</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
                     <span class="n">response_model</span><span class="p">,</span>
                     <span class="n">response</span><span class="p">,</span>
                 <span class="p">)</span>
@@ -1475,25 +1709,31 @@ context from services.</p></td>
                     <span class="s2">&quot;URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">endpoint=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="n">error_message</span><span class="p">,</span>
                     <span class="n">exc</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span>
                     <span class="n">response_model</span><span class="p">,</span>
                     <span class="n">response</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
 
-    <span class="n">session</span><span class="o">.</span><span class="n">optimade_response_model</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">response_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
-        <span class="n">response_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">OPTIMADEParseResult</span><span class="p">(</span>
+        <span class="n">model_config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
+        <span class="n">optimade_response_model</span><span class="o">=</span><span class="p">(</span>
+            <span class="n">response_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
+            <span class="n">response_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">optimade_response</span><span class="o">=</span><span class="n">response_object</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
     <span class="p">)</span>
-    <span class="n">session</span><span class="o">.</span><span class="n">optimade_response</span> <span class="o">=</span> <span class="n">response_object</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span> <span class="ow">and</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="p">:</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span>
+        <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span>
+    <span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
             <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;optimade_config&quot;</span><span class="p">:</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
+                <span class="s2">&quot;optimade_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
                     <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                        <span class="s2">&quot;query_parameters&quot;</span><span class="p">:</span> <span class="n">session</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
+                        <span class="s2">&quot;query_parameters&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
                             <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="p">)</span>
@@ -1502,96 +1742,91 @@ context from services.</p></td>
             <span class="p">}</span>
         <span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">OPTIMADEParseSession</span><span class="p">)</span>  <span class="c1"># nosec</span>
-
-    <span class="k">return</span> <span class="n">session</span>
-</code></pre></div>
-        </details>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
-  </div>
+</div>
 
-
-
-  <div class="doc doc-object doc-method">
-
+<div class="doc doc-object doc-function">
 
 
 <h3 id="oteapi_optimade.strategies.parse.OPTIMADEParseStrategy.initialize" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
+            <code class="highlight language-python"><span class="n">initialize</span><span class="p">()</span></code>
 
 <a href="#oteapi_optimade.strategies.parse.OPTIMADEParseStrategy.initialize" class="headerlink" title="Permanent link">&para;</a></h3>
 
+
     <div class="doc doc-contents ">
 
-      <p>Initialize strategy.</p>
+        <p>Initialize strategy.</p>
 <p>This method will be called through the <code>/initialize</code> endpoint of the OTE-API
 Services.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>session</code></td>
-        <td><code>dict[str, Any] | None</code></td>
-        <td><p>A session-specific dictionary context.</p></td>
-        <td><code>None</code></td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>SessionUpdate</code></td>
-      <td><p>An update model of key/value-pairs to be stored in the session-specific
-context from services.</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/strategies/parse.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span>
-    <span class="n">session</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: ARG002</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SessionUpdate</span><span class="p">:</span>
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="oteapi.models.AttrDict">AttrDict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>An update model of key/value-pairs to be stored in the session-specific</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="oteapi.models.AttrDict">AttrDict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>context from services.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+            <details class="quote">
+              <summary>Source code in <code>oteapi_optimade/strategies/parse.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AttrDict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
 
 <span class="sd">    This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">    Services.</span>
-
-<span class="sd">    Parameters:</span>
-<span class="sd">        session: A session-specific dictionary context.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">        context from services.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">SessionUpdate</span><span class="p">()</span>
-</code></pre></div>
-        </details>
+    <span class="k">return</span> <span class="n">AttrDict</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
-  </div>
-
-
+</div>
 
 
 
@@ -1599,10 +1834,7 @@ context from services.</p></td>
 
     </div>
 
-  </div>
-
-
-
+</div>
 
 
 
@@ -1611,7 +1843,7 @@ context from services.</p></td>
 
     </div>
 
-  </div>
+</div>
 
 
 

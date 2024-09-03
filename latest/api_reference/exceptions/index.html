@@ -505,7 +505,7 @@
         <li class="md-nav__item">
   <a href="#oteapi_optimade.exceptions" class="md-nav__link">
     <span class="md-ellipsis">
-      oteapi_optimade.exceptions
+      exceptions
     </span>
   </a>
   
@@ -992,7 +992,7 @@
         <li class="md-nav__item">
   <a href="#oteapi_optimade.exceptions" class="md-nav__link">
     <span class="md-ellipsis">
-      oteapi_optimade.exceptions
+      exceptions
     </span>
   </a>
   
@@ -1073,12 +1073,14 @@
 <h1 id="exceptions">exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h1>
 
 
-  <div class="doc doc-object doc-module">
+<div class="doc doc-object doc-module">
+
+
 
 <a id="oteapi_optimade.exceptions"></a>
     <div class="doc doc-contents first">
 
-      <p>OTE-API OPTIMADE-specific Python exceptions.</p>
+        <p>OTE-API OPTIMADE-specific Python exceptions.</p>
 
 
 
@@ -1090,192 +1092,186 @@
 
 
 
-  <div class="doc doc-object doc-class">
+
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.exceptions.BaseOteapiOptimadeException" class="doc doc-heading">
-        <code>
-BaseOteapiOptimadeException            (<span title="Exception">Exception</span>)
-        </code>
-
+            <code>BaseOteapiOptimadeException</code>
 
 
 <a href="#oteapi_optimade.exceptions.BaseOteapiOptimadeException" class="headerlink" title="Permanent link">&para;</a></h2>
 
+
     <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code>Exception</code></p>
 
-      <p>Base OTE-API OPTIMADE exception.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">BaseOteapiOptimadeException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+        <p>Base OTE-API OPTIMADE exception.</p>
+
+              <details class="quote">
+                <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BaseOteapiOptimadeException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base OTE-API OPTIMADE exception.&quot;&quot;&quot;</span>
-</code></pre></div>
-        </details>
-
+</code></pre></div></td></tr></table></div>
+              </details>
 
     </div>
 
-  </div>
+</div>
 
-
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.exceptions.ConfigurationError" class="doc doc-heading">
-        <code>
-ConfigurationError            (<a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.BaseOteapiOptimadeException" href="#oteapi_optimade.exceptions.BaseOteapiOptimadeException">BaseOteapiOptimadeException</a>)
-        </code>
-
+            <code>ConfigurationError</code>
 
 
 <a href="#oteapi_optimade.exceptions.ConfigurationError" class="headerlink" title="Permanent link">&para;</a></h2>
 
+
     <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.BaseOteapiOptimadeException" href="#oteapi_optimade.exceptions.BaseOteapiOptimadeException">BaseOteapiOptimadeException</a></code></p>
 
-      <p>An error occurred when dealing with strategy configurations.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ConfigurationError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
+        <p>An error occurred when dealing with strategy configurations.</p>
+
+              <details class="quote">
+                <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ConfigurationError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error occurred when dealing with strategy configurations.&quot;&quot;&quot;</span>
-</code></pre></div>
-        </details>
-
+</code></pre></div></td></tr></table></div>
+              </details>
 
     </div>
 
-  </div>
+</div>
 
-
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.exceptions.MissingDependency" class="doc doc-heading">
-        <code>
-MissingDependency            (<a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.BaseOteapiOptimadeException" href="#oteapi_optimade.exceptions.BaseOteapiOptimadeException">BaseOteapiOptimadeException</a>)
-        </code>
-
+            <code>MissingDependency</code>
 
 
 <a href="#oteapi_optimade.exceptions.MissingDependency" class="headerlink" title="Permanent link">&para;</a></h2>
 
+
     <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.BaseOteapiOptimadeException" href="#oteapi_optimade.exceptions.BaseOteapiOptimadeException">BaseOteapiOptimadeException</a></code></p>
 
-      <p>A required dependency is missing.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MissingDependency</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
+        <p>A required dependency is missing.</p>
+
+              <details class="quote">
+                <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">MissingDependency</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A required dependency is missing.&quot;&quot;&quot;</span>
-</code></pre></div>
-        </details>
-
+</code></pre></div></td></tr></table></div>
+              </details>
 
     </div>
 
-  </div>
+</div>
 
-
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.exceptions.OPTIMADEParseError" class="doc doc-heading">
-        <code>
-OPTIMADEParseError            (<a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.BaseOteapiOptimadeException" href="#oteapi_optimade.exceptions.BaseOteapiOptimadeException">BaseOteapiOptimadeException</a>)
-        </code>
-
+            <code>OPTIMADEParseError</code>
 
 
 <a href="#oteapi_optimade.exceptions.OPTIMADEParseError" class="headerlink" title="Permanent link">&para;</a></h2>
 
+
     <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.BaseOteapiOptimadeException" href="#oteapi_optimade.exceptions.BaseOteapiOptimadeException">BaseOteapiOptimadeException</a></code></p>
 
-      <p>Could not use OPTIMADE Python tools to parse an OPTIMADE API response.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
+        <p>Could not use OPTIMADE Python tools to parse an OPTIMADE API response.</p>
+
+              <details class="quote">
+                <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Could not use OPTIMADE Python tools to parse an OPTIMADE API response.&quot;&quot;&quot;</span>
-</code></pre></div>
-        </details>
-
+</code></pre></div></td></tr></table></div>
+              </details>
 
     </div>
 
-  </div>
+</div>
 
-
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.exceptions.OPTIMADEResponseError" class="doc doc-heading">
-        <code>
-OPTIMADEResponseError            (<a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.RequestError" href="#oteapi_optimade.exceptions.RequestError">RequestError</a>)
-        </code>
-
+            <code>OPTIMADEResponseError</code>
 
 
 <a href="#oteapi_optimade.exceptions.OPTIMADEResponseError" class="headerlink" title="Permanent link">&para;</a></h2>
 
+
     <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.RequestError" href="#oteapi_optimade.exceptions.RequestError">RequestError</a></code></p>
 
-      <p>An OPTIMADE error was returned from a URL request.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResponseError</span><span class="p">(</span><span class="n">RequestError</span><span class="p">):</span>
+        <p>An OPTIMADE error was returned from a URL request.</p>
+
+              <details class="quote">
+                <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEResponseError</span><span class="p">(</span><span class="n">RequestError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An OPTIMADE error was returned from a URL request.&quot;&quot;&quot;</span>
-</code></pre></div>
-        </details>
-
+</code></pre></div></td></tr></table></div>
+              </details>
 
     </div>
 
-  </div>
+</div>
 
-
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="oteapi_optimade.exceptions.RequestError" class="doc doc-heading">
-        <code>
-RequestError            (<a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.BaseOteapiOptimadeException" href="#oteapi_optimade.exceptions.BaseOteapiOptimadeException">BaseOteapiOptimadeException</a>)
-        </code>
-
+            <code>RequestError</code>
 
 
 <a href="#oteapi_optimade.exceptions.RequestError" class="headerlink" title="Permanent link">&para;</a></h2>
 
+
     <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="oteapi_optimade.exceptions.BaseOteapiOptimadeException" href="#oteapi_optimade.exceptions.BaseOteapiOptimadeException">BaseOteapiOptimadeException</a></code></p>
 
-      <p>A general error occured when performing a URL request.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">RequestError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
+        <p>A general error occured when performing a URL request.</p>
+
+              <details class="quote">
+                <summary>Source code in <code>oteapi_optimade/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">RequestError</span><span class="p">(</span><span class="n">BaseOteapiOptimadeException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A general error occured when performing a URL request.&quot;&quot;&quot;</span>
-</code></pre></div>
-        </details>
-
+</code></pre></div></td></tr></table></div>
+              </details>
 
     </div>
 
-  </div>
-
-
-
+</div>
 
 
 
@@ -1284,7 +1280,7 @@ RequestError            (<a class="autorefs autorefs-internal" title="oteapi_opt
 
     </div>
 
-  </div>
+</div>
 
 
 
