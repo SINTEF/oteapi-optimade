@@ -20,7 +20,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from typing import Any
 
 
-LOGGER = logging.getLogger("oteapi_optimade.strategies")
+LOGGER = logging.getLogger(__name__)
 
 
 @dataclass
@@ -29,9 +29,7 @@ class OPTIMADEParseStrategy:
 
     **Implements strategies**:
 
-    - `("parserType", "parser/optimade")`
     - `("parserType", "parser/OPTIMADE")`
-    - `("parserType", "parser/OPTiMaDe")`
 
     """
 

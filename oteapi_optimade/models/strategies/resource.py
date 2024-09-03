@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Annotated, Any, Literal, Optional, Union
 
 from oteapi.models import AttrDict, ResourceConfig
-from pydantic import ConfigDict, Field
+from pydantic import BeforeValidator, ConfigDict, Field
 
 from oteapi_optimade.models.config import OPTIMADEConfig, OPTIMADEDLiteConfig
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
@@ -15,8 +15,9 @@ class OPTIMADEResourceConfig(ResourceConfig):
     """OPTIMADE-specific resource strategy config."""
 
     resourceType: Annotated[
-        # later OPTIMADE/references and more should be added
-        Literal["optimade/structures", "OPTIMADE/structures", "OPTiMaDe/structures"],
+        # later OPTIMADE/references and more should be added and other resources
+        Literal["optimade/structures"],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(description=ResourceConfig.model_fields["resourceType"].description),
     ]
     accessUrl: Annotated[
@@ -24,17 +25,8 @@ class OPTIMADEResourceConfig(ResourceConfig):
         Field(description="Either a base OPTIMADE URL or a full OPTIMADE URL."),
     ]
     accessService: Annotated[
-        Literal[
-            "optimade",
-            "OPTIMADE",
-            "OPTiMaDe",
-            "optimade+dlite",
-            "OPTIMADE+dlite",
-            "OPTiMaDe+dlite",
-            "optimade+DLite",
-            "OPTIMADE+DLite",
-            "OPTiMaDe+DLite",
-        ],
+        Literal["optimade", "optimade+dlite"],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(
             description="The registered strategy name for OPTIMADEResourceStrategy.",
         ),

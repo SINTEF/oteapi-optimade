@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Annotated, Any, Literal, Optional
 
 from oteapi.models import AttrDict, ParserConfig
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, BeforeValidator, ConfigDict, Field, field_validator
 
 from oteapi_optimade.models.config import OPTIMADEConfig, OPTIMADEDLiteConfig
 
@@ -16,10 +16,11 @@ class OPTIMADEParseConfig(ParserConfig):
     entity: Annotated[
         AnyHttpUrl,
         Field(description=ParserConfig.model_fields["entity"].description),
-    ] = AnyHttpUrl("http://onto-ns.com/meta/1.0/OPTIMADEStructure")
+    ] = AnyHttpUrl("http://onto-ns.com/meta/1.0.1/OPTIMADEStructure")
 
     parserType: Annotated[
-        Literal["parser/optimade", "parser/OPTIMADE", "parser/OPTiMaDe"],
+        Literal["parser/optimade"],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(
             description=ParserConfig.model_fields["parserType"].description,
         ),
@@ -38,7 +39,7 @@ class OPTIMADEParseConfig(ParserConfig):
     @field_validator("entity", mode="after")
     def _validate_entity(cls, value: AnyHttpUrl) -> AnyHttpUrl:
         """Validate entity."""
-        supported_entities = {"http://onto-ns.com/meta/1.0/OPTIMADEStructure"}
+        supported_entities = {"http://onto-ns.com/meta/1.0.1/OPTIMADEStructure"}
         if value not in (AnyHttpUrl(_) for _ in supported_entities):
             raise ValueError(
                 f"Unsupported entity: {value}. Supported entities: {supported_entities}"
@@ -83,17 +84,9 @@ class OPTIMADEDLiteParseConfig(OPTIMADEParseConfig):
     """OPTIMADE-specific parse strategy config when using DLite."""
 
     parserType: Annotated[  # type: ignore[assignment]
-        Literal[
-            "parser/optimade/dlite",
-            "parser/OPTIMADE/dlite",
-            "parser/OPTiMaDe/dlite",
-            "parser/optimade/DLite",
-            "parser/OPTIMADE/DLite",
-            "parser/OPTiMaDe/DLite",
-        ],
-        Field(
-            description=ParserConfig.model_fields["parserType"].description,
-        ),
+        Literal["parser/optimade/dlite"],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
+        Field(description=ParserConfig.model_fields["parserType"].description),
     ]
 
     configuration: Annotated[  # type: ignore[assignment]

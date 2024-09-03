@@ -62,7 +62,7 @@ _OPTIMADE_ENDPOINT_REGEX = re.compile(
     r"|calculations|extensions)(?:/[^\s?#]*)?))?$"
 )
 
-LOGGER = logging.getLogger("oteapi_optimade.models")
+LOGGER = logging.getLogger(__name__)
 
 
 class OPTIMADEUrl(str):

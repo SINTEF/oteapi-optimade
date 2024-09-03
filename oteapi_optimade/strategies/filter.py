@@ -10,7 +10,7 @@ from pydantic.dataclasses import dataclass
 from oteapi_optimade.models import OPTIMADEFilterConfig, OPTIMADEFilterResult
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
-LOGGER = logging.getLogger("oteapi_optimade.strategies")
+LOGGER = logging.getLogger(__name__)
 
 
 @dataclass
@@ -20,8 +20,6 @@ class OPTIMADEFilterStrategy:
     **Implements strategies**:
 
     - `("filterType", "OPTIMADE")`
-    - `("filterType", "optimade")`
-    - `("filterType", "OPTiMaDe")`
 
     """
 

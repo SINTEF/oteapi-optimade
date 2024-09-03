@@ -30,7 +30,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from typing import Any
 
 
-LOGGER = logging.getLogger("oteapi_optimade.dlite")
+LOGGER = logging.getLogger(__name__)
 
 
 @dataclass
@@ -39,12 +39,7 @@ class OPTIMADEDLiteParseStrategy:
 
     **Implements strategies**:
 
-    - `("parserType", "parser/optimade/dlite")`
-    - `("parserType", "parser/OPTIMADE/dlite")`
-    - `("parserType", "parser/OPTiMaDe/dlite")`
-    - `("parserType", "parser/optimade/DLite")`
     - `("parserType", "parser/OPTIMADE/DLite")`
-    - `("parserType", "parser/OPTiMaDe/DLite")`
 
     """
 

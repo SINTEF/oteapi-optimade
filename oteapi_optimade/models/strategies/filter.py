@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Annotated, Any, Literal, Optional
 
 from oteapi.models import AttrDict, FilterConfig
-from pydantic import ConfigDict, Field
+from pydantic import BeforeValidator, ConfigDict, Field
 
 from oteapi_optimade.models.config import OPTIMADEConfig
 
@@ -19,7 +19,8 @@ class OPTIMADEFilterConfig(FilterConfig):
     """
 
     filterType: Annotated[
-        Literal["optimade", "OPTIMADE", "OPTiMaDe"],
+        Literal["optimade"],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(
             description="The registered strategy name for OPTIMADEFilterStrategy.",
         ),

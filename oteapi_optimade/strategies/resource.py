@@ -48,7 +48,7 @@ if TYPE_CHECKING:  # pragma: no cover
         configuration: dict[str, Any]
 
 
-LOGGER = logging.getLogger("oteapi_optimade.strategies")
+LOGGER = logging.getLogger(__name__)
 
 
 def use_dlite(access_service: str, use_dlite_flag: bool) -> bool:
@@ -82,15 +82,8 @@ class OPTIMADEResourceStrategy:
 
     **Implements strategies**:
 
-    - `("accessService", "optimade")`
     - `("accessService", "OPTIMADE")`
-    - `("accessService", "OPTiMaDe")`
-    - `("accessService", "optimade+dlite")`
-    - `("accessService", "OPTIMADE+dlite")`
-    - `("accessService", "OPTiMaDe+dlite")`
-    - `("accessService", "optimade+DLite")`
     - `("accessService", "OPTIMADE+DLite")`
-    - `("accessService", "OPTiMaDe+DLite")`
 
     """
 
@@ -220,7 +213,7 @@ class OPTIMADEResourceStrategy:
             parse_mediaType += f"+{optimade_query.response_format}"
 
         parse_config: ParseConfigDict = {
-            "entity": "http://onto-ns.com/meta/1.0/OPTIMADEStructure",
+            "entity": "http://onto-ns.com/meta/1.0.1/OPTIMADEStructure",
             "parserType": parse_parserType,
             "configuration": {
                 "datacache_config": self.resource_config.configuration.datacache_config.model_copy(),
