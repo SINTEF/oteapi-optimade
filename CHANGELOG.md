@@ -1,41 +1,5 @@
 # Changelog
 
-## [Unreleased](https://github.com/SINTEF/oteapi-optimade/tree/HEAD)
-
-[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.1...HEAD)
-
-## Update to latest dependencies
-
-Update dependencies to support the latest core libraries.
-
-This release is done almost immediately prior to the v0.6.0.dev0 release, which will support the upcoming re-design of OTEAPI Core and the use of sessions.
-
-## [v0.5.1](https://github.com/SINTEF/oteapi-optimade/tree/v0.5.1) (2024-09-02)
-
-[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.0...v0.5.1)
-
-## Update to latest dependencies
-
-Update dependencies to support the latest core libraries.
-
-This release is done almost immediately prior to the v0.6.0.dev0 release, which will support the upcoming re-design of OTEAPI Core and the use of sessions.
-
-**Merged pull requests:**
-
-- \[pre-commit.ci\] pre-commit autoupdate [\#248](https://github.com/SINTEF/oteapi-optimade/pull/248) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#245](https://github.com/SINTEF/oteapi-optimade/pull/245) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#244](https://github.com/SINTEF/oteapi-optimade/pull/244) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#243](https://github.com/SINTEF/oteapi-optimade/pull/243) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#240](https://github.com/SINTEF/oteapi-optimade/pull/240) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#237](https://github.com/SINTEF/oteapi-optimade/pull/237) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#235](https://github.com/SINTEF/oteapi-optimade/pull/235) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#232](https://github.com/SINTEF/oteapi-optimade/pull/232) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#231](https://github.com/SINTEF/oteapi-optimade/pull/231) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#229](https://github.com/SINTEF/oteapi-optimade/pull/229) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#227](https://github.com/SINTEF/oteapi-optimade/pull/227) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#226](https://github.com/SINTEF/oteapi-optimade/pull/226) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-- \[pre-commit.ci\] pre-commit autoupdate [\#223](https://github.com/SINTEF/oteapi-optimade/pull/223) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
-
 ## [v0.5.0](https://github.com/SINTEF/oteapi-optimade/tree/v0.5.0) (2024-03-07)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.4.2...v0.5.0)
