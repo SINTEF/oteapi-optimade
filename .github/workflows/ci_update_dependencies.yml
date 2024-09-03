@@ -22,7 +22,7 @@ jobs:
 
       # Update pre-commit hooks
       update_pre-commit: true
-      python_version: "3.9"
+      python_version: "3.10"
       install_extras: "[pre-commit]"
     secrets:
       PAT: ${{ secrets.RELEASE_PAT }}
