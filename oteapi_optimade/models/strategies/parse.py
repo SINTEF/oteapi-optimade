@@ -9,6 +9,16 @@ from pydantic import AnyHttpUrl, BeforeValidator, ConfigDict, Field, field_valid
 
 from oteapi_optimade.models.config import OPTIMADEConfig, OPTIMADEDLiteConfig
 
+SUPPORTED_ENTITIES = [
+    "http://onto-ns.com/meta/1.0.1/OPTIMADEStructure",  # Default
+    "http://onto-ns.com/meta/1.0/OPTIMADEStructureResource",
+]
+"""Supported entities for the OPTIMADE parse strategy.
+
+The default entity is "http://onto-ns.com/meta/1.0.1/OPTIMADEStructure".
+This means, if no entity is provided, the default entity will be used.
+"""
+
 
 class OPTIMADEParseConfig(ParserConfig):
     """OPTIMADE-specific parse strategy config."""
@@ -16,7 +26,7 @@ class OPTIMADEParseConfig(ParserConfig):
     entity: Annotated[
         AnyHttpUrl,
         Field(description=ParserConfig.model_fields["entity"].description),
-    ] = AnyHttpUrl("http://onto-ns.com/meta/1.0.1/OPTIMADEStructure")
+    ] = AnyHttpUrl(SUPPORTED_ENTITIES[0])
 
     parserType: Annotated[
         Literal["parser/optimade"],
@@ -39,12 +49,10 @@ class OPTIMADEParseConfig(ParserConfig):
     @field_validator("entity", mode="after")
     def _validate_entity(cls, value: AnyHttpUrl) -> AnyHttpUrl:
         """Validate entity."""
-        supported_entities = {"http://onto-ns.com/meta/1.0.1/OPTIMADEStructure"}
-        if value not in (AnyHttpUrl(_) for _ in supported_entities):
+        if value not in (AnyHttpUrl(_) for _ in SUPPORTED_ENTITIES):
             raise ValueError(
-                f"Unsupported entity: {value}. Supported entities: {supported_entities}"
+                f"Unsupported entity: {value}. Supported entities: {SUPPORTED_ENTITIES}"
             )
-
         return value
 
 

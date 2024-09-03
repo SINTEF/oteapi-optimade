@@ -8,11 +8,9 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 import dlite
-from optimade.adapters import Structure
+from optimade.models import Response as OPTIMADEResponse
 from optimade.models import (
-    Response as OPTIMADEResponse,
-)
-from optimade.models import (
+    StructureResource,
     StructureResponseMany,
     StructureResponseOne,
     Success,
@@ -89,16 +87,12 @@ class OPTIMADEDLiteParseStrategy:
         """
         generic_parse_config = self.parse_config.model_copy(
             update={
-                "parserType": self.parse_config.parserType.lower().replace(
-                    "/dlite", ""
-                ),
+                "parserType": self.parse_config.parserType.replace("/dlite", ""),
                 "configuration": self.parse_config.configuration.model_copy(
                     update={
                         "mediaType": self.parse_config.configuration.get(
                             "mediaType", ""
-                        )
-                        .lower()
-                        .replace("+dlite", "+json")
+                        ).replace("+dlite", "+json")
                     }
                 ),
             }
@@ -107,7 +101,7 @@ class OPTIMADEDLiteParseStrategy:
 
         entities_path = Path(__file__).resolve().parent.resolve() / "entities"
 
-        dlite.storage_path.append(str(entities_path / "*.yaml"))
+        dlite.storage_path.append(str(entities_path))
 
         # JSONAPIResourceLinks = dlite.Instance.from_url(
         #     f"yaml://{entities_path}/JSONAPIResourceLinks.yaml"
@@ -125,9 +119,19 @@ class OPTIMADEDLiteParseStrategy:
             f"yaml://{entities_path}/OPTIMADEStructureSpecies.yaml"
         )
 
-        if not all(
-            _ in generic_parse_result
-            for _ in ("optimade_response", "optimade_response_model")
+        OPTIMADEStructureResource = dlite.get_instance(
+            "http://onto-ns.com/meta/1.0/OPTIMADEStructureResource"
+        )
+
+        single_entity = (
+            str(self.parse_config.entity)
+            .rstrip("/")
+            .endswith("OPTIMADEStructureResource")
+        )
+
+        if not (
+            generic_parse_result.optimade_response
+            and generic_parse_result.optimade_response_model
         ):
             base_error_message = (
                 "Could not retrieve response from OPTIMADE parse strategy."
@@ -140,17 +144,12 @@ class OPTIMADEDLiteParseStrategy:
                 base_error_message,
                 generic_parse_result.get("optimade_response"),
                 generic_parse_result.get("optimade_response_model"),
-                list(generic_parse_result.keys()),
+                list(generic_parse_result),
             )
             raise OPTIMADEParseError(base_error_message)
 
         optimade_response_model_module, optimade_response_model_name = (
-            generic_parse_result.get("optimade_response_model")
-        )
-        optimade_response_dict = generic_parse_result.get("optimade_response")
-
-        error_message_supporting_only_structures = (
-            "The DLite OPTIMADE Parser currently only supports structures entities."
+            generic_parse_result.optimade_response_model
         )
 
         # Parse response using the provided model
@@ -159,7 +158,9 @@ class OPTIMADEDLiteParseStrategy:
                 importlib.import_module(optimade_response_model_module),
                 optimade_response_model_name,
             )
-            optimade_response = optimade_response_model(**optimade_response_dict)
+            optimade_response = optimade_response_model(
+                **generic_parse_result.optimade_response
+            )
         except (ImportError, AttributeError) as exc:
             base_error_message = "Could not import the response model."
             LOGGER.error(
@@ -189,50 +190,64 @@ class OPTIMADEDLiteParseStrategy:
 
         # Currently, only "structures" entries are supported and handled
         if isinstance(optimade_response, StructureResponseMany):
-            structures = [
+            structures: list[StructureResource] = [
                 (
-                    Structure(entry)
+                    StructureResource(**entry)
                     if isinstance(entry, dict)
-                    else Structure(entry.model_dump())
+                    else entry.model_copy(deep=True)
                 )
                 for entry in optimade_response.data
             ]
+
         elif isinstance(optimade_response, StructureResponseOne):
-            structures = [
-                (
-                    Structure(optimade_response.data)
-                    if isinstance(optimade_response.data, dict)
-                    else Structure(optimade_response.data.model_dump())
-                )
-            ]
+            structures = (
+                [
+                    (
+                        StructureResource(**optimade_response.data)
+                        if isinstance(optimade_response.data, dict)
+                        else optimade_response.data.model_copy(deep=True)
+                    )
+                ]
+                if optimade_response.data is not None
+                else []
+            )
+
         elif isinstance(optimade_response, Success):
             if isinstance(optimade_response.data, dict):
-                structures = [Structure(optimade_response.data)]
+                structures = [StructureResource(**optimade_response.data)]
             elif isinstance(optimade_response.data, BaseModel):
-                structures = [Structure(optimade_response.data.model_dump())]
+                structures = [StructureResource(**optimade_response.data.model_dump())]
             elif isinstance(optimade_response.data, list):
                 structures = [
                     (
-                        Structure(entry)
+                        StructureResource(**entry)
                         if isinstance(entry, dict)
-                        else Structure(entry.model_dump())
+                        else StructureResource(**entry.model_dump())
                     )
                     for entry in optimade_response.data
                 ]
+            elif optimade_response.data is None:
+                structures = []
             else:
                 LOGGER.error(
                     "Could not determine what to do with `data`. Type %s.",
                     type(optimade_response.data),
                 )
-                error_message = "Could not parse `data` entry in response."
-                raise OPTIMADEParseError(error_message)
+                raise OPTIMADEParseError("Could not parse `data` entry in response.")
+
         else:
             LOGGER.error(
                 "Got currently unsupported response type %s. Only structures are "
                 "supported.",
                 optimade_response_model_name,
             )
-            raise OPTIMADEParseError(error_message_supporting_only_structures)
+            raise OPTIMADEParseError(
+                "The DLite OPTIMADE Parser currently only supports structures entities."
+            )
+
+        if not structures:
+            LOGGER.warning("No structures found in the response.")
+            return generic_parse_result
 
         # DLite-fy OPTIMADE structures
         dlite_collection = get_collection(
@@ -241,69 +256,116 @@ class OPTIMADEDLiteParseStrategy:
 
         for structure in structures:
             new_structure_attributes: dict[str, Any] = {}
+            single_entity_dimensions: dict[str, int] = {
+                "nassemblies": 0,
+                "nspecies": 0,
+            }
 
+            ## For OPTIMADEStructure (multiple) entities
             # Most inner layer: assemblies & species
             if structure.attributes.assemblies:
-                # Non-zero length list of assemblies (which could be a list of dicts or
-                # a list of pydantic models)
-
-                new_structure_attributes["assemblies"] = []
+                if single_entity:
+                    single_entity_dimensions["nassemblies"] = len(
+                        structure.attributes.assemblies
+                    )
+                    new_structure_attributes.update(
+                        {
+                            "assemblies_sites_in_groups": [],
+                            "assemblies_group_probabilities": [],
+                        }
+                    )
+                else:
+                    new_structure_attributes["assemblies"] = []
 
                 for assembly in structure.attributes.assemblies:
-                    # Ensure we're dealing with a normal Python dict
-                    assembly_dict = (
-                        assembly.model_dump(exclude_none=True)
-                        if isinstance(assembly, BaseModel)
-                        else assembly
-                    )
-
-                    dimensions = {
-                        "ngroups": len(
-                            assembly_dict.get("group_probabilities", []) or []
-                        ),
-                        "nsites": len(assembly_dict.get("sites_in_groups", []) or []),
-                    }
-                    new_structure_attributes["assemblies"].append(
-                        OPTIMADEStructureAssembly(
-                            dimensions=dimensions, properties=assembly_dict
+                    if single_entity:
+                        new_structure_attributes["assemblies_sites_in_groups"].append(
+                            ";".join(
+                                [
+                                    ",".join(str(_) for _ in group)
+                                    for group in assembly.sites_in_groups
+                                ]
+                            )
                         )
-                    )
+                        new_structure_attributes[
+                            "assemblies_group_probabilities"
+                        ].append(",".join(str(_) for _ in assembly.group_probabilities))
+                    else:
+                        dimensions = {
+                            "ngroups": len(assembly.group_probabilities),
+                            "nsites": len(assembly.sites_in_groups),
+                        }
+                        new_structure_attributes["assemblies"].append(
+                            OPTIMADEStructureAssembly(
+                                dimensions=dimensions, properties=assembly.model_dump()
+                            )
+                        )
 
             if structure.attributes.species:
-                # Non-zero length list of species (which could be a list of dicts or a
-                # list of pydantic models)
-
-                new_structure_attributes["species"] = []
-
-                for species_individual in structure.attributes.species:
-                    # Ensure we're dealing with a normal Python dict
-                    species_individual_dict = (
-                        species_individual.model_dump(exclude_none=True)
-                        if isinstance(species_individual, BaseModel)
-                        else species_individual
+                if single_entity:
+                    single_entity_dimensions["nspecies"] = len(
+                        structure.attributes.species
                     )
+                    new_structure_attributes.update(
+                        {
+                            "species_name": [],
+                            "species_chemical_symbols": [],
+                            "species_concentration": [],
+                            "species_mass": [],
+                            "species_original_name": [],
+                            "species_attached": [],
+                            "species_nattached": [],
+                        }
+                    )
+                else:
+                    new_structure_attributes["species"] = []
 
-                    dimensions = {
-                        "nelements": len(
-                            species_individual_dict.get("chemical_symbols", []) or []
-                        ),
-                        "nattached_elements": len(
-                            species_individual_dict.get("attached", []) or []
-                        ),
-                    }
-                    new_structure_attributes["species"].append(
-                        OPTIMADEStructureSpecies(
-                            dimensions=dimensions,
-                            properties=species_individual_dict,
+                for species in structure.attributes.species:
+                    if single_entity:
+                        new_structure_attributes["species_name"].append(species.name)
+                        new_structure_attributes["species_chemical_symbols"].append(
+                            ",".join(species.chemical_symbols)
                         )
-                    )
+                        new_structure_attributes["species_concentration"].append(
+                            ",".join(str(_) for _ in species.concentration)
+                        )
+                        new_structure_attributes["species_mass"].append(
+                            ",".join(str(_) for _ in (species.mass or []))
+                        )
+                        new_structure_attributes["species_original_name"].append(
+                            species.original_name or ""
+                        )
+                        new_structure_attributes["species_attached"].append(
+                            ",".join(species.attached or [])
+                        )
+                        new_structure_attributes["species_nattached"].append(
+                            ",".join(str(_) for _ in (species.nattached or []))
+                        )
+                    else:
+                        dimensions = {
+                            "nelements": len(species.chemical_symbols),
+                            "nattached_elements": len(species.attached or []),
+                        }
+                        new_structure_attributes["species"].append(
+                            OPTIMADEStructureSpecies(
+                                dimensions=dimensions,
+                                properties=species.model_dump(exclude_none=True),
+                            )
+                        )
 
             # Attributes
             new_structure_attributes.update(
                 structure.attributes.model_dump(
-                    exclude={"species", "assemblies", "nelements", "nsites"},
+                    exclude={
+                        "species",
+                        "assemblies",
+                        "nelements",
+                        "nsites",
+                        "structure_features",
+                    },
                     exclude_unset=True,
                     exclude_defaults=True,
+                    exclude_none=True,
                 )
             )
             for key in list(new_structure_attributes):
@@ -313,32 +375,49 @@ class OPTIMADEDLiteParseStrategy:
             # Structure features values are Enum values, so we need to convert them to
             # their string (true) values
             new_structure_attributes["structure_features"] = [
-                _.value for _ in new_structure_attributes["structure_features"]
+                _.value for _ in structure.attributes.structure_features
             ]
 
-            new_structure = OPTIMADEStructure(
-                dimensions={},
-                properties={
-                    "attributes": OPTIMADEStructureAttributes(
-                        dimensions={
-                            "nelements": structure.attributes.nelements or 0,
-                            "dimensionality": 3,
-                            "nsites": structure.attributes.nsites or 0,
-                            "nspecies": (
-                                len(structure.attributes.species)
-                                if structure.attributes.species
-                                else 0
-                            ),
-                            "nstructure_features": len(
-                                structure.attributes.structure_features
-                            ),
-                        },
-                        properties=new_structure_attributes,
-                    ),
-                    "type": structure.entry.type,
-                    "id": structure.entry.id,
-                },
-            )
+            if single_entity:
+                new_structure_attributes["id"] = structure.entry.id
+
+                new_structure = OPTIMADEStructureResource(
+                    dimensions={
+                        "nelements": structure.attributes.nelements or 0,
+                        "dimensionality": 3,
+                        "nsites": structure.attributes.nsites or 0,
+                        "nstructure_features": len(
+                            structure.attributes.structure_features
+                        ),
+                        **single_entity_dimensions,
+                    },
+                    properties=new_structure_attributes,
+                )
+            else:
+                new_structure = OPTIMADEStructure(
+                    dimensions={},
+                    properties={
+                        "attributes": OPTIMADEStructureAttributes(
+                            dimensions={
+                                "nelements": structure.attributes.nelements or 0,
+                                "dimensionality": 3,
+                                "nsites": structure.attributes.nsites or 0,
+                                "nspecies": (
+                                    len(structure.attributes.species)
+                                    if structure.attributes.species
+                                    else 0
+                                ),
+                                "nstructure_features": len(
+                                    structure.attributes.structure_features
+                                ),
+                            },
+                            properties=new_structure_attributes,
+                        ),
+                        "type": structure.entry.type,
+                        "id": structure.entry.id,
+                    },
+                )
+
             dlite_collection.add(label=structure.entry.id, inst=new_structure)
 
         update_collection(collection=dlite_collection)
