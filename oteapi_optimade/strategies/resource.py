@@ -18,9 +18,8 @@ from optimade.models import (
     StructureResponseOne,
 )
 from oteapi.datacache import DataCache
-from oteapi.models import SessionUpdate
+from oteapi.models import AttrDict
 from oteapi.plugins import create_strategy
-from oteapi.plugins.entry_points import StrategyType
 from pydantic import ValidationError
 from pydantic.dataclasses import dataclass
 
@@ -32,17 +31,24 @@ except ImportError:
     oteapi_dlite_version = None
 
 from oteapi_optimade.exceptions import MissingDependency, OPTIMADEParseError
-from oteapi_optimade.models import OPTIMADEResourceConfig, OPTIMADEResourceSession
+from oteapi_optimade.models import OPTIMADEResourceConfig, OPTIMADEResourceResult
 from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any
+    from typing import Any, TypedDict
 
     from optimade.models import Response as OPTIMADEResponse
 
+    class ParseConfigDict(TypedDict):
+        """Type definition for the `parse_config` dictionary."""
 
-LOGGER = logging.getLogger("oteapi_optimade.strategies")
+        entity: str
+        parserType: str
+        configuration: dict[str, Any]
+
+
+LOGGER = logging.getLogger(__name__)
 
 
 def use_dlite(access_service: str, use_dlite_flag: bool) -> bool:
@@ -76,30 +82,18 @@ class OPTIMADEResourceStrategy:
 
     **Implements strategies**:
 
-    - `("accessService", "optimade")`
     - `("accessService", "OPTIMADE")`
-    - `("accessService", "OPTiMaDe")`
-    - `("accessService", "optimade+dlite")`
-    - `("accessService", "OPTIMADE+dlite")`
-    - `("accessService", "OPTiMaDe+dlite")`
-    - `("accessService", "optimade+DLite")`
     - `("accessService", "OPTIMADE+DLite")`
-    - `("accessService", "OPTiMaDe+DLite")`
 
     """
 
     resource_config: OPTIMADEResourceConfig
 
-    def initialize(
-        self, session: dict[str, Any] | None = None
-    ) -> SessionUpdate | DLiteSessionUpdate:
+    def initialize(self) -> AttrDict | DLiteSessionUpdate:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
         Services.
-
-        Parameters:
-            session: A session-specific dictionary context.
 
         Returns:
             An update model of key/value-pairs to be stored in the session-specific
@@ -110,12 +104,16 @@ class OPTIMADEResourceStrategy:
             self.resource_config.accessService,
             self.resource_config.configuration.use_dlite,
         ):
-            return DLiteSessionUpdate(collection_id=get_collection(session).uuid)
-        return SessionUpdate()
+            collection_id = self.resource_config.configuration.get(
+                "collection_id", None
+            )
+            return DLiteSessionUpdate(
+                collection_id=get_collection(collection_id=collection_id).uuid
+            )
 
-    def get(
-        self, session: SessionUpdate | dict[str, Any] | None = None
-    ) -> OPTIMADEResourceSession:
+        return AttrDict()
+
+    def get(self) -> OPTIMADEResourceResult:
         """Execute an OPTIMADE query to `accessUrl`.
 
         This method will be called through the strategy-specific endpoint of the
@@ -132,27 +130,17 @@ class OPTIMADEResourceStrategy:
         4. Send query.
         5. Store result in data cache.
 
-        Parameters:
-            session: A session-specific dictionary-like context.
-
         Returns:
             An update model of key/value-pairs to be stored in the session-specific
             context from services.
 
         """
-        if session and isinstance(session, dict):
-            session = OPTIMADEResourceSession(**session)
-        elif session and isinstance(session, SessionUpdate):
-            session = OPTIMADEResourceSession(
-                **session.model_dump(exclude_defaults=True, exclude_unset=True)
-            )
-        else:
-            session = OPTIMADEResourceSession()
-
-        if session.optimade_config:
+        if self.resource_config.configuration.optimade_config:
             self.resource_config.configuration.update(
-                session.optimade_config.model_dump(
-                    exclude_defaults=True, exclude_unset=True
+                self.resource_config.configuration.optimade_config.model_dump(
+                    exclude_defaults=True,
+                    exclude_unset=True,
+                    exclude={"optimade_config", "downloadUrl", "mediaType"},
                 )
             )
 
@@ -213,38 +201,41 @@ class OPTIMADEResourceStrategy:
             self.resource_config.configuration.use_dlite,
         )
 
+        parse_parserType = "parser/OPTIMADE"
         parse_mediaType = (
             "application/vnd."
             f"{self.resource_config.accessService.split('+', maxsplit=1)[0]}"
         )
         if parse_with_dlite:
+            parse_parserType += "/DLite"
             parse_mediaType += "+DLite"
         elif optimade_query.response_format:
             parse_mediaType += f"+{optimade_query.response_format}"
 
-        parse_config = {
-            "downloadUrl": optimade_url,
-            "mediaType": parse_mediaType,
+        parse_config: ParseConfigDict = {
+            "entity": "http://onto-ns.com/meta/1.0.1/OPTIMADEStructure",
+            "parserType": parse_parserType,
             "configuration": {
-                "datacache_config": self.resource_config.configuration.datacache_config,
+                "datacache_config": self.resource_config.configuration.datacache_config.model_copy(),
+                "downloadUrl": str(optimade_url),
+                "mediaType": parse_mediaType,
+                "optimade_config": self.resource_config.configuration.model_dump(
+                    exclude={"optimade_config", "downloadUrl", "mediaType"},
+                    exclude_unset=True,
+                    exclude_defaults=True,
+                ),
             },
         }
 
         LOGGER.debug("parse_config: %r", parse_config)
 
-        session.update(
-            create_strategy(StrategyType.PARSE, parse_config).initialize(
-                session.model_dump(exclude_defaults=True, exclude_unset=True)
-            )
+        parse_config["configuration"].update(
+            create_strategy("parse", parse_config).initialize()
         )
-        session.update(
-            create_strategy(StrategyType.PARSE, parse_config).get(
-                session.model_dump(exclude_defaults=True, exclude_unset=True)
-            )
-        )
+        parse_result = create_strategy("parse", parse_config).get()
 
         if not all(
-            _ in session for _ in ("optimade_response", "optimade_response_model")
+            _ in parse_result for _ in ("optimade_response", "optimade_response_model")
         ):
             base_error_message = (
                 "Could not retrieve response from OPTIMADE parse strategy."
@@ -255,16 +246,16 @@ class OPTIMADEResourceStrategy:
                 "optimade_response_model=%r\n"
                 "session fields=%r",
                 base_error_message,
-                session.get("optimade_response"),
-                session.get("optimade_response_model"),
-                list(session.keys()),
+                parse_result.get("optimade_response"),
+                parse_result.get("optimade_response_model"),
+                list(parse_result.keys()),
             )
             raise OPTIMADEParseError(base_error_message)
 
-        optimade_response_model_module, optimade_response_model_name = session.pop(
+        optimade_response_model_module, optimade_response_model_name = parse_result.pop(
             "optimade_response_model"
         )
-        optimade_response_dict = session.pop("optimade_response")
+        optimade_response_dict = parse_result.pop("optimade_response")
 
         # Parse response using the provided model
         try:
@@ -300,11 +291,11 @@ class OPTIMADEResourceStrategy:
             )
             raise OPTIMADEParseError(base_error_message) from exc
 
+        result = OPTIMADEResourceResult()
+
         if isinstance(optimade_response, ErrorResponse):
             optimade_resources = optimade_response.errors
-            session.optimade_resource_model = (
-                f"{OptimadeError.__module__}:OptimadeError"
-            )
+            result.optimade_resource_model = f"{OptimadeError.__module__}:OptimadeError"
         elif isinstance(optimade_response, ReferenceResponseMany):
             optimade_resources = [
                 (
@@ -314,7 +305,7 @@ class OPTIMADEResourceStrategy:
                 )
                 for entry in optimade_response.data
             ]
-            session.optimade_resource_model = f"{Reference.__module__}:Reference"
+            result.optimade_resource_model = f"{Reference.__module__}:Reference"
         elif isinstance(optimade_response, ReferenceResponseOne):
             optimade_resources = [
                 (
@@ -323,7 +314,7 @@ class OPTIMADEResourceStrategy:
                     else Reference(optimade_response.data.model_dump()).as_dict
                 )
             ]
-            session.optimade_resource_model = f"{Reference.__module__}:Reference"
+            result.optimade_resource_model = f"{Reference.__module__}:Reference"
         elif isinstance(optimade_response, StructureResponseMany):
             optimade_resources = [
                 (
@@ -333,7 +324,7 @@ class OPTIMADEResourceStrategy:
                 )
                 for entry in optimade_response.data
             ]
-            session.optimade_resource_model = f"{Structure.__module__}:Structure"
+            result.optimade_resource_model = f"{Structure.__module__}:Structure"
         elif isinstance(optimade_response, StructureResponseOne):
             optimade_resources = [
                 (
@@ -342,7 +333,7 @@ class OPTIMADEResourceStrategy:
                     else Structure(optimade_response.data.model_dump()).as_dict
                 )
             ]
-            session.optimade_resource_model = f"{Structure.__module__}:Structure"
+            result.optimade_resource_model = f"{Structure.__module__}:Structure"
         else:
             LOGGER.error(
                 "Could not parse response as errors, references or structures. "
@@ -357,17 +348,20 @@ class OPTIMADEResourceStrategy:
             )
             raise OPTIMADEParseError(error_message)
 
-        session.optimade_resources = [
+        result.optimade_resources = [
             resource if isinstance(resource, dict) else resource.model_dump()
             for resource in optimade_resources
         ]
 
-        if session.optimade_config and session.optimade_config.query_parameters:
-            session = session.model_copy(
+        if (
+            self.resource_config.configuration.optimade_config
+            and self.resource_config.configuration.optimade_config.query_parameters
+        ):
+            result = result.model_copy(
                 update={
-                    "optimade_config": session.optimade_config.model_copy(
+                    "optimade_config": self.resource_config.configuration.optimade_config.model_copy(
                         update={
-                            "query_parameters": session.optimade_config.query_parameters.model_dump(
+                            "query_parameters": self.resource_config.configuration.optimade_config.query_parameters.model_dump(
                                 exclude_defaults=True,
                                 exclude_unset=True,
                             )
@@ -376,7 +370,4 @@ class OPTIMADEResourceStrategy:
                 }
             )
 
-        if TYPE_CHECKING:  # pragma: no cover
-            assert isinstance(session, OPTIMADEResourceSession)  # nosec
-
-        return session
+        return result

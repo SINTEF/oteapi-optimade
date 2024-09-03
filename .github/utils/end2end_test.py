@@ -54,7 +54,7 @@ def main(oteapi_url: str) -> None:
     from otelib import OTEClient
     from pydantic import ValidationError
 
-    from oteapi_optimade.models import OPTIMADEResourceSession
+    from oteapi_optimade.models import OPTIMADEResourceResult
 
     client = OTEClient(oteapi_url)
 
@@ -66,24 +66,25 @@ def main(oteapi_url: str) -> None:
     }
 
     source = client.create_dataresource(
+        resourceType="OPTIMADE/structures",
         accessService="OPTIMADE",
         accessUrl=OPTIMADE_URL,
         configuration=config,
     )
 
-    session = source.get()
+    output = source.get()
 
     error_message = "Could not parse returned session as an OPTIMADEResourceStrategy."
 
     try:
-        session = OPTIMADEResourceSession(**json.loads(session))
+        output = OPTIMADEResourceResult(**json.loads(output))
     except ValidationError as exc_:
         raise RuntimeError(error_message) from exc_
 
-    assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
-    assert len(session.optimade_resources) == 2
+    assert output.optimade_resource_model == f"{Structure.__module__}:Structure"
+    assert len(output.optimade_resources) == 2
 
-    for resource in tuple(session.optimade_resources):
+    for resource in tuple(output.optimade_resources):
         parsed_resource = Structure(resource)
         assert parsed_resource.id in ["mpf_1", "mpf_110"]
 
@@ -96,18 +97,18 @@ def main(oteapi_url: str) -> None:
     )
 
     pipeline = query >> source
-    session = pipeline.get()
+    output = pipeline.get()
 
     try:
-        # Should be an OPTIMADEResourceSession because `source` is last in the pipeline
-        session = OPTIMADEResourceSession(**json.loads(session))
+        # Should be an OPTIMADEResourceResult because `source` is last in the pipeline
+        output = OPTIMADEResourceResult(**json.loads(output))
     except ValidationError as exc_:
         raise RuntimeError(error_message) from exc_
 
-    assert session.optimade_resource_model == f"{Structure.__module__}:Structure"
-    assert len(session.optimade_resources) == 4
+    assert output.optimade_resource_model == f"{Structure.__module__}:Structure"
+    assert len(output.optimade_resources) == 4
 
-    for resource in tuple(session.optimade_resources):
+    for resource in tuple(output.optimade_resources):
         parsed_resource = Structure(resource)
         assert parsed_resource.id in [
             "mpf_1",
@@ -132,11 +133,11 @@ if __name__ == "__main__":
     # Configuration
     PORT = os.getenv("OTEAPI_PORT", "8080")
     OTEAPI_SERVICE_URL = f"http://localhost:{PORT}"
-    OTEAPI_PREFIX = os.getenv("OTEAPI_prefix", "/api/v1")  # noqa: SIM112
+    OTEAPI_PREFIX = os.getenv("OTEAPI_PREFIX", "/api/v1")
     OPTIMADE_URL = f"http://{os.getenv('OPTIMADE_HOST', 'localhost')}:{os.getenv('OPTIMADE_PORT', '5000')}/"
-    if "OTEAPI_prefix" not in os.environ:
+    if "OTEAPI_PREFIX" not in os.environ:
         # Set environment variables
-        os.environ["OTEAPI_prefix"] = OTEAPI_PREFIX  # noqa: SIM112
+        os.environ["OTEAPI_PREFIX"] = OTEAPI_PREFIX
 
     try:
         _check_service_availability(service_url=OTEAPI_SERVICE_URL)

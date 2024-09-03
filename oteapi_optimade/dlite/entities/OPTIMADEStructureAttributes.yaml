@@ -1,4 +1,4 @@
-uri: http://onto-ns.com/meta/1.0/OPTIMADEStructureAttributes
+uri: http://onto-ns.com/meta/1.0.1/OPTIMADEStructureAttributes
 meta: http://onto-ns.com/meta/0.3/EntitySchema
 description: The attributes used to represent a structure, e.g. unit cell, atoms, positions.
 dimensions:
@@ -46,7 +46,7 @@ properties:
     description: Cartesian positions of each site in the structure. A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the `species_at_sites` property, and the species themselves are described in the `species` property.
   species:
     type: ref
-    $ref: http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies
+    $ref: http://onto-ns.com/meta/1.0.1/OPTIMADEStructureSpecies
     shape: [nspecies]
     description: A list describing the species of the sites of this structure. Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).
   species_at_sites:

@@ -4,38 +4,28 @@ from __future__ import annotations
 
 from typing import Annotated, Any, Literal, Optional
 
-from oteapi.models import ResourceConfig, SessionUpdate
-from pydantic import ConfigDict, Field
+from oteapi.models import AttrDict, ParserConfig
+from pydantic import AnyHttpUrl, BeforeValidator, ConfigDict, Field, field_validator
 
-from oteapi_optimade.models.config import OPTIMADEConfig
-from oteapi_optimade.models.custom_types import OPTIMADEUrl
+from oteapi_optimade.models.config import OPTIMADEConfig, OPTIMADEDLiteConfig
 
 
-class OPTIMADEParseConfig(ResourceConfig):  # type: ignore[misc]
+class OPTIMADEParseConfig(ParserConfig):
     """OPTIMADE-specific parse strategy config."""
 
-    downloadUrl: Annotated[
-        OPTIMADEUrl,
+    entity: Annotated[
+        AnyHttpUrl,
+        Field(description=ParserConfig.model_fields["entity"].description),
+    ] = AnyHttpUrl("http://onto-ns.com/meta/1.0.1/OPTIMADEStructure")
+
+    parserType: Annotated[
+        Literal["parser/optimade"],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(
-            description="Either a base OPTIMADE URL or a full OPTIMADE URL.",
+            description=ParserConfig.model_fields["parserType"].description,
         ),
     ]
-    mediaType: Annotated[
-        Literal[
-            "application/vnd.optimade+json",
-            "application/vnd.OPTIMADE+json",
-            "application/vnd.OPTiMaDe+json",
-            "application/vnd.optimade+JSON",
-            "application/vnd.OPTIMADE+JSON",
-            "application/vnd.OPTiMaDe+JSON",
-            "application/vnd.optimade",
-            "application/vnd.OPTIMADE",
-            "application/vnd.OPTiMaDe",
-        ],
-        Field(
-            description="The registered strategy name for OPTIMADEParseStrategy.",
-        ),
-    ]
+
     configuration: Annotated[
         OPTIMADEConfig,
         Field(
@@ -46,9 +36,20 @@ class OPTIMADEParseConfig(ResourceConfig):  # type: ignore[misc]
         ),
     ] = OPTIMADEConfig()
 
+    @field_validator("entity", mode="after")
+    def _validate_entity(cls, value: AnyHttpUrl) -> AnyHttpUrl:
+        """Validate entity."""
+        supported_entities = {"http://onto-ns.com/meta/1.0.1/OPTIMADEStructure"}
+        if value not in (AnyHttpUrl(_) for _ in supported_entities):
+            raise ValueError(
+                f"Unsupported entity: {value}. Supported entities: {supported_entities}"
+            )
 
-class OPTIMADEParseSession(SessionUpdate):  # type: ignore[misc]
-    """OPTIMADE session for the parse strategy."""
+        return value
+
+
+class OPTIMADEParseResult(AttrDict):
+    """OPTIMADE parse strategy result."""
 
     model_config = ConfigDict(validate_assignment=True, arbitrary_types_allowed=True)
 
@@ -80,18 +81,20 @@ class OPTIMADEParseSession(SessionUpdate):  # type: ignore[misc]
 
 
 class OPTIMADEDLiteParseConfig(OPTIMADEParseConfig):
-    """OPTIMADE-specific parse strategy config."""
+    """OPTIMADE-specific parse strategy config when using DLite."""
 
-    mediaType: Annotated[  # type: ignore[assignment]
-        Literal[
-            "application/vnd.optimade+dlite",
-            "application/vnd.OPTIMADE+dlite",
-            "application/vnd.OPTiMaDe+dlite",
-            "application/vnd.optimade+DLite",
-            "application/vnd.OPTIMADE+DLite",
-            "application/vnd.OPTiMaDe+DLite",
-        ],
-        Field(
-            description="The registered strategy name for OPTIMADEDLiteParseStrategy.",
-        ),
+    parserType: Annotated[  # type: ignore[assignment]
+        Literal["parser/optimade/dlite"],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
+        Field(description=ParserConfig.model_fields["parserType"].description),
     ]
+
+    configuration: Annotated[  # type: ignore[assignment]
+        OPTIMADEDLiteConfig,
+        Field(
+            description=(
+                "OPTIMADE configuration when using the DLite-specific strategies. "
+                "Contains relevant information necessary to perform OPTIMADE queries."
+            ),
+        ),
+    ] = OPTIMADEDLiteConfig()

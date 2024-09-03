@@ -8,7 +8,7 @@ ci:
   autoupdate_branch: 'main'
   autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
   autoupdate_schedule: 'weekly'
-  skip: []
+  skip: [validate-entities]  # doesn't seem to work. Also, this is checked with dedicated CD workflow
   submodules: false
 
 # hooks
@@ -26,6 +26,7 @@ repos:
     - id: debug-statements
     - id: end-of-file-fixer
     - id: mixed-line-ending
+      exclude: ^CHANGELOG.md$
     - id: name-tests-test
       args: ["--pytest-test-first"]
     - id: trailing-whitespace
@@ -78,3 +79,13 @@ repos:
       - "--package-dir=oteapi_optimade"
       - "--full-docs-folder=models"
     - id: docs-landing-page
+
+  # entities-service can validate SOFT/DLite entities
+  # More information can be found in the repository README:
+  # https://github.com/SINTEF/entities-service?tab=readme-ov-file#readme
+  - repo: https://github.com/SINTEF/entities-service
+    rev: v0.7.0
+    hooks:
+    - id: validate-entities
+      additional_dependencies: [".[cli]"]
+      files: ^oteapi_optimade/dlite/entities/.*\.ya?ml$

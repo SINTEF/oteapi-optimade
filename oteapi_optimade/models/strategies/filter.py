@@ -4,13 +4,13 @@ from __future__ import annotations
 
 from typing import Annotated, Any, Literal, Optional
 
-from oteapi.models import FilterConfig, SessionUpdate
-from pydantic import ConfigDict, Field
+from oteapi.models import AttrDict, FilterConfig
+from pydantic import BeforeValidator, ConfigDict, Field
 
 from oteapi_optimade.models.config import OPTIMADEConfig
 
 
-class OPTIMADEFilterConfig(FilterConfig):  # type: ignore[misc]
+class OPTIMADEFilterConfig(FilterConfig):
     """OPTIMADE-specific filter strategy config.
 
     Note:
@@ -19,7 +19,8 @@ class OPTIMADEFilterConfig(FilterConfig):  # type: ignore[misc]
     """
 
     filterType: Annotated[
-        Literal["optimade", "OPTIMADE", "OPTiMaDe"],
+        Literal["optimade"],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(
             description="The registered strategy name for OPTIMADEFilterStrategy.",
         ),
@@ -60,7 +61,7 @@ class OPTIMADEFilterConfig(FilterConfig):  # type: ignore[misc]
     ] = OPTIMADEConfig()
 
 
-class OPTIMADEFilterSession(SessionUpdate):  # type: ignore[misc]
+class OPTIMADEFilterResult(AttrDict):
     """OPTIMADE session for the filter strategy."""
 
     model_config = ConfigDict(validate_assignment=True, arbitrary_types_allowed=True)
