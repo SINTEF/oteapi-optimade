@@ -31,7 +31,7 @@ dependencies = [
     "DLite-Python >=0.5.16,<1",
     "eval-type-backport ~=0.2.0",
     "numpy <2",  # Required by DLite-Python
-    "optimade[server] ~=1.0",
+    "optimade[server] ~=1.1",
     "oteapi-core ~=0.7.0.dev2",
     # "oteapi-dlite >=0.2.0,<1",
     "oteapi-dlite-mod @ git+https://github.com/SINTEF/oteapi-dlite-Mod.git@master#egg=oteapi-dlite-mod",
@@ -41,25 +41,25 @@ dependencies = [
 
 [project.optional-dependencies]
 examples = [
-    "jupyter ~=1.0",
+    "jupyter ~=1.1",
     "otelib ~=0.5.0.dev0",
 ]
 doc = [
     "mike ~=2.1",
     "mkdocs >=1.5.3,<1.7",
     "mkdocs-awesome-pages-plugin ~=2.9",
-    "mkdocs-jupyter ~=0.24.7",
+    "mkdocs-jupyter ~=0.24.8",
     "mkdocs-material >=9.5.5,<10",
-    "mkdocstrings[python] ~=0.25.1",
+    "mkdocstrings[python] ~=0.26.0",
     "oteapi-optimade[examples]",
 ]
 test = [
-    "pytest ~=8.2",
+    "pytest ~=8.3",
     "pytest-cov ~=5.0",
     "pyyaml ~=6.0",
     "requests-mock ~=1.12",
 ]
-pre-commit = ["pre-commit ~=3.7"]
+pre-commit = ["pre-commit ~=3.8"]
 dev = ["oteapi-optimade[doc,examples,pre-commit,test]"]
 
 [project.urls]
@@ -143,9 +143,11 @@ ignore = [
 isort.required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["T20"]  # print statements
 "docs/examples/**" = [
-    "I002",  # from __future__ import annotations
+    "I002",  # required imports (e.g., from __future__ import annotations)
+    "T20",  # print statements
+]
+"tests/**" = [
     "T20",  # print statements
 ]
 
