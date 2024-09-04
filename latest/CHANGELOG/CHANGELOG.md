@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2024-09-04)
+## [v0.6.0.dev0](https://github.com/SINTEF/oteapi-optimade/tree/v0.6.0.dev0) (2024-09-04)
 
-[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.1...Unreleased changes)
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.1...v0.6.0.dev0)
 
 ## Support modern session handling in OTEAPI Core
 
