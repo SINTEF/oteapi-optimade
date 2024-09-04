@@ -34,7 +34,7 @@ dependencies = [
     "optimade[server] ~=1.1",
     "oteapi-core ~=0.7.0.dev2",
     # "oteapi-dlite >=0.2.0,<1",
-    "oteapi-dlite-mod @ git+https://github.com/SINTEF/oteapi-dlite-Mod.git@master#egg=oteapi-dlite-mod",
+    "oteapi-dlite-Mod >=0.2.0,<1",
     "requests ~=2.32",
     "typing-extensions ~=4.12; python_version < '3.10'",
 ]
