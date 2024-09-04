@@ -88,4 +88,4 @@ repos:
     hooks:
     - id: validate-entities
       additional_dependencies: [".[cli]"]
-      files: ^oteapi_optimade/dlite/entities/.*\.ya?ml$
+      files: ^entities/.*\.ya?ml$

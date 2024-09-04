@@ -10,8 +10,12 @@ from __future__ import annotations
 
 import logging
 
+from ._utils import parse_assemblies, parse_species
+
 __version__ = "0.5.1"
 __author__ = "Casper Welzel Andersen"
 __author_email__ = "casper.w.andersen@sintef.no"
 
 logging.getLogger("oteapi_optimade").setLevel(logging.DEBUG)
+
+__all__ = ("parse_assemblies", "parse_species")

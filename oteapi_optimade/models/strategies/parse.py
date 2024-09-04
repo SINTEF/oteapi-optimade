@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import Annotated, Any, Literal, Optional
 
 from oteapi.models import AttrDict, ParserConfig
@@ -9,14 +10,22 @@ from pydantic import AnyHttpUrl, BeforeValidator, ConfigDict, Field, field_valid
 
 from oteapi_optimade.models.config import OPTIMADEConfig, OPTIMADEDLiteConfig
 
+SUPPORTED_ENTITIES = [
+    re.compile(_)
+    for _ in [
+        r"http://onto-ns.com/meta/[0-9]+(\.[0-9]+)?(\.[0-9]+)?/OPTIMADEStructure",  # Default
+        r"http://onto-ns\.com/meta/[0-9]+(\.[0-9]+)?(\.[0-9]+)?/OPTIMADEStructureResource",
+    ]
+]
+"""Supported entities for the OPTIMADE parse strategy.
+
+The default entity is "OPTIMADEStructure".
+This means, if no entity is provided, the default entity will be used.
+"""
+
 
 class OPTIMADEParseConfig(ParserConfig):
     """OPTIMADE-specific parse strategy config."""
-
-    entity: Annotated[
-        AnyHttpUrl,
-        Field(description=ParserConfig.model_fields["entity"].description),
-    ] = AnyHttpUrl("http://onto-ns.com/meta/1.0.1/OPTIMADEStructure")
 
     parserType: Annotated[
         Literal["parser/optimade"],
@@ -39,13 +48,15 @@ class OPTIMADEParseConfig(ParserConfig):
     @field_validator("entity", mode="after")
     def _validate_entity(cls, value: AnyHttpUrl) -> AnyHttpUrl:
         """Validate entity."""
-        supported_entities = {"http://onto-ns.com/meta/1.0.1/OPTIMADEStructure"}
-        if value not in (AnyHttpUrl(_) for _ in supported_entities):
-            raise ValueError(
-                f"Unsupported entity: {value}. Supported entities: {supported_entities}"
-            )
+        test_value = str(value).rstrip("/")
 
-        return value
+        for entity_pattern in SUPPORTED_ENTITIES:
+            if entity_pattern.fullmatch(test_value):
+                return value
+
+        raise ValueError(
+            f"Unsupported entity: {value}. Supported entities: {SUPPORTED_ENTITIES}"
+        )
 
 
 class OPTIMADEParseResult(AttrDict):
