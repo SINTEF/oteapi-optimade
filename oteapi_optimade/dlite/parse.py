@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import importlib
 import logging
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 import dlite
@@ -99,35 +98,14 @@ class OPTIMADEDLiteParseStrategy:
         ).model_dump(exclude_unset=True, exclude_defaults=True)
         generic_parse_result = OPTIMADEParseStrategy(generic_parse_config).get()
 
-        entities_path = Path(__file__).resolve().parent.resolve() / "entities"
+        OPTIMADEStructure = dlite.get_instance(str(self.parse_config.entity))
 
-        dlite.storage_path.append(str(entities_path))
+        single_entity = "OPTIMADEStructureResource" in OPTIMADEStructure.uri
 
-        # JSONAPIResourceLinks = dlite.Instance.from_url(
-        #     f"yaml://{entities_path}/JSONAPIResourceLinks.yaml"
-        # )
-        OPTIMADEStructure = dlite.Instance.from_url(
-            f"yaml://{entities_path}/OPTIMADEStructure.yaml"
-        )
-        OPTIMADEStructureAssembly = dlite.Instance.from_url(
-            f"yaml://{entities_path}/OPTIMADEStructureAssembly.yaml"
-        )
-        OPTIMADEStructureAttributes = dlite.Instance.from_url(
-            f"yaml://{entities_path}/OPTIMADEStructureAttributes.yaml"
-        )
-        OPTIMADEStructureSpecies = dlite.Instance.from_url(
-            f"yaml://{entities_path}/OPTIMADEStructureSpecies.yaml"
-        )
-
-        OPTIMADEStructureResource = dlite.get_instance(
-            "http://onto-ns.com/meta/1.0/OPTIMADEStructureResource"
-        )
-
-        single_entity = (
-            str(self.parse_config.entity)
-            .rstrip("/")
-            .endswith("OPTIMADEStructureResource")
-        )
+        if not single_entity:
+            nested_entity_mapping: dict[str, dlite.Instance] = self._get_nested_entity(
+                OPTIMADEStructure
+            )
 
         if not (
             generic_parse_result.optimade_response
@@ -291,12 +269,21 @@ class OPTIMADEDLiteParseStrategy:
                             "assemblies_group_probabilities"
                         ].append(",".join(str(_) for _ in assembly.group_probabilities))
                     else:
+                        if "attributes.assemblies" not in nested_entity_mapping:
+                            LOGGER.error(
+                                "Could not find entity for 'attributes.assemblies'.\nnested_entity_mapping=%r",
+                                nested_entity_mapping,
+                            )
+                            raise OPTIMADEParseError(
+                                "Could not find entity for 'attributes.assemblies'."
+                            )
+
                         dimensions = {
                             "ngroups": len(assembly.group_probabilities),
                             "nsites": len(assembly.sites_in_groups),
                         }
                         new_structure_attributes["assemblies"].append(
-                            OPTIMADEStructureAssembly(
+                            nested_entity_mapping["attributes.assemblies"](
                                 dimensions=dimensions, properties=assembly.model_dump()
                             )
                         )
@@ -342,12 +329,21 @@ class OPTIMADEDLiteParseStrategy:
                             ",".join(str(_) for _ in (species.nattached or []))
                         )
                     else:
+                        if "attributes.species" not in nested_entity_mapping:
+                            LOGGER.error(
+                                "Could not find entity for 'attributes.species'.\nnested_entity_mapping=%r",
+                                nested_entity_mapping,
+                            )
+                            raise OPTIMADEParseError(
+                                "Could not find entity for 'attributes.species'."
+                            )
+
                         dimensions = {
                             "nelements": len(species.chemical_symbols),
                             "nattached_elements": len(species.attached or []),
                         }
                         new_structure_attributes["species"].append(
-                            OPTIMADEStructureSpecies(
+                            nested_entity_mapping["attributes.species"](
                                 dimensions=dimensions,
                                 properties=species.model_dump(exclude_none=True),
                             )
@@ -379,9 +375,10 @@ class OPTIMADEDLiteParseStrategy:
             ]
 
             if single_entity:
-                new_structure_attributes["id"] = structure.entry.id
+                new_structure_attributes["id"] = structure.id
+                new_structure_attributes["type"] = structure.type
 
-                new_structure = OPTIMADEStructureResource(
+                new_structure = OPTIMADEStructure(
                     dimensions={
                         "nelements": structure.attributes.nelements or 0,
                         "dimensionality": 3,
@@ -394,10 +391,17 @@ class OPTIMADEDLiteParseStrategy:
                     properties=new_structure_attributes,
                 )
             else:
+                if "attributes" not in nested_entity_mapping:
+                    LOGGER.error(
+                        "Could not find entity for 'attributes'.\nnested_entity_mapping=%r",
+                        nested_entity_mapping,
+                    )
+                    raise OPTIMADEParseError("Could not find entity for 'attributes'.")
+
                 new_structure = OPTIMADEStructure(
                     dimensions={},
                     properties={
-                        "attributes": OPTIMADEStructureAttributes(
+                        "attributes": nested_entity_mapping["attributes"](
                             dimensions={
                                 "nelements": structure.attributes.nelements or 0,
                                 "dimensionality": 3,
@@ -413,13 +417,29 @@ class OPTIMADEDLiteParseStrategy:
                             },
                             properties=new_structure_attributes,
                         ),
-                        "type": structure.entry.type,
-                        "id": structure.entry.id,
+                        "type": structure.type,
+                        "id": structure.id,
                     },
                 )
 
-            dlite_collection.add(label=structure.entry.id, inst=new_structure)
+            dlite_collection.add(label=structure.id, inst=new_structure)
 
         update_collection(collection=dlite_collection)
 
         return generic_parse_result
+
+    def _get_nested_entity(self, entity: dlite.Instance) -> dict[str, dlite.Instance]:
+        """Get nested entity from DLite instance."""
+        nested_entities: dict[str, dlite.Instance] = {}
+
+        for prop in entity.properties["properties"]:
+            if prop.type == "ref":
+                nested_entities[prop.name] = dlite.get_instance(prop.ref)
+
+        for name, nested_entity in tuple(nested_entities.items()):
+            futher_nested_entities = self._get_nested_entity(nested_entity)
+
+            for nested_name, further_nested_entity in futher_nested_entities.items():
+                nested_entities[f"{name}.{nested_name}"] = further_nested_entity
+
+        return nested_entities

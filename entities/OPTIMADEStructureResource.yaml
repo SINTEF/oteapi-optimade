@@ -1,4 +1,4 @@
-uri: http://onto-ns.com/meta/1.0/OPTIMADEStructureResource
+uri: http://onto-ns.com/meta/1.0.1/OPTIMADEStructureResource
 description: An OPTIMADE structure resource.
 dimensions:
   nelements: Number of different elements in the structure as an integer.
@@ -12,8 +12,11 @@ dimensions:
 properties:
   # Resource
   id:
-    type: str
+    type: string
     description: An entry's ID as defined in section Definition of Terms.
+  type:
+    type: string
+    description: The name of the type of an entry. Must always be 'structures'.
 
   # Entry Resource
   immutable_id:
@@ -102,17 +105,9 @@ properties:
     shape: [nspecies]
     description: Chemical symbol of the species as a string list of comma-separated entries.
   species_concentration:  # TODO: Potential here for improvement. The individual list of concentraion is dynamic! Furthermore, it is originally float values!
-    type: strings
+    type: string
     shape: [nspecies]
     description: Concentration of the species in the structure. The concentration is given as a string list of comma-separated entries. The concentration values should be cast to float.
-  species_attached:  # TODO: Potential here for improvement. The individual list of chemical symbols is dynamic!
-    type: string
-    shape: [nspecies]
-    description: A string list of comma-separated entries that list chemical symbols for the elements attached to this site.
-  species_nattached:
-    type: string
-    shape: [nspecies]
-    description: A string list of comma-separated entries that list the number of attached atoms of the kind specified in the value of the `species_attached` key. The values should be cast to integers.
   species_mass:
     type: string
     shape: [nspecies]
@@ -122,6 +117,14 @@ properties:
     type: string
     shape: [nspecies]
     description: Can be any valid Unicode string, and should contain (if specified) the name of the species that is used internally in the source database.
+  species_attached:  # TODO: Potential here for improvement. The individual list of chemical symbols is dynamic!
+    type: string
+    shape: [nspecies]
+    description: A string list of comma-separated entries that list chemical symbols for the elements attached to this site.
+  species_nattached:
+    type: string
+    shape: [nspecies]
+    description: A string list of comma-separated entries that list the number of attached atoms of the kind specified in the value of the `species_attached` key. The values should be cast to integers.
 
   ## Assemblies
   # A description of groups of sites that are statistically correlated.

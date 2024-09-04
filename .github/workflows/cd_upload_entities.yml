@@ -40,7 +40,7 @@ jobs:
             SHA_BEFORE="${{ github.event.pull_request.base.sha }}"
           fi
 
-          git diff --name-only ${SHA_BEFORE} | grep -E '^oteapi_optimade/dlite/entities/.*\.ya?ml$' > entities.txt ||:
+          git diff --name-only ${SHA_BEFORE} | grep -E '^entities/.*\.ya?ml$' > entities.txt ||:
 
           if [ -s entities.txt ]; then
             echo "relevant_entities=true" >> $GITHUB_OUTPUT
