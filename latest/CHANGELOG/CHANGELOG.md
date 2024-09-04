@@ -1,12 +1,51 @@
 # Changelog
 
-## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2024-09-04)
+## [Unreleased](https://github.com/SINTEF/oteapi-optimade/tree/HEAD)
 
-[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.1...Unreleased changes)
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.6.0.dev0...HEAD)
+
+## Support modern session handling in OTEAPI Core
+
+From OTEAPI Core v0.7.0, sessions are handled differently in strategies, leading to signature changes in the strategy methods.
+This development release version matches the current development release version(s) of OTEAPI Core (and OTELib).
+
+### Single entity OPTIMADE Structure Resource
+
+A single entity has been added to parse an OPTIMADE Structure resource.
+The DLite parse strategy has been updated to support this new entity.
+
+Furthermore, utility/helper functions to parse the resulting `species` and `assemblies` data are available at `oteapi_optimade.parse_species()` and `oteapi_optimade.parse_assemblies()`, respectively.
+
+### DX updates
+
+The permanent dependencies branch has been removed in favor of using Dependabot's groups feature and merging everything directly into `main`.
 
 **Implemented enhancements:**
 
 - Stop using the permanent dependencies branch [\#254](https://github.com/SINTEF/oteapi-optimade/issues/254)
+
+## [v0.6.0.dev0](https://github.com/SINTEF/oteapi-optimade/tree/v0.6.0.dev0) (2024-09-04)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.1...v0.6.0.dev0)
+
+## Support modern session handling in OTEAPI Core
+
+From OTEAPI Core v0.7.0, sessions are handled differently in strategies, leading to signature changes in the strategy methods.
+This development release version matches the current development release version(s) of OTEAPI Core (and OTELib).
+
+### Single entity OPTIMADE Structure Resource
+
+A single entity has been added to parse an OPTIMADE Structure resource.
+The DLite parse strategy has been updated to support this new entity.
+
+Furthermore, utility/helper functions to parse the resulting `species` and `assemblies` data are available at `oteapi_optimade.parse_species()` and `oteapi_optimade.parse_assemblies()`, respectively.
+
+### DX updates
+
+The permanent dependencies branch has been removed in favor of using Dependabot's groups feature and merging everything directly into `main`.
+
+**Implemented enhancements:**
+
 - Support new OTEAPI session handling [\#213](https://github.com/SINTEF/oteapi-optimade/issues/213)
 - Minimize SOFT data model to a single file [\#195](https://github.com/SINTEF/oteapi-optimade/issues/195)
 
