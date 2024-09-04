@@ -6,11 +6,13 @@
 
 **Implemented enhancements:**
 
+- Stop using the permanent dependencies branch [\#254](https://github.com/SINTEF/oteapi-optimade/issues/254)
 - Support new OTEAPI session handling [\#213](https://github.com/SINTEF/oteapi-optimade/issues/213)
 - Minimize SOFT data model to a single file [\#195](https://github.com/SINTEF/oteapi-optimade/issues/195)
 
 **Merged pull requests:**
 
+- Remove everything to do with the permanent dependencies branch [\#255](https://github.com/SINTEF/oteapi-optimade/pull/255) ([CasperWA](https://github.com/CasperWA))
 - Support OTEAPI Core v0.7 [\#236](https://github.com/SINTEF/oteapi-optimade/pull/236) ([CasperWA](https://github.com/CasperWA))
 - Single SOFT entity for structure resource [\#196](https://github.com/SINTEF/oteapi-optimade/pull/196) ([CasperWA](https://github.com/CasperWA))
 
