@@ -15,8 +15,7 @@ jobs:
       git_email: "Team4.0@SINTEF.no"
 
       # Update dependency branch
-      permanent_dependencies_branch: "ci/dependency-updates"
-      default_repo_branch: main
+      update_dependencies_branch: false
 
       # Update documentation
       update_docs: true
