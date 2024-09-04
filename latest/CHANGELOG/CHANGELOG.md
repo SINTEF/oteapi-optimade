@@ -1,16 +1,18 @@
 # Changelog
 
-## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2024-09-03)
+## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2024-09-04)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.1...Unreleased changes)
 
 **Implemented enhancements:**
 
 - Support new OTEAPI session handling [\#213](https://github.com/SINTEF/oteapi-optimade/issues/213)
+- Minimize SOFT data model to a single file [\#195](https://github.com/SINTEF/oteapi-optimade/issues/195)
 
 **Merged pull requests:**
 
 - Support OTEAPI Core v0.7 [\#236](https://github.com/SINTEF/oteapi-optimade/pull/236) ([CasperWA](https://github.com/CasperWA))
+- Single SOFT entity for structure resource [\#196](https://github.com/SINTEF/oteapi-optimade/pull/196) ([CasperWA](https://github.com/CasperWA))
 
 ## [v0.5.1](https://github.com/SINTEF/oteapi-optimade/tree/v0.5.1) (2024-09-03)
 
