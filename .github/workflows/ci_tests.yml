@@ -10,18 +10,25 @@ on:
 jobs:
   basic-tests:
     name: External
-    uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v2.7.4
+    uses: SINTEF/ci-cd/.github/workflows/ci_tests.yml@v2.8.2
     with:
       # General setup
       install_extras: "[dev]"
 
       # pre-commit
-      python_version_pre-commit: "3.9"
+      run_pre-commit: false
 
       # pylint & safety
       python_version_pylint_safety: "3.9"
       run_pylint: false
+
       run_safety: true
+      # ID: 70612
+      #   Package: Jinja2
+      #   Has been disputed by the maintainer and multiple third parties.
+      #   For more information see: https://github.com/advisories/GHSA-f6pv-j8mr-w6rr
+      safety_options: |
+        --ignore=70612
 
       # Build dist
       python_version_package: "3.9"
@@ -40,7 +47,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
         os:
         - ["ubuntu-latest", "linux"]
         - ["windows-latest", "windows"]
@@ -83,7 +90,7 @@ jobs:
     env:
       OTEAPI_PORT: 8080
       OPTIMADE_PORT: 5000
-      OTEAPI_prefix: "/api/v1"
+      OTEAPI_PREFIX: "/api/v1"
 
     services:
       redis:
@@ -122,7 +129,7 @@ jobs:
           --env "OTEAPI_REDIS_TYPE=redis" \
           --env "OTEAPI_REDIS_HOST=localhost" \
           --env "OTEAPI_REDIS_PORT=6379" \
-          --env "OTEAPI_prefix=${OTEAPI_prefix}" \
+          --env "OTEAPI_PREFIX=${OTEAPI_PREFIX}" \
           --network "host" \
           --volume "${PWD}:/oteapi-optimade" \
           --entrypoint "" \
@@ -132,11 +139,7 @@ jobs:
         .github/utils/wait_for_it.sh localhost:${OTEAPI_PORT} -t 240
         sleep 5
       env:
-        # Use version 1.20240228.345 until
-        # https://github.com/SINTEF/oteapi-optimade/issues/213 has been resolved.
-        # See also
-        # https://github.com/EMMC-ASBL/oteapi-services/tree/8306d7212419764fb87e5cefdb5a869db9c68ef7?tab=readme-ov-file#open-translation-environment-ote-api
-        DOCKER_OTEAPI_VERSION: '1.20240228.345'
+        DOCKER_OTEAPI_VERSION: 'latest'
 
     - name: Run end-2-end tests
       run: python .github/utils/end2end_test.py

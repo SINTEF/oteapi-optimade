@@ -5,19 +5,19 @@ from __future__ import annotations
 from .strategies import (
     OPTIMADEDLiteParseConfig,
     OPTIMADEFilterConfig,
-    OPTIMADEFilterSession,
+    OPTIMADEFilterResult,
     OPTIMADEParseConfig,
-    OPTIMADEParseSession,
+    OPTIMADEParseResult,
     OPTIMADEResourceConfig,
-    OPTIMADEResourceSession,
+    OPTIMADEResourceResult,
 )
 
 __all__ = (
     "OPTIMADEDLiteParseConfig",
     "OPTIMADEFilterConfig",
-    "OPTIMADEFilterSession",
+    "OPTIMADEFilterResult",
     "OPTIMADEParseConfig",
-    "OPTIMADEParseSession",
+    "OPTIMADEParseResult",
     "OPTIMADEResourceConfig",
-    "OPTIMADEResourceSession",
+    "OPTIMADEResourceResult",
 )

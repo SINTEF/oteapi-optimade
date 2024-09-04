@@ -5,8 +5,9 @@ from __future__ import annotations
 from typing import Annotated, Literal, Optional
 
 from oteapi.models import AttrDict, DataCacheConfig
-from pydantic import Field, field_validator
+from pydantic import BeforeValidator, Field, field_validator
 
+from oteapi_optimade.models.custom_types import OPTIMADEUrl
 from oteapi_optimade.models.query import OPTIMADEQueryParameters
 
 DEFAULT_CACHE_CONFIG_VALUES = {
@@ -16,9 +17,30 @@ DEFAULT_CACHE_CONFIG_VALUES = {
 """Set the `expireTime` and `tag` to default values for the data cache."""
 
 
-class OPTIMADEConfig(AttrDict):  # type: ignore[misc]
+class OPTIMADEConfig(AttrDict):
     """OPTIMADE configuration."""
 
+    # OTEAPI-specific attributes
+    downloadUrl: Annotated[
+        Optional[OPTIMADEUrl],
+        Field(description="Either a base OPTIMADE URL or a full OPTIMADE URL."),
+    ] = None
+
+    mediaType: Annotated[
+        Optional[Literal["application/vnd.optimade+json", "application/vnd.optimade"]],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
+        Field(
+            description="The registered strategy name for OPTIMADEParseStrategy.",
+        ),
+    ] = None
+
+    # OPTIMADE parse result attributes
+    optimade_config: Annotated[
+        Optional[OPTIMADEConfig],
+        Field(description="A pre-existing instance of this OPTIMADE configuration."),
+    ] = None
+
+    # OPTIMADE-specific attributes
     version: Annotated[
         str,
         Field(
@@ -26,24 +48,28 @@ class OPTIMADEConfig(AttrDict):  # type: ignore[misc]
             pattern=r"^v[0-9]+(\.[0-9]+){0,2}$",
         ),
     ] = "v1"
+
     endpoint: Annotated[
         Literal["references", "structures"],
         Field(
             description="Supported OPTIMADE entry resource endpoint.",
         ),
     ] = "structures"
+
     query_parameters: Annotated[
         Optional[OPTIMADEQueryParameters],
         Field(
             description="URL query parameters to be used in the OPTIMADE query.",
         ),
     ] = None
+
     datacache_config: Annotated[
         DataCacheConfig,
         Field(
             description="Configuration options for the local data cache.",
         ),
     ] = DataCacheConfig(**DEFAULT_CACHE_CONFIG_VALUES)
+
     use_dlite: Annotated[
         bool,
         Field(
@@ -53,7 +79,7 @@ class OPTIMADEConfig(AttrDict):  # type: ignore[misc]
 
     @field_validator("datacache_config", mode="after")
     @classmethod
-    def default_datacache_config(
+    def _default_datacache_config(
         cls, datacache_config: DataCacheConfig
     ) -> DataCacheConfig:
         """Use default values for `DataCacheConfig` if not supplied."""
@@ -75,3 +101,22 @@ class OPTIMADEConfig(AttrDict):  # type: ignore[misc]
                 }
             )
         return datacache_config
+
+
+class OPTIMADEDLiteConfig(OPTIMADEConfig):
+    """OPTIMADE configuration when using the DLite-specific strategies."""
+
+    # OTEAPI-specific attributes
+    mediaType: Annotated[
+        Optional[Literal["application/vnd.optimade+dlite"]],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
+        Field(
+            description="The registered strategy name for OPTIMADEDLiteParseStrategy.",
+        ),
+    ] = None  # type: ignore[assignment]
+
+    # Dlite specific attributes
+    collection_id: Annotated[
+        Optional[str],
+        Field(description="A reference to a DLite Collection."),
+    ] = None

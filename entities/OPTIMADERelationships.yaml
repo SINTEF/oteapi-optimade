@@ -1,7 +1,7 @@
 uri: http://onto-ns.com/meta/1.0/OPTIMADERelationships
 meta: http://onto-ns.com/meta/0.3/EntitySchema
 description: This model wraps the JSON API Relationships to include type-specific top level keys.
-dimensions: []
+dimensions: {}
 properties:
   references:
     type: ref

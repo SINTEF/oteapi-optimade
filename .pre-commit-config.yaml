@@ -1,9 +1,23 @@
+# pre-commit.ci
+ci:
+  autofix_commit_msg: |
+      [pre-commit.ci] auto fixes from pre-commit hooks
+
+      For more information, see https://pre-commit.ci
+  autofix_prs: false
+  autoupdate_branch: 'main'
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: 'weekly'
+  skip: [validate-entities]  # doesn't seem to work. Also, this is checked with dedicated CD workflow
+  submodules: false
+
+# hooks
 default_language_version:
   python: python3.9
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
     - id: check-toml
       name: Check TOML
@@ -12,43 +26,44 @@ repos:
     - id: debug-statements
     - id: end-of-file-fixer
     - id: mixed-line-ending
+      exclude: ^CHANGELOG.md$
     - id: name-tests-test
       args: ["--pytest-test-first"]
     - id: trailing-whitespace
       args: [--markdown-linebreak-ext=md]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.1
+    rev: v3.17.0
     hooks:
     - id: pyupgrade
       args: [--py39-plus, --keep-runtime-typing]
 
-  - repo: https://github.com/ambv/black
-    rev: 24.2.0
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
     hooks:
     - id: black
 
   - repo: https://github.com/adamchainz/blacken-docs
-    rev: 1.16.0
+    rev: 1.18.0
     hooks:
       - id: blacken-docs
         additional_dependencies: [black]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.1
+    rev: v0.6.3
     hooks:
     - id: ruff
       args: ["--fix", "--exit-non-zero-on-fix", "--show-fixes"]
 
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.7
+    rev: 1.7.9
     hooks:
     - id: bandit
       args: ["-r"]
       files: ^oteapi_optimade/.*$
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
+    rev: v1.11.2
     hooks:
     - id: mypy
       exclude: ^tests/.*$
@@ -57,10 +72,20 @@ repos:
         - "pydantic>=2,<3"
 
   - repo: https://github.com/SINTEF/ci-cd
-    rev: v2.7.4
+    rev: v2.8.2
     hooks:
     - id: docs-api-reference
       args:
       - "--package-dir=oteapi_optimade"
       - "--full-docs-folder=models"
     - id: docs-landing-page
+
+  # entities-service can validate SOFT/DLite entities
+  # More information can be found in the repository README:
+  # https://github.com/SINTEF/entities-service?tab=readme-ov-file#readme
+  - repo: https://github.com/SINTEF/entities-service
+    rev: v0.7.0
+    hooks:
+    - id: validate-entities
+      additional_dependencies: [".[cli]"]
+      files: ^entities/.*\.ya?ml$

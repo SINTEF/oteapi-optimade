@@ -5,7 +5,24 @@ updates:
   schedule:
     interval: daily
     time: "05:24"
-  target-branch: ci/dependency-updates
+  target-branch: main
   labels:
     - CI/CD
     - skip_changelog
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: monday
+    time: "05:18"
+  target-branch: main
+  labels:
+    - dependencies
+    - skip_changelog
+  groups:
+    packages:
+      applies-to: version-updates
+      patterns: ["*"]
+    security:
+      applies-to: security-updates
+      patterns: ["*"]

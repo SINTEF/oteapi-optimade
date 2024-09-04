@@ -93,6 +93,7 @@ plugins:
       allow_errors: false
       execute_ignore:
         - "**/examples/otelib.ipynb"
+        - "**/examples/dlite.ipynb"
       kernel_name: python3
 
 nav:

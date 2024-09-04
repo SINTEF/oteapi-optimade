@@ -1,0 +1,139 @@
+uri: http://onto-ns.com/meta/1.0.1/OPTIMADEStructureResource
+description: An OPTIMADE structure resource.
+dimensions:
+  nelements: Number of different elements in the structure as an integer.
+  dimensionality: Number of spatial dimensions. Must always be 3.
+  nsites: An integer specifying the length of the `cartesian_site_positions` property.
+  nstructure_features: Number of structure features.
+  ## Uncomment when space_group attributes are implemented in OPT.
+  # nspace_group_symmetry_operations: Number of space group symmetry operations.
+  nspecies: Number of species.
+  nassemblies: Number of assemblies.
+properties:
+  # Resource
+  id:
+    type: string
+    description: An entry's ID as defined in section Definition of Terms.
+  type:
+    type: string
+    description: The name of the type of an entry. Must always be 'structures'.
+
+  # Entry Resource
+  immutable_id:
+    type: string
+    description: The entry's immutable ID (e.g., an UUID). This is important for databases having preferred IDs that point to "the latest version" of a record, but still offer access to older variants. This ID maps to the version-specific record, in case it changes in the future.
+  last_modified:
+    type: string
+    description: Date and time representing when the entry was last modified.
+
+  # Structure Resource
+  elements:
+    type: string
+    shape: [nelements]
+    description: The chemical symbols of the different elements present in the structure.
+  elements_ratios:
+    type: float
+    shape: [nelements]
+    description: Relative proportions of different elements in the structure.
+  chemical_formula_descriptive:
+    type: string
+    description: The chemical formula for a structure as a string in a form chosen by the API implementation.
+  chemical_formula_reduced:
+    type: string
+    description: The reduced chemical formula for a structure as a string with element symbols and integer chemical proportion numbers.
+  chemical_formula_hill:
+    type: string
+    description: The chemical formula for a structure in [Hill form](https://dx.doi.org/10.1021/ja02046a005) with element symbols followed by integer chemical proportion numbers.
+  chemical_formula_anonymous:
+    type: string
+    description: The anonymous formula is the `chemical_formula_reduced`, but where the elements are instead first ordered by their chemical proportion number, and then, in order left to right, replaced by anonymous symbols A, B, C, ..., Z, Aa, Ba, ..., Za, Ab, Bb, ... and so on.
+  dimension_types:
+    type: int
+    shape: [dimensionality]
+    description: "List of three integers. For each of the three directions indicated by the three lattice vectors (see property `lattice_vectors`), this list indicates if the direction is periodic (value `1`) or non-periodic (value `0`). Note: the elements in this list each refer to the direction of the corresponding entry in `lattice_vectors` and *not* the Cartesian x, y, z directions."
+  nperiodic_dimensions:
+    type: int
+    description: An integer specifying the number of periodic dimensions in the structure, equivalent to the number of non-zero entries in `dimension_types`.
+  lattice_vectors:
+    type: float
+    shape: [dimensionality, dimensionality]
+    unit: Å
+    description: The three lattice vectors in Cartesian coordinates, in ångström (Å).
+  ## Uncomment when space_group attributes are implemented in OPT.
+  # space_group_symmetry_operations_xyz:
+  #   type: string
+  #   shape: [nspace_group_symmetry_operations]
+  #   description: List of symmetry operations given as general position x, y and z coordinates in algebraic form.
+  # space_group_symbol_hall:
+  #   type: string
+  #   description: A Hall space group symbol representing the symmetry of the structure as defined in (Hall, 1981, 1981a).
+  # space_group_symbol_hermann_mauguin:
+  #   type: string
+  #   description: A human- and machine-readable string containing the short Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
+  # space_group_symbol_hermann_mauguin_extended:
+  #   type: string
+  #   description: A human- and machine-readable string containing the extended Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
+  # space_group_it_number:
+  #   type: int
+  #   description: Space group number which specifies the space group of the structure as defined in the International Tables for Crystallography Vol. A. (IUCr, 2005).
+  cartesian_site_positions:
+    type: float
+    shape: [nsites, dimensionality]
+    description: Cartesian positions of each site in the structure. A site is usually used to describe positions of atoms; what atoms can be encountered at a given site is conveyed by the `species_at_sites` property, and the species themselves are described in the `species` property.
+  species_at_sites:
+    type: string
+    shape: [nsites]
+    description: Name of the species at each site (where values for sites are specified with the same order of the property `cartesian_site_positions`).
+  structure_features:
+    type: string
+    shape: [nstructure_features]
+    description: A list of strings that flag which special features are used by the structure.
+
+  ## Species
+  # A list describing the species of the sites of this structure. Species can represent pure chemical elements, virtual-crystal atoms representing a statistical occupation of a given site by multiple chemical elements, and/or a location to which there are attached atoms, i.e., atoms whose precise location are unknown beyond that they are attached to that position (frequently used to indicate hydrogen atoms attached to another element, e.g., a carbon with three attached hydrogens might represent a methyl group, -CH3).
+  species_name:
+    type: string
+    shape: [nspecies]
+    description: Name of the species.
+  # This is an option for optimizing the shapes for species_chemical_symbols, species_concentration, and species_mass.
+  # species_nchemical_symbols:
+  #   type: int
+  #   shape: [nspecies]
+  #   description: Length of each species' list of chemical symbols, concentration values, and mass.
+  species_chemical_symbols:  # TODO: Potential here for improvement. The individual list of chemical symbols is dynamic!
+    type: string
+    shape: [nspecies]
+    description: Chemical symbol of the species as a string list of comma-separated entries.
+  species_concentration:  # TODO: Potential here for improvement. The individual list of concentraion is dynamic! Furthermore, it is originally float values!
+    type: string
+    shape: [nspecies]
+    description: Concentration of the species in the structure. The concentration is given as a string list of comma-separated entries. The concentration values should be cast to float.
+  species_mass:
+    type: string
+    shape: [nspecies]
+    description: A string list of comma-separated entries that list the mass of the species in atomic mass units (amu). The values should be cast to float.
+    unit: amu
+  species_original_name:
+    type: string
+    shape: [nspecies]
+    description: Can be any valid Unicode string, and should contain (if specified) the name of the species that is used internally in the source database.
+  species_attached:  # TODO: Potential here for improvement. The individual list of chemical symbols is dynamic!
+    type: string
+    shape: [nspecies]
+    description: A string list of comma-separated entries that list chemical symbols for the elements attached to this site.
+  species_nattached:
+    type: string
+    shape: [nspecies]
+    description: A string list of comma-separated entries that list the number of attached atoms of the kind specified in the value of the `species_attached` key. The values should be cast to integers.
+
+  ## Assemblies
+  # A description of groups of sites that are statistically correlated.
+  # TODO: Handle dynamic list lengths.
+  assemblies_sites_in_groups:
+    type: string
+    shape: [nassemblies]
+    description: A string list of inner-most comma-separated entries that list the sites that are in each group. The groups are separated by a semicolon. The sites are listed by their index in the `cartesian_site_positions` list and should be cast to integers.
+  assemblies_group_probabilities:
+    type: string
+    shape: [nassemblies]
+    description: A string list of comma-separated entries that list the probability of each group. The probabilities should be cast to floats.
