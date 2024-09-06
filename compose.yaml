@@ -36,6 +36,8 @@ services:
     networks:
       - otenet
     stop_grace_period: 1s
+    profiles:
+      - local_optimade
 
 volumes:
   redis-persist:
