@@ -48,7 +48,7 @@ doc = [
     "mike ~=2.1",
     "mkdocs >=1.5.3,<1.7",
     "mkdocs-awesome-pages-plugin ~=2.9",
-    "mkdocs-jupyter ~=0.24.8",
+    "mkdocs-jupyter >=0.24.8,<0.26.0",
     "mkdocs-material >=9.5.5,<10",
     "mkdocstrings[python] ~=0.26.0",
     "oteapi-optimade[examples]",
