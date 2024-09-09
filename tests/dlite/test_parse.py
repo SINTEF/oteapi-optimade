@@ -44,7 +44,7 @@ def test_parse_nested_entities(static_files: Path) -> None:
     from oteapi.datacache import DataCache
     from oteapi_dlite.utils import get_collection
 
-    from oteapi_optimade.dlite.parse import OPTIMADEDLiteParseStrategy
+    from oteapi_optimade.dlite.parse import OPTIMADEResponseDLiteParseStrategy
     from oteapi_optimade.models.custom_types import OPTIMADEUrl
 
     url = OPTIMADEUrl(
@@ -76,8 +76,10 @@ def test_parse_nested_entities(static_files: Path) -> None:
         }
     )
 
-    config["configuration"].update(OPTIMADEDLiteParseStrategy(config).initialize())
-    config["configuration"].update(OPTIMADEDLiteParseStrategy(config).get())
+    config["configuration"].update(
+        OPTIMADEResponseDLiteParseStrategy(config).initialize()
+    )
+    config["configuration"].update(OPTIMADEResponseDLiteParseStrategy(config).get())
 
     dlite_collection = get_collection(
         collection_id=config["configuration"]["collection_id"]
@@ -226,7 +228,7 @@ def test_parse_single_entity(static_files: Path) -> None:
     from oteapi_dlite.utils import get_collection
 
     from oteapi_optimade import parse_assemblies, parse_species
-    from oteapi_optimade.dlite.parse import OPTIMADEDLiteParseStrategy
+    from oteapi_optimade.dlite.parse import OPTIMADEResponseDLiteParseStrategy
     from oteapi_optimade.models.custom_types import OPTIMADEUrl
 
     url = OPTIMADEUrl(
@@ -258,8 +260,10 @@ def test_parse_single_entity(static_files: Path) -> None:
         }
     )
 
-    config["configuration"].update(OPTIMADEDLiteParseStrategy(config).initialize())
-    config["configuration"].update(OPTIMADEDLiteParseStrategy(config).get())
+    config["configuration"].update(
+        OPTIMADEResponseDLiteParseStrategy(config).initialize()
+    )
+    config["configuration"].update(OPTIMADEResponseDLiteParseStrategy(config).get())
 
     dlite_collection = get_collection(
         collection_id=config["configuration"]["collection_id"]

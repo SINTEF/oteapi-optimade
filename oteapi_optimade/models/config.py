@@ -30,7 +30,7 @@ class OPTIMADEConfig(AttrDict):
         Optional[Literal["application/vnd.optimade+json", "application/vnd.optimade"]],
         BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(
-            description="The registered strategy name for OPTIMADEParseStrategy.",
+            description="The registered strategy name for OPTIMADEResponseParseStrategy.",
         ),
     ] = None
 
@@ -111,7 +111,7 @@ class OPTIMADEDLiteConfig(OPTIMADEConfig):
         Optional[Literal["application/vnd.optimade+dlite"]],
         BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(
-            description="The registered strategy name for OPTIMADEDLiteParseStrategy.",
+            description="The registered strategy name for OPTIMADEResponseDLiteParseStrategy.",
         ),
     ] = None  # type: ignore[assignment]
 

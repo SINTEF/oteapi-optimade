@@ -1,4 +1,4 @@
-"""Demo strategy class for text/json."""
+"""Parse strategy for OPTIMADE API responses."""
 
 from __future__ import annotations
 
@@ -24,8 +24,8 @@ LOGGER = logging.getLogger(__name__)
 
 
 @dataclass
-class OPTIMADEParseStrategy:
-    """Parse strategy for JSON.
+class OPTIMADEResponseParseStrategy:
+    """Parse strategy for OPTIMADE API responses.
 
     **Implements strategies**:
 
@@ -76,17 +76,15 @@ class OPTIMADEParseStrategy:
             )
 
         cache = DataCache(self.parse_config.configuration.datacache_config)
-        if self.parse_config.configuration.downloadUrl in cache:
-            response: dict[str, Any] = cache.get(
-                self.parse_config.configuration.downloadUrl
-            )
-        elif (
+        if (
             self.parse_config.configuration.datacache_config.accessKey
             and self.parse_config.configuration.datacache_config.accessKey in cache
         ):
-            response = cache.get(
+            response: dict[str, Any] = cache.get(
                 self.parse_config.configuration.datacache_config.accessKey
             )
+        elif self.parse_config.configuration.downloadUrl in cache:
+            response = cache.get(self.parse_config.configuration.downloadUrl)
         else:
             download_config = self.parse_config.configuration.model_copy()
             download_output = create_strategy("download", download_config).get()
@@ -94,10 +92,7 @@ class OPTIMADEParseStrategy:
 
         if (
             not response.get("ok", True)
-            or (
-                response.get("status_code", 200) < 200
-                or response.get("status_code", 200) >= 300
-            )
+            or not (199 < response.get("status_code", 200) < 300)  # 2xx status code
             or "errors" in response.get("json", {})
         ):
             # Error response

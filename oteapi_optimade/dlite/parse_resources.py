@@ -1,46 +1,113 @@
-"""OTEAPI strategy for parsing OPTIMADE API entry resource responses to DLite instances."""
+"""OTEAPI strategy for parsing OPTIMADE structure resources to DLite instances."""
 
 from __future__ import annotations
 
-import importlib
+import json
 import logging
-from typing import TYPE_CHECKING
+import sys
+from typing import TYPE_CHECKING, Annotated, Optional, Union
+
+if sys.version_info >= (3, 9, 1):
+    from typing import Literal
+else:
+    from typing_extensions import Literal  # type: ignore[assignment]
 
 import dlite
-from optimade.models import Response as OPTIMADEResponse
-from optimade.models import (
-    StructureResource,
-    StructureResponseMany,
-    StructureResponseOne,
-    Success,
+from optimade.models import ReferenceResource, StructureResource
+from oteapi.datacache import DataCache
+from oteapi.models import (
+    AttrDict,
+    DataCacheConfig,
+    HostlessAnyUrl,
+    ParserConfig,
+    ResourceConfig,
 )
+from oteapi.plugins import create_strategy
 from oteapi_dlite.models import DLiteSessionUpdate
 from oteapi_dlite.utils import get_collection, update_collection
-from pydantic import BaseModel, ValidationError
+from pydantic import BeforeValidator, Field, ValidationError
 from pydantic.dataclasses import dataclass
 
 from oteapi_optimade.exceptions import OPTIMADEParseError
-from oteapi_optimade.models import OPTIMADEDLiteParseConfig, OPTIMADEParseResult
-from oteapi_optimade.strategies.parse import OPTIMADEResponseParseStrategy
 
 if TYPE_CHECKING:  # pragma: no cover
     from typing import Any
+
+OPTIMADEResource = Union[ReferenceResource, StructureResource]
+"""Alias type for an OPTIMADE resource type."""
+
+optimade_resources: dict[str, type[ReferenceResource | StructureResource]] = {
+    "references": ReferenceResource,
+    "structures": StructureResource,
+}
+"""Tuple of OPTIMADE resource types."""
 
 
 LOGGER = logging.getLogger(__name__)
 
 
+class OPTIMADEResourceDLiteConfig(AttrDict):
+    """Strategy-specific configuration for the 'parser/optimade/resources' strategy."""
+
+    downloadUrl: Annotated[
+        Optional[HostlessAnyUrl],
+        Field(description=ResourceConfig.model_fields["downloadUrl"].description),
+    ] = None
+
+    mediaType: Annotated[
+        Optional[
+            Literal[
+                "application/vnd.optimade+json",
+                "application/vnd.optimade",
+                "application/json",
+            ]
+        ],
+        Field(description=ResourceConfig.model_fields["mediaType"].description),
+    ] = None
+
+    datacache_config: Annotated[
+        DataCacheConfig,
+        Field(description="DataCache configuration for data retrieval."),
+    ] = DataCacheConfig()
+
+    parsed_data_key: Annotated[
+        str,
+        Field(description="Key to the parsed data stored in the DataCache."),
+    ] = "optimade_resources"
+
+
+class OPTIMADEResourceDLiteParserConfig(ParserConfig):
+    """Parser config for the 'parser/optimade/resources' strategy."""
+
+    parserType: Annotated[
+        Literal[
+            "parser/optimade/resources/dlite",
+            "parser/optimade/structures/dlite",
+            "parser/optimade/references/dlite",
+        ],
+        BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
+        Field(description=ParserConfig.model_fields["parserType"].description),
+    ]
+
+    configuration: Annotated[
+        OPTIMADEResourceDLiteConfig,
+        Field(description=ParserConfig.model_fields["configuration"].description),
+    ] = OPTIMADEResourceDLiteConfig()
+
+
 @dataclass
-class OPTIMADEResponseDLiteParseStrategy:
-    """Parse strategy for JSON.
+class OPTIMADEResourceDLiteParseStrategy:
+    """Parse strategy for an OPTIMADE Entry Resource using DLite.
 
     **Implements strategies**:
 
-    - `("parserType", "parser/OPTIMADE/DLite")`
+    - `("parserType", "parser/OPTIMADE/resources/DLite")`
+    - `("parserType", "parser/OPTIMADE/references/DLite")`
+    - `("parserType", "parser/OPTIMADE/structures/DLite")`
 
     """
 
-    parse_config: OPTIMADEDLiteParseConfig
+    parse_config: OPTIMADEResourceDLiteParserConfig
 
     def initialize(self) -> DLiteSessionUpdate:
         """Initialize strategy.
@@ -59,180 +126,123 @@ class OPTIMADEResponseDLiteParseStrategy:
             ).uuid
         )
 
-    def get(self) -> OPTIMADEParseResult:
+    def get(self) -> DLiteSessionUpdate:
         """Request and parse an OPTIMADE response using OPT.
-
-        This method will be called through the strategy-specific endpoint of the
-        OTE-API Services.
-
-        Configuration values provided in `resource_config.configuration` take
-        precedence over the derived values from `downloadUrl`.
-
-        Workflow:
-
-        1. Request OPTIMADE response.
-        2. Parse as an OPTIMADE Python tools (OPT) pydantic response model.
-
-        ---
 
         The OPTIMADE Structure needs to be parsed into DLite instances inside-out,
         meaning the most nested data structures must first be parsed, and then the ones
         1 layer up and so on until the most upper layer can be parsed.
+
+        Unless using the single entity `OPTIMADEStructureResource`, where the nested
+        values are flattened into the main entity.
 
         Returns:
             An update model of key/value-pairs to be stored in the session-specific
             context from services.
 
         """
-        generic_parse_config = self.parse_config.model_copy(
-            update={
-                "parserType": self.parse_config.parserType.replace("/dlite", ""),
-                "configuration": self.parse_config.configuration.model_copy(
-                    update={
-                        "mediaType": self.parse_config.configuration.get(
-                            "mediaType", ""
-                        ).replace("+dlite", "+json")
-                    }
-                ),
-            }
-        ).model_dump(exclude_unset=True, exclude_defaults=True)
-        generic_parse_result = OPTIMADEResponseParseStrategy(generic_parse_config).get()
+        config = self.parse_config.configuration
+
+        # Retrieve data
+        cache = DataCache(config.datacache_config.model_copy(deep=True))
+        if (
+            config.datacache_config.accessKey
+            and config.datacache_config.accessKey in cache
+        ):
+            data: Any = cache.get(config.datacache_config.accessKey)
+        elif config.downloadUrl and config.downloadUrl in cache:
+            data = cache.get(config.downloadUrl)
+        elif config.downloadUrl:
+            download_config = config.model_copy(deep=True)
+            download_output = create_strategy("download", download_config).get()
+            data = cache.get(download_output("key"))
+        else:
+            raise OPTIMADEParseError(
+                "No download URL provided and could not find data in the cache."
+            )
+
+        if isinstance(data, (str, bytes)):
+            data = json.loads(data)
+
+        if not isinstance(data, (dict, list)):
+            raise OPTIMADEParseError(
+                f"Expected data to be a dict or list, got {type(data)} instead."
+            )
+
+        # Determine resource type
+        explicit_resource_type = self._get_explicit_resource_type()
+
+        if explicit_resource_type is None:
+            datum = data if isinstance(data, dict) else data[0]
+            for resource_class in optimade_resources.values():
+                try:
+                    resource_class(**datum)
+                except ValidationError:
+                    pass
+                else:
+                    explicit_resource_type = resource_class
+                    break
+            else:
+                LOGGER.error("Could not determine resource type from data: %r", data)
+                raise OPTIMADEParseError("Could not determine resource type from data.")
+
+        if not isinstance(explicit_resource_type, optimade_resources["structures"]):
+            LOGGER.error(
+                "Currently only 'structures' resources are supported. Got %s.",
+                explicit_resource_type,
+            )
+            raise OPTIMADEParseError(
+                "Currently only 'structures' resources are supported."
+            )
+
+        # Parse data
+        if isinstance(data, dict):
+            data = [data]
+
+        resources: list[OPTIMADEResource] = []
+
+        for entry in data:
+            try:
+                resources.append(explicit_resource_type(**entry))
+            except ValidationError as exc:
+                LOGGER.error(
+                    "Could not parse entry as %s: %r", explicit_resource_type, entry
+                )
+                raise OPTIMADEParseError(
+                    f"Could not parse entry as {explicit_resource_type.__name__!r}."
+                ) from exc
 
         OPTIMADEStructure = dlite.get_instance(str(self.parse_config.entity))
 
-        single_entity = "OPTIMADEStructureResource" in OPTIMADEStructure.uri
+        single_entity = (
+            OPTIMADEStructure.uri.rstrip("/")
+            .rstrip("#")
+            .endswith("/OPTIMADEStructureResource")
+        )
 
         if not single_entity:
             nested_entity_mapping: dict[str, dlite.Instance] = self._get_nested_entity(
                 OPTIMADEStructure
             )
 
-        if not (
-            generic_parse_result.optimade_response
-            and generic_parse_result.optimade_response_model
-        ):
-            base_error_message = (
-                "Could not retrieve response from OPTIMADE parse strategy."
-            )
-            LOGGER.error(
-                "%s\n"
-                "optimade_response=%r\n"
-                "optimade_response_model=%r\n"
-                "session fields=%r",
-                base_error_message,
-                generic_parse_result.get("optimade_response"),
-                generic_parse_result.get("optimade_response_model"),
-                list(generic_parse_result),
-            )
-            raise OPTIMADEParseError(base_error_message)
-
-        optimade_response_model_module, optimade_response_model_name = (
-            generic_parse_result.optimade_response_model
-        )
-
-        # Parse response using the provided model
-        try:
-            optimade_response_model: type[OPTIMADEResponse] = getattr(
-                importlib.import_module(optimade_response_model_module),
-                optimade_response_model_name,
-            )
-            optimade_response = optimade_response_model(
-                **generic_parse_result.optimade_response
-            )
-        except (ImportError, AttributeError) as exc:
-            base_error_message = "Could not import the response model."
-            LOGGER.error(
-                "%s\n"
-                "ImportError: %s\n"
-                "optimade_response_model_module=%r\n"
-                "optimade_response_model_name=%r",
-                base_error_message,
-                exc,
-                optimade_response_model_module,
-                optimade_response_model_name,
-            )
-            raise OPTIMADEParseError(base_error_message) from exc
-        except ValidationError as exc:
-            base_error_message = "Could not validate the response model."
-            LOGGER.error(
-                "%s\n"
-                "ValidationError: %s\n"
-                "optimade_response_model_module=%r\n"
-                "optimade_response_model_name=%r",
-                base_error_message,
-                exc,
-                optimade_response_model_module,
-                optimade_response_model_name,
-            )
-            raise OPTIMADEParseError(base_error_message) from exc
-
-        # Currently, only "structures" entries are supported and handled
-        if isinstance(optimade_response, StructureResponseMany):
-            structures: list[StructureResource] = [
-                (
-                    StructureResource(**entry)
-                    if isinstance(entry, dict)
-                    else entry.model_copy(deep=True)
-                )
-                for entry in optimade_response.data
-            ]
-
-        elif isinstance(optimade_response, StructureResponseOne):
-            structures = (
-                [
-                    (
-                        StructureResource(**optimade_response.data)
-                        if isinstance(optimade_response.data, dict)
-                        else optimade_response.data.model_copy(deep=True)
-                    )
-                ]
-                if optimade_response.data is not None
-                else []
-            )
-
-        elif isinstance(optimade_response, Success):
-            if isinstance(optimade_response.data, dict):
-                structures = [StructureResource(**optimade_response.data)]
-            elif isinstance(optimade_response.data, BaseModel):
-                structures = [StructureResource(**optimade_response.data.model_dump())]
-            elif isinstance(optimade_response.data, list):
-                structures = [
-                    (
-                        StructureResource(**entry)
-                        if isinstance(entry, dict)
-                        else StructureResource(**entry.model_dump())
-                    )
-                    for entry in optimade_response.data
-                ]
-            elif optimade_response.data is None:
-                structures = []
-            else:
-                LOGGER.error(
-                    "Could not determine what to do with `data`. Type %s.",
-                    type(optimade_response.data),
-                )
-                raise OPTIMADEParseError("Could not parse `data` entry in response.")
-
-        else:
-            LOGGER.error(
-                "Got currently unsupported response type %s. Only structures are "
-                "supported.",
-                optimade_response_model_name,
-            )
-            raise OPTIMADEParseError(
-                "The DLite OPTIMADE Parser currently only supports structures entities."
-            )
-
-        if not structures:
-            LOGGER.warning("No structures found in the response.")
-            return generic_parse_result
+        if not data:
+            LOGGER.warning("No data found in the response.")
+            return DLiteSessionUpdate(collection_id=config.collection_id)
 
         # DLite-fy OPTIMADE structures
-        dlite_collection = get_collection(
-            collection_id=self.parse_config.configuration.collection_id
-        )
+        dlite_collection = get_collection(collection_id=config.collection_id)
 
-        for structure in structures:
+        for resource in resources:
+            if not isinstance(resource, optimade_resources["structures"]):
+                LOGGER.error(
+                    "Currently only 'structures' resources are supported. Got %s.",
+                    type(resource),
+                )
+                raise OPTIMADEParseError(
+                    "Currently only 'structures' resources are supported."
+                )
+
+            # Structures
             new_structure_attributes: dict[str, Any] = {}
             single_entity_dimensions: dict[str, int] = {
                 "nassemblies": 0,
@@ -241,10 +251,10 @@ class OPTIMADEResponseDLiteParseStrategy:
 
             ## For OPTIMADEStructure (multiple) entities
             # Most inner layer: assemblies & species
-            if structure.attributes.assemblies:
+            if resource.attributes.assemblies:
                 if single_entity:
                     single_entity_dimensions["nassemblies"] = len(
-                        structure.attributes.assemblies
+                        resource.attributes.assemblies
                     )
                     new_structure_attributes.update(
                         {
@@ -255,7 +265,7 @@ class OPTIMADEResponseDLiteParseStrategy:
                 else:
                     new_structure_attributes["assemblies"] = []
 
-                for assembly in structure.attributes.assemblies:
+                for assembly in resource.attributes.assemblies:
                     if single_entity:
                         new_structure_attributes["assemblies_sites_in_groups"].append(
                             ";".join(
@@ -288,10 +298,10 @@ class OPTIMADEResponseDLiteParseStrategy:
                             )
                         )
 
-            if structure.attributes.species:
+            if resource.attributes.species:
                 if single_entity:
                     single_entity_dimensions["nspecies"] = len(
-                        structure.attributes.species
+                        resource.attributes.species
                     )
                     new_structure_attributes.update(
                         {
@@ -307,7 +317,7 @@ class OPTIMADEResponseDLiteParseStrategy:
                 else:
                     new_structure_attributes["species"] = []
 
-                for species in structure.attributes.species:
+                for species in resource.attributes.species:
                     if single_entity:
                         new_structure_attributes["species_name"].append(species.name)
                         new_structure_attributes["species_chemical_symbols"].append(
@@ -351,7 +361,7 @@ class OPTIMADEResponseDLiteParseStrategy:
 
             # Attributes
             new_structure_attributes.update(
-                structure.attributes.model_dump(
+                resource.attributes.model_dump(
                     exclude={
                         "species",
                         "assemblies",
@@ -371,20 +381,20 @@ class OPTIMADEResponseDLiteParseStrategy:
             # Structure features values are Enum values, so we need to convert them to
             # their string (true) values
             new_structure_attributes["structure_features"] = [
-                _.value for _ in structure.attributes.structure_features
+                _.value for _ in resource.attributes.structure_features
             ]
 
             if single_entity:
-                new_structure_attributes["id"] = structure.id
-                new_structure_attributes["type"] = structure.type
+                new_structure_attributes["id"] = resource.id
+                new_structure_attributes["type"] = resource.type
 
                 new_structure = OPTIMADEStructure(
                     dimensions={
-                        "nelements": structure.attributes.nelements or 0,
+                        "nelements": resource.attributes.nelements or 0,
                         "dimensionality": 3,
-                        "nsites": structure.attributes.nsites or 0,
+                        "nsites": resource.attributes.nsites or 0,
                         "nstructure_features": len(
-                            structure.attributes.structure_features
+                            resource.attributes.structure_features
                         ),
                         **single_entity_dimensions,
                     },
@@ -403,30 +413,30 @@ class OPTIMADEResponseDLiteParseStrategy:
                     properties={
                         "attributes": nested_entity_mapping["attributes"](
                             dimensions={
-                                "nelements": structure.attributes.nelements or 0,
+                                "nelements": resource.attributes.nelements or 0,
                                 "dimensionality": 3,
-                                "nsites": structure.attributes.nsites or 0,
+                                "nsites": resource.attributes.nsites or 0,
                                 "nspecies": (
-                                    len(structure.attributes.species)
-                                    if structure.attributes.species
+                                    len(resource.attributes.species)
+                                    if resource.attributes.species
                                     else 0
                                 ),
                                 "nstructure_features": len(
-                                    structure.attributes.structure_features
+                                    resource.attributes.structure_features
                                 ),
                             },
                             properties=new_structure_attributes,
                         ),
-                        "type": structure.type,
-                        "id": structure.id,
+                        "type": resource.type,
+                        "id": resource.id,
                     },
                 )
 
-            dlite_collection.add(label=structure.id, inst=new_structure)
+            dlite_collection.add(label=resource.id, inst=new_structure)
 
         update_collection(collection=dlite_collection)
 
-        return generic_parse_result
+        return DLiteSessionUpdate(collection_id=config.collection_id)
 
     def _get_nested_entity(self, entity: dlite.Instance) -> dict[str, dlite.Instance]:
         """Get nested entity from DLite instance."""
@@ -443,3 +453,14 @@ class OPTIMADEResponseDLiteParseStrategy:
                 nested_entities[f"{name}.{nested_name}"] = further_nested_entity
 
         return nested_entities
+
+    def _get_explicit_resource_type(self) -> OPTIMADEResource | None:
+        """Get the explicit resource type from the configuration.
+
+        Returns:
+            The explicit resource type if set, otherwise `None`.
+
+        """
+        parser_type = self.parse_config.parserType
+        resource_type = parser_type.split("/")[-1]
+        return optimade_resources.get(resource_type)
