@@ -57,6 +57,7 @@ class OPTIMADEResourceDLiteConfig(AttrDict):
     mediaType: Annotated[
         Optional[
             Literal[
+                "application/vnd.optimade+dlite",
                 "application/vnd.optimade+json",
                 "application/vnd.optimade",
                 "application/json",
@@ -74,6 +75,22 @@ class OPTIMADEResourceDLiteConfig(AttrDict):
         str,
         Field(description="Key to the parsed data stored in the DataCache."),
     ] = "optimade_resources"
+
+    # DLite-specific attributes
+    collection_id: Annotated[
+        Optional[str],
+        Field(description="The UUID of the DLite collection to store the data in."),
+    ] = None
+
+    parsed_data_label: Annotated[
+        Optional[str],
+        Field(
+            description=(
+                "Label used for the parsed data in the DLite collection. This can be used to retrieve the data. "
+                "To specify a specific property in the instance, use the format 'label#property'."
+            )
+        ),
+    ] = None
 
 
 class OPTIMADEResourceDLiteParserConfig(ParserConfig):
@@ -143,23 +160,45 @@ class OPTIMADEResourceDLiteParseStrategy:
         """
         config = self.parse_config.configuration
 
+        dlite_collection = get_collection(collection_id=config.collection_id)
+
         # Retrieve data
-        cache = DataCache(config.datacache_config.model_copy(deep=True))
-        if (
-            config.datacache_config.accessKey
-            and config.datacache_config.accessKey in cache
-        ):
-            data: Any = cache.get(config.datacache_config.accessKey)
-        elif config.downloadUrl and config.downloadUrl in cache:
-            data = cache.get(config.downloadUrl)
-        elif config.downloadUrl:
-            download_config = config.model_copy(deep=True)
-            download_output = create_strategy("download", download_config).get()
-            data = cache.get(download_output("key"))
-        else:
-            raise OPTIMADEParseError(
-                "No download URL provided and could not find data in the cache."
+        data: Any = None
+
+        if config.parsed_data_label:
+            label, property_name = (
+                config.parsed_data_label.split("#", maxsplit=1)
+                if "#" in config.parsed_data_label
+                else (config.parsed_data_label, None)
             )
+            try:
+                data = dlite_collection.get(label)
+                if property_name:
+                    data = data[property_name]
+            except (AttributeError, dlite.DLiteError) as err:
+                LOGGER.error("Could not retrieve data from DLite collection: %r", err)
+
+        if data is None:
+            cache = DataCache(config.datacache_config.model_copy(deep=True))
+            if (
+                config.datacache_config.accessKey
+                and config.datacache_config.accessKey in cache
+            ):
+                data = cache.get(config.datacache_config.accessKey)
+            elif config.parsed_data_key in cache:
+                data = cache.get(config.parsed_data_key)
+            elif config.downloadUrl and config.downloadUrl in cache:
+                data = cache.get(config.downloadUrl)
+            elif config.downloadUrl:
+                download_config = config.model_copy(deep=True)
+                download_output = create_strategy(
+                    "download", download_config.model_dump(exclude_unset=True)
+                ).get()
+                data = cache.get(download_output("key"))
+            else:
+                raise OPTIMADEParseError(
+                    "No download URL provided and could not find data in the cache."
+                )
 
         if isinstance(data, (str, bytes)):
             data = json.loads(data)
@@ -230,8 +269,6 @@ class OPTIMADEResourceDLiteParseStrategy:
             return DLiteSessionUpdate(collection_id=config.collection_id)
 
         # DLite-fy OPTIMADE structures
-        dlite_collection = get_collection(collection_id=config.collection_id)
-
         for resource in resources:
             if not isinstance(resource, optimade_resources["structures"]):
                 LOGGER.error(
