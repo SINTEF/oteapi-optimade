@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- \[pre-commit.ci\] pre-commit autoupdate [\#266](https://github.com/SINTEF/oteapi-optimade/pull/266) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
 - \[pre-commit.ci\] pre-commit autoupdate [\#264](https://github.com/SINTEF/oteapi-optimade/pull/264) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
 - \[pre-commit.ci\] pre-commit autoupdate [\#263](https://github.com/SINTEF/oteapi-optimade/pull/263) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
 - \[pre-commit.ci\] pre-commit autoupdate [\#262](https://github.com/SINTEF/oteapi-optimade/pull/262) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
