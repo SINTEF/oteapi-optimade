@@ -59,7 +59,7 @@ test = [
     "pyyaml ~=6.0",
     "requests-mock ~=1.12",
 ]
-pre-commit = ["pre-commit ~=3.8"]
+pre-commit = ["pre-commit >=3.8,<5.0"]
 dev = ["oteapi-optimade[doc,examples,pre-commit,test]"]
 
 [project.urls]
