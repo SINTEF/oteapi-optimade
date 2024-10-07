@@ -17,7 +17,7 @@ default_language_version:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
     - id: check-toml
       name: Check TOML
@@ -50,7 +50,7 @@ repos:
         additional_dependencies: [black]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.8
+    rev: v0.6.9
     hooks:
     - id: ruff
       args: ["--fix", "--exit-non-zero-on-fix", "--show-fixes"]
@@ -84,7 +84,7 @@ repos:
   # More information can be found in the repository README:
   # https://github.com/SINTEF/entities-service?tab=readme-ov-file#readme
   - repo: https://github.com/SINTEF/entities-service
-    rev: v0.7.0
+    rev: v0.7.1
     hooks:
     - id: validate-entities
       additional_dependencies: [".[cli]"]
