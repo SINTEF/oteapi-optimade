@@ -1,11 +1,12 @@
 # Changelog
 
-## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2024-10-07)
+## [Unreleased changes](https://github.com/SINTEF/oteapi-optimade/tree/Unreleased changes) (2024-10-14)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.6.0.dev0...Unreleased changes)
 
 **Merged pull requests:**
 
+- \[pre-commit.ci\] pre-commit autoupdate [\#267](https://github.com/SINTEF/oteapi-optimade/pull/267) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
 - \[pre-commit.ci\] pre-commit autoupdate [\#266](https://github.com/SINTEF/oteapi-optimade/pull/266) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
 - \[pre-commit.ci\] pre-commit autoupdate [\#264](https://github.com/SINTEF/oteapi-optimade/pull/264) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
 - \[pre-commit.ci\] pre-commit autoupdate [\#263](https://github.com/SINTEF/oteapi-optimade/pull/263) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
