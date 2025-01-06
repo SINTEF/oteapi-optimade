@@ -33,7 +33,7 @@ repos:
       args: [--markdown-linebreak-ext=md]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.0
+    rev: v3.19.1
     hooks:
     - id: pyupgrade
       args: [--py39-plus, --keep-runtime-typing]
@@ -50,20 +50,20 @@ repos:
         additional_dependencies: [black]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.0
+    rev: v0.8.6
     hooks:
     - id: ruff
       args: ["--fix", "--exit-non-zero-on-fix", "--show-fixes"]
 
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.10
+    rev: 1.8.0
     hooks:
     - id: bandit
       args: ["-r"]
       files: ^oteapi_optimade/.*$
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.13.0
+    rev: v1.14.1
     hooks:
     - id: mypy
       exclude: ^tests/.*$
