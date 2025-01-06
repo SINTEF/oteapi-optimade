@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
@@ -1152,7 +1152,7 @@ This means, if no entity is provided, the default entity will be used.</p>
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
-<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEDLiteParseConfig</span><span class="p">(</span><span class="n">OPTIMADEParseConfig</span><span class="p">):</span>
+<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEDLiteParseConfig</span><span class="p">(</span><span class="n">OPTIMADEParseConfig</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE-specific parse strategy config when using DLite.&quot;&quot;&quot;</span>
 
     <span class="n">parserType</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>  <span class="c1"># type: ignore[assignment]</span>
@@ -1250,7 +1250,7 @@ This means, if no entity is provided, the default entity will be used.</p>
 <span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
-<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseConfig</span><span class="p">(</span><span class="n">ParserConfig</span><span class="p">):</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEParseConfig</span><span class="p">(</span><span class="n">ParserConfig</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE-specific parse strategy config.&quot;&quot;&quot;</span>
 
     <span class="n">parserType</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
@@ -1272,7 +1272,7 @@ This means, if no entity is provided, the default entity will be used.</p>
     <span class="p">]</span> <span class="o">=</span> <span class="n">OPTIMADEConfig</span><span class="p">()</span>
 
     <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;entity&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">_validate_entity</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">AnyHttpUrl</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnyHttpUrl</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_entity</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">AnyHttpUrl</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnyHttpUrl</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate entity.&quot;&quot;&quot;</span>
         <span class="n">test_value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
 
@@ -1360,7 +1360,7 @@ This means, if no entity is provided, the default entity will be used.</p>
 <span class="normal">88</span>
 <span class="normal">89</span>
 <span class="normal">90</span>
-<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OPTIMADEParseResult</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">):</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEParseResult</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE parse strategy result.&quot;&quot;&quot;</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">validate_assignment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arbitrary_types_allowed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1501,7 +1501,7 @@ This means, if no entity is provided, the default entity will be used.</p>
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.top", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
     
   </body>
