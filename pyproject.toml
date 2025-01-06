@@ -23,12 +23,13 @@ classifiers = [
     "Natural Language :: English",
     "Operating System :: OS Independent",
 ]
-keywords = ["OTE", "OPTIMADE", "OTE-API"]
-requires-python = ">=3.9,<3.13"
+keywords = ["OTE", "OPTIMADE", "OTEAPI"]
+requires-python = ">=3.9"
 dynamic = ["version"]
 
 dependencies = [
-    "DLite-Python >=0.5.16,<1",
+    # Pytest runs, end in Segmentation Fault for dlite-python versions >0.5.23
+    "DLite-Python <=0.5.23; python_version<'3.13'",  # DLite is not yet compatible with Python 3.13
     "eval-type-backport ~=0.2.0",
     "numpy <2",  # Required by DLite-Python
     "optimade[server] ~=1.1",
