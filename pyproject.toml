@@ -158,4 +158,7 @@ addopts = "-rs --cov=oteapi_optimade --cov-report=term-missing:skip-covered --no
 filterwarnings = [
     # Fail on any warning
     "error",
+
+    # Ignore pydantic warning emitted from OPT as of pydantic v2.11
+    "ignore:.*Accessing this attribute on the instance is deprecated.*:pydantic.warnings.PydanticDeprecatedSince211",
 ]

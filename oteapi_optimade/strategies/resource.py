@@ -213,7 +213,7 @@ class OPTIMADEResourceStrategy:
             parse_mediaType += f"+{optimade_query.response_format}"
 
         parse_config: ParseConfigDict = {
-            "entity": "http://onto-ns.com/meta/1.0.1/OPTIMADEStructure",
+            "entity": "http://onto-ns.com/meta/1.2.0/OPTIMADEStructure",
             "parserType": parse_parserType,
             "configuration": {
                 "datacache_config": self.resource_config.configuration.datacache_config.model_copy(),
