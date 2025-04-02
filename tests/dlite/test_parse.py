@@ -95,8 +95,6 @@ def test_parse_nested_entities(static_files: Path) -> None:
 
         dlite_structure: Instance = dlite_collection[optimade_structure.id]
 
-        print(dlite_structure.attributes)
-
         ## Go over other top-level non-container keys in the OPTIMADE structure
         assert dlite_structure.type == optimade_structure.type
 
