@@ -22,7 +22,7 @@ jobs:
       update_python_api_ref: true
       update_docs_landing_page: true
       package_dirs: oteapi_optimade
-      python_version: "3.9"
+      python_version: "3.10"
       doc_extras: "[doc]"
       full_docs_dirs: models
       changelog_exclude_labels: "skip_changelog,duplicate,question,invalid,wontfix"

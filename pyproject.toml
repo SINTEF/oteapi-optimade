@@ -14,7 +14,6 @@ classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -24,7 +23,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 keywords = ["OTE", "OPTIMADE", "OTEAPI"]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dynamic = ["version"]
 
 dependencies = [
@@ -37,7 +36,6 @@ dependencies = [
     # "oteapi-dlite >=0.2.0,<1",
     "oteapi-dlite-Mod >=0.2.0,<1",
     "requests ~=2.32",
-    "typing-extensions ~=4.12; python_version < '3.10'",
 ]
 
 [project.optional-dependencies]
@@ -104,7 +102,7 @@ exclude = [
 ]
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.10"
 ignore_missing_imports = true
 scripts_are_modules = true
 warn_unused_configs = true
@@ -153,7 +151,7 @@ isort.required-imports = ["from __future__ import annotations"]
 ]
 
 [tool.pytest.ini_options]
-minversion = "7.0"
+minversion = "8.3"
 addopts = "-rs --cov=oteapi_optimade --cov-report=term-missing:skip-covered --no-cov-on-fail"
 filterwarnings = [
     # Fail on any warning
