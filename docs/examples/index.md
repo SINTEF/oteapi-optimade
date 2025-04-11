@@ -18,7 +18,7 @@ Using OTElib should be done as a backend task in a web application, and the resu
 
 ### Prerequisites
 
-To run the examples locally, you need to have the following tools available (in addition to a working Python 3.9+ installation):
+To run the examples locally, you need to have the following tools available (in addition to a working Python 3.10+ installation):
 
 - [Jupyter](https://jupyter.org/)
 - [Docker](https://www.docker.com/) (or similar containerization tool)

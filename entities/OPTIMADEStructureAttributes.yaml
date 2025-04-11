@@ -1,10 +1,11 @@
-uri: http://onto-ns.com/meta/1.0.1/OPTIMADEStructureAttributes
+uri: http://onto-ns.com/meta/1.2.0/OPTIMADEStructureAttributes
 meta: http://onto-ns.com/meta/0.3/EntitySchema
 description: The attributes used to represent a structure, e.g. unit cell, atoms, positions.
 dimensions:
   nelements: Number of different elements in the structure as an integer.
   dimensionality: Number of spatial dimensions. Must always be 3.
   nsites: An integer specifying the length of the `cartesian_site_positions` property.
+  nspace_group_symmetry_operations: Number of space group symmetry operations.
   nspecies: Number of species.
   nstructure_features: Number of structure features.
 properties:
@@ -40,6 +41,22 @@ properties:
     shape: [dimensionality, dimensionality]
     unit: Å
     description: The three lattice vectors in Cartesian coordinates, in ångström (Å).
+  space_group_symmetry_operations_xyz:
+    type: string
+    shape: [nspace_group_symmetry_operations]
+    description: List of symmetry operations given as general position x, y and z coordinates in algebraic form.
+  space_group_symbol_hall:
+    type: string
+    description: A Hall space group symbol representing the symmetry of the structure as defined in (Hall, 1981, 1981a).
+  space_group_symbol_hermann_mauguin:
+    type: string
+    description: A human- and machine-readable string containing the short Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
+  space_group_symbol_hermann_mauguin_extended:
+    type: string
+    description: A human- and machine-readable string containing the extended Hermann-Mauguin (H-M) symbol which specifies the space group of the structure in the response.
+  space_group_it_number:
+    type: int
+    description: Space group number which specifies the space group of the structure as defined in the International Tables for Crystallography Vol. A. (IUCr, 2005).
   cartesian_site_positions:
     type: float
     shape: [nsites, dimensionality]
