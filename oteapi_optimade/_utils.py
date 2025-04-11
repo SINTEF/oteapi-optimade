@@ -9,13 +9,7 @@ from typing import TYPE_CHECKING
 import dlite
 
 if TYPE_CHECKING:  # pragma: no cover
-    import sys
-    from typing import Any
-
-    if sys.version_info >= (3, 9, 1):
-        from typing import Literal
-    else:
-        from typing_extensions import Literal  # type: ignore[assignment]
+    from typing import Any, Literal
 
 LOGGER = logging.getLogger(__name__)
 
