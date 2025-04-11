@@ -1470,12 +1470,12 @@
 
     <span class="c1"># OTEAPI-specific attributes</span>
     <span class="n">downloadUrl</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEUrl</span><span class="p">],</span>
+        <span class="n">OPTIMADEUrl</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Either a base OPTIMADE URL or a full OPTIMADE URL.&quot;</span><span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">mediaType</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;application/vnd.optimade+json&quot;</span><span class="p">,</span> <span class="s2">&quot;application/vnd.optimade&quot;</span><span class="p">]],</span>
+        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;application/vnd.optimade+json&quot;</span><span class="p">,</span> <span class="s2">&quot;application/vnd.optimade&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">BeforeValidator</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">),</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The registered strategy name for OPTIMADEParseStrategy.&quot;</span><span class="p">,</span>
@@ -1484,7 +1484,7 @@
 
     <span class="c1"># OPTIMADE parse result attributes</span>
     <span class="n">optimade_config</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEConfig</span><span class="p">],</span>
+        <span class="n">OPTIMADEConfig</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;A pre-existing instance of this OPTIMADE configuration.&quot;</span><span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -1505,7 +1505,7 @@
     <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;structures&quot;</span>
 
     <span class="n">query_parameters</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEQueryParameters</span><span class="p">],</span>
+        <span class="n">OPTIMADEQueryParameters</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="s2">&quot;URL query parameters to be used in the OPTIMADE query.&quot;</span><span class="p">,</span>
         <span class="p">),</span>
@@ -1787,7 +1787,7 @@
 
     <span class="c1"># OTEAPI-specific attributes</span>
     <span class="n">mediaType</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;application/vnd.optimade+dlite&quot;</span><span class="p">]],</span>
+        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;application/vnd.optimade+dlite&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">BeforeValidator</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">),</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The registered strategy name for OPTIMADEDLiteParseStrategy.&quot;</span><span class="p">,</span>
@@ -1796,7 +1796,7 @@
 
     <span class="c1"># Dlite specific attributes</span>
     <span class="n">collection_id</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;A reference to a DLite Collection.&quot;</span><span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>

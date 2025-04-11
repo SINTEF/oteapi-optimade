@@ -1433,7 +1433,7 @@ This means, if no entity is provided, the default entity will be used.</p>
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">validate_assignment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arbitrary_types_allowed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">optimade_config</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Optional</span><span class="p">[</span><span class="n">OPTIMADEConfig</span><span class="p">],</span>
+        <span class="n">OPTIMADEConfig</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
                 <span class="s2">&quot;OPTIMADE configuration. Contains relevant information necessary to &quot;</span>
@@ -1442,7 +1442,7 @@ This means, if no entity is provided, the default entity will be used.</p>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">optimade_response_model</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
                 <span class="s2">&quot;An OPTIMADE Python tools (OPT) pydantic successful response model. &quot;</span>
@@ -1452,7 +1452,7 @@ This means, if no entity is provided, the default entity will be used.</p>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">optimade_response</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="s2">&quot;An OPTIMADE response as a Python dictionary.&quot;</span><span class="p">,</span>
         <span class="p">),</span>
