@@ -14,7 +14,7 @@ from optimade.models import (
     StructureResponseOne,
     Success,
 )
-from oteapi_dlite.models import DLiteSessionUpdate
+from oteapi_dlite.models import DLiteResult
 from oteapi_dlite.utils import get_collection, update_collection
 from pydantic import BaseModel, ValidationError
 from pydantic.dataclasses import dataclass
@@ -42,7 +42,7 @@ class OPTIMADEDLiteParseStrategy:
 
     parse_config: OPTIMADEDLiteParseConfig
 
-    def initialize(self) -> DLiteSessionUpdate:
+    def initialize(self) -> DLiteResult:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -53,7 +53,7 @@ class OPTIMADEDLiteParseStrategy:
             context from services.
 
         """
-        return DLiteSessionUpdate(
+        return DLiteResult(
             collection_id=get_collection(
                 collection_id=self.parse_config.configuration.collection_id
             ).uuid
@@ -386,6 +386,13 @@ class OPTIMADEDLiteParseStrategy:
                         "nstructure_features": len(
                             structure.attributes.structure_features
                         ),
+                        "nspace_group_symmetry_operations": (
+                            len(
+                                structure.attributes.space_group_symmetry_operations_xyz
+                            )
+                            if structure.attributes.space_group_symmetry_operations_xyz
+                            else 0
+                        ),
                         **single_entity_dimensions,
                     },
                     properties=new_structure_attributes,
@@ -414,6 +421,13 @@ class OPTIMADEDLiteParseStrategy:
                                 "nstructure_features": len(
                                     structure.attributes.structure_features
                                 ),
+                                "nspace_group_symmetry_operations": (
+                                    len(
+                                        structure.attributes.space_group_symmetry_operations_xyz
+                                    )
+                                    if structure.attributes.space_group_symmetry_operations_xyz
+                                    else 0
+                                ),
                             },
                             properties=new_structure_attributes,
                         ),
@@ -423,6 +437,7 @@ class OPTIMADEDLiteParseStrategy:
                 )
 
             dlite_collection.add(label=structure.id, inst=new_structure)
+            new_structure._incref()
 
         update_collection(collection=dlite_collection)
 

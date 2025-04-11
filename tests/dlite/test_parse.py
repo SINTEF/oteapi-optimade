@@ -52,7 +52,7 @@ def test_parse_nested_entities(static_files: Path) -> None:
         '?filter=elements HAS ALL "Si","O"&sort=nelements&page_limit=2'
     )
     config = {
-        "entity": "http://onto-ns.com/meta/1.0.1/OPTIMADEStructure",
+        "entity": "http://onto-ns.com/meta/1.2.0/OPTIMADEStructure",
         "parserType": "parser/OPTIMADE/DLite",
         "configuration": {
             "mediaType": "application/vnd.OPTIMADE+DLite",
@@ -103,7 +103,7 @@ def test_parse_nested_entities(static_files: Path) -> None:
         # Avoid attributes with special model values for now
         model_values = ("assemblies", "species")
 
-        for field in optimade_structure.attributes.model_fields:
+        for field in optimade_structure.attributes.__class__.model_fields:
             if field in model_values:
                 continue
 
@@ -118,6 +118,12 @@ def test_parse_nested_entities(static_files: Path) -> None:
                     expected_value = [
                         value.isoformat(sep=" ") for value in expected_value
                     ]
+
+            if expected_value is None:
+                if field == "space_group_symmetry_operations_xyz":
+                    expected_value = []
+                elif field == "space_group_it_number":
+                    expected_value = 0
 
             if isinstance(expected_value, Enum):
                 expected_value = expected_value.value
@@ -149,7 +155,7 @@ def test_parse_nested_entities(static_files: Path) -> None:
             for i, entry in enumerate(getattr(dlite_structure.attributes, field)):
                 for sub_field in getattr(optimade_structure.attributes, field)[
                     0
-                ].model_fields:
+                ].__class__.model_fields:
                     expected_sub_value = getattr(expected_value[i], sub_field)
                     dlite_sub_value = getattr(entry, sub_field)
 
@@ -234,7 +240,7 @@ def test_parse_single_entity(static_files: Path) -> None:
         '?filter=elements HAS ALL "Si","O"&sort=nelements&page_limit=2'
     )
     config = {
-        "entity": "http://onto-ns.com/meta/1.0.1/OPTIMADEStructureResource",
+        "entity": "http://onto-ns.com/meta/1.2.0/OPTIMADEStructureResource",
         "parserType": "parser/OPTIMADE/DLite",
         "configuration": {
             "mediaType": "application/vnd.OPTIMADE+DLite",
@@ -285,7 +291,7 @@ def test_parse_single_entity(static_files: Path) -> None:
         # Avoid attributes with special model values for now
         model_values = ("assemblies", "species")
 
-        for field in optimade_structure.attributes.model_fields:
+        for field in optimade_structure.attributes.__class__.model_fields:
             if field in model_values:
                 continue
 
@@ -300,6 +306,12 @@ def test_parse_single_entity(static_files: Path) -> None:
                     expected_value = [
                         value.isoformat(sep=" ") for value in expected_value
                     ]
+
+            if expected_value is None:
+                if field == "space_group_symmetry_operations_xyz":
+                    expected_value = []
+                elif field == "space_group_it_number":
+                    expected_value = 0
 
             if isinstance(expected_value, Enum):
                 expected_value = expected_value.value
@@ -339,7 +351,7 @@ def test_parse_single_entity(static_files: Path) -> None:
             for i, entry in enumerate(parsed_value):
                 for sub_field in getattr(optimade_structure.attributes, field)[
                     0
-                ].model_fields:
+                ].__class__.model_fields:
                     expected_sub_value = getattr(expected_value[i], sub_field)
                     dlite_sub_value = entry.get(sub_field)
 
