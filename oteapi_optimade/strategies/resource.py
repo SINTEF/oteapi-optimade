@@ -25,7 +25,7 @@ from pydantic.dataclasses import dataclass
 
 try:
     from oteapi_dlite import __version__ as oteapi_dlite_version
-    from oteapi_dlite.models import DLiteSessionUpdate
+    from oteapi_dlite.models import DLiteResult
     from oteapi_dlite.utils import get_collection
 except ImportError:
     oteapi_dlite_version = None
@@ -89,7 +89,7 @@ class OPTIMADEResourceStrategy:
 
     resource_config: OPTIMADEResourceConfig
 
-    def initialize(self) -> AttrDict | DLiteSessionUpdate:
+    def initialize(self) -> AttrDict | DLiteResult:
         """Initialize strategy.
 
         This method will be called through the `/initialize` endpoint of the OTE-API
@@ -107,7 +107,7 @@ class OPTIMADEResourceStrategy:
             collection_id = self.resource_config.configuration.get(
                 "collection_id", None
             )
-            return DLiteSessionUpdate(
+            return DLiteResult(
                 collection_id=get_collection(collection_id=collection_id).uuid
             )
 

@@ -30,7 +30,7 @@ jobs:
       # Documentation
       update_docs: true
       python_version_docs: "3.10"
-      doc_extras: "[doc]"
+      doc_extras: "[docs]"
       changelog_exclude_labels: "skip_changelog,duplicate,question,invalid,wontfix"
 
     secrets:
