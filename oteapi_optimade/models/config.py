@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Literal, Optional
+from typing import Annotated, Literal
 
 from oteapi.models import AttrDict, DataCacheConfig
 from pydantic import BeforeValidator, Field, field_validator
@@ -22,12 +22,12 @@ class OPTIMADEConfig(AttrDict):
 
     # OTEAPI-specific attributes
     downloadUrl: Annotated[
-        Optional[OPTIMADEUrl],
+        OPTIMADEUrl | None,
         Field(description="Either a base OPTIMADE URL or a full OPTIMADE URL."),
     ] = None
 
     mediaType: Annotated[
-        Optional[Literal["application/vnd.optimade+json", "application/vnd.optimade"]],
+        Literal["application/vnd.optimade+json", "application/vnd.optimade"] | None,
         BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(
             description="The registered strategy name for OPTIMADEParseStrategy.",
@@ -36,7 +36,7 @@ class OPTIMADEConfig(AttrDict):
 
     # OPTIMADE parse result attributes
     optimade_config: Annotated[
-        Optional[OPTIMADEConfig],
+        OPTIMADEConfig | None,
         Field(description="A pre-existing instance of this OPTIMADE configuration."),
     ] = None
 
@@ -57,7 +57,7 @@ class OPTIMADEConfig(AttrDict):
     ] = "structures"
 
     query_parameters: Annotated[
-        Optional[OPTIMADEQueryParameters],
+        OPTIMADEQueryParameters | None,
         Field(
             description="URL query parameters to be used in the OPTIMADE query.",
         ),
@@ -108,7 +108,7 @@ class OPTIMADEDLiteConfig(OPTIMADEConfig):
 
     # OTEAPI-specific attributes
     mediaType: Annotated[
-        Optional[Literal["application/vnd.optimade+dlite"]],
+        Literal["application/vnd.optimade+dlite"] | None,
         BeforeValidator(lambda x: x.lower() if isinstance(x, str) else x),
         Field(
             description="The registered strategy name for OPTIMADEDLiteParseStrategy.",
@@ -117,6 +117,6 @@ class OPTIMADEDLiteConfig(OPTIMADEConfig):
 
     # Dlite specific attributes
     collection_id: Annotated[
-        Optional[str],
+        str | None,
         Field(description="A reference to a DLite Collection."),
     ] = None
