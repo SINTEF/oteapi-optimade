@@ -16,6 +16,8 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
+    - id: check-json
+      name: Check JSON
     - id: check-toml
       name: Check TOML
     - id: check-yaml
@@ -29,11 +31,21 @@ repos:
     - id: trailing-whitespace
       args: [--markdown-linebreak-ext=md]
 
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.17.2
+    hooks:
+    - id: markdownlint-cli2
+      name: markdownlint
+      exclude: ^(docs/)?(index|LICENSE|CHANGELOG).md$
+      args:
+      - --fix
+      - --config=.markdownlint.yaml
+
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.19.1
     hooks:
     - id: pyupgrade
-      args: [--py39-plus, --keep-runtime-typing]
+      args: [--py310-plus]
 
   - repo: https://github.com/psf/black
     rev: 25.1.0

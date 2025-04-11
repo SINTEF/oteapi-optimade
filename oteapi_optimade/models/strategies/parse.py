@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from typing import Annotated, Any, Literal, Optional
+from typing import Annotated, Any, Literal
 
 from oteapi.models import AttrDict, ParserConfig
 from pydantic import AnyHttpUrl, BeforeValidator, ConfigDict, Field, field_validator
@@ -65,7 +65,7 @@ class OPTIMADEParseResult(AttrDict):
     model_config = ConfigDict(validate_assignment=True, arbitrary_types_allowed=True)
 
     optimade_config: Annotated[
-        Optional[OPTIMADEConfig],
+        OPTIMADEConfig | None,
         Field(
             description=(
                 "OPTIMADE configuration. Contains relevant information necessary to "
@@ -74,7 +74,7 @@ class OPTIMADEParseResult(AttrDict):
         ),
     ] = None
     optimade_response_model: Annotated[
-        Optional[tuple[str, str]],
+        tuple[str, str] | None,
         Field(
             description=(
                 "An OPTIMADE Python tools (OPT) pydantic successful response model. "
@@ -84,7 +84,7 @@ class OPTIMADEParseResult(AttrDict):
         ),
     ] = None
     optimade_response: Annotated[
-        Optional[dict[str, Any]],
+        dict[str, Any] | None,
         Field(
             description="An OPTIMADE response as a Python dictionary.",
         ),

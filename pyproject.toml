@@ -17,6 +17,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     # "Framework :: OTEAPI",
     "Environment :: Plugins",
     "Natural Language :: English",
@@ -27,7 +28,7 @@ requires-python = "~=3.10"
 dynamic = ["version"]
 
 dependencies = [
-    "DLite-Python ~=0.5.29; python_version<'3.13'",  # DLite is not yet compatible with Python 3.13
+    "DLite-Python ~=0.5.29",
     "eval-type-backport ~=0.2.2",
     "optimade[server] ~=1.2",
     "oteapi-core ~=1.0",
@@ -50,13 +51,13 @@ examples = [
     "otelib ~=1.0",
 ]
 pre-commit = ["pre-commit ~=4.2"]
-test = [
+testing = [
     "pytest ~=8.3",
     "pytest-cov ~=6.1",
     "pyyaml ~=6.0",
     "requests-mock ~=1.12",
 ]
-dev = ["oteapi-optimade[docs,examples,pre-commit,test]"]
+dev = ["oteapi-optimade[docs,examples,pre-commit,testing]"]
 
 [project.urls]
 Home = "https://github.com/SINTEF/oteapi-optimade"

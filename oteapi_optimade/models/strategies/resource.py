@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Any, Literal, Optional, Union
+from typing import Annotated, Any, Literal
 
 from oteapi.models import AttrDict, ResourceConfig
 from pydantic import BeforeValidator, ConfigDict, Field
@@ -32,7 +32,7 @@ class OPTIMADEResourceConfig(ResourceConfig):
         ),
     ]
     configuration: Annotated[
-        Union[OPTIMADEConfig | OPTIMADEDLiteConfig],
+        OPTIMADEConfig | OPTIMADEDLiteConfig,
         Field(
             description=(
                 "OPTIMADE configuration. Contains relevant information necessary to "
@@ -48,7 +48,7 @@ class OPTIMADEResourceResult(AttrDict):
     model_config = ConfigDict(validate_assignment=True, arbitrary_types_allowed=True)
 
     optimade_config: Annotated[
-        Optional[OPTIMADEConfig],
+        OPTIMADEConfig | None,
         Field(
             description=(
                 "OPTIMADE configuration. Contains relevant information necessary to "

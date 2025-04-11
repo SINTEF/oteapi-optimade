@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import inspect
-from typing import Annotated, Optional
+from typing import Annotated
 from urllib.parse import quote, unquote, urlencode
 
 from optimade.server.query_params import EntryListingQueryParams
@@ -27,7 +27,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
     """Common OPTIMADE entry listing endpoint query parameters."""
 
     filter: Annotated[
-        Optional[str],
+        str | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["filter"].description,
         ),
@@ -35,7 +35,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].filter or None
     )
     response_format: Annotated[
-        Optional[str],
+        str | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["response_format"].description,
         ),
@@ -43,7 +43,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].response_format or None
     )
     email_address: Annotated[
-        Optional[EmailStr],
+        EmailStr | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["email_address"].description,
         ),
@@ -51,7 +51,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].email_address or None
     )
     response_fields: Annotated[
-        Optional[str],
+        str | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["response_fields"].description,
             pattern=QUERY_PARAMETERS["annotations"]["response_fields"]
@@ -62,7 +62,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].response_fields or None
     )
     sort: Annotated[
-        Optional[str],
+        str | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["sort"].description,
             pattern=QUERY_PARAMETERS["annotations"]["sort"].metadata[0].pattern,
@@ -71,7 +71,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].sort or None
     )
     page_limit: Annotated[
-        Optional[int],
+        int | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_limit"].description,
             ge=QUERY_PARAMETERS["annotations"]["page_limit"].metadata[0].ge,
@@ -80,7 +80,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].page_limit or None
     )
     page_offset: Annotated[
-        Optional[int],
+        int | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_offset"].description,
             ge=QUERY_PARAMETERS["annotations"]["page_offset"].metadata[0].ge,
@@ -89,7 +89,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].page_offset or None
     )
     page_number: Annotated[
-        Optional[int],
+        int | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_number"].description,
             # ge=QUERY_PARAMETERS["annotations"]["page_number"].metadata[0].ge,
@@ -100,7 +100,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].page_number or None
     )
     page_cursor: Annotated[
-        Optional[int],
+        int | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_cursor"].description,
             ge=QUERY_PARAMETERS["annotations"]["page_cursor"].metadata[0].ge,
@@ -109,7 +109,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].page_cursor or None
     )
     page_above: Annotated[
-        Optional[int],
+        int | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_above"].description,
         ),
@@ -117,7 +117,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].page_above or None
     )
     page_below: Annotated[
-        Optional[int],
+        int | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["page_below"].description,
         ),
@@ -125,7 +125,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
         QUERY_PARAMETERS["defaults"].page_below or None
     )
     include: Annotated[
-        Optional[str],
+        str | None,
         Field(
             description=QUERY_PARAMETERS["annotations"]["include"].description,
         ),
@@ -135,7 +135,7 @@ class OPTIMADEQueryParameters(BaseModel, validate_assignment=True):
     # api_hint is not yet initialized in `EntryListingQueryParams`.
     # These values are copied verbatim from `optimade==0.16.10`.
     api_hint: Annotated[
-        Optional[str],
+        str | None,
         Field(
             description=(
                 "If the client provides the parameter, the value SHOULD have the format "

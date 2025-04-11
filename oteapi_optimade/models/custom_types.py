@@ -22,7 +22,7 @@ from pydantic import AnyHttpUrl, ValidationError
 from pydantic_core import Url, core_schema
 
 if TYPE_CHECKING:  # pragma: no cover
-    from typing import Any, Optional, TypedDict, Union
+    from typing import Any, TypedDict
 
     from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
     from pydantic.json_schema import JsonSchemaValue
@@ -91,10 +91,10 @@ class OPTIMADEUrl(str):
         self,
         url: str,
         *,
-        base_url: Optional[str] = None,
-        version: Optional[str] = None,
-        endpoint: Optional[str] = None,
-        query: Optional[str] = None,
+        base_url: str | None = None,
+        version: str | None = None,
+        endpoint: str | None = None,
+        query: str | None = None,
     ) -> None:
         str.__init__(url)
 
@@ -115,7 +115,7 @@ class OPTIMADEUrl(str):
                 pydantic_url = None
 
         # Build OPTIMADE URL parts
-        optimade_parts: Union[OPTIMADEParts, dict[str, Any]] = {}
+        optimade_parts: OPTIMADEParts | dict[str, Any] = {}
         if pydantic_url:
             optimade_parts = self._build_optimade_parts(pydantic_url)
 
@@ -145,9 +145,9 @@ class OPTIMADEUrl(str):
     def _build(
         *,
         base_url: str,
-        version: Optional[str] = None,
-        endpoint: Optional[str] = None,
-        query: Optional[str] = None,
+        version: str | None = None,
+        endpoint: str | None = None,
+        query: str | None = None,
     ) -> str:
         """Build complete OPTIMADE URL from URL parts."""
         url = base_url.rstrip("/")
@@ -176,21 +176,21 @@ class OPTIMADEUrl(str):
         return self._base_url
 
     @property
-    def version(self) -> Optional[str]:
+    def version(self) -> str | None:
         """The version part of the OPTIMADE URL."""
         return self._version
 
     @property
-    def endpoint(self) -> Optional[str]:
+    def endpoint(self) -> str | None:
         """The endpoint part of the OPTIMADE URL."""
         return self._endpoint
 
     @property
-    def query(self) -> Optional[str]:
+    def query(self) -> str | None:
         """The query part of the OPTIMADE URL."""
         return self._query
 
-    def response_model(self) -> Union[tuple[Success, Success], Success, None]:
+    def response_model(self) -> tuple[Success, Success] | Success | None:
         """Return the endpoint's corresponding response model(s) (from OPT)."""
         if not self.endpoint or self.endpoint == "versions":
             return None
@@ -265,7 +265,7 @@ class OPTIMADEUrl(str):
         )
 
     @classmethod
-    def _validate_from_str_or_url(cls, value: Union[Url, str]) -> OPTIMADEUrl:
+    def _validate_from_str_or_url(cls, value: Url | str) -> OPTIMADEUrl:
         """Pydantic validation of an OPTIMADE URL."""
         # Parse as URL
         url = AnyHttpUrl(str(value))
