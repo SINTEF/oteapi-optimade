@@ -7,7 +7,7 @@ on:
 jobs:
   update-deps-branch-and-docs:
     name: External
-    uses: SINTEF/ci-cd/.github/workflows/ci_cd_updated_default_branch.yml@v2.8.3
+    uses: SINTEF/ci-cd/.github/workflows/ci_cd_updated_default_branch.yml@v2.9.2
     if: github.repository_owner == 'SINTEF'
     with:
       # General
@@ -22,8 +22,8 @@ jobs:
       update_python_api_ref: true
       update_docs_landing_page: true
       package_dirs: oteapi_optimade
-      python_version: "3.9"
-      doc_extras: "[doc]"
+      python_version: "3.10"
+      doc_extras: "[docs]"
       full_docs_dirs: models
       changelog_exclude_labels: "skip_changelog,duplicate,question,invalid,wontfix"
 

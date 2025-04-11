@@ -1,4 +1,4 @@
-uri: http://onto-ns.com/meta/1.0.1/OPTIMADEStructure
+uri: http://onto-ns.com/meta/1.2.0/OPTIMADEStructure
 meta: http://onto-ns.com/meta/0.3/EntitySchema
 description: An OPTIMADE structure.
 dimensions: {}
@@ -8,7 +8,7 @@ properties:
     description: The name of the type of an entry. Must always be 'structures'.
   attributes:
     type: ref
-    $ref: http://onto-ns.com/meta/1.0.1/OPTIMADEStructureAttributes
+    $ref: http://onto-ns.com/meta/1.2.0/OPTIMADEStructureAttributes
     description: The attributes used to represent a structure, e.g. unit cell, atoms, positions.
   id:
     type: str
