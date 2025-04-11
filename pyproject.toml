@@ -50,13 +50,13 @@ examples = [
     "otelib ~=1.0",
 ]
 pre-commit = ["pre-commit ~=4.2"]
-test = [
+testing = [
     "pytest ~=8.3",
     "pytest-cov ~=6.1",
     "pyyaml ~=6.0",
     "requests-mock ~=1.12",
 ]
-dev = ["oteapi-optimade[docs,examples,pre-commit,test]"]
+dev = ["oteapi-optimade[docs,examples,pre-commit,testing]"]
 
 [project.urls]
 Home = "https://github.com/SINTEF/oteapi-optimade"
