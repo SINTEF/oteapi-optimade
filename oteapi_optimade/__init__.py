@@ -12,7 +12,7 @@ import logging
 
 from ._utils import parse_assemblies, parse_species
 
-__version__ = "0.6.0.dev0"
+__version__ = "1.0.0"
 __author__ = "Casper Welzel Andersen"
 __author_email__ = "casper.w.andersen@sintef.no"
 

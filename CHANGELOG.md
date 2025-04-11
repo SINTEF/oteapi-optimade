@@ -1,5 +1,79 @@
 # Changelog
 
+## [Unreleased](https://github.com/SINTEF/oteapi-optimade/tree/HEAD)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v1.0.0...HEAD)
+
+# OTEAPI OPTIMADE v1
+
+This release marks the upgrade from in-development versions to a proper v1.
+It represents the vast work that has gone into the OTE work through various EU projects; developing and utilizing the technology to bring semantically documented data through to simulators and other software that can specify what they desire, semantically, and subsequently retrieve it through OTE pipelines.
+
+## Drop Python 3.9 support
+
+With this version Python 3.9 support is also dropped.
+This matches the drop of Python 3.9 support in the [OTEAPI Core](https://github.com/EMMC-ASBL/oteapi-core) package.
+
+The minimum required Python version is now Python 3.10.
+Python 3.13 test runs are added to the CI workflows.
+
+## Upgrade to OPTIMADE v1.2.0
+
+At least concerning the structures resources, OPTIMADE v1.2.0 is now supported. This means space group properties/attributes are now be handled as intended.
+
+### Upgrade to latest OPTIMADE Python tools
+
+As a natural extension of supporting OPTIMADE v1.2.0, the latest OPTIMADE Python tools version as of this release is also supported (v1.2.4).
+
+## Upgrade to latest DLite
+
+The latest versions of DLite (v0.5.29) as of this release is now supported.
+This version brings several updates and crucial fixes.
+
+## DX
+
+Update dev tools, specifically add the `markdownlint-cli2` dev tool and ensure Python3.10 minimum code syntax is used throughout the code base.
+
+## [v1.0.0](https://github.com/SINTEF/oteapi-optimade/tree/v1.0.0) (2025-04-11)
+
+[Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.6.0.dev0...v1.0.0)
+
+# OTEAPI OPTIMADE v1
+
+This release marks the upgrade from in-development versions to a proper v1.
+It represents the vast work that has gone into the OTE work through various EU projects; developing and utilizing the technology to bring semantically documented data through to simulators and other software that can specify what they desire, semantically, and subsequently retrieve it through OTE pipelines.
+
+## Drop Python 3.9 support
+
+With this version Python 3.9 support is also dropped.
+This matches the drop of Python 3.9 support in the [OTEAPI Core](https://github.com/EMMC-ASBL/oteapi-core) package.
+
+The minimum required Python version is now Python 3.10.
+Python 3.13 test runs are added to the CI workflows.
+
+## Upgrade to OPTIMADE v1.2.0
+
+At least concerning the structures resources, OPTIMADE v1.2.0 is now supported. This means space group properties/attributes are now be handled as intended.
+
+### Upgrade to latest OPTIMADE Python tools
+
+As a natural extension of supporting OPTIMADE v1.2.0, the latest OPTIMADE Python tools version as of this release is also supported (v1.2.4).
+
+## Upgrade to latest DLite
+
+The latest versions of DLite (v0.5.29) as of this release is now supported.
+This version brings several updates and crucial fixes.
+
+## DX
+
+Update dev tools, specifically add the `markdownlint-cli2` dev tool and ensure Python3.10 minimum code syntax is used throughout the code base.
+
+**Merged pull requests:**
+
+- Updates to align with OTE v1 changes [\#295](https://github.com/SINTEF/oteapi-optimade/pull/295) ([CasperWA](https://github.com/CasperWA))
+- Support OPTIMADE v1.2.0 & drop Python 3.9 support [\#294](https://github.com/SINTEF/oteapi-optimade/pull/294) ([CasperWA](https://github.com/CasperWA))
+- Cap DLite-Python version at 0.5.23 due to SegFault [\#279](https://github.com/SINTEF/oteapi-optimade/pull/279) ([CasperWA](https://github.com/CasperWA))
+
 ## [v0.6.0.dev0](https://github.com/SINTEF/oteapi-optimade/tree/v0.6.0.dev0) (2024-09-04)
 
 [Full Changelog](https://github.com/SINTEF/oteapi-optimade/compare/v0.5.1...v0.6.0.dev0)
