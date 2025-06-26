@@ -133,7 +133,8 @@ extend-select = [
   "PYI",  # flake8-pyi
 ]
 ignore = [
-  "PLR",  # Design related pylint codes
+  "PLC",  # Convention related pylint codes
+  "PLR",  # Refactor related pylint codes
   "EM101",  # Using a literal string in error messages
   "EM102",  # Using f-strings in error messages
 ]
