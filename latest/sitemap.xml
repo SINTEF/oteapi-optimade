@@ -2,78 +2,78 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/CHANGELOG/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/LICENSE/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/all_strategies/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/_utils/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/exceptions/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/dlite/parse/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/models/config/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/models/custom_types/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/models/query/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/models/strategies/filter/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/models/strategies/parse/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/models/strategies/resource/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/filter/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/parse/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/api_reference/strategies/resource/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/examples/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/examples/dlite/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
     <url>
          <loc>https://SINTEF.github.io/oteapi-optimade/latest/examples/otelib/</loc>
-         <lastmod>2025-07-07</lastmod>
+         <lastmod>2025-07-14</lastmod>
     </url>
 </urlset>
