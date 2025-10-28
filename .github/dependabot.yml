@@ -9,6 +9,9 @@ updates:
   labels:
     - CI/CD
     - skip_changelog
+  groups:
+    actions:
+      patterns: ["*"]
 - package-ecosystem: pip
   directories:
     - "/"
