@@ -1381,7 +1381,7 @@
 
 
 <h2 id="oteapi_optimade.models.query.QUERY_PARAMETERS" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">QUERY_PARAMETERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;annotations&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="p">(</span><span class="n">FieldInfo</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">parameter</span><span class="o">.</span><span class="n">annotation</span><span class="p">))</span><span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parameter</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">EntryListingQueryParams</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">())},</span> <span class="s1">&#39;defaults&#39;</span><span class="p">:</span> <span class="n">EntryListingQueryParams</span><span class="p">()}</span></code>
+            <code class="highlight language-python"><span class="n">QUERY_PARAMETERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;annotations&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="p">(</span><span class="n">FieldInfo</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">parameter</span><span class="o">.</span><span class="n">annotation</span><span class="p">))</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">EntryListingQueryParams</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">())},</span> <span class="s1">&#39;defaults&#39;</span><span class="p">:</span> <span class="n">EntryListingQueryParams</span><span class="p">()}</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -1417,6 +1417,7 @@
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
+
         <p>Common OPTIMADE entry listing endpoint query parameters.</p>
 
 
@@ -1426,7 +1427,7 @@
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>oteapi_optimade/models/query.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 26</span>
 <span class="normal"> 27</span>
@@ -1994,7 +1995,7 @@
         <p>Generate a valid URL query string based on the set fields.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>oteapi_optimade/models/query.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">151</span>
 <span class="normal">152</span>
