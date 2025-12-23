@@ -60,6 +60,10 @@ jobs:
       uses: pypa/gh-action-pip-audit@v1.1.0
       with:
         inputs: '${{ runner.temp }}/requirements.txt'
+        # CVE-2025-53000; nbconvert v7.16.6
+        # This vulnerability is not relevant, as nbconvert is used for the examples and never in Windows.
+        ignore-vulns: |
+          CVE-2025-53000
 
   pytest:
     name: pytest (${{ matrix.os[1] }}-py${{ matrix.python-version }})
