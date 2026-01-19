@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """End-to-end testing in CI for OTEAPI OPTIMADE (using OTELib)."""
+
 from __future__ import annotations
 
 import importlib
