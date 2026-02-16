@@ -60,10 +60,16 @@ jobs:
       uses: pypa/gh-action-pip-audit@v1.1.0
       with:
         inputs: '${{ runner.temp }}/requirements.txt'
-        # CVE-2025-53000; nbconvert v7.16.6
-        # This vulnerability is not relevant, as nbconvert is used for the examples and never in Windows.
+        # CVE-2025-69872: DiskCache 5.6.3
+        #   DiskCache (python-diskcache) through 5.6.3 uses Python pickle for serialization by default.
+        #   An attacker with write access to the cache directory can achieve arbitrary code execution
+        #   when a victim application reads from the cache.
+        # CVE-2026-25990: Pillow >= 10.3.0 < 12.1.1
+        #   An out-of-bounds write may be triggered when loading a specially crafted PSD image. Pillow >= 10.3.0 users are affected.
+        #   Fixed in Pillow 12.1.1. - should be fixed in OTEAPI Core.
         ignore-vulns: |
-          CVE-2025-53000
+          CVE-2025-69872
+          CVE-2026-25990
 
   pytest:
     name: pytest (${{ matrix.os[1] }}-py${{ matrix.python-version }})
