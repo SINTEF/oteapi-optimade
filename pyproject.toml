@@ -28,7 +28,7 @@ requires-python = "~=3.10"
 dynamic = ["version"]
 
 dependencies = [
-    "DLite-Python ~=0.5.29",
+    "DLite-Python ~=0.5.29,!=0.5.40",
     "eval-type-backport >=0.2.2,<0.4.0",
     "optimade[server] ~=1.2",
     "oteapi-core ~=1.0",
