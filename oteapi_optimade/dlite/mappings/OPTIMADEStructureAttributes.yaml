@@ -1,0 +1,31 @@
+namespaces:
+  cif: http://emmo.info/CIF-ontology/ontology/cif_core#
+  entity_prop: http://onto-ns.com/meta/1.0/OPTIMADEStructureAttributes#properties.
+  entity_dim: http://onto-ns.com/meta/1.0/OPTIMADEStructureAttributes#dimensions.
+
+mappings:
+  "entity_prop:elements": "cif:_atom_type.element_symbol"
+  "entity_prop:elements_ratios": "cif:"
+  "entity_prop:chemical_formula_descriptive": "cif:"
+  "entity_prop:chemical_formula_reduced": "cif:"
+  "entity_prop:chemical_formula_hill": "cif:_chemical_formula.sum"
+  "entity_prop:chemical_formula_anonymous": "cif:"
+  "entity_prop:dimension_types": "cif:"
+  "entity_prop:nperiodic_dimensions": "cif:"
+  "entity_prop:lattice_vectors": "cif:_cell.orthogonal_matrix"
+  "entity_prop:cartesian_site_positions":
+    - "cif:_atom_site.Cartn_xyz"
+    - "cif:_model_site.Cartn_xyz"
+  # "entity_prop:species": "cif:" See the Species entity mapping
+  "entity_prop:species_at_sites":
+    - "cif:_atom_site.type_symbol"
+    - "cif:_atom_type.symbol"
+  # "entity_prop:assemblies": "cif:" See the Assemblies entity mapping
+  "entity_prop:structure_features": "cif:"
+  "entity_prop:immutable_id": "cif:"
+  "entity_prop:last_modified": "cif:"
+  "entity_dim:nelements": "cif:"
+  "entity_dim:dimensionality": "cif:"
+  "entity_dim:nsites": "cif:"
+  "entity_dim:nspecies": "cif:"
+  "entity_dim:nstructure_features": "cif:"
