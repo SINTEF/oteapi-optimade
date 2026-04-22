@@ -29,31 +29,34 @@ dynamic = ["version"]
 
 dependencies = [
     "DLite-Python ~=0.5.29,!=0.5.40",
-    "eval-type-backport >=0.2.2,<0.4.0",
-    "optimade[server] ~=1.2",
-    "oteapi-core ~=1.0",
-    "oteapi-dlite ~=1.0",
-    "requests ~=2.32",
+    "eval-type-backport ~=0.3.1",
+    "fastapi ~=0.136.0",
+    "optimade[mongo] ~=1.4",
+    "oteapi-core >=1.0.1,<2",
+    "oteapi-dlite >=1.0.1,<2",
+    "Pillow >=12.2.0",  # for safety reason, not a direct dependency
+    "requests ~=2.33",
+    "uvicorn[standard] ~=0.45.0",
 ]
 
 [project.optional-dependencies]
-docs = [
-    "mike ~=2.1",
-    "mkdocs ~=1.6",
-    "mkdocs-awesome-pages-plugin ~=2.10",
-    "mkdocs-jupyter >=0.25.1,<0.27.0",
-    "mkdocs-material ~=9.6",
-    "mkdocstrings[python] >=0.29.1,<1.1.0",
-    "oteapi-optimade[examples]",
-]
 examples = [
     "jupyter ~=1.1",
     "otelib ~=1.0",
 ]
-pre-commit = ["pre-commit ~=4.2"]
+docs = [
+    "mike ~=2.2",
+    "mkdocs ~=1.6",
+    "mkdocs-awesome-pages-plugin ~=2.10",
+    "mkdocs-jupyter ~=0.26.3",
+    "mkdocs-material ~=9.7",
+    "mkdocstrings[python] ~=1.0",
+    "oteapi-optimade[examples]",
+]
+pre-commit = ["pre-commit ~=4.5"]
 testing = [
-    "pytest >=8.3,<10.0",
-    "pytest-cov >=6.1,<8.0",
+    "pytest ~=9.0",
+    "pytest-cov ~=7.1",
     "pyyaml ~=6.0",
     "requests-mock ~=1.12",
 ]
