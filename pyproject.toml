@@ -30,11 +30,13 @@ dynamic = ["version"]
 dependencies = [
     "DLite-Python ~=0.5.29,!=0.5.40",
     "eval-type-backport ~=0.3.1",
-    "optimade[server] ~=1.4",
+    "fastapi ~=0.136.0",
+    "optimade[mongo] ~=1.4",
     "oteapi-core >=1.0.1,<2",
     "oteapi-dlite >=1.0.1,<2",
     "Pillow >=12.2.0",  # for safety reason, not a direct dependency
     "requests ~=2.33",
+    "uvicorn[standard] ~=0.45.0",
 ]
 
 [project.optional-dependencies]
