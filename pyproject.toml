@@ -28,7 +28,7 @@ requires-python = "~=3.10"
 dynamic = ["version"]
 
 dependencies = [
-    "DLite-Python ~=0.5.29,!=0.5.40",
+    "DLite-Python ~=0.5.29,<0.5.40",
     "eval-type-backport ~=0.3.1",
     "fastapi ~=0.136.0",
     "optimade[mongo] ~=1.4",
