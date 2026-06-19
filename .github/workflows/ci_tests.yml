@@ -37,7 +37,7 @@ jobs:
 
     steps:
     - name: Checkout ${{ github.repository }}
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v6
@@ -85,7 +85,7 @@ jobs:
 
     steps:
     - name: Checkout oteapi-optimade
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: 2
 
@@ -138,7 +138,7 @@ jobs:
           OPTIMADE_BASE_URL: "http://localhost:5000"  # port value should equal `OPTIMADE_PORT`
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         fetch-depth: 2
 
