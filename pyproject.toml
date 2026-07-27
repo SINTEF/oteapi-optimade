@@ -144,6 +144,9 @@ ignore = [
 isort.required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.lint.per-file-ignores]
+".github/utils/**" = [
+    "BLE",  # blind excepts
+]
 "docs/examples/**" = [
     "I002",  # required imports (e.g., from __future__ import annotations)
     "T20",  # print statements
