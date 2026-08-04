@@ -1,0 +1,22 @@
+namespaces:
+  cif: http://emmo.info/CIF-ontology/ontology/cif_core#
+  entity_prop: http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies#properties.
+  entity_dim: http://onto-ns.com/meta/1.0/OPTIMADEStructureSpecies#dimensions.
+
+mappings:
+  "entity_prop:name":
+    - "cif:_atom_site.label"
+    - "cif:_model_site.label"
+  "entity_prop:chemical_symbols":
+    - "cif:_atom_site.type_symbol"
+    - "cif:_atom_type.symbol"
+    - "cif:_model_site.type_symbol"
+  "entity_prop:concentration": "cif:_atom_site.occupancy"
+  "entity_prop:mass":
+    - "cif:_atom_type.atomic_mass"
+    - "cif:_atom_type.analytical_mass_percent"
+  "entity_prop:original_name": "cif:_atom_site.label"
+  "entity_prop:attached": "cif:"
+  "entity_prop:nattached": "cif:_atom_site.attached_hydrogens"
+  "entity_dim:nelements": "cif:"
+  "entity_dim:nattached_elements": "cif:"
