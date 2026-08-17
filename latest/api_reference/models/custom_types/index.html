@@ -1692,7 +1692,7 @@
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEParts</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Similar to `pydantic.networks.Parts`.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Similar to `pydantic.networks.Parts`."""</span>
 
     <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
@@ -2112,18 +2112,18 @@
 <span class="normal">343</span>
 <span class="normal">344</span>
 <span class="normal">345</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEUrl</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A deconstructed OPTIMADE URL.</span>
+<span class="w">    </span><span class="sd">"""A deconstructed OPTIMADE URL.</span>
 
 <span class="sd">    An OPTIMADE URL is made up in the following way:</span>
 
 <span class="sd">        &lt;BASE URL&gt;[/&lt;VERSION&gt;]/&lt;ENDPOINT&gt;?[&lt;QUERY PARAMETERS&gt;]</span>
 
 <span class="sd">    Where parts in square brackets (`[]`) are optional.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers</span>
     <span class="n">max_length</span> <span class="o">=</span> <span class="mi">2083</span>
-    <span class="n">allowed_schemes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;https&quot;</span><span class="p">]</span>
+    <span class="n">allowed_schemes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"http"</span><span class="p">,</span> <span class="s2">"https"</span><span class="p">]</span>
     <span class="n">host_required</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="nd">@no_type_check</span>
@@ -2151,7 +2151,7 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">pydantic_url</span> <span class="o">=</span> <span class="n">AnyHttpUrl</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">base_url</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                        <span class="n">base_url</span><span class="o">=</span><span class="n">base_url</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
                         <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
                         <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span>
                         <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
@@ -2165,11 +2165,11 @@
         <span class="k">if</span> <span class="n">pydantic_url</span><span class="p">:</span>
             <span class="n">optimade_parts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_optimade_parts</span><span class="p">(</span><span class="n">pydantic_url</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;base_url&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">version</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_endpoint</span> <span class="o">=</span> <span class="n">endpoint</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;endpoint&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="o">=</span> <span class="n">query</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;://&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"base_url"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">version</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"version"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endpoint</span> <span class="o">=</span> <span class="n">endpoint</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"endpoint"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="o">=</span> <span class="n">query</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"query"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"://"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span>
@@ -2180,12 +2180,12 @@
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">extra</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="si">!r}</span><span class="s2">&quot;</span>
-            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;scheme&quot;</span><span class="p">,</span> <span class="s2">&quot;base_url&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;endpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">)</span>
+        <span class="n">extra</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="si">!r}</span><span class="s2">"</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"scheme"</span><span class="p">,</span> <span class="s2">"base_url"</span><span class="p">,</span> <span class="s2">"version"</span><span class="p">,</span> <span class="s2">"endpoint"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">)"</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_build</span><span class="p">(</span>
@@ -2195,58 +2195,58 @@
         <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build complete OPTIMADE URL from URL parts.&quot;&quot;&quot;</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Build complete OPTIMADE URL from URL parts."""</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span>
         <span class="k">if</span> <span class="n">endpoint</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">endpoint</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"/</span><span class="si">{</span><span class="n">endpoint</span><span class="si">}</span><span class="s2">"</span>
         <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;?</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"?</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">"</span>
         <span class="k">return</span> <span class="n">url</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The scheme of the OPTIMADE URL.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""The scheme of the OPTIMADE URL."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheme</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;OPTIMADE URL has no scheme.&quot;</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"OPTIMADE URL has no scheme."</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheme</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">base_url</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The base URL of the OPTIMADE URL.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""The base URL of the OPTIMADE URL."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;OPTIMADE URL has no base URL.&quot;</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"OPTIMADE URL has no base URL."</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The version part of the OPTIMADE URL.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""The version part of the OPTIMADE URL."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The endpoint part of the OPTIMADE URL.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""The endpoint part of the OPTIMADE URL."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endpoint</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The query part of the OPTIMADE URL.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""The query part of the OPTIMADE URL."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">response_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Success</span><span class="p">,</span> <span class="n">Success</span><span class="p">]</span> <span class="o">|</span> <span class="n">Success</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the endpoint&#39;s corresponding response model(s) (from OPT).&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">==</span> <span class="s2">&quot;versions&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Return the endpoint's corresponding response model(s) (from OPT)."""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">==</span> <span class="s2">"versions"</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">InfoResponse</span><span class="p">,</span> <span class="n">EntryInfoResponse</span><span class="p">),</span>
-            <span class="s2">&quot;links&quot;</span><span class="p">:</span> <span class="n">LinksResponse</span><span class="p">,</span>
-            <span class="s2">&quot;structures&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">StructureResponseMany</span><span class="p">,</span> <span class="n">StructureResponseOne</span><span class="p">),</span>
-            <span class="s2">&quot;references&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">ReferenceResponseMany</span><span class="p">,</span> <span class="n">ReferenceResponseOne</span><span class="p">),</span>
-            <span class="s2">&quot;calculations&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">EntryResponseMany</span><span class="p">,</span> <span class="n">EntryResponseOne</span><span class="p">),</span>
+            <span class="s2">"info"</span><span class="p">:</span> <span class="p">(</span><span class="n">InfoResponse</span><span class="p">,</span> <span class="n">EntryInfoResponse</span><span class="p">),</span>
+            <span class="s2">"links"</span><span class="p">:</span> <span class="n">LinksResponse</span><span class="p">,</span>
+            <span class="s2">"structures"</span><span class="p">:</span> <span class="p">(</span><span class="n">StructureResponseMany</span><span class="p">,</span> <span class="n">StructureResponseOne</span><span class="p">),</span>
+            <span class="s2">"references"</span><span class="p">:</span> <span class="p">(</span><span class="n">ReferenceResponseMany</span><span class="p">,</span> <span class="n">ReferenceResponseOne</span><span class="p">),</span>
+            <span class="s2">"calculations"</span><span class="p">:</span> <span class="p">(</span><span class="n">EntryResponseMany</span><span class="p">,</span> <span class="n">EntryResponseOne</span><span class="p">),</span>
         <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">Success</span><span class="p">)</span>
 
     <span class="c1"># Pydantic-related methods</span>
@@ -2254,7 +2254,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">__get_pydantic_core_schema__</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">_source_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">_handler</span><span class="p">:</span> <span class="n">GetCoreSchemaHandler</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CoreSchema</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pydantic core schema for an OPTIMADE URL.</span>
+<span class="w">        </span><span class="sd">"""Pydantic core schema for an OPTIMADE URL.</span>
 
 <span class="sd">        Behaviour:</span>
 <span class="sd">        - strings and `Url` instances will be parsed as `pydantic.AnyHttpUrl` instances</span>
@@ -2262,7 +2262,7 @@
 <span class="sd">        - `OPTIMADEUrl` instances will be parsed as `OPTIMADEUrl` instances without any changes.</span>
 <span class="sd">        - Nothing else will pass validation</span>
 <span class="sd">        - Serialization will always return just a str.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">from_str_schema</span> <span class="o">=</span> <span class="n">core_schema</span><span class="o">.</span><span class="n">chain_schema</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">core_schema</span><span class="o">.</span><span class="n">url_schema</span><span class="p">(</span>
@@ -2312,7 +2312,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_from_str_or_url</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Url</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEUrl</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pydantic validation of an OPTIMADE URL.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Pydantic validation of an OPTIMADE URL."""</span>
         <span class="c1"># Parse as URL</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">AnyHttpUrl</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
 
@@ -2321,74 +2321,74 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>  <span class="c1"># type: ignore[no-any-return]</span>
             <span class="kc">None</span><span class="p">,</span>
-            <span class="n">base_url</span><span class="o">=</span><span class="n">optimade_parts</span><span class="p">[</span><span class="s2">&quot;base_url&quot;</span><span class="p">],</span>
-            <span class="n">version</span><span class="o">=</span><span class="n">optimade_parts</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span>
-            <span class="n">endpoint</span><span class="o">=</span><span class="n">optimade_parts</span><span class="p">[</span><span class="s2">&quot;endpoint&quot;</span><span class="p">],</span>
-            <span class="n">query</span><span class="o">=</span><span class="n">optimade_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">],</span>
+            <span class="n">base_url</span><span class="o">=</span><span class="n">optimade_parts</span><span class="p">[</span><span class="s2">"base_url"</span><span class="p">],</span>
+            <span class="n">version</span><span class="o">=</span><span class="n">optimade_parts</span><span class="p">[</span><span class="s2">"version"</span><span class="p">],</span>
+            <span class="n">endpoint</span><span class="o">=</span><span class="n">optimade_parts</span><span class="p">[</span><span class="s2">"endpoint"</span><span class="p">],</span>
+            <span class="n">query</span><span class="o">=</span><span class="n">optimade_parts</span><span class="p">[</span><span class="s2">"query"</span><span class="p">],</span>
         <span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_build_optimade_parts</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="n">AnyHttpUrl</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEParts</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert URL parts to equivalent OPTIMADE URL parts.&quot;&quot;&quot;</span>
-        <span class="n">base_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="si">}</span><span class="s2">://&quot;</span>
+<span class="w">        </span><span class="sd">"""Convert URL parts to equivalent OPTIMADE URL parts."""</span>
+        <span class="n">base_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="si">}</span><span class="s2">://"</span>
 
         <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">username</span><span class="p">:</span>
             <span class="n">base_url</span> <span class="o">+=</span> <span class="n">url</span><span class="o">.</span><span class="n">username</span>
 
         <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">password</span><span class="p">:</span>
-            <span class="n">base_url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="n">url</span><span class="o">.</span><span class="n">password</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">base_url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">":</span><span class="si">{</span><span class="n">url</span><span class="o">.</span><span class="n">password</span><span class="si">}</span><span class="s2">"</span>
 
         <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">username</span> <span class="ow">and</span> <span class="n">url</span><span class="o">.</span><span class="n">password</span><span class="p">:</span>
-            <span class="n">base_url</span> <span class="o">+=</span> <span class="s2">&quot;@&quot;</span>
+            <span class="n">base_url</span> <span class="o">+=</span> <span class="s2">"@"</span>
 
         <span class="c1"># This check is done to satisfy type checker.</span>
         <span class="c1"># Since the url has been parsed as a `AnyHttpUrl`, it must always have a host.</span>
         <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">host</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not parse given string as a URL.&quot;</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"Could not parse given string as a URL."</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
 
         <span class="n">base_url</span> <span class="o">+=</span> <span class="n">url</span><span class="o">.</span><span class="n">host</span>
 
-        <span class="c1"># Hide port if it&#39;s a standard HTTP (80) or HTTPS (443) port.</span>
+        <span class="c1"># Hide port if it's a standard HTTP (80) or HTTPS (443) port.</span>
         <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">port</span> <span class="ow">and</span> <span class="n">url</span><span class="o">.</span><span class="n">port</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">443</span><span class="p">):</span>
-            <span class="n">base_url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="n">url</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">base_url</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">":</span><span class="si">{</span><span class="n">url</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span>
 
         <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
             <span class="n">base_url</span> <span class="o">+=</span> <span class="n">url</span><span class="o">.</span><span class="n">path</span>
 
         <span class="n">base_url_match</span> <span class="o">=</span> <span class="n">_OPTIMADE_BASE_URL_REGEX</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">base_url</span><span class="p">)</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">&quot;OPTIMADE base URL regex match groups: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">"OPTIMADE base URL regex match groups: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
             <span class="n">base_url_match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span> <span class="k">if</span> <span class="n">base_url_match</span> <span class="k">else</span> <span class="n">base_url_match</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">base_url_match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not match given string with OPTIMADE base URL regex.&quot;</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"Could not match given string with OPTIMADE base URL regex."</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
 
         <span class="n">endpoint_match</span> <span class="o">=</span> <span class="n">_OPTIMADE_ENDPOINT_REGEX</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
-            <span class="n">base_url_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">base_url_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">base_url_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"path"</span><span class="p">)</span> <span class="k">if</span> <span class="n">base_url_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"path"</span><span class="p">)</span> <span class="k">else</span> <span class="s2">""</span>
         <span class="p">)</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;OPTIMADE endpoint regex matches: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">endpoint_match</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"OPTIMADE endpoint regex matches: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">endpoint_match</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">path_version</span><span class="p">,</span> <span class="n">path_endpoint</span> <span class="ow">in</span> <span class="n">endpoint_match</span><span class="p">:</span>  <span class="c1"># noqa: B007</span>
             <span class="k">if</span> <span class="n">path_endpoint</span><span class="p">:</span>
                 <span class="k">break</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Could not match given string with OPTIMADE endpoint regex.&quot;</span><span class="p">)</span>
-            <span class="n">path_version</span><span class="p">,</span> <span class="n">path_endpoint</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Could not match given string with OPTIMADE endpoint regex."</span><span class="p">)</span>
+            <span class="n">path_version</span><span class="p">,</span> <span class="n">path_endpoint</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">""</span>
 
-        <span class="n">base_url</span> <span class="o">=</span> <span class="n">base_url_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;base_url&quot;</span><span class="p">)</span>
+        <span class="n">base_url</span> <span class="o">=</span> <span class="n">base_url_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"base_url"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">path_version</span><span class="p">:</span>
             <span class="n">base_url</span> <span class="o">=</span> <span class="n">base_url</span><span class="p">[:</span> <span class="o">-</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">path_version</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">path_endpoint</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)]</span>
         <span class="k">elif</span> <span class="n">path_endpoint</span><span class="p">:</span>
             <span class="n">base_url</span> <span class="o">=</span> <span class="n">base_url</span><span class="p">[:</span> <span class="o">-</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">path_endpoint</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
 
         <span class="n">optimade_parts</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;base_url&quot;</span><span class="p">:</span> <span class="n">base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">),</span>
-            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">path_version</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;endpoint&quot;</span><span class="p">:</span> <span class="n">path_endpoint</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">url</span><span class="o">.</span><span class="n">query</span><span class="p">,</span>
+            <span class="s2">"base_url"</span><span class="p">:</span> <span class="n">base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">),</span>
+            <span class="s2">"version"</span><span class="p">:</span> <span class="n">path_version</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"endpoint"</span><span class="p">:</span> <span class="n">path_endpoint</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"query"</span><span class="p">:</span> <span class="n">url</span><span class="o">.</span><span class="n">query</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;OPTIMADEParts&quot;</span><span class="p">,</span> <span class="n">optimade_parts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">"OPTIMADEParts"</span><span class="p">,</span> <span class="n">optimade_parts</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -2407,7 +2407,7 @@
 
 
 <h3 id="oteapi_optimade.models.custom_types.OPTIMADEUrl.allowed_schemes" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">allowed_schemes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http&#39;</span><span class="p">,</span> <span class="s1">&#39;https&#39;</span><span class="p">]</span></code>
+            <code class="highlight language-python"><span class="n">allowed_schemes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'http'</span><span class="p">,</span> <span class="s1">'https'</span><span class="p">]</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
@@ -2645,7 +2645,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">pydantic_url</span> <span class="o">=</span> <span class="n">AnyHttpUrl</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span>
-                    <span class="n">base_url</span><span class="o">=</span><span class="n">base_url</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="n">base_url</span><span class="o">=</span><span class="n">base_url</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
                     <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
                     <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span>
                     <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
@@ -2659,11 +2659,11 @@
     <span class="k">if</span> <span class="n">pydantic_url</span><span class="p">:</span>
         <span class="n">optimade_parts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_optimade_parts</span><span class="p">(</span><span class="n">pydantic_url</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;base_url&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">version</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_endpoint</span> <span class="o">=</span> <span class="n">endpoint</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;endpoint&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="o">=</span> <span class="n">query</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;://&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"base_url"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">version</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"version"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_endpoint</span> <span class="o">=</span> <span class="n">endpoint</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"endpoint"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="o">=</span> <span class="n">query</span> <span class="ow">or</span> <span class="n">optimade_parts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"query"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"://"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="k">else</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2698,16 +2698,16 @@
 <span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">response_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Success</span><span class="p">,</span> <span class="n">Success</span><span class="p">]</span> <span class="o">|</span> <span class="n">Success</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the endpoint&#39;s corresponding response model(s) (from OPT).&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">==</span> <span class="s2">&quot;versions&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Return the endpoint's corresponding response model(s) (from OPT)."""</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">==</span> <span class="s2">"versions"</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">InfoResponse</span><span class="p">,</span> <span class="n">EntryInfoResponse</span><span class="p">),</span>
-        <span class="s2">&quot;links&quot;</span><span class="p">:</span> <span class="n">LinksResponse</span><span class="p">,</span>
-        <span class="s2">&quot;structures&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">StructureResponseMany</span><span class="p">,</span> <span class="n">StructureResponseOne</span><span class="p">),</span>
-        <span class="s2">&quot;references&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">ReferenceResponseMany</span><span class="p">,</span> <span class="n">ReferenceResponseOne</span><span class="p">),</span>
-        <span class="s2">&quot;calculations&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">EntryResponseMany</span><span class="p">,</span> <span class="n">EntryResponseOne</span><span class="p">),</span>
+        <span class="s2">"info"</span><span class="p">:</span> <span class="p">(</span><span class="n">InfoResponse</span><span class="p">,</span> <span class="n">EntryInfoResponse</span><span class="p">),</span>
+        <span class="s2">"links"</span><span class="p">:</span> <span class="n">LinksResponse</span><span class="p">,</span>
+        <span class="s2">"structures"</span><span class="p">:</span> <span class="p">(</span><span class="n">StructureResponseMany</span><span class="p">,</span> <span class="n">StructureResponseOne</span><span class="p">),</span>
+        <span class="s2">"references"</span><span class="p">:</span> <span class="p">(</span><span class="n">ReferenceResponseMany</span><span class="p">,</span> <span class="n">ReferenceResponseOne</span><span class="p">),</span>
+        <span class="s2">"calculations"</span><span class="p">:</span> <span class="p">(</span><span class="n">EntryResponseMany</span><span class="p">,</span> <span class="n">EntryResponseOne</span><span class="p">),</span>
     <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">Success</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>

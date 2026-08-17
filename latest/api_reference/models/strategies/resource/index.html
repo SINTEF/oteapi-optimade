@@ -1342,31 +1342,31 @@
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEResourceConfig</span><span class="p">(</span><span class="n">ResourceConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE-specific resource strategy config.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""OPTIMADE-specific resource strategy config."""</span>
 
     <span class="n">resourceType</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="c1"># later OPTIMADE/references and more should be added and other resources</span>
-        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;optimade/structures&quot;</span><span class="p">],</span>
+        <span class="n">Literal</span><span class="p">[</span><span class="s2">"optimade/structures"</span><span class="p">],</span>
         <span class="n">BeforeValidator</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">),</span>
-        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">ResourceConfig</span><span class="o">.</span><span class="n">model_fields</span><span class="p">[</span><span class="s2">&quot;resourceType&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">),</span>
+        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">ResourceConfig</span><span class="o">.</span><span class="n">model_fields</span><span class="p">[</span><span class="s2">"resourceType"</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">),</span>
     <span class="p">]</span>
     <span class="n">accessUrl</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">OPTIMADEUrl</span><span class="p">,</span>
-        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Either a base OPTIMADE URL or a full OPTIMADE URL.&quot;</span><span class="p">),</span>
+        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Either a base OPTIMADE URL or a full OPTIMADE URL."</span><span class="p">),</span>
     <span class="p">]</span>
     <span class="n">accessService</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;optimade&quot;</span><span class="p">,</span> <span class="s2">&quot;optimade+dlite&quot;</span><span class="p">],</span>
+        <span class="n">Literal</span><span class="p">[</span><span class="s2">"optimade"</span><span class="p">,</span> <span class="s2">"optimade+dlite"</span><span class="p">],</span>
         <span class="n">BeforeValidator</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">),</span>
         <span class="n">Field</span><span class="p">(</span>
-            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The registered strategy name for OPTIMADEResourceStrategy.&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"The registered strategy name for OPTIMADEResourceStrategy."</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">]</span>
     <span class="n">configuration</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">OPTIMADEConfig</span> <span class="o">|</span> <span class="n">OPTIMADEDLiteConfig</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;OPTIMADE configuration. Contains relevant information necessary to &quot;</span>
-                <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
+                <span class="s2">"OPTIMADE configuration. Contains relevant information necessary to "</span>
+                <span class="s2">"perform OPTIMADE queries."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="n">OPTIMADEConfig</span><span class="p">()</span>
@@ -1462,7 +1462,7 @@
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEResourceResult</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE session for the resource strategy.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""OPTIMADE session for the resource strategy."""</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">validate_assignment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arbitrary_types_allowed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -1470,8 +1470,8 @@
         <span class="n">OPTIMADEConfig</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;OPTIMADE configuration. Contains relevant information necessary to &quot;</span>
-                <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
+                <span class="s2">"OPTIMADE configuration. Contains relevant information necessary to "</span>
+                <span class="s2">"perform OPTIMADE queries."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1479,8 +1479,8 @@
         <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;List of OPTIMADE resources (structures, references, errors, ...) returned&quot;</span>
-                <span class="s2">&quot; from the OPTIMADE request.&quot;</span>
+                <span class="s2">"List of OPTIMADE resources (structures, references, errors, ...) returned"</span>
+                <span class="s2">" from the OPTIMADE request."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># noqa: RUF012</span>
@@ -1488,19 +1488,19 @@
         <span class="nb">str</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;Importable path to the resource model to be used to parse the OPTIMADE &quot;</span>
-                <span class="s2">&quot;resources in `optimade_resource`. The importable path should be a fully &quot;</span>
-                <span class="s2">&quot;importable path to a module separated by a colon (`:`) to then define the &quot;</span>
-                <span class="s2">&quot;resource model class name. This means one can then do:</span><span class="se">\n\n</span><span class="s2">```python</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;from PACKAGE.MODULE import RESOURCE_CLS</span><span class="se">\n</span><span class="s2">```</span><span class="se">\n</span><span class="s2">From the value &quot;</span>
-                <span class="s2">&quot;`PACKAGE.MODULE:RESOURCE_CLS`&quot;</span>
+                <span class="s2">"Importable path to the resource model to be used to parse the OPTIMADE "</span>
+                <span class="s2">"resources in `optimade_resource`. The importable path should be a fully "</span>
+                <span class="s2">"importable path to a module separated by a colon (`:`) to then define the "</span>
+                <span class="s2">"resource model class name. This means one can then do:</span><span class="se">\n\n</span><span class="s2">```python</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"from PACKAGE.MODULE import RESOURCE_CLS</span><span class="se">\n</span><span class="s2">```</span><span class="se">\n</span><span class="s2">From the value "</span>
+                <span class="s2">"`PACKAGE.MODULE:RESOURCE_CLS`"</span>
             <span class="p">),</span>
             <span class="n">pattern</span><span class="o">=</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;^([a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)*&quot;</span>  <span class="c1"># package.module</span>
-                <span class="sa">r</span><span class="s2">&quot;:[a-zA-Z][a-zA-Z0-9_]*)?$&quot;</span>  <span class="c1"># class</span>
+                <span class="sa">r</span><span class="s2">"^([a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)*"</span>  <span class="c1"># package.module</span>
+                <span class="sa">r</span><span class="s2">":[a-zA-Z][a-zA-Z0-9_]*)?$"</span>  <span class="c1"># class</span>
             <span class="p">),</span>
         <span class="p">),</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="s2">""</span>
 </code></pre></div></td></tr></table></div>
               </details>
 

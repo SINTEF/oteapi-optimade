@@ -1332,7 +1332,7 @@
 
 
 <h2 id="oteapi_optimade.models.strategies.parse.SUPPORTED_ENTITIES" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">SUPPORTED_ENTITIES</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;http://onto-ns.com/meta/[0-9]+(</span><span class="se">\\</span><span class="s1">.[0-9]+)?(</span><span class="se">\\</span><span class="s1">.[0-9]+)?/OPTIMADEStructure&#39;</span><span class="p">,</span> <span class="s1">&#39;http://onto-ns</span><span class="se">\\</span><span class="s1">.com/meta/[0-9]+(</span><span class="se">\\</span><span class="s1">.[0-9]+)?(</span><span class="se">\\</span><span class="s1">.[0-9]+)?/OPTIMADEStructureResource&#39;</span><span class="p">]]</span></code>
+            <code class="highlight language-python"><span class="n">SUPPORTED_ENTITIES</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'http://onto-ns.com/meta/[0-9]+(</span><span class="se">\\</span><span class="s1">.[0-9]+)?(</span><span class="se">\\</span><span class="s1">.[0-9]+)?/OPTIMADEStructure'</span><span class="p">,</span> <span class="s1">'http://onto-ns</span><span class="se">\\</span><span class="s1">.com/meta/[0-9]+(</span><span class="se">\\</span><span class="s1">.[0-9]+)?(</span><span class="se">\\</span><span class="s1">.[0-9]+)?/OPTIMADEStructureResource'</span><span class="p">]]</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -1399,20 +1399,20 @@ This means, if no entity is provided, the default entity will be used.</p>
 <span class="normal">109</span>
 <span class="normal">110</span>
 <span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEDLiteParseConfig</span><span class="p">(</span><span class="n">OPTIMADEParseConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE-specific parse strategy config when using DLite.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""OPTIMADE-specific parse strategy config when using DLite."""</span>
 
     <span class="n">parserType</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>  <span class="c1"># type: ignore[assignment]</span>
-        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;parser/optimade/dlite&quot;</span><span class="p">],</span>
+        <span class="n">Literal</span><span class="p">[</span><span class="s2">"parser/optimade/dlite"</span><span class="p">],</span>
         <span class="n">BeforeValidator</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">),</span>
-        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">ParserConfig</span><span class="o">.</span><span class="n">model_fields</span><span class="p">[</span><span class="s2">&quot;parserType&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">),</span>
+        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">ParserConfig</span><span class="o">.</span><span class="n">model_fields</span><span class="p">[</span><span class="s2">"parserType"</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">),</span>
     <span class="p">]</span>
 
     <span class="n">configuration</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>  <span class="c1"># type: ignore[assignment]</span>
         <span class="n">OPTIMADEDLiteConfig</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;OPTIMADE configuration when using the DLite-specific strategies. &quot;</span>
-                <span class="s2">&quot;Contains relevant information necessary to perform OPTIMADE queries.&quot;</span>
+                <span class="s2">"OPTIMADE configuration when using the DLite-specific strategies. "</span>
+                <span class="s2">"Contains relevant information necessary to perform OPTIMADE queries."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="n">OPTIMADEDLiteConfig</span><span class="p">()</span>
@@ -1501,13 +1501,13 @@ This means, if no entity is provided, the default entity will be used.</p>
 <span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEParseConfig</span><span class="p">(</span><span class="n">ParserConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE-specific parse strategy config.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""OPTIMADE-specific parse strategy config."""</span>
 
     <span class="n">parserType</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;parser/optimade&quot;</span><span class="p">],</span>
+        <span class="n">Literal</span><span class="p">[</span><span class="s2">"parser/optimade"</span><span class="p">],</span>
         <span class="n">BeforeValidator</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">),</span>
         <span class="n">Field</span><span class="p">(</span>
-            <span class="n">description</span><span class="o">=</span><span class="n">ParserConfig</span><span class="o">.</span><span class="n">model_fields</span><span class="p">[</span><span class="s2">&quot;parserType&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">ParserConfig</span><span class="o">.</span><span class="n">model_fields</span><span class="p">[</span><span class="s2">"parserType"</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">]</span>
 
@@ -1515,23 +1515,23 @@ This means, if no entity is provided, the default entity will be used.</p>
         <span class="n">OPTIMADEConfig</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;OPTIMADE configuration. Contains relevant information necessary to &quot;</span>
-                <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
+                <span class="s2">"OPTIMADE configuration. Contains relevant information necessary to "</span>
+                <span class="s2">"perform OPTIMADE queries."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="n">OPTIMADEConfig</span><span class="p">()</span>
 
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;entity&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">)</span>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">"entity"</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"after"</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_entity</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">AnyHttpUrl</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnyHttpUrl</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate entity.&quot;&quot;&quot;</span>
-        <span class="n">test_value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Validate entity."""</span>
+        <span class="n">test_value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">entity_pattern</span> <span class="ow">in</span> <span class="n">SUPPORTED_ENTITIES</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">entity_pattern</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">test_value</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">value</span>
 
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Unsupported entity: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">. Supported entities: </span><span class="si">{</span><span class="n">SUPPORTED_ENTITIES</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">"Unsupported entity: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">. Supported entities: </span><span class="si">{</span><span class="n">SUPPORTED_ENTITIES</span><span class="si">}</span><span class="s2">"</span>
         <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
               </details>
@@ -1615,7 +1615,7 @@ This means, if no entity is provided, the default entity will be used.</p>
 <span class="normal">89</span>
 <span class="normal">90</span>
 <span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEParseResult</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE parse strategy result.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""OPTIMADE parse strategy result."""</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">validate_assignment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arbitrary_types_allowed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -1623,8 +1623,8 @@ This means, if no entity is provided, the default entity will be used.</p>
         <span class="n">OPTIMADEConfig</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;OPTIMADE configuration. Contains relevant information necessary to &quot;</span>
-                <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
+                <span class="s2">"OPTIMADE configuration. Contains relevant information necessary to "</span>
+                <span class="s2">"perform OPTIMADE queries."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1632,16 +1632,16 @@ This means, if no entity is provided, the default entity will be used.</p>
         <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;An OPTIMADE Python tools (OPT) pydantic successful response model. &quot;</span>
-                <span class="s2">&quot;More specifically, a tuple of the module and name of the pydantic &quot;</span>
-                <span class="s2">&quot;model.&quot;</span>
+                <span class="s2">"An OPTIMADE Python tools (OPT) pydantic successful response model. "</span>
+                <span class="s2">"More specifically, a tuple of the module and name of the pydantic "</span>
+                <span class="s2">"model."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">optimade_response</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
-            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;An OPTIMADE response as a Python dictionary.&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"An OPTIMADE response as a Python dictionary."</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>

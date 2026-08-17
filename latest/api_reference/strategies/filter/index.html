@@ -1421,18 +1421,18 @@
 <span class="normal">87</span>
 <span class="normal">88</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEFilterStrategy</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Filter Strategy.</span>
+<span class="w">    </span><span class="sd">"""Filter Strategy.</span>
 
 <span class="sd">    **Implements strategies**:</span>
 
-<span class="sd">    - `(&quot;filterType&quot;, &quot;OPTIMADE&quot;)`</span>
+<span class="sd">    - `("filterType", "OPTIMADE")`</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">filter_config</span><span class="p">:</span> <span class="n">OPTIMADEFilterConfig</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEFilterResult</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
+<span class="w">        </span><span class="sd">"""Initialize strategy.</span>
 
 <span class="sd">        This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">        Services.</span>
@@ -1449,13 +1449,13 @@
 <span class="sd">            An update model of key/value-pairs to be stored in the</span>
 <span class="sd">            session-specific context from services.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
                     <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">exclude</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;optimade_config&quot;</span><span class="p">,</span> <span class="s2">&quot;downloadUrl&quot;</span><span class="p">,</span> <span class="s2">&quot;mediaType&quot;</span><span class="p">},</span>
+                    <span class="n">exclude</span><span class="o">=</span><span class="p">{</span><span class="s2">"optimade_config"</span><span class="p">,</span> <span class="s2">"downloadUrl"</span><span class="p">,</span> <span class="s2">"mediaType"</span><span class="p">},</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
@@ -1465,23 +1465,23 @@
             <span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span> <span class="o">=</span> <span class="n">OPTIMADEQueryParameters</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">query</span><span class="p">:</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting filter from query.&quot;</span><span class="p">)</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Setting filter from query."</span><span class="p">)</span>
             <span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">query</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">limit</span><span class="p">:</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting page_limit from limit.&quot;</span><span class="p">)</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Setting page_limit from limit."</span><span class="p">)</span>
             <span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">page_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">limit</span>
 
         <span class="k">return</span> <span class="n">OPTIMADEFilterResult</span><span class="p">(</span>
             <span class="n">optimade_config</span><span class="o">=</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
-                <span class="n">exclude</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;optimade_config&quot;</span><span class="p">,</span> <span class="s2">&quot;downloadUrl&quot;</span><span class="p">,</span> <span class="s2">&quot;mediaType&quot;</span><span class="p">},</span>
+                <span class="n">exclude</span><span class="o">=</span><span class="p">{</span><span class="s2">"optimade_config"</span><span class="p">,</span> <span class="s2">"downloadUrl"</span><span class="p">,</span> <span class="s2">"mediaType"</span><span class="p">},</span>
                 <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AttrDict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute the strategy.</span>
+<span class="w">        </span><span class="sd">"""Execute the strategy.</span>
 
 <span class="sd">        This method will be called through the strategy-specific endpoint of the</span>
 <span class="sd">        OTE-API Services.</span>
@@ -1490,7 +1490,7 @@
 <span class="sd">            An update model of key/value-pairs to be stored in the</span>
 <span class="sd">            session-specific context from services.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">AttrDict</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
               </details>
@@ -1571,7 +1571,7 @@ OTE-API Services.</p>
 <span class="normal">86</span>
 <span class="normal">87</span>
 <span class="normal">88</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AttrDict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute the strategy.</span>
+<span class="w">    </span><span class="sd">"""Execute the strategy.</span>
 
 <span class="sd">    This method will be called through the strategy-specific endpoint of the</span>
 <span class="sd">    OTE-API Services.</span>
@@ -1580,7 +1580,7 @@ OTE-API Services.</p>
 <span class="sd">        An update model of key/value-pairs to be stored in the</span>
 <span class="sd">        session-specific context from services.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">AttrDict</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -1694,7 +1694,7 @@ OPTIMADE resource strategy through this filter strategy.</p>
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEFilterResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
+<span class="w">    </span><span class="sd">"""Initialize strategy.</span>
 
 <span class="sd">    This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">    Services.</span>
@@ -1711,13 +1711,13 @@ OPTIMADE resource strategy through this filter strategy.</p>
 <span class="sd">        An update model of key/value-pairs to be stored in the</span>
 <span class="sd">        session-specific context from services.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
                 <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">exclude</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;optimade_config&quot;</span><span class="p">,</span> <span class="s2">&quot;downloadUrl&quot;</span><span class="p">,</span> <span class="s2">&quot;mediaType&quot;</span><span class="p">},</span>
+                <span class="n">exclude</span><span class="o">=</span><span class="p">{</span><span class="s2">"optimade_config"</span><span class="p">,</span> <span class="s2">"downloadUrl"</span><span class="p">,</span> <span class="s2">"mediaType"</span><span class="p">},</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
@@ -1727,16 +1727,16 @@ OPTIMADE resource strategy through this filter strategy.</p>
         <span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span> <span class="o">=</span> <span class="n">OPTIMADEQueryParameters</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">query</span><span class="p">:</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting filter from query.&quot;</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Setting filter from query."</span><span class="p">)</span>
         <span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">query</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">limit</span><span class="p">:</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting page_limit from limit.&quot;</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Setting page_limit from limit."</span><span class="p">)</span>
         <span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">page_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_config</span><span class="o">.</span><span class="n">limit</span>
 
     <span class="k">return</span> <span class="n">OPTIMADEFilterResult</span><span class="p">(</span>
         <span class="n">optimade_config</span><span class="o">=</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
-            <span class="n">exclude</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;optimade_config&quot;</span><span class="p">,</span> <span class="s2">&quot;downloadUrl&quot;</span><span class="p">,</span> <span class="s2">&quot;mediaType&quot;</span><span class="p">},</span>
+            <span class="n">exclude</span><span class="o">=</span><span class="p">{</span><span class="s2">"optimade_config"</span><span class="p">,</span> <span class="s2">"downloadUrl"</span><span class="p">,</span> <span class="s2">"mediaType"</span><span class="p">},</span>
             <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>

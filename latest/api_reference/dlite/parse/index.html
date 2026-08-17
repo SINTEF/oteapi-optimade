@@ -1776,18 +1776,18 @@
 <span class="normal">459</span>
 <span class="normal">460</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEDLiteParseStrategy</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse strategy for JSON.</span>
+<span class="w">    </span><span class="sd">"""Parse strategy for JSON.</span>
 
 <span class="sd">    **Implements strategies**:</span>
 
-<span class="sd">    - `(&quot;parserType&quot;, &quot;parser/OPTIMADE/DLite&quot;)`</span>
+<span class="sd">    - `("parserType", "parser/OPTIMADE/DLite")`</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">parse_config</span><span class="p">:</span> <span class="n">OPTIMADEDLiteParseConfig</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DLiteResult</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
+<span class="w">        </span><span class="sd">"""Initialize strategy.</span>
 
 <span class="sd">        This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">        Services.</span>
@@ -1796,7 +1796,7 @@
 <span class="sd">            An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">            context from services.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">DLiteResult</span><span class="p">(</span>
             <span class="n">collection_id</span><span class="o">=</span><span class="n">get_collection</span><span class="p">(</span>
                 <span class="n">collection_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">collection_id</span>
@@ -1804,7 +1804,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEParseResult</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Request and parse an OPTIMADE response using OPT.</span>
+<span class="w">        </span><span class="sd">"""Request and parse an OPTIMADE response using OPT.</span>
 
 <span class="sd">        This method will be called through the strategy-specific endpoint of the</span>
 <span class="sd">        OTE-API Services.</span>
@@ -1827,15 +1827,15 @@
 <span class="sd">            An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">            context from services.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">generic_parse_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
             <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;parserType&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">parserType</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/dlite&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-                <span class="s2">&quot;configuration&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
+                <span class="s2">"parserType"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">parserType</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/dlite"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+                <span class="s2">"configuration"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
                     <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                        <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                            <span class="s2">&quot;mediaType&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
-                        <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;+dlite&quot;</span><span class="p">,</span> <span class="s2">&quot;+json&quot;</span><span class="p">)</span>
+                        <span class="s2">"mediaType"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                            <span class="s2">"mediaType"</span><span class="p">,</span> <span class="s2">""</span>
+                        <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"+dlite"</span><span class="p">,</span> <span class="s2">"+json"</span><span class="p">)</span>
                     <span class="p">}</span>
                 <span class="p">),</span>
             <span class="p">}</span>
@@ -1844,7 +1844,7 @@
 
         <span class="n">OPTIMADEStructure</span> <span class="o">=</span> <span class="n">dlite</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">entity</span><span class="p">))</span>
 
-        <span class="n">single_entity</span> <span class="o">=</span> <span class="s2">&quot;OPTIMADEStructureResource&quot;</span> <span class="ow">in</span> <span class="n">OPTIMADEStructure</span><span class="o">.</span><span class="n">uri</span>
+        <span class="n">single_entity</span> <span class="o">=</span> <span class="s2">"OPTIMADEStructureResource"</span> <span class="ow">in</span> <span class="n">OPTIMADEStructure</span><span class="o">.</span><span class="n">uri</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">single_entity</span><span class="p">:</span>
             <span class="n">nested_entity_mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_nested_entity</span><span class="p">(</span>
@@ -1856,16 +1856,16 @@
             <span class="ow">and</span> <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">optimade_response_model</span>
         <span class="p">):</span>
             <span class="n">base_error_message</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="s2">&quot;Could not retrieve response from OPTIMADE parse strategy.&quot;</span>
+                <span class="s2">"Could not retrieve response from OPTIMADE parse strategy."</span>
             <span class="p">)</span>
             <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;optimade_response=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;optimade_response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;session fields=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"optimade_response=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"optimade_response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"session fields=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                 <span class="n">base_error_message</span><span class="p">,</span>
-                <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;optimade_response&quot;</span><span class="p">),</span>
-                <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;optimade_response_model&quot;</span><span class="p">),</span>
+                <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"optimade_response"</span><span class="p">),</span>
+                <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"optimade_response_model"</span><span class="p">),</span>
                 <span class="nb">list</span><span class="p">(</span><span class="n">generic_parse_result</span><span class="p">),</span>
             <span class="p">)</span>
             <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">base_error_message</span><span class="p">)</span>
@@ -1884,12 +1884,12 @@
                 <span class="o">**</span><span class="n">generic_parse_result</span><span class="o">.</span><span class="n">optimade_response</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="n">base_error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not import the response model.&quot;</span>
+            <span class="n">base_error_message</span> <span class="o">=</span> <span class="s2">"Could not import the response model."</span>
             <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;ImportError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;optimade_response_model_module=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;optimade_response_model_name=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"ImportError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"optimade_response_model_module=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"optimade_response_model_name=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                 <span class="n">base_error_message</span><span class="p">,</span>
                 <span class="n">exc</span><span class="p">,</span>
                 <span class="n">optimade_response_model_module</span><span class="p">,</span>
@@ -1897,12 +1897,12 @@
             <span class="p">)</span>
             <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">base_error_message</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
         <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="n">base_error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not validate the response model.&quot;</span>
+            <span class="n">base_error_message</span> <span class="o">=</span> <span class="s2">"Could not validate the response model."</span>
             <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;ValidationError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;optimade_response_model_module=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;optimade_response_model_name=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"ValidationError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"optimade_response_model_module=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"optimade_response_model_name=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                 <span class="n">base_error_message</span><span class="p">,</span>
                 <span class="n">exc</span><span class="p">,</span>
                 <span class="n">optimade_response_model_module</span><span class="p">,</span>
@@ -1910,7 +1910,7 @@
             <span class="p">)</span>
             <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">base_error_message</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
-        <span class="c1"># Currently, only &quot;structures&quot; entries are supported and handled</span>
+        <span class="c1"># Currently, only "structures" entries are supported and handled</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">StructureResponseMany</span><span class="p">):</span>
             <span class="n">structures</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">StructureResource</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="p">(</span>
@@ -1952,23 +1952,23 @@
                 <span class="n">structures</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s2">&quot;Could not determine what to do with `data`. Type </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span>
+                    <span class="s2">"Could not determine what to do with `data`. Type </span><span class="si">%s</span><span class="s2">."</span><span class="p">,</span>
                     <span class="nb">type</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
                 <span class="p">)</span>
-                <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="s2">&quot;Could not parse `data` entry in response.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="s2">"Could not parse `data` entry in response."</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;Got currently unsupported response type </span><span class="si">%s</span><span class="s2">. Only structures are &quot;</span>
-                <span class="s2">&quot;supported.&quot;</span><span class="p">,</span>
+                <span class="s2">"Got currently unsupported response type </span><span class="si">%s</span><span class="s2">. Only structures are "</span>
+                <span class="s2">"supported."</span><span class="p">,</span>
                 <span class="n">optimade_response_model_name</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
-                <span class="s2">&quot;The DLite OPTIMADE Parser currently only supports structures entities.&quot;</span>
+                <span class="s2">"The DLite OPTIMADE Parser currently only supports structures entities."</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">structures</span><span class="p">:</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No structures found in the response.&quot;</span><span class="p">)</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"No structures found in the response."</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">generic_parse_result</span>
 
         <span class="c1"># DLite-fy OPTIMADE structures</span>
@@ -1979,115 +1979,115 @@
         <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">structures</span><span class="p">:</span>
             <span class="n">new_structure_attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">single_entity_dimensions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;nassemblies&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="s2">&quot;nspecies&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"nassemblies"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"nspecies"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
             <span class="p">}</span>
 
             <span class="c1">## For OPTIMADEStructure (multiple) entities</span>
             <span class="c1"># Most inner layer: assemblies &amp; species</span>
             <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-                    <span class="n">single_entity_dimensions</span><span class="p">[</span><span class="s2">&quot;nassemblies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+                    <span class="n">single_entity_dimensions</span><span class="p">[</span><span class="s2">"nassemblies"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
                         <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span>
                     <span class="p">)</span>
                     <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                         <span class="p">{</span>
-                            <span class="s2">&quot;assemblies_sites_in_groups&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                            <span class="s2">&quot;assemblies_group_probabilities&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                            <span class="s2">"assemblies_sites_in_groups"</span><span class="p">:</span> <span class="p">[],</span>
+                            <span class="s2">"assemblies_group_probabilities"</span><span class="p">:</span> <span class="p">[],</span>
                         <span class="p">}</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"assemblies"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
                 <span class="k">for</span> <span class="n">assembly</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies_sites_in_groups&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"assemblies_sites_in_groups"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="s2">";"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                                 <span class="p">[</span>
-                                    <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">)</span>
+                                    <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">)</span>
                                     <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">assembly</span><span class="o">.</span><span class="n">sites_in_groups</span>
                                 <span class="p">]</span>
                             <span class="p">)</span>
                         <span class="p">)</span>
                         <span class="n">new_structure_attributes</span><span class="p">[</span>
-                            <span class="s2">&quot;assemblies_group_probabilities&quot;</span>
-                        <span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">assembly</span><span class="o">.</span><span class="n">group_probabilities</span><span class="p">))</span>
+                            <span class="s2">"assemblies_group_probabilities"</span>
+                        <span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">assembly</span><span class="o">.</span><span class="n">group_probabilities</span><span class="p">))</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="s2">&quot;attributes.assemblies&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s2">"attributes.assemblies"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
                             <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                                <span class="s2">&quot;Could not find entity for &#39;attributes.assemblies&#39;.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                                <span class="s2">"Could not find entity for 'attributes.assemblies'.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                                 <span class="n">nested_entity_mapping</span><span class="p">,</span>
                             <span class="p">)</span>
                             <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
-                                <span class="s2">&quot;Could not find entity for &#39;attributes.assemblies&#39;.&quot;</span>
+                                <span class="s2">"Could not find entity for 'attributes.assemblies'."</span>
                             <span class="p">)</span>
 
                         <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
-                            <span class="s2">&quot;ngroups&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">group_probabilities</span><span class="p">),</span>
-                            <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">sites_in_groups</span><span class="p">),</span>
+                            <span class="s2">"ngroups"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">group_probabilities</span><span class="p">),</span>
+                            <span class="s2">"nsites"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">sites_in_groups</span><span class="p">),</span>
                         <span class="p">}</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">&quot;attributes.assemblies&quot;</span><span class="p">](</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"assemblies"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">"attributes.assemblies"</span><span class="p">](</span>
                                 <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">assembly</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
                             <span class="p">)</span>
                         <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-                    <span class="n">single_entity_dimensions</span><span class="p">[</span><span class="s2">&quot;nspecies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+                    <span class="n">single_entity_dimensions</span><span class="p">[</span><span class="s2">"nspecies"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
                         <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span>
                     <span class="p">)</span>
                     <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                         <span class="p">{</span>
-                            <span class="s2">&quot;species_name&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                            <span class="s2">&quot;species_chemical_symbols&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                            <span class="s2">&quot;species_concentration&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                            <span class="s2">&quot;species_mass&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                            <span class="s2">&quot;species_original_name&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                            <span class="s2">&quot;species_attached&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                            <span class="s2">&quot;species_nattached&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                            <span class="s2">"species_name"</span><span class="p">:</span> <span class="p">[],</span>
+                            <span class="s2">"species_chemical_symbols"</span><span class="p">:</span> <span class="p">[],</span>
+                            <span class="s2">"species_concentration"</span><span class="p">:</span> <span class="p">[],</span>
+                            <span class="s2">"species_mass"</span><span class="p">:</span> <span class="p">[],</span>
+                            <span class="s2">"species_original_name"</span><span class="p">:</span> <span class="p">[],</span>
+                            <span class="s2">"species_attached"</span><span class="p">:</span> <span class="p">[],</span>
+                            <span class="s2">"species_nattached"</span><span class="p">:</span> <span class="p">[],</span>
                         <span class="p">}</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
                 <span class="k">for</span> <span class="n">species</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_chemical_symbols&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">chemical_symbols</span><span class="p">)</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_name"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_chemical_symbols"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">chemical_symbols</span><span class="p">)</span>
                         <span class="p">)</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_concentration&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">species</span><span class="o">.</span><span class="n">concentration</span><span class="p">)</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_concentration"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">species</span><span class="o">.</span><span class="n">concentration</span><span class="p">)</span>
                         <span class="p">)</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_mass&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">mass</span> <span class="ow">or</span> <span class="p">[]))</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_mass"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">mass</span> <span class="ow">or</span> <span class="p">[]))</span>
                         <span class="p">)</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_original_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="n">species</span><span class="o">.</span><span class="n">original_name</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_original_name"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">species</span><span class="o">.</span><span class="n">original_name</span> <span class="ow">or</span> <span class="s2">""</span>
                         <span class="p">)</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_attached&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">attached</span> <span class="ow">or</span> <span class="p">[])</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_attached"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">attached</span> <span class="ow">or</span> <span class="p">[])</span>
                         <span class="p">)</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_nattached&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">nattached</span> <span class="ow">or</span> <span class="p">[]))</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_nattached"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">nattached</span> <span class="ow">or</span> <span class="p">[]))</span>
                         <span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="s2">&quot;attributes.species&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s2">"attributes.species"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
                             <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                                <span class="s2">&quot;Could not find entity for &#39;attributes.species&#39;.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                                <span class="s2">"Could not find entity for 'attributes.species'.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                                 <span class="n">nested_entity_mapping</span><span class="p">,</span>
                             <span class="p">)</span>
                             <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
-                                <span class="s2">&quot;Could not find entity for &#39;attributes.species&#39;.&quot;</span>
+                                <span class="s2">"Could not find entity for 'attributes.species'."</span>
                             <span class="p">)</span>
 
                         <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
-                            <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">chemical_symbols</span><span class="p">),</span>
-                            <span class="s2">&quot;nattached_elements&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">attached</span> <span class="ow">or</span> <span class="p">[]),</span>
+                            <span class="s2">"nelements"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">chemical_symbols</span><span class="p">),</span>
+                            <span class="s2">"nattached_elements"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">attached</span> <span class="ow">or</span> <span class="p">[]),</span>
                         <span class="p">}</span>
-                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">&quot;attributes.species&quot;</span><span class="p">](</span>
+                        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">"attributes.species"</span><span class="p">](</span>
                                 <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
                                 <span class="n">properties</span><span class="o">=</span><span class="n">species</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                             <span class="p">)</span>
@@ -2097,11 +2097,11 @@
             <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                 <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
                     <span class="n">exclude</span><span class="o">=</span><span class="p">{</span>
-                        <span class="s2">&quot;species&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;assemblies&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;nelements&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;nsites&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;structure_features&quot;</span><span class="p">,</span>
+                        <span class="s2">"species"</span><span class="p">,</span>
+                        <span class="s2">"assemblies"</span><span class="p">,</span>
+                        <span class="s2">"nelements"</span><span class="p">,</span>
+                        <span class="s2">"nsites"</span><span class="p">,</span>
+                        <span class="s2">"structure_features"</span><span class="p">,</span>
                     <span class="p">},</span>
                     <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -2109,28 +2109,28 @@
                 <span class="p">)</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">new_structure_attributes</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"_"</span><span class="p">):</span>
                     <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
             <span class="c1"># Structure features values are Enum values, so we need to convert them to</span>
             <span class="c1"># their string (true) values</span>
-            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;structure_features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"structure_features"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">_</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">structure_features</span>
             <span class="p">]</span>
 
             <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">id</span>
-                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">type</span>
+                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">id</span>
+                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">type</span>
 
                 <span class="n">new_structure</span> <span class="o">=</span> <span class="n">OPTIMADEStructure</span><span class="p">(</span>
                     <span class="n">dimensions</span><span class="o">=</span><span class="p">{</span>
-                        <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;dimensionality&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-                        <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nsites</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;nstructure_features&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
+                        <span class="s2">"nelements"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">"dimensionality"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                        <span class="s2">"nsites"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nsites</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">"nstructure_features"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
                             <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">structure_features</span>
                         <span class="p">),</span>
-                        <span class="s2">&quot;nspace_group_symmetry_operations&quot;</span><span class="p">:</span> <span class="p">(</span>
+                        <span class="s2">"nspace_group_symmetry_operations"</span><span class="p">:</span> <span class="p">(</span>
                             <span class="nb">len</span><span class="p">(</span>
                                 <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">space_group_symmetry_operations_xyz</span>
                             <span class="p">)</span>
@@ -2142,30 +2142,30 @@
                     <span class="n">properties</span><span class="o">=</span><span class="n">new_structure_attributes</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s2">&quot;attributes&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">"attributes"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
                     <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                        <span class="s2">&quot;Could not find entity for &#39;attributes&#39;.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s2">"Could not find entity for 'attributes'.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                         <span class="n">nested_entity_mapping</span><span class="p">,</span>
                     <span class="p">)</span>
-                    <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="s2">&quot;Could not find entity for &#39;attributes&#39;.&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="s2">"Could not find entity for 'attributes'."</span><span class="p">)</span>
 
                 <span class="n">new_structure</span> <span class="o">=</span> <span class="n">OPTIMADEStructure</span><span class="p">(</span>
                     <span class="n">dimensions</span><span class="o">=</span><span class="p">{},</span>
                     <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
-                        <span class="s2">&quot;attributes&quot;</span><span class="p">:</span> <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">](</span>
+                        <span class="s2">"attributes"</span><span class="p">:</span> <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">"attributes"</span><span class="p">](</span>
                             <span class="n">dimensions</span><span class="o">=</span><span class="p">{</span>
-                                <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                                <span class="s2">&quot;dimensionality&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-                                <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nsites</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                                <span class="s2">&quot;nspecies&quot;</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"nelements"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">"dimensionality"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                                <span class="s2">"nsites"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nsites</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">"nspecies"</span><span class="p">:</span> <span class="p">(</span>
                                     <span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">)</span>
                                     <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span>
                                     <span class="k">else</span> <span class="mi">0</span>
                                 <span class="p">),</span>
-                                <span class="s2">&quot;nstructure_features&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
+                                <span class="s2">"nstructure_features"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
                                     <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">structure_features</span>
                                 <span class="p">),</span>
-                                <span class="s2">&quot;nspace_group_symmetry_operations&quot;</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"nspace_group_symmetry_operations"</span><span class="p">:</span> <span class="p">(</span>
                                     <span class="nb">len</span><span class="p">(</span>
                                         <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">space_group_symmetry_operations_xyz</span>
                                     <span class="p">)</span>
@@ -2175,8 +2175,8 @@
                             <span class="p">},</span>
                             <span class="n">properties</span><span class="o">=</span><span class="n">new_structure_attributes</span><span class="p">,</span>
                         <span class="p">),</span>
-                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
-                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
+                        <span class="s2">"id"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
                     <span class="p">},</span>
                 <span class="p">)</span>
 
@@ -2188,18 +2188,18 @@
         <span class="k">return</span> <span class="n">generic_parse_result</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_nested_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get nested entity from DLite instance.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get nested entity from DLite instance."""</span>
         <span class="n">nested_entities</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">prop</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;ref&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">prop</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"ref"</span><span class="p">:</span>
                 <span class="n">nested_entities</span><span class="p">[</span><span class="n">prop</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">dlite</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">nested_entity</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">nested_entities</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="n">futher_nested_entities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_nested_entity</span><span class="p">(</span><span class="n">nested_entity</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">nested_name</span><span class="p">,</span> <span class="n">further_nested_entity</span> <span class="ow">in</span> <span class="n">futher_nested_entities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">nested_entities</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">nested_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">further_nested_entity</span>
+                <span class="n">nested_entities</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">nested_name</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">further_nested_entity</span>
 
         <span class="k">return</span> <span class="n">nested_entities</span>
 </code></pre></div></td></tr></table></div>
@@ -2663,7 +2663,7 @@ meaning the most nested data structures must first be parsed, and then the ones
 <span class="normal">442</span>
 <span class="normal">443</span>
 <span class="normal">444</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEParseResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Request and parse an OPTIMADE response using OPT.</span>
+<span class="w">    </span><span class="sd">"""Request and parse an OPTIMADE response using OPT.</span>
 
 <span class="sd">    This method will be called through the strategy-specific endpoint of the</span>
 <span class="sd">    OTE-API Services.</span>
@@ -2686,15 +2686,15 @@ meaning the most nested data structures must first be parsed, and then the ones
 <span class="sd">        An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">        context from services.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">generic_parse_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
         <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;parserType&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">parserType</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/dlite&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-            <span class="s2">&quot;configuration&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
+            <span class="s2">"parserType"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">parserType</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/dlite"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+            <span class="s2">"configuration"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
                 <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                    <span class="s2">&quot;mediaType&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                        <span class="s2">&quot;mediaType&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
-                    <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;+dlite&quot;</span><span class="p">,</span> <span class="s2">&quot;+json&quot;</span><span class="p">)</span>
+                    <span class="s2">"mediaType"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                        <span class="s2">"mediaType"</span><span class="p">,</span> <span class="s2">""</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"+dlite"</span><span class="p">,</span> <span class="s2">"+json"</span><span class="p">)</span>
                 <span class="p">}</span>
             <span class="p">),</span>
         <span class="p">}</span>
@@ -2703,7 +2703,7 @@ meaning the most nested data structures must first be parsed, and then the ones
 
     <span class="n">OPTIMADEStructure</span> <span class="o">=</span> <span class="n">dlite</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">entity</span><span class="p">))</span>
 
-    <span class="n">single_entity</span> <span class="o">=</span> <span class="s2">&quot;OPTIMADEStructureResource&quot;</span> <span class="ow">in</span> <span class="n">OPTIMADEStructure</span><span class="o">.</span><span class="n">uri</span>
+    <span class="n">single_entity</span> <span class="o">=</span> <span class="s2">"OPTIMADEStructureResource"</span> <span class="ow">in</span> <span class="n">OPTIMADEStructure</span><span class="o">.</span><span class="n">uri</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">single_entity</span><span class="p">:</span>
         <span class="n">nested_entity_mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_nested_entity</span><span class="p">(</span>
@@ -2715,16 +2715,16 @@ meaning the most nested data structures must first be parsed, and then the ones
         <span class="ow">and</span> <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">optimade_response_model</span>
     <span class="p">):</span>
         <span class="n">base_error_message</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;Could not retrieve response from OPTIMADE parse strategy.&quot;</span>
+            <span class="s2">"Could not retrieve response from OPTIMADE parse strategy."</span>
         <span class="p">)</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;optimade_response=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;optimade_response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;session fields=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"optimade_response=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"optimade_response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"session fields=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
             <span class="n">base_error_message</span><span class="p">,</span>
-            <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;optimade_response&quot;</span><span class="p">),</span>
-            <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;optimade_response_model&quot;</span><span class="p">),</span>
+            <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"optimade_response"</span><span class="p">),</span>
+            <span class="n">generic_parse_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"optimade_response_model"</span><span class="p">),</span>
             <span class="nb">list</span><span class="p">(</span><span class="n">generic_parse_result</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">base_error_message</span><span class="p">)</span>
@@ -2743,12 +2743,12 @@ meaning the most nested data structures must first be parsed, and then the ones
             <span class="o">**</span><span class="n">generic_parse_result</span><span class="o">.</span><span class="n">optimade_response</span>
         <span class="p">)</span>
     <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="n">base_error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not import the response model.&quot;</span>
+        <span class="n">base_error_message</span> <span class="o">=</span> <span class="s2">"Could not import the response model."</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;ImportError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;optimade_response_model_module=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;optimade_response_model_name=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"ImportError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"optimade_response_model_module=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"optimade_response_model_name=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
             <span class="n">base_error_message</span><span class="p">,</span>
             <span class="n">exc</span><span class="p">,</span>
             <span class="n">optimade_response_model_module</span><span class="p">,</span>
@@ -2756,12 +2756,12 @@ meaning the most nested data structures must first be parsed, and then the ones
         <span class="p">)</span>
         <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">base_error_message</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
     <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="n">base_error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not validate the response model.&quot;</span>
+        <span class="n">base_error_message</span> <span class="o">=</span> <span class="s2">"Could not validate the response model."</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;ValidationError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;optimade_response_model_module=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;optimade_response_model_name=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"ValidationError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"optimade_response_model_module=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"optimade_response_model_name=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
             <span class="n">base_error_message</span><span class="p">,</span>
             <span class="n">exc</span><span class="p">,</span>
             <span class="n">optimade_response_model_module</span><span class="p">,</span>
@@ -2769,7 +2769,7 @@ meaning the most nested data structures must first be parsed, and then the ones
         <span class="p">)</span>
         <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">base_error_message</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
-    <span class="c1"># Currently, only &quot;structures&quot; entries are supported and handled</span>
+    <span class="c1"># Currently, only "structures" entries are supported and handled</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimade_response</span><span class="p">,</span> <span class="n">StructureResponseMany</span><span class="p">):</span>
         <span class="n">structures</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">StructureResource</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">(</span>
@@ -2811,23 +2811,23 @@ meaning the most nested data structures must first be parsed, and then the ones
             <span class="n">structures</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;Could not determine what to do with `data`. Type </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span>
+                <span class="s2">"Could not determine what to do with `data`. Type </span><span class="si">%s</span><span class="s2">."</span><span class="p">,</span>
                 <span class="nb">type</span><span class="p">(</span><span class="n">optimade_response</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
             <span class="p">)</span>
-            <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="s2">&quot;Could not parse `data` entry in response.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="s2">"Could not parse `data` entry in response."</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Got currently unsupported response type </span><span class="si">%s</span><span class="s2">. Only structures are &quot;</span>
-            <span class="s2">&quot;supported.&quot;</span><span class="p">,</span>
+            <span class="s2">"Got currently unsupported response type </span><span class="si">%s</span><span class="s2">. Only structures are "</span>
+            <span class="s2">"supported."</span><span class="p">,</span>
             <span class="n">optimade_response_model_name</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
-            <span class="s2">&quot;The DLite OPTIMADE Parser currently only supports structures entities.&quot;</span>
+            <span class="s2">"The DLite OPTIMADE Parser currently only supports structures entities."</span>
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">structures</span><span class="p">:</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No structures found in the response.&quot;</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"No structures found in the response."</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">generic_parse_result</span>
 
     <span class="c1"># DLite-fy OPTIMADE structures</span>
@@ -2838,115 +2838,115 @@ meaning the most nested data structures must first be parsed, and then the ones
     <span class="k">for</span> <span class="n">structure</span> <span class="ow">in</span> <span class="n">structures</span><span class="p">:</span>
         <span class="n">new_structure_attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">single_entity_dimensions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;nassemblies&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;nspecies&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"nassemblies"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"nspecies"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="c1">## For OPTIMADEStructure (multiple) entities</span>
         <span class="c1"># Most inner layer: assemblies &amp; species</span>
         <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-                <span class="n">single_entity_dimensions</span><span class="p">[</span><span class="s2">&quot;nassemblies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="n">single_entity_dimensions</span><span class="p">[</span><span class="s2">"nassemblies"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
                     <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span>
                 <span class="p">)</span>
                 <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                     <span class="p">{</span>
-                        <span class="s2">&quot;assemblies_sites_in_groups&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s2">&quot;assemblies_group_probabilities&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="s2">"assemblies_sites_in_groups"</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="s2">"assemblies_group_probabilities"</span><span class="p">:</span> <span class="p">[],</span>
                     <span class="p">}</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"assemblies"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="k">for</span> <span class="n">assembly</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">assemblies</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies_sites_in_groups&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"assemblies_sites_in_groups"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">";"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                             <span class="p">[</span>
-                                <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">)</span>
+                                <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="p">)</span>
                                 <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">assembly</span><span class="o">.</span><span class="n">sites_in_groups</span>
                             <span class="p">]</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
                     <span class="n">new_structure_attributes</span><span class="p">[</span>
-                        <span class="s2">&quot;assemblies_group_probabilities&quot;</span>
-                    <span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">assembly</span><span class="o">.</span><span class="n">group_probabilities</span><span class="p">))</span>
+                        <span class="s2">"assemblies_group_probabilities"</span>
+                    <span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">assembly</span><span class="o">.</span><span class="n">group_probabilities</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="s2">&quot;attributes.assemblies&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">"attributes.assemblies"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
                         <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                            <span class="s2">&quot;Could not find entity for &#39;attributes.assemblies&#39;.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="s2">"Could not find entity for 'attributes.assemblies'.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                             <span class="n">nested_entity_mapping</span><span class="p">,</span>
                         <span class="p">)</span>
                         <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
-                            <span class="s2">&quot;Could not find entity for &#39;attributes.assemblies&#39;.&quot;</span>
+                            <span class="s2">"Could not find entity for 'attributes.assemblies'."</span>
                         <span class="p">)</span>
 
                     <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="s2">&quot;ngroups&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">group_probabilities</span><span class="p">),</span>
-                        <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">sites_in_groups</span><span class="p">),</span>
+                        <span class="s2">"ngroups"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">group_probabilities</span><span class="p">),</span>
+                        <span class="s2">"nsites"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">sites_in_groups</span><span class="p">),</span>
                     <span class="p">}</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;assemblies&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">&quot;attributes.assemblies&quot;</span><span class="p">](</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"assemblies"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">"attributes.assemblies"</span><span class="p">](</span>
                             <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">assembly</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-                <span class="n">single_entity_dimensions</span><span class="p">[</span><span class="s2">&quot;nspecies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="n">single_entity_dimensions</span><span class="p">[</span><span class="s2">"nspecies"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
                     <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span>
                 <span class="p">)</span>
                 <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                     <span class="p">{</span>
-                        <span class="s2">&quot;species_name&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s2">&quot;species_chemical_symbols&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s2">&quot;species_concentration&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s2">&quot;species_mass&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s2">&quot;species_original_name&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s2">&quot;species_attached&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s2">&quot;species_nattached&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="s2">"species_name"</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="s2">"species_chemical_symbols"</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="s2">"species_concentration"</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="s2">"species_mass"</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="s2">"species_original_name"</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="s2">"species_attached"</span><span class="p">:</span> <span class="p">[],</span>
+                        <span class="s2">"species_nattached"</span><span class="p">:</span> <span class="p">[],</span>
                     <span class="p">}</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="k">for</span> <span class="n">species</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_chemical_symbols&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">chemical_symbols</span><span class="p">)</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_name"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_chemical_symbols"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">chemical_symbols</span><span class="p">)</span>
                     <span class="p">)</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_concentration&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">species</span><span class="o">.</span><span class="n">concentration</span><span class="p">)</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_concentration"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">species</span><span class="o">.</span><span class="n">concentration</span><span class="p">)</span>
                     <span class="p">)</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_mass&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">mass</span> <span class="ow">or</span> <span class="p">[]))</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_mass"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">mass</span> <span class="ow">or</span> <span class="p">[]))</span>
                     <span class="p">)</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_original_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="n">species</span><span class="o">.</span><span class="n">original_name</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_original_name"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">species</span><span class="o">.</span><span class="n">original_name</span> <span class="ow">or</span> <span class="s2">""</span>
                     <span class="p">)</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_attached&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">attached</span> <span class="ow">or</span> <span class="p">[])</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_attached"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">attached</span> <span class="ow">or</span> <span class="p">[])</span>
                     <span class="p">)</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species_nattached&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">nattached</span> <span class="ow">or</span> <span class="p">[]))</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species_nattached"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">nattached</span> <span class="ow">or</span> <span class="p">[]))</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="s2">&quot;attributes.species&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">"attributes.species"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
                         <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                            <span class="s2">&quot;Could not find entity for &#39;attributes.species&#39;.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="s2">"Could not find entity for 'attributes.species'.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                             <span class="n">nested_entity_mapping</span><span class="p">,</span>
                         <span class="p">)</span>
                         <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
-                            <span class="s2">&quot;Could not find entity for &#39;attributes.species&#39;.&quot;</span>
+                            <span class="s2">"Could not find entity for 'attributes.species'."</span>
                         <span class="p">)</span>
 
                     <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">chemical_symbols</span><span class="p">),</span>
-                        <span class="s2">&quot;nattached_elements&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">attached</span> <span class="ow">or</span> <span class="p">[]),</span>
+                        <span class="s2">"nelements"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">chemical_symbols</span><span class="p">),</span>
+                        <span class="s2">"nattached_elements"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">attached</span> <span class="ow">or</span> <span class="p">[]),</span>
                     <span class="p">}</span>
-                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">&quot;attributes.species&quot;</span><span class="p">](</span>
+                    <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">"attributes.species"</span><span class="p">](</span>
                             <span class="n">dimensions</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>
                             <span class="n">properties</span><span class="o">=</span><span class="n">species</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
                         <span class="p">)</span>
@@ -2956,11 +2956,11 @@ meaning the most nested data structures must first be parsed, and then the ones
         <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
                 <span class="n">exclude</span><span class="o">=</span><span class="p">{</span>
-                    <span class="s2">&quot;species&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;assemblies&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;nelements&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;nsites&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;structure_features&quot;</span><span class="p">,</span>
+                    <span class="s2">"species"</span><span class="p">,</span>
+                    <span class="s2">"assemblies"</span><span class="p">,</span>
+                    <span class="s2">"nelements"</span><span class="p">,</span>
+                    <span class="s2">"nsites"</span><span class="p">,</span>
+                    <span class="s2">"structure_features"</span><span class="p">,</span>
                 <span class="p">},</span>
                 <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -2968,28 +2968,28 @@ meaning the most nested data structures must first be parsed, and then the ones
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">new_structure_attributes</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"_"</span><span class="p">):</span>
                 <span class="n">new_structure_attributes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
         <span class="c1"># Structure features values are Enum values, so we need to convert them to</span>
         <span class="c1"># their string (true) values</span>
-        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;structure_features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"structure_features"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">_</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">structure_features</span>
         <span class="p">]</span>
 
         <span class="k">if</span> <span class="n">single_entity</span><span class="p">:</span>
-            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">id</span>
-            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">type</span>
+            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">new_structure_attributes</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">type</span>
 
             <span class="n">new_structure</span> <span class="o">=</span> <span class="n">OPTIMADEStructure</span><span class="p">(</span>
                 <span class="n">dimensions</span><span class="o">=</span><span class="p">{</span>
-                    <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;dimensionality&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-                    <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nsites</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;nstructure_features&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
+                    <span class="s2">"nelements"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"dimensionality"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">"nsites"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nsites</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"nstructure_features"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
                         <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">structure_features</span>
                     <span class="p">),</span>
-                    <span class="s2">&quot;nspace_group_symmetry_operations&quot;</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"nspace_group_symmetry_operations"</span><span class="p">:</span> <span class="p">(</span>
                         <span class="nb">len</span><span class="p">(</span>
                             <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">space_group_symmetry_operations_xyz</span>
                         <span class="p">)</span>
@@ -3001,30 +3001,30 @@ meaning the most nested data structures must first be parsed, and then the ones
                 <span class="n">properties</span><span class="o">=</span><span class="n">new_structure_attributes</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;attributes&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">"attributes"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_entity_mapping</span><span class="p">:</span>
                 <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s2">&quot;Could not find entity for &#39;attributes&#39;.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">"Could not find entity for 'attributes'.</span><span class="se">\n</span><span class="s2">nested_entity_mapping=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                     <span class="n">nested_entity_mapping</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="s2">&quot;Could not find entity for &#39;attributes&#39;.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="s2">"Could not find entity for 'attributes'."</span><span class="p">)</span>
 
             <span class="n">new_structure</span> <span class="o">=</span> <span class="n">OPTIMADEStructure</span><span class="p">(</span>
                 <span class="n">dimensions</span><span class="o">=</span><span class="p">{},</span>
                 <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
-                    <span class="s2">&quot;attributes&quot;</span><span class="p">:</span> <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">](</span>
+                    <span class="s2">"attributes"</span><span class="p">:</span> <span class="n">nested_entity_mapping</span><span class="p">[</span><span class="s2">"attributes"</span><span class="p">](</span>
                         <span class="n">dimensions</span><span class="o">=</span><span class="p">{</span>
-                            <span class="s2">&quot;nelements&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                            <span class="s2">&quot;dimensionality&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-                            <span class="s2">&quot;nsites&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nsites</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                            <span class="s2">&quot;nspecies&quot;</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"nelements"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nelements</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                            <span class="s2">"dimensionality"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                            <span class="s2">"nsites"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">nsites</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                            <span class="s2">"nspecies"</span><span class="p">:</span> <span class="p">(</span>
                                 <span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span><span class="p">)</span>
                                 <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">species</span>
                                 <span class="k">else</span> <span class="mi">0</span>
                             <span class="p">),</span>
-                            <span class="s2">&quot;nstructure_features&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
+                            <span class="s2">"nstructure_features"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
                                 <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">structure_features</span>
                             <span class="p">),</span>
-                            <span class="s2">&quot;nspace_group_symmetry_operations&quot;</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"nspace_group_symmetry_operations"</span><span class="p">:</span> <span class="p">(</span>
                                 <span class="nb">len</span><span class="p">(</span>
                                     <span class="n">structure</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">space_group_symmetry_operations_xyz</span>
                                 <span class="p">)</span>
@@ -3034,8 +3034,8 @@ meaning the most nested data structures must first be parsed, and then the ones
                         <span class="p">},</span>
                         <span class="n">properties</span><span class="o">=</span><span class="n">new_structure_attributes</span><span class="p">,</span>
                     <span class="p">),</span>
-                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
-                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
+                    <span class="s2">"id"</span><span class="p">:</span> <span class="n">structure</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
                 <span class="p">},</span>
             <span class="p">)</span>
 
@@ -3118,7 +3118,7 @@ Services.</p>
 <span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DLiteResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
+<span class="w">    </span><span class="sd">"""Initialize strategy.</span>
 
 <span class="sd">    This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">    Services.</span>
@@ -3127,7 +3127,7 @@ Services.</p>
 <span class="sd">        An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">        context from services.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">DLiteResult</span><span class="p">(</span>
         <span class="n">collection_id</span><span class="o">=</span><span class="n">get_collection</span><span class="p">(</span>
             <span class="n">collection_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">collection_id</span>

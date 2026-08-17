@@ -1367,29 +1367,29 @@
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEFilterConfig</span><span class="p">(</span><span class="n">FilterConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE-specific filter strategy config.</span>
+<span class="w">    </span><span class="sd">"""OPTIMADE-specific filter strategy config.</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">        The `condition` parameter is not taken into account.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">filterType</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;optimade&quot;</span><span class="p">],</span>
+        <span class="n">Literal</span><span class="p">[</span><span class="s2">"optimade"</span><span class="p">],</span>
         <span class="n">BeforeValidator</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">),</span>
         <span class="n">Field</span><span class="p">(</span>
-            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The registered strategy name for OPTIMADEFilterStrategy.&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"The registered strategy name for OPTIMADEFilterStrategy."</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">]</span>
     <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;The `filter` OPTIMADE query parameter value. This parameter value can &quot;</span>
-                <span class="s2">&quot;also be provided through the [`configuration.query_parameters.filter`]&quot;</span>
-                <span class="s2">&quot;[oteapi_optimade.models.query.OPTIMADEQueryParameters.filter] parameter. &quot;</span>
-                <span class="s2">&quot;Note, this value takes precedence over [`configuration`][oteapi_optimade.&quot;</span>
-                <span class="s2">&quot;models.strategies.filter.OPTIMADEFilterConfig.configuration] values.&quot;</span>
+                <span class="s2">"The `filter` OPTIMADE query parameter value. This parameter value can "</span>
+                <span class="s2">"also be provided through the [`configuration.query_parameters.filter`]"</span>
+                <span class="s2">"[oteapi_optimade.models.query.OPTIMADEQueryParameters.filter] parameter. "</span>
+                <span class="s2">"Note, this value takes precedence over [`configuration`][oteapi_optimade."</span>
+                <span class="s2">"models.strategies.filter.OPTIMADEFilterConfig.configuration] values."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1397,12 +1397,12 @@
         <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;The `page_limit` OPTIMADE query parameter value. This parameter value can&quot;</span>
-                <span class="s2">&quot; also be provided through the [`configuration.query_parameters.&quot;</span>
-                <span class="s2">&quot;page_limit`][oteapi_optimade.models.query.OPTIMADEQueryParameters.&quot;</span>
-                <span class="s2">&quot;page_limit] parameter. Note, this value takes precedence over &quot;</span>
-                <span class="s2">&quot;[`configuration`][oteapi_optimade.models.strategies.filter.&quot;</span>
-                <span class="s2">&quot;OPTIMADEFilterConfig.configuration] values.&quot;</span>
+                <span class="s2">"The `page_limit` OPTIMADE query parameter value. This parameter value can"</span>
+                <span class="s2">" also be provided through the [`configuration.query_parameters."</span>
+                <span class="s2">"page_limit`][oteapi_optimade.models.query.OPTIMADEQueryParameters."</span>
+                <span class="s2">"page_limit] parameter. Note, this value takes precedence over "</span>
+                <span class="s2">"[`configuration`][oteapi_optimade.models.strategies.filter."</span>
+                <span class="s2">"OPTIMADEFilterConfig.configuration] values."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1410,8 +1410,8 @@
         <span class="n">OPTIMADEConfig</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;OPTIMADE configuration. Contains relevant information necessary to &quot;</span>
-                <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
+                <span class="s2">"OPTIMADE configuration. Contains relevant information necessary to "</span>
+                <span class="s2">"perform OPTIMADE queries."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="n">OPTIMADEConfig</span><span class="p">()</span>
@@ -1497,7 +1497,7 @@
 <span class="normal">91</span>
 <span class="normal">92</span>
 <span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEFilterResult</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;OPTIMADE session for the filter strategy.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""OPTIMADE session for the filter strategy."""</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">validate_assignment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arbitrary_types_allowed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -1505,8 +1505,8 @@
         <span class="n">OPTIMADEConfig</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;OPTIMADE configuration. Contains relevant information necessary to &quot;</span>
-                <span class="s2">&quot;perform OPTIMADE queries.&quot;</span>
+                <span class="s2">"OPTIMADE configuration. Contains relevant information necessary to "</span>
+                <span class="s2">"perform OPTIMADE queries."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1514,16 +1514,16 @@
         <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;An OPTIMADE Python tools (OPT) pydantic successful response model. &quot;</span>
-                <span class="s2">&quot;More specifically, a tuple of the module and name of the pydantic &quot;</span>
-                <span class="s2">&quot;model.&quot;</span>
+                <span class="s2">"An OPTIMADE Python tools (OPT) pydantic successful response model. "</span>
+                <span class="s2">"More specifically, a tuple of the module and name of the pydantic "</span>
+                <span class="s2">"model."</span>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">optimade_response</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span>
-            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;An OPTIMADE response as a Python dictionary.&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"An OPTIMADE response as a Python dictionary."</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>

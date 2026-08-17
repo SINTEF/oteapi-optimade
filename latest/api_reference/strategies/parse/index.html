@@ -1510,18 +1510,18 @@
 <span class="normal">186</span>
 <span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">OPTIMADEParseStrategy</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse strategy for JSON.</span>
+<span class="w">    </span><span class="sd">"""Parse strategy for JSON.</span>
 
 <span class="sd">    **Implements strategies**:</span>
 
-<span class="sd">    - `(&quot;parserType&quot;, &quot;parser/OPTIMADE&quot;)`</span>
+<span class="sd">    - `("parserType", "parser/OPTIMADE")`</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">parse_config</span><span class="p">:</span> <span class="n">OPTIMADEParseConfig</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AttrDict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
+<span class="w">        </span><span class="sd">"""Initialize strategy.</span>
 
 <span class="sd">        This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">        Services.</span>
@@ -1530,11 +1530,11 @@
 <span class="sd">            An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">            context from services.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">AttrDict</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEParseResult</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Request and parse an OPTIMADE response using OPT.</span>
+<span class="w">        </span><span class="sd">"""Request and parse an OPTIMADE response using OPT.</span>
 
 <span class="sd">        This method will be called through the strategy-specific endpoint of the</span>
 <span class="sd">        OTE-API Services.</span>
@@ -1551,13 +1551,13 @@
 <span class="sd">            An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">            context from services.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span> <span class="ow">is</span> <span class="kc">None</span>
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">mediaType</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
-                <span class="s2">&quot;Missing downloadUrl or mediaType in configuration.&quot;</span>
+                <span class="s2">"Missing downloadUrl or mediaType in configuration."</span>
             <span class="p">)</span>
 
         <span class="n">cache</span> <span class="o">=</span> <span class="n">DataCache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">)</span>
@@ -1574,24 +1574,24 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">download_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_copy</span><span class="p">()</span>
-            <span class="n">download_output</span> <span class="o">=</span> <span class="n">create_strategy</span><span class="p">(</span><span class="s2">&quot;download&quot;</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;json&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">download_output</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)))}</span>
+            <span class="n">download_output</span> <span class="o">=</span> <span class="n">create_strategy</span><span class="p">(</span><span class="s2">"download"</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"json"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">download_output</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"key"</span><span class="p">)))}</span>
 
         <span class="k">if</span> <span class="p">(</span>
-            <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"ok"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
             <span class="ow">or</span> <span class="p">(</span>
-                <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status_code&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">200</span>
-                <span class="ow">or</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status_code&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">300</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"status_code"</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">200</span>
+                <span class="ow">or</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"status_code"</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">300</span>
             <span class="p">)</span>
-            <span class="ow">or</span> <span class="s2">&quot;errors&quot;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="ow">or</span> <span class="s2">"errors"</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"json"</span><span class="p">,</span> <span class="p">{})</span>
         <span class="p">):</span>
             <span class="c1"># Error response</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">response_object</span> <span class="o">=</span> <span class="n">ErrorResponse</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+                <span class="n">response_object</span> <span class="o">=</span> <span class="n">ErrorResponse</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"json"</span><span class="p">,</span> <span class="p">{}))</span>
             <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-                <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not validate an error response.&quot;</span>
+                <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"Could not validate an error response."</span>
                 <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">ValidationError: &quot;</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">ValidationError: "</span> <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                     <span class="n">error_message</span><span class="p">,</span>
                     <span class="n">exc</span><span class="p">,</span>
                     <span class="n">response</span><span class="p">,</span>
@@ -1602,22 +1602,22 @@
             <span class="n">response_model</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">response_model</span><span class="p">()</span>
             <span class="p">)</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;response_model=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="p">)</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"response_model=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span> <span class="n">response_model</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">response_model</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response_model</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
                     <span class="n">response_model</span> <span class="o">=</span> <span class="p">(</span><span class="n">response_model</span><span class="p">,)</span>
 
                 <span class="k">for</span> <span class="n">model_cls</span> <span class="ow">in</span> <span class="n">response_model</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">response_object</span> <span class="o">=</span> <span class="n">model_cls</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+                        <span class="n">response_object</span> <span class="o">=</span> <span class="n">model_cls</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"json"</span><span class="p">,</span> <span class="p">{}))</span>
                     <span class="k">except</span> <span class="n">ValidationError</span><span class="p">:</span>
                         <span class="k">pass</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">break</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not validate for an expected response model.&quot;</span>
+                    <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"Could not validate for an expected response model."</span>
                     <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                        <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="s2">&quot;response_models=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span> <span class="s2">"response_models=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
                         <span class="n">error_message</span><span class="p">,</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
                         <span class="n">response_model</span><span class="p">,</span>
@@ -1625,15 +1625,15 @@
                     <span class="p">)</span>
                     <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># No &quot;endpoint&quot; or unknown</span>
-                <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;No response_model, using Success response model.&quot;</span><span class="p">)</span>
+                <span class="c1"># No "endpoint" or unknown</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"No response_model, using Success response model."</span><span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">response_object</span> <span class="o">=</span> <span class="n">Success</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+                    <span class="n">response_object</span> <span class="o">=</span> <span class="n">Success</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"json"</span><span class="p">,</span> <span class="p">{}))</span>
                 <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-                    <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;Unknown or unparseable endpoint.&quot;</span>
+                    <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"Unknown or unparseable endpoint."</span>
                     <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                        <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">ValidatonError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-                        <span class="s2">&quot;URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">endpoint=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">ValidatonError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+                        <span class="s2">"URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">endpoint=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
                         <span class="n">error_message</span><span class="p">,</span>
                         <span class="n">exc</span><span class="p">,</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
@@ -1658,9 +1658,9 @@
         <span class="p">):</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
                 <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                    <span class="s2">&quot;optimade_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
+                    <span class="s2">"optimade_config"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
                         <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                            <span class="s2">&quot;query_parameters&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
+                            <span class="s2">"query_parameters"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
                                 <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                 <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="p">)</span>
@@ -1881,7 +1881,7 @@ precedence over the derived values from <code>downloadUrl</code>.</p>
 <span class="normal">185</span>
 <span class="normal">186</span>
 <span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPTIMADEParseResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Request and parse an OPTIMADE response using OPT.</span>
+<span class="w">    </span><span class="sd">"""Request and parse an OPTIMADE response using OPT.</span>
 
 <span class="sd">    This method will be called through the strategy-specific endpoint of the</span>
 <span class="sd">    OTE-API Services.</span>
@@ -1898,13 +1898,13 @@ precedence over the derived values from <code>downloadUrl</code>.</p>
 <span class="sd">        An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">        context from services.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="p">(</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">mediaType</span> <span class="ow">is</span> <span class="kc">None</span>
     <span class="p">):</span>
         <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span>
-            <span class="s2">&quot;Missing downloadUrl or mediaType in configuration.&quot;</span>
+            <span class="s2">"Missing downloadUrl or mediaType in configuration."</span>
         <span class="p">)</span>
 
     <span class="n">cache</span> <span class="o">=</span> <span class="n">DataCache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">datacache_config</span><span class="p">)</span>
@@ -1921,24 +1921,24 @@ precedence over the derived values from <code>downloadUrl</code>.</p>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">download_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">model_copy</span><span class="p">()</span>
-        <span class="n">download_output</span> <span class="o">=</span> <span class="n">create_strategy</span><span class="p">(</span><span class="s2">&quot;download&quot;</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;json&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">download_output</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)))}</span>
+        <span class="n">download_output</span> <span class="o">=</span> <span class="n">create_strategy</span><span class="p">(</span><span class="s2">"download"</span><span class="p">,</span> <span class="n">download_config</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"json"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">download_output</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"key"</span><span class="p">)))}</span>
 
     <span class="k">if</span> <span class="p">(</span>
-        <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"ok"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="ow">or</span> <span class="p">(</span>
-            <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status_code&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">200</span>
-            <span class="ow">or</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status_code&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">300</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"status_code"</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">200</span>
+            <span class="ow">or</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"status_code"</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">300</span>
         <span class="p">)</span>
-        <span class="ow">or</span> <span class="s2">&quot;errors&quot;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="ow">or</span> <span class="s2">"errors"</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"json"</span><span class="p">,</span> <span class="p">{})</span>
     <span class="p">):</span>
         <span class="c1"># Error response</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">response_object</span> <span class="o">=</span> <span class="n">ErrorResponse</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+            <span class="n">response_object</span> <span class="o">=</span> <span class="n">ErrorResponse</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"json"</span><span class="p">,</span> <span class="p">{}))</span>
         <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not validate an error response.&quot;</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"Could not validate an error response."</span>
             <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">ValidationError: &quot;</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">ValidationError: "</span> <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                 <span class="n">error_message</span><span class="p">,</span>
                 <span class="n">exc</span><span class="p">,</span>
                 <span class="n">response</span><span class="p">,</span>
@@ -1949,22 +1949,22 @@ precedence over the derived values from <code>downloadUrl</code>.</p>
         <span class="n">response_model</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="o">.</span><span class="n">response_model</span><span class="p">()</span>
         <span class="p">)</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;response_model=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"response_model=</span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span> <span class="n">response_model</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">response_model</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response_model</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
                 <span class="n">response_model</span> <span class="o">=</span> <span class="p">(</span><span class="n">response_model</span><span class="p">,)</span>
 
             <span class="k">for</span> <span class="n">model_cls</span> <span class="ow">in</span> <span class="n">response_model</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">response_object</span> <span class="o">=</span> <span class="n">model_cls</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+                    <span class="n">response_object</span> <span class="o">=</span> <span class="n">model_cls</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"json"</span><span class="p">,</span> <span class="p">{}))</span>
                 <span class="k">except</span> <span class="n">ValidationError</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">break</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;Could not validate for an expected response model.&quot;</span>
+                <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"Could not validate for an expected response model."</span>
                 <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="s2">&quot;response_models=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">"</span> <span class="s2">"response_models=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
                     <span class="n">error_message</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
                     <span class="n">response_model</span><span class="p">,</span>
@@ -1972,15 +1972,15 @@ precedence over the derived values from <code>downloadUrl</code>.</p>
                 <span class="p">)</span>
                 <span class="k">raise</span> <span class="n">OPTIMADEParseError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># No &quot;endpoint&quot; or unknown</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;No response_model, using Success response model.&quot;</span><span class="p">)</span>
+            <span class="c1"># No "endpoint" or unknown</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"No response_model, using Success response model."</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">response_object</span> <span class="o">=</span> <span class="n">Success</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+                <span class="n">response_object</span> <span class="o">=</span> <span class="n">Success</span><span class="p">(</span><span class="o">**</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"json"</span><span class="p">,</span> <span class="p">{}))</span>
             <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-                <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;Unknown or unparseable endpoint.&quot;</span>
+                <span class="n">error_message</span> <span class="o">=</span> <span class="s2">"Unknown or unparseable endpoint."</span>
                 <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">ValidatonError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
-                    <span class="s2">&quot;URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">endpoint=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">ValidatonError: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span>
+                    <span class="s2">"URL=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">endpoint=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response_model=</span><span class="si">%r</span><span class="se">\n</span><span class="s2">response=</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
                     <span class="n">error_message</span><span class="p">,</span>
                     <span class="n">exc</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">downloadUrl</span><span class="p">,</span>
@@ -2005,9 +2005,9 @@ precedence over the derived values from <code>downloadUrl</code>.</p>
     <span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
             <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;optimade_config&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
+                <span class="s2">"optimade_config"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">(</span>
                     <span class="n">update</span><span class="o">=</span><span class="p">{</span>
-                        <span class="s2">&quot;query_parameters&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
+                        <span class="s2">"query_parameters"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">optimade_config</span><span class="o">.</span><span class="n">query_parameters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span>
                             <span class="n">exclude_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="p">)</span>
@@ -2086,7 +2086,7 @@ Services.</p>
 <span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AttrDict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize strategy.</span>
+<span class="w">    </span><span class="sd">"""Initialize strategy.</span>
 
 <span class="sd">    This method will be called through the `/initialize` endpoint of the OTE-API</span>
 <span class="sd">    Services.</span>
@@ -2095,7 +2095,7 @@ Services.</p>
 <span class="sd">        An update model of key/value-pairs to be stored in the session-specific</span>
 <span class="sd">        context from services.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">AttrDict</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>

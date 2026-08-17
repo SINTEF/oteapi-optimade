@@ -1334,35 +1334,35 @@ StructureResource 'Assembly's.</p>
 <span class="normal">131</span>
 <span class="normal">132</span>
 <span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_assemblies</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse assemblies properties from the OPTIMADEStructureResource entity into &quot;proper&quot; OPT</span>
-<span class="sd">    StructureResource &#39;Assembly&#39;s.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_check_correct_entity</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s2">&quot;OPTIMADEStructureResource&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Parse assemblies properties from the OPTIMADEStructureResource entity into "proper" OPT</span>
+<span class="sd">    StructureResource 'Assembly's."""</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_check_correct_entity</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s2">"OPTIMADEStructureResource"</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Entity for the instance is not an OPTIMADEStructureResource entity.&quot;</span>
+            <span class="s2">"Entity for the instance is not an OPTIMADEStructureResource entity."</span>
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span><span class="p">):</span>
         <span class="n">instance</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="n">single</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Entity instance is not a dictionary.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"Entity instance is not a dictionary."</span><span class="p">)</span>
 
     <span class="n">assemblies</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;dimensions&quot;</span><span class="p">][</span><span class="s2">&quot;nassemblies&quot;</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">"dimensions"</span><span class="p">][</span><span class="s2">"nassemblies"</span><span class="p">]):</span>
         <span class="n">assemblies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;sites_in_groups&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
-                    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;assembly_sites_in_groups&quot;</span><span class="p">][</span>
+                <span class="s2">"sites_in_groups"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)]</span>
+                    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"assembly_sites_in_groups"</span><span class="p">][</span>
                         <span class="n">index</span>
-                    <span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+                    <span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">";"</span><span class="p">)</span>
                 <span class="p">],</span>
-                <span class="s2">&quot;group_probabilities&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"group_probabilities"</span><span class="p">:</span> <span class="p">[</span>
                     <span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;assembly_group_probabilities&quot;</span><span class="p">][</span>
+                    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"assembly_group_probabilities"</span><span class="p">][</span>
                         <span class="n">index</span>
-                    <span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                    <span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span>
                 <span class="p">],</span>
             <span class="p">}</span>
         <span class="p">)</span>
@@ -1445,54 +1445,54 @@ StructureResource Species.</p>
 <span class="normal">94</span>
 <span class="normal">95</span>
 <span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_species</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse species properties from the OPTIMADEStructureResource entity into &quot;proper&quot; OPT</span>
-<span class="sd">    StructureResource Species.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_check_correct_entity</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s2">&quot;OPTIMADEStructureResource&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Parse species properties from the OPTIMADEStructureResource entity into "proper" OPT</span>
+<span class="sd">    StructureResource Species."""</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_check_correct_entity</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s2">"OPTIMADEStructureResource"</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Entity for the instance is not an OPTIMADEStructureResource entity.&quot;</span>
+            <span class="s2">"Entity for the instance is not an OPTIMADEStructureResource entity."</span>
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">dlite</span><span class="o">.</span><span class="n">Instance</span><span class="p">):</span>
         <span class="n">instance</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="n">single</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Entity instance is not a dictionary.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"Entity instance is not a dictionary."</span><span class="p">)</span>
 
     <span class="n">species</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;dimensions&quot;</span><span class="p">][</span><span class="s2">&quot;nspecies&quot;</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instance</span><span class="p">[</span><span class="s2">"dimensions"</span><span class="p">][</span><span class="s2">"nspecies"</span><span class="p">]):</span>
         <span class="c1"># Required fields</span>
         <span class="n">new_species</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;species_name&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">],</span>
-            <span class="s2">&quot;chemical_symbols&quot;</span><span class="p">:</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;species_chemical_symbols&quot;</span><span class="p">][</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"species_name"</span><span class="p">][</span><span class="n">index</span><span class="p">],</span>
+            <span class="s2">"chemical_symbols"</span><span class="p">:</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"species_chemical_symbols"</span><span class="p">][</span>
                 <span class="n">index</span>
-            <span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">),</span>
-            <span class="s2">&quot;concentration&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">),</span>
+            <span class="s2">"concentration"</span><span class="p">:</span> <span class="p">[</span>
                 <span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;species_concentration&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
-                    <span class="s2">&quot;,&quot;</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"species_concentration"</span><span class="p">][</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+                    <span class="s2">","</span>
                 <span class="p">)</span>
             <span class="p">],</span>
         <span class="p">}</span>
 
         <span class="c1"># Optional fields</span>
-        <span class="k">if</span> <span class="n">mass</span> <span class="o">:=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;species_mass&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">]:</span>
-            <span class="n">new_species</span><span class="p">[</span><span class="s2">&quot;mass&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">mass</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">mass</span> <span class="o">:=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"species_mass"</span><span class="p">][</span><span class="n">index</span><span class="p">]:</span>
+            <span class="n">new_species</span><span class="p">[</span><span class="s2">"mass"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">mass</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)]</span>
 
-        <span class="k">if</span> <span class="n">original_name</span> <span class="o">:=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;species_original_name&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">]:</span>
-            <span class="n">new_species</span><span class="p">[</span><span class="s2">&quot;original_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">original_name</span>
+        <span class="k">if</span> <span class="n">original_name</span> <span class="o">:=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"species_original_name"</span><span class="p">][</span><span class="n">index</span><span class="p">]:</span>
+            <span class="n">new_species</span><span class="p">[</span><span class="s2">"original_name"</span><span class="p">]</span> <span class="o">=</span> <span class="n">original_name</span>
 
-        <span class="k">if</span> <span class="n">attached</span> <span class="o">:=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;species_attached&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">]:</span>
-            <span class="n">new_species</span><span class="p">[</span><span class="s2">&quot;attached&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">attached</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">attached</span> <span class="o">:=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"species_attached"</span><span class="p">][</span><span class="n">index</span><span class="p">]:</span>
+            <span class="n">new_species</span><span class="p">[</span><span class="s2">"attached"</span><span class="p">]</span> <span class="o">=</span> <span class="n">attached</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="s2">&quot;species_nattached&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="s2">"species_nattached"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">]:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;species_attached is present, but species_nattached is missing.&quot;</span>
+                    <span class="s2">"species_attached is present, but species_nattached is missing."</span>
                 <span class="p">)</span>
 
-            <span class="n">new_species</span><span class="p">[</span><span class="s2">&quot;nattached&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">new_species</span><span class="p">[</span><span class="s2">"nattached"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="nb">int</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;species_nattached&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"species_nattached"</span><span class="p">][</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span>
             <span class="p">]</span>
 
         <span class="n">species</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_species</span><span class="p">)</span>
