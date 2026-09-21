@@ -36,7 +36,7 @@ dependencies = [
     "oteapi-dlite >=1.0.1,<2",
     "Pillow >=12.2.0",  # for safety reason, not a direct dependency
     "requests ~=2.33",
-    "uvicorn[standard] >=0.45,<0.53",
+    "uvicorn[standard] >=0.45,<0.54",
 ]
 
 [project.optional-dependencies]
